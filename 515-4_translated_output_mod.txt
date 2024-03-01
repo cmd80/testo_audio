@@ -1,0 +1,1174 @@
+Come vedrai, l'obiettivo di questa sezione è familiarizzare con alcuni concetti di risposta agli incidenti in ICS
+elementi di informatica forense (come la memoria forense e l'analisi logica). Risposta agli incidenti e analisi forense digitale
+sono due campi separati, ma è necessario comprenderne alcuni per essere efficaci in entrambi.La risposta agli incidenti è tutto
+su come riportare la struttura o l'ambiente nel luogo in cui deve trovarsi (vale a dire, nell'ultimo buono stato conosciuto).
+garantire che la missione di quell'ambiente sia soddisfatta (ad esempio, la produzione è supportata) e raccogliere prove a sostegno
+domande che devono essere affrontate (ad esempio, analisi delle cause profonde dei problemi che si sono verificati). La medicina legale riguarda il prendere
+quelle prove digitali e immergersi in profondità per rispondere alle domande sui dati per supportare un'ampia varietà di esigenze, tra cui
+obiettivi aziendali e operativi. Gli operatori che rispondono agli incidenti dovrebbero analizzare le informazioni solo nella misura in cui queste li aiutano ad arrivare
+raggiungere più rapidamente lo scopo della risposta all'incidente.
+
+Naturalmente, i requisiti sono sempre diversi negli incidenti, quindi pochissimi casi di risposta agli incidenti sono simili, ma è così
+È importante essere armati delle competenze di base per le situazioni comuni. In questa sezione, lo facciamo attraverso una serie di
+sezioni e laboratori.
+
+Benvenuti alla Sezione 4 del corso. Nelle prime due sezioni ci siamo concentrati su come comprendere e utilizzare la minaccia
+intelligence e come identificare le risorse e monitorarle per individuare eventuali incidenti di sicurezza. In questa sezione, trattiamo
+risposta agli incidenti (IR). La risposta agli incidenti in ICS presenta numerose somiglianze e numerose differenze rispetto all'incidente
+risposta negli ambienti IT. Inoltre, una fase dell’Active Cyber ​​Defense Cycle (ACDC) della risposta agli incidenti
+Il processo è probabilmente diverso da quello a cui potresti essere abituato se hai già praticato la risposta agli incidenti. Preso
+dalle lezioni apprese e dall'esperienza sul campo, discuteremo in seguito il motivo della risposta agli incidenti, come presentato qui come parte
+di ACDC, viene presentato così com'è e perché è incredibilmente importante per gli ambienti ICS.
+
+Il primo obiettivo di questa sezione è importante: comprendere ad alto livello l'analisi forense digitale. Forense digitale
+è una scienza, come verrà spiegato più avanti, e di solito è racchiusa nel termine Digital Forensics e Incident Response
+
+(DFIR). Inoltre, negli ultimi dieci anni, ha compreso il reverse engineering e l'interazione con il malware. IL
+
+l’aspetto della risposta agli incidenti è ovviamente fondamentale.
+
+Il secondo obiettivo di questa sezione è garantire che i punti focali per la risposta agli incidenti siano compresi
+come l’importanza di creare un team di risposta agli incidenti, di partecipare alla formazione e di adottare determinate migliori pratiche
+incorporato. Successivamente, i partecipanti dovrebbero, a livello tecnico, comprendere le principali fonti di dati forensi. Noi non
+eseguire analisi forensi digitali approfondite; questo non è un ruolo dell’ACDC.
+
+È importante che il personale che acquisirà le prove comprenda quali prove abbiano valore e
+Perché. Successivamente, e probabilmente in modo più critico, ci si aspetta che tu te ne vada con la capacità di acquisire, verificare e
+analizzare rapidamente le prove digitali.
+
+L'unico aspetto importante di questa sezione è: lo scopo di chi risponde agli incidenti è preservare le operazioni nel frattempo
+acquisire prove digitali di qualità forense e valutare la portata dell'incidente (o quanto lontano/velocemente si è diffuso e
+quali sistemi). Infine, si prevede che 515 partecipanti comprendano i concetti fondamentali per il mantenimento e il recupero
+operazioni. Per comprendere appieno l'ultimo punto focale, sarebbe necessaria una configurazione fisica completa del Jab, unica per ciascuno
+organizzazione del partecipante. Per questo corso, la parte importante è comprenderne gli aspetti.
+
+Come discusso nella diapositiva degli obiettivi, il punto focale della risposta agli incidenti per l'ACDC è informare i decisori
+sulla portata dell'incidente e acquisire prove di qualità forense per l'analisi della minaccia e dell'ambiente
+squadra di manipolazione e analisti forensi digitali dopo il fatto.Analisti forensi digitali ed esplorazione profonda di
+i dati forensi non rientrano nei ruoli di difesa attiva; quel processo è più accuratamente contenuto nella difesa passiva. Attivo
+la difesa dovrebbe avere un livello di sforzo e velocità per mantenere le operazioni che non è generalmente adatto al
+mestiere meticoloso e dispendioso in termini di tempo della tradizionale analisi forense digitale.
+
+Il 23 dicembre 2015, gli aggressori hanno sfruttato l’accesso di cui disponevano nei sei mesi precedenti per colpire tre regioni
+dell'Ucraina fuori dalla rete. Complessivamente sono state disconnesse circa 62 sottostazioni e le interruzioni sono durate dalle 3 alle 6 ore,
+a seconda della regione. La corrente è stata riattivata in tempi relativamente brevi grazie alla capacità dell’ucraino di andarsene
+tornarono alle operazioni manuali, ma dovettero persistere nelle operazioni manuali per più mesi.
+
+Dal rapporto ufficiale:
+
+Il 23 dicembre 2015 la Kyivoblenergo ucraina, una società regionale di distribuzione elettrica, ha segnalato il servizio
+interruzioni ai clienti. Le interruzioni erano dovute all’ingresso illegale di terzi nel computer e nello SCADA dell’azienda
+sistemi: a partire dalle 15:35 circa. ora locale, sono state disconnesse 7 cabine a 110 kV e 23 a 35 kV
+per tre ore. Dichiarazioni successive hanno indicato che l’attacco informatico ha colpito ulteriori porzioni della rete di distribuzione
+e hanno costretto gli operatori a passare alla modalità manuale. L'evento è stato approfondito dai media ucraini, che
+ha condotto interviste e ha stabilito che un aggressore straniero controllava da remoto la distribuzione SCADA
+sistema di gestione. Inizialmente si pensava che le interruzioni avessero interessato circa 80.000 clienti
+sull'aggiornamento del Kyivoblenergo ai clienti. Tuttavia, in seguito è stato rivelato che erano tre diverse distribuzioni
+oblenergos (un termine usato per descrivere una compagnia energetica) sono stati attaccati, provocando diverse interruzioni
+circa 225.000 clienti perderanno energia elettrica in varie aree. Poco dopo l'attacco, il governo ucraino
+i funzionari hanno affermato che le interruzioni sono state causate da un attacco informatico e che i servizi di sicurezza russi erano responsabili
+gli incidenti. A seguito di queste affermazioni, gli investigatori ucraini, così come le società private e gli Stati Uniti.
+governo, ha eseguito analisi e ha offerto assistenza per determinare la causa principale dell'interruzione.
+
+Sono stati numerosi gli insegnamenti tratti dallo scenario ucraino lungo la scala mobile della sicurezza informatica: tutto da
+Decisioni sull'architettura come la necessità di limitare l'accesso al desktop remoto e abilitare l'autenticazione in due forme sulle VPN
+Difese passive nel lato IT della casa per rilevare attività anomale e attraversamenti nell'ICS. La difesa attiva
+i takeaway sono i più importanti, tuttavia, poiché con questo tipo di minaccia mirata, l'avversario avrebbe lavorato per sconfiggere il
+architettura e difese passive in atto. Questo è il caso di studio perfetto per mostrare cosa avrebbero dovuto essere i difensori attivi
+fare contro un avversario attivo.
+
+Il personale del Threat Intelligence Consumption avrebbe potuto prendere in considerazione la situazione geopolitica più ampia
+determinare che era necessario un livello di sicurezza maggiore, soprattutto in relazione ai conflitti fisici e ai sabotaggi
+apparecchiature e stazioni elettriche in altre parti dell'Ucraina e della Crimea. Avrebbero anche potuto identificare quali sono gli autori delle minacce
+mostrato interesse per la fornitura di energia in precedenza, come il team Sandworm, e ha raccolto indicatori, abilità commerciali e YARA
+regole ad essi legate. Tutto ciò era ancora utile e rilevante nella struttura ucraina.
+
+Queste informazioni potrebbero essere state trasmesse agli analisti dell'NSM che monitorano l'ambiente. In particolare il monitoraggio dell'ICS
+sarebbe stato utile, poiché la frequenza e la durata della sessione cambiano nelle connessioni VPN, nonché l'utilizzo strano del telecomando
+desktop e l'UPS potrebbero aver contribuito a identificare attività anomale. Inoltre, registra le modifiche sui sistemi, come new
+il software distribuito nell'ICS sarebbe stato particolarmente degno di nota.
+
+Gli operatori che hanno risposto all'incidente avrebbero potuto essere guidati verso i sistemi colpiti per raccogliere campioni e prove forensi
+trasmettendo rapidamente le informazioni agli analisti di manipolazione delle minacce e dell'ambiente per analizzare ed estrarre conoscenza
+sull'avversario, sul potenziale impatto delle azioni e sull'aiuto nel dare consigli al personale per ripulire e mettere in sicurezza
+l'ambiente. Anche qualcosa di semplice come disabilitare temporaneamente l'assistenza desktop remoto sarebbe stato fantastico
+raccomandazione.
+
+Tutte queste informazioni potrebbero essere trasmesse al personale di Threat Intelligence Consumption per guidare il processo in modo numeroso
+volte di fronte all’avversario e di condividere informazioni rilevanti con la comunità più ampia, soprattutto in Ucraina, per aiutare
+il livello di sicurezza di tutti migliorerà.
+
+La scienza forense digitale è un sottoinsieme della scienza forense. La cosa importante da notare qui è che si tratta di una scienza. Non c'è
+bisogno di inserirvi la parola "cyber" (alcuni hanno iniziato a chiamarla cyber-forensics) perché il campo è riconosciuto
+e scienza ben praticata. È stato ampiamente influenzato dalle forze dell'ordine come necessità di identificare la fonte
+e l’impatto dei crimini digitali. La sicurezza e il benessere dei bambini rapiti e di coloro che vengono sfruttati per i bambini
+La pornografia è stata uno dei principali catalizzatori per lo sviluppo di molti degli strumenti nella comunità forense digitale. IL
+La comunità DFIR è una delle più coinvolgenti con cui confrontarsi, in parte per questo motivo, e il settore ha una certa maturità
+e la serietà amante del divertimento che ne consegue. I professionisti ICS che interagiscono in questa comunità scopriranno che esistono
+certe responsabilità e passioni che risuonano tra le comunità che pochi altri condividono.
+
+Questa è un'immagine tratta da una guida alle pratiche consigliate da ICS-CERT per l'analisi forense digitale in un ICS. Si noti che il
+Il nuovo dominio forense ai vertici si occupa di cose come i sistemi sul campo, gli storici dei dati, l'ingegneria
+postazioni di lavoro e così via. Tuttavia, questi sistemi spesso funzionano su sistemi operativi Windows e sono collegati
+attraverso protocolli basati su IP. Ciò non significa che non sia unico rispetto alla medicina legale tradizionale. Tuttavia, ciò implica
+che ci sono molte lezioni apprese dalla medicina legale tradizionale che possono essere applicate in modo intelligente con i test.
+
+Riferimento:
+https://ics-cert.us-cert.gov/sites/default/files/recommended_practices/Forensics_RP.pdf
+
+La storia tende a rivelare casi di studio sorprendentemente simili a quelli con cui abbiamo a che fare regolarmente oggi. Per coloro
+interessati a comprendere veramente alcune delle radici della comunità forense digitale e desiderosi di esplorare un approccio quasi
+Un resoconto storico accurato di "rintracciare l'hacker", di qualità da romanzo di spionaggio, questo libro è assolutamente da leggere. Cliff Stoll sì
+ha ispirato innumerevoli persone a dedicarsi all'analisi forense digitale e il suo libro è una buona lettura per il personale ICS coinvolto nell'incidente
+campo di risposta. In effetti, Cliff ha persino trovato un modo utile per analizzare una connessione a 1200 baud, qualcosa di simile
+l'ingegnere più vecchio stile può rispettare.
+
+La medicina legale è brava a rispondere alle domande "chi, cosa, dove, quando e come".
+punto di vista per comprendere veramente l’intero quadro attorno a un incidente. Ciò consente alle organizzazioni di comprendere il
+impatto, capire come devono apportare modifiche in base a ciò che hanno imparato dal loro ambiente (come ad esempio a
+nuova vulnerabilità) e capire come raggruppare le attività. Vale la pena notare che il "chi" a volte
+non è così importante: è la medicina legale che può aiutare con queste domande, ma non è necessariamente vero che ognuno di questi
+domande ha lo stesso valore delle altre.
+
+Sembra che ci sia sempre un po’ di mistero attorno alla scienza forense digitale. In parte, è colpa del dramma poliziesco di tipo CSI
+spettacoli e il loro desiderio ridicolmente serio di gridare "migliora!" sulle foto digitali (indipendentemente dalle limitazioni dei pixel) a
+vedere i riflessi sugli occhi delle persone per identificare l'assassino. La medicina legale digitale non è magia. L'analisi forense digitale è una questione profonda
+modo di comprendere i sistemi e di interagire con essi per estrarre le informazioni necessarie. Ad esempio, quando i dati sono
+"cancellato" su un sistema informatico, ciò che realmente accade (nei dischi fisici tradizionali) è che un flag viene capovolto (come
+un | bit a 0 bit) che mostra che i dati in quella sezione sono disponibili per essere sovrascritti. Ma i dati non vengono cancellati; è appena
+disponibile per essere sovrascritto se il sistema necessita di spazio. Quindi, recuperare i dati "cancellati" può essere semplice come
+avere lo strumento giusto per ignorare il flag 1 o 0 all'inizio delle sezioni del file per recuperare il file "eliminato". Questo è giusto
+una comprensione del sistema. L’analisi forense digitale non è un modo per correggere errori reali. Non è una capacità di rimediare
+cattive pratiche di sicurezza. Conoscere i limiti dell’analisi forense digitale è importante quanto comprenderne i punti di forza.
+
+La scienza dietro di esso
+
+Uno dei concetti più importanti da comprendere nell'analisi forense digitale, e in particolare nella risposta agli incidenti, è
+Principio di scambio di Locard, sviluppato dal Dr. Edmond Locard (1877-1966). Locard lo ha ipotizzato ogni volta che tu
+entrare in contatto con un'altra persona, luogo o cosa, si traduce in uno scambio di materiali fisici. Credeva che no
+Non importa dove va un criminale o cosa fa, entrando in contatto con le cose, un criminale può lasciare tutto
+tipi di prove, tra cui DNA, impronte digitali, impronte, capelli, cellule della pelle, sangue, fluidi corporei, pezzi di abbigliamento,
+fibre e altro ancora. Allo stesso tempo, il criminale porterà con sé anche qualcosa della scena. Questo
+si applica alla medicina legale digitale.
+
+Qualsiasi interazione che avviene tra un analista forense digitale o un risponditore di incidenti e le prove lascia tracce
+quell'interazione. C'è impatto. Va bene finché capisci qual è questo impatto. Quando un risponditore di incidenti
+lancia uno strumento per raccogliere prove digitali su un sistema infetto, chiavi di registro, dati di processo, settori di memoria e
+tale cambiamento. Senza sapere quale impatto hanno gli strumenti e le azioni sulle prove, c’è un’alta possibilità che ciò accada
+le interazioni dell'analista possono essere scambiate per azioni dell'avversario. Ancora più importante, comprenderlo e implementarlo
+principio è significativo per la professionalità richiesta dal lavoro. Cioè, gli analisti devono conoscere l'impatto dei loro
+Azioni. Se le azioni danneggeranno la scena del crimine è secondario. Analisti che non comprendono gli strumenti,
+soprattutto in un ambiente ICS, alla fine causerà più danni che benefici.
+
+Con una comprensione dell’analisi forense digitale, viene posta la domanda: cos’è la risposta agli incidenti? La risposta: è un
+approccio organizzato per affrontare e gestire le conseguenze di un incidente. Non è necessario ripristinarlo immediatamente
+la rete alle fasi precedenti l’incidente. Non è necessario eseguire un’analisi approfondita per raccogliere tutte le informazioni
+possibile o attribuzione. Deve solo essere un approccio organizzato per soddisfare i requisiti stabiliti in anticipo
+come affrontare e quindi gestire un incidente. In ICS, ciò è quasi sempre inteso come: mantenere le operazioni in sicurezza
+corsa.Sono disponibili numerose metodologie per la risposta agli incidenti, ma sono per lo più focalizzate sull’IT. L'incidente dell'ICS
+il campo di risposta è giovane e le poche informazioni disponibili sono spesso consigli di alto livello o strettamente custodite
+mestiere. Ma è importante esaminare il ciclo di vita e le fasi della risposta agli incidenti IT per vedere cosa potrebbe essere o meno
+applicabile all'ICS.
+
+Riferimento:
+http://www.enisa.europa.eu/activities/cert/support/baseline-capabilities/ics-cerc/good-practice-guide-for-certs-in-the-
+area dei sistemi di controllo industriale
+
+http://www. first.org/conference/2008/papers/killcrece-georgia-slides.pdf
+
+Tradizionalmente, la risposta agli incidenti consisteva nel preparare, identificare/rilevare, contenere, sradicare, recuperare e quindi eseguire
+lezioni apprese, attività post-incidente come scrivere le lezioni apprese, pubblicare informazioni almeno internamente e
+guardare la rete per le reinfezioni. Questa è una grande responsabilità per un team di risposta agli incidenti. Mantenere e
+mantenere personale esperto in tutti questi talenti è costoso e difficile. Questo è esattamente il motivo per cui molte aziende
+scelgono di esternalizzare principalmente le proprie esigenze di risposta agli incidenti ad aziende esperte. Tuttavia, alcuni di questi compiti
+sono separati in ACDC. Ad esempio, rilevare ed eseguire il primo livello di analisi per un incidente è il
+lavoro del personale di monitoraggio della sicurezza della rete. Individuare i modi per contenere ed eliminare il malware è il compito
+responsabilità del team di manipolazione delle minacce e dell’ambiente. Il recupero spetta in gran parte agli ingegneri
+alcuni sistemi rimangono online e tornano online in modo appropriato. Ma ciò non lascia molto a disposizione per eventuali incidenti
+risposta a "fare"; tuttavia, c'è molto lavoro non visualizzato accuratamente da questi passaggi.
+
+È necessario adattare il modello tradizionale di risposta agli incidenti per l'ICS e allo stesso modo per l'ACDC
+modello. È improbabile che nella maggior parte delle aziende sia presente un team di risposta agli incidenti a grandezza naturale, per non parlare delle organizzazioni ICS. In
+Nello specifico, gli ICS, la regolamentazione, la conformità e i requisiti legali entrano in gioco in un modo che normalmente l'IT non fa
+bisogna sperimentare. E, in definitiva, che le operazioni continuino in sicurezza è una priorità, laddove nel settore IT è più accettabile
+per abbattere i sistemi nella maggior parte degli scenari. Inoltre, c'è un certo senso di tempestività nell'incidente che viene evidenziato
+molto bene in ICS.
+
+In poche parole, è inefficace copiare e incollare le metodologie IT nella risposta agli incidenti ICS. Tuttavia, è ugualmente
+è inefficace ignorare i processi e le metodologie valide dell'IT semplicemente perché sono IT e non OT. È nostro dovere
+per personalizzare la metodologia di risposta agli incidenti per ICS.
+
+Sfide di risposta agli incidenti ICS
+
+Nel tentativo di raggiungere lo scopo della risposta agli incidenti ICS, è importante tenere conto delle sfide. Innanzitutto, ce ne sono pochi
+pratiche pubbliche effettive utilizzabili da coloro che eseguono la risposta agli incidenti. Ci sono un sacco di brave persone nell'ICS
+comunità che hanno provato a condividere informazioni, ma in gran parte è stato di altissimo livello e in modo estremamente
+campo giovane. Inoltre, data la regolamentazione e le ragioni legali che complicano gli incidenti, non ci sono molti casi di studio a riguardo
+valutare pubblicamente. Un'altra sfida sono i dispositivi legacy e le apparecchiature sul campo: raramente hanno la registrazione, e molti di essi
+gli script e gli strumenti da utilizzare nella risposta agli incidenti IT non funzionano con i sistemi legacy.
+
+Un’altra grande sfida è prepararsi in anticipo. Quando i budget sono limitati e la missione sono le operazioni, il digitale
+la sicurezza di solito passa in secondo piano. Da qualche parte nella parte posteriore dell’autobus, molto indietro rispetto alla sicurezza digitale, si verifica l’incidente
+la risposta si trova. Tuttavia, la risposta agli incidenti richiede che la maggior parte del lavoro venga svolto in anticipo, ovvero la preparazione
+tempo. Le persone sono impegnate, la missione ha la priorità e i budget non supportano il personale che ha tutto ciò che desidera. Suo
+spesso una sfida comprensibile, ma è una sfida.
+
+Una delle sfide più frustranti è rappresentata dai sistemi operativi e dai protocolli proprietari non documentati/sconosciuti
+
+utilizzo. L'oscurità non è un metodo adeguato per la sicurezza. Se non riesci a comprendere i tuoi sistemi e i loro
+comunicazioni,
+
+è improbabile che abbia senso per te durante un incidente. Ciò rappresenta una sfida seria e, durante un incidente, una
+L'unico modo per risolvere questo problema è avere un piano in anticipo per interagire con i vari fornitori nell'ICS.
+
+I requisiti del NERC richiedono che i dati degli eventi vengano archiviati in qualche modo, solitamente allo scopo di recuperare gli eventi.
+creazione. I dati potrebbero non essere utili in un'indagine forense, ma dovresti essere consapevole che tali requisiti lo sono
+
+esistere.
+
+Riferimento:
+https://ics-cert.us-cert.gov/sites/default/files/recommended_practices/Forensics_RP.pdf
+
+Tenendo presente tutti questi processi di pensiero sull'IT rispetto all'ICS, è tempo di esaminare il vero scopo dell'incidente
+risposta in un ambiente ICS. Questo può cambiare da organizzazione a organizzazione ed è in gran parte guidato dal
+requisiti stabiliti in anticipo. In generale, le priorità principali sono:
+
+1. Mantenere operazioni sicure e affidabili.
+2. Acquisire dati forensi significativi.
+3. Eseguire un'analisi tempestiva.
+4. contenere ed eliminare le minacce.
+
+Il contenimento e l'eradicazione sono in cima alla lista dell'IT ma in fondo alla lista dell'ICS. Sì, vogliamo che il malware scompaia, ma al sicuro
+
+e le operazioni affidabili sono il numero 1. Ciò che fa vincere la guerra non è la capacità di ottenere dati per determinare se esiste una tendenza
+la lotta, e quindi comprendere accuratamente la portata della minaccia per supportare i punti 1-3 sono le chiavi. Il punto 4 è vitale, ma è l'ultimo.
+
+Una volta definito lo scopo e comprese le sfide, possiamo esaminare i passaggi effettivamente consigliati. Questo è solo
+un modo per rispondere agli incidenti, ma è stato ben praticato e utilizzato in precedenza in ICS.
+
+Preparazione: è la stessa dell'IT tradizionale ma in modo approfondito per comprendere le dipendenze, i PoC su altri team,
+test estremamente intensivi degli strumenti prima del loro utilizzo e così via.
+
+Rilevamento e identificazione integrati: il personale NSM dovrebbe identificare quando si verifica un incidente, ma
+il loro lavoro non finisce qui. Se l'ACDC viene eseguito correttamente e con particolare attenzione alla precisione e alla velocità, il personale NSM
+dovrebbe supportare gli addetti alla risposta agli incidenti prendendo informazioni dal team di risposta agli incidenti e applicandole
+monitorare la rete. Questo aspetto verrà esplorato un po' più in profondità più avanti in questa sezione.
+
+Acquisizione di prove: l'analisi forense digitale e l'analisi approfondita non sono una priorità per mantenere i sistemi in funzione. Ma senza
+dati forensi reali, le lezioni non verranno apprese e la storia si ripeterà. Inoltre, sono necessarie le prove
+analisi tempestiva.
+
+Analisi temporale critica: nota anche come "analisi tempestiva", questo è il metodo utilizzato (come l'utilizzo degli IOC).
+
+analizzare rapidamente le prove acquisite per determinare la portata di un incidente e cosa si può fare per preservarne la sicurezza
+operazioni e/o formulare raccomandazioni su come contenere o sradicare la minaccia.
+
+Attività supportate da ICS Incident Response
+
+- Condivisione delle informazioni:
+- Le prove dovrebbero essere trasmesse al team di manipolazione delle minacce e dell'ambiente (Sezione 4) per iniziare in profondità
+analisi e determinare ulteriori informazioni.
+- Informazioni che devono essere segnalate alla comunità ICS per motivi di conformità, sicurezza o informazioni utilizzabili
+devono essere condivisi durante la risposta all'incidente.
+- Contenimento:
+- Preservazione delle operazioni impegnandosi attivamente con l'infrastruttura collaborando con
+gruppo di manipolazione delle minacce e dell'ambiente (sezione 4) e gli ingegneri e gli operatori dei sistemi
+(combattere attraverso l'attacco).
+- Eradicazione e Recupero:
+- Neutralizzare la minaccia reinventando i sistemi, reinstallando software noto come valido, implementando patch,
+eccetera.
+- Il recupero avviene quando tutto torna alla normalità al 100%.
+- Lezioni imparate:
+- Documentare i risultati per tutti e trasmettere le informazioni al team NSM per vigilare sulla reinfezione.
+
+Queste azioni sono quelle supportate dal personale addetto alla risposta agli incidenti ma spesso non vengono eseguite da soli come il
+fasi di risposta all'incidente. La condivisione delle informazioni con altre strutture può essere un'informazione tempestiva di prima analisi, ma
+realisticamente alla fine si evolverà in lezioni apprese dall’intero processo ACDC e dall’integrazione dell’ICS a livello globale
+lezioni apprese che possono essere utilizzate sia internamente che esternamente.
+
+Il contenimento è supportato dalla risposta agli incidenti, ma di solito fa molto affidamento sull'analisi e sull'interazione del team
+la minaccia. Il contenimento della minaccia, come modifiche dell'architettura o aggiornamenti del sistema, viene eseguito dagli architetti
+e ingegneri. Gli operatori che rispondono agli incidenti non dovrebbero apportare modifiche alla rete al volo (nella maggior parte dei casi).
+
+Anche l’eradicazione e il ripristino rappresentano uno sforzo congiunto e guidato dalla risposta agli incidenti, dalla minaccia e dall’ambiente
+squadre di manipolazione, ma si affidano anche a ingegneri e architetti.
+
+Le lezioni apprese sono più specifiche della condivisione delle informazioni. La condivisione delle informazioni è tutto ciò che potrebbe essere rilevante
+di utilità per le persone interne o esterne all'organizzazione. Le lezioni apprese hanno davvero lo scopo di evidenziare le migliori pratiche,
+cose che non sono andate secondo i piani e così via, che possono essere utilizzate internamente all'organizzazione. Questi possono essere condivisi
+ma di solito sono molto più specifici rispetto alla condivisione iniziale delle informazioni.
+
+L'utilità rimane senza nome per una serie di ragioni (principalmente la sua privacy), ma esiste un buon caso di studio sull'incidente
+risposta che può essere condivisa responsabilmente per evidenziare dove la risposta agli incidenti ICS è diversa dall’incidente IT
+risposta.
+
+In questo caso, l'utility ha identificato la presenza di malware nella rete del sistema di controllo. Tuttavia, il malware era
+non incidere sul processo. Attraverso una rapida analisi, il personale dell'azienda ha capito che il malware era, nel peggiore dei casi,
+inviare beacon dalla rete dicendo "Eccomi" all'avversario. Lo hanno monitorato per assicurarsi dell'avversario
+non hanno provato ad accedere all'ambiente e a manipolare i sistemi, ma non hanno nemmeno provato a pulire i sistemi. Essi
+hanno adottato una risposta matura e equilibrata nel caratterizzare la minaccia, nel capire le loro esigenze e nell'attesa
+fino al successivo periodo di inattività programmato per eliminare il malware dalla rete. Hanno giocato attraverso vari scenari
+determinare se ci fosse un punto in cui le operazioni avrebbero dovuto essere interrotte e cosa sarebbe successo se ciò fosse accaduto, ma
+erano preparati.
+
+Non è stato fatto alcun danno; non c'è stata una perdita. Vinci per l'utilità.
+
+Ogni campo ha il suo gergo. Nell'analisi forense digitale, tre termini comuni di cui devi essere a conoscenza sono immagine digitale,
+hash e catena di custodia. Probabilmente li hai già usati, ma vale la pena sottolinearli. Un'immagine digitale può essere a
+un'immagine grezza che è una copia bit per bit oppure può essere un'immagine logica, che è solo una copia delle partizioni attualmente
+esistere. Per ottenere il maggior numero di prove, raccogli un'immagine grezza; ma per ottenere qualche prova in una situazione critica in termini di tempo, usa a
+immagine logica. Un hash è un'impronta digitale e deve essere raccolto in varie fasi di raccolta e analisi
+documentare le modifiche alle immagini. La Catena di Custodia aiuta a comprendere chi ha avuto accesso al file
+prove e quali fossero le sue condizioni, hash, ecc. lungo il percorso. La catena di custodia è molto più spesso utilizzata nel diritto
+applicazione, ma è un buon standard a cui attenersi.
+
+La proposta
+Lo scopo di acquisire prove digitali come un'immagine del disco rigido, chiavi di registro, memoria, dati di processo,
+e così via, è quello di consentire che l'analisi forense abbia luogo in un secondo momento:
+¢ Come notato in precedenza, negli ICS, questo aspetto è particolarmente critico e le minacce affrontate sono spesso gravi se prese di mira.
+¢ Le prove forensi sono fondamentali per ricostruire esattamente ciò che è accaduto ed estrarre informazioni utili sulle minacce
+per l'analisi delle intrusioni e l'intelligence sulle minacce.
+
+La fase di risposta agli incidenti dell'ACDC non si immerge profondamente nell'analisi forense, ma lo farà qualche analisi tempestiva
+eseguita sulle prove acquisite, come dimostrato più avanti in questa sezione.
+* È probabile che esistano scenari in cui è preferibile pulire i sistemi e ripristinarli rapidamente
+è preservarli per l'analisi forense; è quindi estremamente importante acquisire immagini digitali.
+
+Questo è un sito utile che fa riferimento a numerosi strumenti forensi digitali e alle funzioni che svolgono, con dettagli sui
+vantaggi di un approccio rispetto ad un altro.
+
+Riferimento:
+http://en.wikipedia.org/wiki/List_of_digital_forensics_tools
+
+L'Ordine di Volatilità (OoV) è un approccio suggerito per acquisire prove digitali in base alla velocità con cui determinati tipi di
+le prove decade e perde valore. Sii flessibile; la memoria di sistema è più volatile dei dischi rigidi di sistema, ma se un
+un sistema importante sta per essere distrutto, raccogli i suoi dischi rigidi prima della memoria di un altro sistema. C'è un
+un'enorme quantità di dati forensi disponibili sui sistemi e la maggior parte degli analisti non ha idea di dove siano tutte le fonti o
+come raggiungerli: può essere travolgente. Pertanto, la raccolta dei dati può essere uno degli aspetti più importanti
+in modo che altri possano elaborarlo e utilizzarlo in seguito. Rispettare l'OoV ti aiuterà a garantire di ottenere tutto.
+
+*La memoria viene spesso messa al di sotto della maggior parte delle altre cose in termini di dati volatili, ma in pratica è sempre la prima
+cosa da raccogliere perché contiene molte altre informazioni (come le informazioni di rete) al suo interno.
+
+Riferimento:
+https://www.sans.org/blog/best-practices-in-digital-evidence-collection/
+
+L'acquisizione di prove da un sistema (di solito sotto forma di immagini digitali) è vitale per l'analisi in loco e futura. In
+normali ambienti I’l’, è comune scoprire che i sistemi hanno software preinstallato per consentire una rapida digitalizzazione
+acquisizione in remoto da un punto centralizzato come un Security Operations Center. In un ICS, è raro
+avere questo livello di preparazione consentito (ma a volte è fattibile). L'acquisizione locale delle informazioni di sistema può essere
+eseguito in sede e di persona, solitamente tramite CD o USB avviabili pretestati/preapprovati. Acquisizione remota
+delle informazioni di sistema vengono eseguite attraverso la LAN o la WAN (in un sito locale o sul campo).* L'acquisizione locale è più rapida e spesso più semplice; dovrebbe essere eseguito quando possibile
+* L'acquisizione remota è lenta e occorre prima soddisfare alcune considerazioni
+
+Ci sono alcune considerazioni che devono essere prese in considerazione prima di eseguire l'acquisizione remota. Ad esempio, nell'a
+ICS distribuito a livello globale, potresti avere un sito in Europa mentre conduci le indagini negli Stati Uniti: ce ne sono
+leggi che vietano ai cittadini extracomunitari di raccogliere tali prove. In quella situazione, devi avere qualcuno dentro
+L’Europa, che è un cittadino, va a raccogliere quelle prove, anche se si tratta dei sistemi della tua azienda. Inoltre, è il sistema
+anche nell'ambito dell'indagine? A causa del tempo, dell'impegno e di qualche piccolo rischio legato alla raccolta del sistema remoto
+prove, è necessario giustificarle. In definitiva è necessario considerare i tempi di attività, le considerazioni sulla larghezza di banda e i costi associati
+con i dati recuperati attraverso sistemi come Very Small Aperture Terminals (VSAT) e se il rischio vale la pena
+ricompensa. Il rischio è difficile da determinare senza effettuare test in anticipo, il che è un altro valido motivo per prepararsi
+pratica.
+
+DD e Netcat possono fare molto per l'acquisizione remota, ma questo processo può essere doloroso per molti analisti. Se è
+possibile posizionare il software in anticipo per effettuare la raccolta, che è preferibile, ma assicurati che non ce ne siano
+problemi di conformità nel farlo. È anche importante stabilire esattamente cosa è necessario per determinare l'impatto
+operazioni o la rete per ottenere prove. Nelle prossime diapositive, esamineremo alcuni strumenti di sistema remoto.
+
+Prima di iniziare l'acquisizione, determinare esattamente cosa è necessario:
+Ad esempio, è necessaria un'immagine dell'HDD o inizialmente solo la memoria?
+L'acquisizione remota avverrà probabilmente su reti con un sovraccarico minimo di larghezza di banda, quindi è importante
+acquisire solo ciò che è necessario all'inizio e prenderne di più secondo necessità.
+
+Negli ambienti ICS raramente è installato un software di acquisizione digitale remoto, quindi è preferibile utilizzare strumenti leggeri e comuni
+preferibile:
+La combinazione di DD e Netcat (discussa in alcune diapositive) è un modo perfetto per raccogliere un'immagine digitale
+attraverso una WAN o LAN, utilizzando strumenti open source e leggeri.
+
+Se possibile, contattare qualcuno presso il sito remoto per monitorare il sistema per garantire che non vi siano impatti negativi o
+guasti software/hardware.
+
+Una buona maturità si ha quando si è in grado di preposizionare il software (protetto) per facilitare la raccolta.
+
+Quando si raccolgono prove digitali su un sistema locale, assicurarsi che gli strumenti da utilizzare siano stati testati su identici
+sistemi in un ambiente di laboratorio. Coordinare l'acquisizione con ingegneri o operatori locali e, quando possibile, farlo
+qualcuno presente che funga da testimone delle tue azioni. Utilizzare un USB o un LiveCD (discusso in alcune diapositive) per acquisire
+risorse (preferibilmente USB se accettabile in loco). Perché è un sistema locale, se hai motivo di acquisire
+informazioni dal sistema, raccoglile tutte se il tempo lo consente: ad esempio, ottieni un'immagine digitale dell'intero sistema
+inclusi memoria, processi e HDD. Inoltre, se potrebbe essere coinvolta una violazione fisica del sistema, fotografarla
+il sistema e come è cablato e configurato. Nello specifico, se sullo schermo è presente qualcosa come command
+richieste o file, scattarne una foto e non chiuderli a meno che non sia necessario per continuare le operazioni: ciò potrebbe
+essere utile per capire cosa è successo sul sistema. E ricorda, tutti i dati devono essere conservati in loco
+nulla fuoriesce dall'area o presso un'altra struttura approvata: non devono essere effettuate analisi a domicilio.
+
+Nelle prossime diapositive discuteremo di come raccogliere le prove e nella sezione successiva discuteremo del valore di
+diversi tipi di prove.(Questo è in parte necessario per poter avviare il laboratorio, il che può richiedere del tempo.)
+
+Le USB non sono sempre consentite in ICS per buone ragioni. Tuttavia, un'unità USB pulita dal punto di vista forense può essere un'ottima risorsa
+su un'indagine. I LiveCD hanno spesso molti impatti negativi; per lo più, consumano molta memoria su a
+sistema, che distrugge una delle prove più preziose.
+
+Un white paper SANS sui pro e contro dell'utilizzo di diversi LiveCD è disponibile all'indirizzo http://www.sans.org/reading-
+room/whitepaper/incidente/pro-contro-linux-windows-live-cd-gestione-incidente-forense-1706.
+
+Sebbene la maggior parte dei software di imaging possa anche acquisire memoria di sistema live (come FTK Imager Lite), ce ne sono specifici
+strumenti di acquisizione della memoria:
+
+Gli strumenti specificatamente progettati per l'acquisizione della memoria sono i migliori da utilizzare quando è certo che l'unica prova desiderata lo sia
+la memoria di un sistema. Gli strumenti di raccolta della memoria solitamente non possiedono una GUI e possono essere interagiti solo tramite il
+riga di comando; ciò garantisce una perdita di memoria minima. La memoria di sistema è una delle forme più ricche di prove digitali
+con molte informazioni che possono essere raccolte rapidamente; come tale, verrà discusso approfonditamente in questa sezione.
+
+A causa dei requisiti di test in ICS, è spesso consigliabile attenersi a un unico strumento di raccolta (ad esempio, FTK
+Imager Lite o la suite Redline di Mandiant):
+
+Negli ambienti IT, l'utilizzo di strumenti per scenari diversi ha senso, ma il sovraccarico aggiuntivo in ICS per i test e
+la comprensione degli impatti limita la fattibilità.
+
+Memoria
+
+Memoryze è un altro ottimo strumento Mandiant gratuito; Il blog SANS di Chad Tilbury è una delle migliori risorse disponibili su
+come usare Memoryze. In generale, viene eseguito dalla riga di comando e scarica la memoria su un'unità di output (solitamente a
+USB, ma può essere inviato attraverso la rete con Netcat) per l'acquisizione.
+
+Riferimento:
+
+https://www.fireeye.com/services/freeware/memoryze.html
+
+Blog SANS di Chad Tilbury: https://www.sans.org/blog/digital-forensics-how-to-memory-analysis-with-mandiant-
+memoria/
+
+Dump
+
+MoonSols ha reso disponibile gratuitamente il suo strumento di acquisizione della memoria, Dumplt, alcuni anni fa, ed è un'ottima risorsa creata
+sulla versione Windows per dd. Come Memoryze, però, lo strumento funzionerà solo su sistemi Windows.
+
+Si noti che esiste la possibilità di creare immagine disco (dischi rigidi fisici), acquisire memoria e ottenere
+File protetti.
+
+Ecco un rapido esempio del tipo di informazioni che accompagna un'acquisizione digitale eseguita da FTK Imager.I metadati sono utili per verificare e comprendere il contesto delle prove digitali. È successo a troppi
+incidenti in cui il personale perde traccia di dove e quando sono stati raccolti i dati. File di metadati come questo
+aiutami con quello.
+
+Lo scopo dell'analisi tempestiva è comprendere la portata dell'incidente e raccogliere tutte le informazioni forensi rilevanti
+
+dati provenienti dai sistemi infetti identificati. Inoltre, un'analisi rapida può rivelare il tipo di minaccia che si sta affrontando e
+
+trasmettere prove importanti e dati sulle minacce al team di manipolazione delle minacce e dell'ambiente. La combinazione degli sforzi
+può fornire ai decisori informazioni importanti sulla possibilità di continuare le operazioni.
+
+Considera i vantaggi di una risposta tempestiva derivanti dalla prequalificazione dei team di risposta agli incidenti sulla sicurezza richiesta
+procedure e requisiti di formazione delle varie strutture.
+
+Utilizzo di Asset Discovery e NSM in IR
+
+Il personale NSM dovrebbe essere considerato lo scout dei soccorritori in prima linea in caso di incidenti. Man mano che i dati vengono restituiti e
+trasmesso al team, il ciclo ACDC accelera verso iterazioni del ciclo sempre più veloci. Le informazioni diventano semplificate e
+l’analisi diventa più efficace.
+
+Una parte significativa del tempo dedicato a qualsiasi indagine sulla risposta agli incidenti è dedicata all'acquisizione di un diagramma di rete accurato e
+identificare i sistemi critici.
+
+La fase Asset Discovery e NSM di ACDC dovrebbe avere questi documenti per lo più aggiornati e pronti per l'uso
+risposta all'incidente.
+
+Identificare le differenze nel traffico di rete attuale e nei dati di flusso rispetto alle mappe conosciute è un modo semplice per farlo
+identificare rapidamente le minacce. :
+
+Man mano che gli sforzi di risposta agli incidenti scoprono più informazioni sulle anomalie e sulle minacce, queste informazioni possono essere
+restituiti a coloro che eseguono la NSM per stabilire le regole IDS e concentrare gli sforzi sull'identificazione di nuovi e ricorrenti
+infezioni:
+
+Il personale NSM è per molti versi una sorta di scout per gli operatori di prima linea che rispondono agli incidenti.
+
+Le informazioni di base estendono i dati di rete passati per includere file, hash, topologie e altro ancora che compongono un file
+rete e i suoi sistemi. Avere accesso a un database protetto può significare una drastica riduzione dello sforzo e del tempo
+
+necessari a un team di risposta agli incidenti.
+
+Per molti ambienti *nix, uno strumento interessante da considerare è AIDE. Disponibile su SourceForge, AIDE (Advanced
+Intrusion Detection Environment) è un controllo dell'integrità di file e directory.
+
+Le whitelist nella risposta agli incidenti spesso assumono la forma di file o raccolte di hash digitali:
+Consente agli analisti di ignorare rapidamente file e software noti.
+
+Pre-incidente:
+Crea e mantieni una whitelist di hash digitali per velocizzare la risposta agli incidenti ed essere in grado di individuare il male.
+
+Quando crei una whitelist, soprattutto per un ambiente ICS, cerca di interiorizzarne quanto più possibile.
+
+Sebbene WhiteScope e NSRL (discussi nelle prossime diapositive) possano essere buone risorse per iniziare o integrare
+lo sforzo, rendersi conto che non possono rappresentare il 100% del software presente in ogni ICS.
+
+Quando esamini l'host, inizia con ciò che hai trovato durante NSM. È in corso una scansione dannosa?
+Quindi c'è un processo su quel sistema che comunica con la rete che può essere trovato. Trova il processo
+e puoi scoprire cosa l'ha avviato. Cosa ha fatto l'utente, qual era il vettore dell'infezione e così via. Cominciamo
+posizionare e quindi tirare la stringa per scoprire attività correlate e attività dannose.
+
+Una volta identificato un punto di partenza, è importante sviluppare una sequenza temporale delle attività. Cerca lungo la sequenza temporale di
+attività (considerando il modello della catena di uccisione illustrato nella Sezione 1) cosa avrebbe fatto l'avversario
+prima o dopo la comparsa di tale attività anomala. Se si tratta di un processo dannoso, a un certo punto è successo qualcosa
+installato sul sistema. Se era installato, a un certo punto qualcosa ha sfruttato il sistema o sfruttato
+qualcuno tramite ingegneria sociale. Ad un certo punto è stato rilasciato nell'ambiente,
+
+La risposta agli incidenti è il momento in cui vediamo il modello ACDC iniziare a prendere vita. Le informazioni provenienti dal NSM si attivano
+
+risposta all'incidente e funge da scout durante l'incidente. L'intelligence sulle minacce consente una rapida definizione dell'ambito e della ricerca
+minacce nell’ambiente. Porta anche allo sviluppo di regole NSM per assistere la risposta agli incidenti. È un autoalimentarsi
+
+ciclo per garantire che la minaccia sia completamente identificata e risolta. I CIO sono un ottimo modo per minacciare tattica
+l'intelligence per diventare utilizzabile dagli operatori di risposta agli incidenti. Lo sviluppo del CIO viene effettuato nella Sezione 4, ma la capacità di farlo
+
+utilizzare gli IOC è sicuramente una funzione di tipo risposta agli incidenti.
+
+Una buona intelligence sulle minacce dovrebbe includere IOC per uso tattico:
+
+Spesso utilizzato da NSM nella progettazione e implementazione delle firme IDS
+Utile per l'analisi a livello di sistema; I COI forniscono l’analisi rapida definitiva
+
+Il personale addetto al consumo di informazioni sulle minacce dovrebbe cercare 1OC dalla sezione Minacce e ambiente interni
+Gente di manipolazione e da fonti esterne di intelligence sulle minacce e feed di minacce:
+
+Lavorare a stretto contatto con coloro che utilizzano l'intelligence sulle minacce per fare in modo che IOC e il contesto rispondano a domande come: "Quanto è grave
+
+di una minaccia è il CIO se dovesse risultare positivo?"
+
+Gli IOC basati su rete, come gli indirizzi IP e i dati di flusso, sono utilizzati al meglio dal personale NSM, mentre gli IOC di sistema
+come gli hash digitali di software dannoso possono essere utilizzati nelle regole e negli strumenti YARA come Redline di Mandiant.
+
+Come ultimo caso di studio, la botnet Mariposa fornisce un buon esempio di malware IT "tradizionale" che finisce in un ICS
+ambiente. Il team ha adottato un ottimo approccio nel chiedere aiuto all’ICS-CERT, ma il problema crea un triplice conflitto:
+settimana di ritardo nel riavvio dell'impianto. Inoltre, il vettore iniziale dell'infezione era una USB utilizzata da un tecnico e poteva
+sono stati evitati. Quando il malware ha iniziato la scansione alla ricerca di sistemi da compromettere, un team NSM lo avrebbe notato
+questo e ha indirizzato il personale addetto alla risposta agli incidenti nella giusta direzione per cercare ed eliminare il malware. Se la
+il malware è ben noto e sembra essere un'infezione accidentale, è del tutto normale non subire un incidente completo
+scenario di risposta. La NSM per la pulizia è opportuna ma deve essere decisa in anticipo con requisiti e soglie
+di risposta.
+
+1CS410 ha trattato la discussione di alto livello sulla risposta agli incidenti, ma ci sono alcuni punti che vale la pena sottolineare. Questo è un
+sezione relativamente breve ma fornisce alcuni consigli di alto livello che è importante tenere a mente durante la costruzione e
+mantenere un team di risposta agli incidenti.
+
+Le dipendenze per un ICS possono variare da insignificanti a importanti a livello nazionale. Qualunque sia lo scopo delle dipendenze
+della tua organizzazione, assicurati di identificarli, di renderli conto e di far loro sapere che lo hai fatto. Per
+Ad esempio, se esiste un'infrastruttura che dipende dalla tua in siti non gestiti dalla tua organizzazione, è importante per
+loro di sapere cosa hai bisogno da loro in un incidente o cosa farai in modo che anche loro possano pianificare.
+Le dipendenze possono anche essere legate alla regolamentazione o specifiche del fornitore. I requisiti per il team di risposta agli incidenti
+determina come viene sviluppato, di cosa è dotato, come pianifica e forma e, in definitiva, quali sono le sue responsabilità
+ha.
+
+Tieni presente le leggi statali e federali, nonché le normative relative alla perdita di dati, alla compromissione dell'ICS e altro ancora:
+Ad esempio, i proprietari di asset del settore energetico hanno requisiti obbligatori di segnalazione degli incidenti ai sensi del NERC
+CIPv5.
+
+La risposta agli incidenti è un aspetto importante delle operazioni aziendali e ICS:
+Coinvolgere il senior management e determinare le loro esigenze, compresi i tempi di inattività accettabili, se lo desiderano
+si desidera finanziare un team interno o esternalizzare e cosa ci si aspetta dal personale in loco rispetto ai fornitori,
+il governo e l’industria privata.
+
+Il resto della giornata si svolgerà presupponendo la presenza di un team di risposta agli incidenti in loco
+raccolta e prima analisi:
+Un team completo di risposta agli incidenti in grado di gestire gli incidenti dall'inizio alla fine è un'ottima risorsa da avere, ma
+spesso troppo costoso per la maggior parte delle organizzazioni.
+
+Entra in contatto con i PoC
+
+È necessario contattare vari PoC presso le organizzazioni che potrebbero essere contattate durante un incidente. Questi non lo sono
+limitato alle dipendenze ma potrebbe includere un ISAC per condividere informazioni con l'FBI per eventuali indagini
+di origine nazionale o criminale, vigili del fuoco/polizia/personale di risposta alle emergenze mediche e così via. Vigili del fuoco/polizia/medicina
+il personale potrebbe già essere contabilizzato in un piano generale degli incidenti, indipendentemente dal fatto che l’incidente sia digitale.
+Pertanto, gestisci queste informazioni dal coordinatore generale degli incidenti per la tua organizzazione e assicurati che gli sforzi non lo siano
+inutilmente raddoppiato.
+
+In-House contro esternalizzazione
+
+- Ci sono molti vantaggi nell'effettuare una risposta agli incidenti internamente:
+- Accesso coerente e fiducia nel personale coinvolto
+- Capacità di personalizzare piani e formazione per soddisfare i requisiti
+- Conoscenza complessa della configurazione/impostazione altamente unica dell'ICS
+- Ci sono anche vantaggi nell’esternalizzare la risposta agli incidenti:
+- Assumere personale competente per la risposta agli incidenti con una vasta esperienza nelle indagini
+- Costi temporanei anziché costi di mantenimento del personale e formazione in loco
+- Le prospettive esterne aiutano a evitare il pensiero di gruppo e le visioni ristrette sulle indagini
+- Suggerimento:
+Costruisci un team interno di risposta agli incidenti se soddisfa i requisiti ma ne ha almeno uno
+persona che agisce come Lead Responder per mantenere la conoscenza e aiutare a guidare gli altri
+Indipendentemente dal tipo di team interno creato, stabilire una soglia fissa per quando,
+chi e come chiamare l'aiuto in outsourcing
+Elabora un piano per assumere occasionalmente un aiuto di tipo consulente per un esame incrociato
+
+Ci sono scenari in cui ha senso un team di risposta agli incidenti tutto interno, e ci sono scenari in cui lo è
+ha senso avere una sola persona nello staff responsabile della risposta agli incidenti per coordinare un'operazione
+team in outsourcing quando necessario. Il suggerimento generale è che almeno una persona agisca da protagonista
+risponditore e mantenere la conoscenza dei sistemi. Questa persona sarà fondamentale per guidare il team in outsourcing. Un in-
+il team interno generalmente ha una migliore conoscenza dei sistemi ed è di maggiore valore per la risposta agli incidenti, ma
+i team in outsourcing possono spesso assumere e trattenere personale più formato ed esperto. Cioè, non esiste una risposta giusta;
+assicurati solo di sapere quale scelta viene fatta e perché.
+
+ ICS così
+
+Anche solo poche persone possono fare una grande differenza durante un incidente. Tre-quattro incidenti ben addestrati
+i risponditori possono coprire efficacemente un ampio ICS e trasmettere le informazioni necessarie al risponditore principale; tuttavia, lo farai
+non sempre hanno quelle persone. Dovrebbe essere sempre presente almeno una persona a tempo pieno dedicata alla risposta agli incidenti, mentre altre
+potrebbero avere la risposta agli incidenti come compito aggiuntivo. Questo li incoraggia ad avere esperienza in altri aspetti della
+l'ICS, quando si verifica un incidente, deve essere dedicato al 100% alla risposta all'incidente. Non ci sarà alcuna capacità
+affinché possano contribuire in modo affidabile e sano ad altri gruppi di lavoro. Cioè, dovranno esserci dei riempimenti su quegli altri
+squadre per loro. Per contribuire ad alleviare i problemi e far funzionare le cose in modo più efficace, valuta la possibilità di passare a un sistema integrato
+Modello Security Operations Center (SOC) se la tua organizzazione è pronta.
+
+Deve esserci una chiara catena di comando per qualsiasi incidente. In genere, è consigliabile disporre di una risposta all'incidente
+direttore che prepara principalmente informazioni per il personale a livello dirigenziale e/o si interfaccia con il pubblico. IL
+il soccorritore principale dovrebbe concentrarsi sull'indagine e sul mantenimento/gestione della squadra. La prova o l'incidente
+gli handler sono gli individui che eseguono il piano.
+
+Direttore della risposta agli incidenti:
+
+Interfacce con la direzione e i PoC di altre organizzazioni.
+
+La maggior parte del lavoro svolto da questa posizione è preliminare alla creazione e al mantenimento del team.
+Risponditore principale:
+
+Responsabile di tutti i gestori di prove/incidenti e implementa il piano.
+
+Guida il personale, le attività di triage, la cronologia degli eventi, mantiene la consapevolezza della situazione e così via.
+Gestori di prove/incidenti:
+
+Responsabile dell'attuazione del piano, inclusa l'acquisizione di prove digitali, il contenimento/pulizia
+
+sistemi autorizzati e infetti, eseguendo analisi tempestive per determinare l’ambito della risposta
+
+e informare il Lead Responder dei bisogni.Usa la catena su e giù
+
+La catena di comando funziona in entrambe le direzioni; personale che contatta la direzione o la direzione che contatta il personale
+(all'interno o all'esterno dell'organizzazione) devono essere corretti e informati del comportamento adeguato alla situazione.
+In caso contrario si crea confusione e si garantisce la perdita di informazioni critiche. Spesso, inesperto ma
+gli analisti tecnicamente esperti vorranno comunicare più rapidamente con i decisori esterni al team o semplicemente esserlo
+entusiasta di provare ad aiutare. Ma tutte le comunicazioni devono passare attraverso il Direttore IR.
+
+Il personale Sharp ben conosciuto dal management verrà spesso contattato direttamente da persone esterne all'IR
+sforzi di informazione:
+
+Al di fuori dell’analisi e dell’assistenza tecnica diretta, questo non può funzionare.
+Assicurarsi che tutti coloro che non partecipano all'attività IR (in sede o fuori sede) seguano il comando di risposta all'incidente per tutti
+delle loro esigenze e aggiornamenti.
+
+È sempre utile avere personale specializzato in risposta agli incidenti. Persone con istruzione o formazione formale
+il background in IR può essere di grande valore sia per praticare metodologie sonore sia per fornire una buona prospettiva
+migliori pratiche del settore. Tuttavia, il personale che inizia in un altro campo come un ingegnere, un integratore o un operatore
+generalmente apportano un elevato livello di conoscenza dei sistemi che è estremamente importante per la risposta agli incidenti ICS. Non c'è
+unico stampo "candidato perfetto" tra cui scegliere. Concentratevi invece sulla ricerca di personale che sia paziente e possa funzionare bene
+con una squadra sotto pressione e sono disposti a dire "non lo so". È importante includere le persone nel team
+che hanno avuto esperienza nell'ICS in alcuni aspetti in modo da comprendere il quadro generale, comprenderne alcuni
+stranezze del sistema e hanno credibilità da poter sfruttare quando necessario durante l'IR. Molti scenari nell'incidente
+La risposta avviene dove non ci sarà una risposta chiara: l'ultima cosa necessaria è un "esperto" che agisca quando
+incerto.
+
+Il team dovrebbe essere diversificato per evitare il pensiero di gruppo e aree di interesse con visione ristretta (ad esempio, qualcuno che lo è
+
+esperto con gli storici dei dati probabilmente valuterà il valore forense di coloro che sono più alti di qualcuno che ha lavorato
+ampiamente sugli HMI).
+
+Le necessità di un kit di lancio variano da struttura a struttura in base ai requisiti. Tuttavia, è sempre una buona idea farlo
+includono supporti di memorizzazione come dischi rigidi e USB, prese di rete, una fotocamera digitale, vari cavi di rete,
+attrezzature di sicurezza come elmetti di protezione, cavi vari, cacciaviti, prese multiple, torce elettriche e liste di controllo. IL
+le liste di controllo saranno importanti quando inizierà l'incidente; forniscono un modo valido e affidabile per garantire
+tutti sono sulla stessa lunghezza d'onda. Considera una revisione trimestrale dell'inventario del tuo Jump Kit; spesso, gli articoli possono
+essere "preso in prestito".
+
+Riferimento:
+https://isc.sans.edu/diary/Day+4+-+Preparation%3A++ What+ GoestInto+a+Response+ Kit/5 125
+
+Formazione sugli strumenti
+
+Gli strumenti migliorano gli analisti, ma gli strumenti non sostituiscono gli analisti e la formazione. Avere analisti concentrati e dedicati
+che hanno esperienza con gli strumenti che stanno utilizzando.così come una comprensione del motivo per cui stanno utilizzando tali strumenti e
+ciò che fanno esattamente questi strumenti è fondamentale per la risposta agli incidenti. Inoltre, assicurati di avere una comprensione dal punto di vista legale
+catena di custodia e prove ammissibili, nonché differenze da stato a stato in materia a carico e a discarico
+dati di prova (dati favorevoli rispettivamente all'accusa e all'imputato). La formazione può essere formale come
+lezioni SANS, o informali come esercizi frontali interni, che infettano una rete di laboratori con "malware" affinché le persone possano
+rispondere a, o esercizi di settore come GridEx del NERC.
+
+Costruisci il tuo laboratorio
+
+Il personale addetto alla risposta agli incidenti ha bisogno di un laboratorio per testare i propri strumenti e provare la propria formazione. Proprio come la risposta all'emergenza
+i vigili del fuoco spesso tengono corsi in cui affrontano scenari e competono tra loro, in un ambiente di laboratorio
+può essere incredibilmente utile per garantire che i membri del team di risposta agli incidenti siano pronti a combattere. In questa sezione, noi
+discutere della creazione di un laboratorio virtuale sicuro per l'analisi del malware. È perfettamente accettabile utilizzare lo stesso laboratorio per la formazione.
+Tuttavia, è disponibile un laboratorio dedicato per il personale addetto alla risposta agli incidenti che non sia in alcun modo influenzato dal malware per la formazione
+sarà richiesto durante un incidente. Il personale deve tornare in un ambiente privo di distrazioni per eseguire l'operazione
+analisi tempestiva necessaria sulle evidenze acquisite.
+
+La maggior parte di ciò che viene fatto su un sistema informativo per analisi o acquisizioni tempestive può essere programmato tramite script. Ci sono molti
+sistemi in cui gli script non saranno interessati ma tentano di automatizzare la maggior parte del processo possibile. Automazione
+consente che i passaggi siano testabili e ripetibili con sicurezza. Garantisce inoltre che gli analisti non ne tengano conto
+comandi durante un momento e un ambiente ad alta tensione. Non ci sono risposte giuste in termini di quale script
+è il linguaggio migliore, ma Perl, Ruby e Python sono stati ampiamente utilizzati nella comunità DFIR.
+
+L'ultimo posto in cui sviluppare e implementare script (Python, Ruby, ecc.) è la scena durante un'indagine.
+La maggior parte delle azioni che devono essere intraprese in un ambiente ICS utilizzano strumenti nativi (come WMIC per enumerare a
+system o netstat per identificare porte e processi aperti) che possono essere scriptati e automatizzati:
+Avere gli script pronti riduce gli errori degli analisti e il "fat fingering", incoraggiando gli analisti a prepararsi in anticipo
+di tempo e testare i loro strumenti.
+
+Tutti gli impegni di risposta agli incidenti presentano stranezze ed eventi che non erano stati pianificati, ma una parte significativa di essi
+le attività intraprese su un sistema di destinazione possono essere programmate, automatizzate e sperimentate in anticipo.
+La preferenza del linguaggio di scripting viene dopo "politica e religione" per cose che non dovrebbero essere discusse:
+
+Tuttavia, tieni presente che esiste un gran numero di script Ruby di risposta agli incidenti.
+
+Nicholas Carr ha pubblicato un ottimo documento di tesi della Scuola di specializzazione navale sulla risposta agli incidenti negli ambienti ICS.
+Ecco una tabella creata da lui che mostra gli strumenti nativi nelle diverse versioni di Windows. Questa è una grande risorsa per
+sviluppare script rapidi con strumenti in un ambiente diversificato. Il takeaway non è una discussione o una comprensione di
+tutti gli strumenti disponibili in questa diapositiva: il punto è capire che alcuni dei tuoi script e strumenti preferiti potrebbero non esserlo
+essere disponibile sui sistemi Windows meno recenti: assicurati di convalidare e comprendere ciò che è disponibile prima di recarti sul posto
+e prima dell'incidente.Riferimento:
+14Jun_Carr_Nicholas.pdf
+
+Una War Room è il centro operativo centrale per le attività di risposta agli incidenti. Può diventare rumoroso, può essere teso e...
+ci sono molte persone che sono spesso interessate a sapere cosa sta succedendo. Cacciare le persone che non ne hanno bisogno
+essere lì e non lasciare che gli analisti lavorino nella War Room per analizzare le prove acquisite dai sistemi. Prendere in considerazione
+questo il sistema SCADA delle attività sul campo di risposta agli incidenti. Qualsiasi analisi forense dovrebbe essere eseguita lontano
+dalla Sala della Guerra. Può essere frenetico rispondere alle domande della direzione, contattare i PoC, aggiornare le tempistiche
+e schemi, tracciando la portata dell’infezione su diagrammi di rete sui muri, ecc. Non è posto per i tecnicismi
+analisi da fare.
+
+Riferimento immagine:
+Guerre stellari
+
+Le pratiche di risposta agli incidenti cambieranno da ICS a ICS, in base a requisiti, sistemi e configurazioni unici,
+e così via. Per questi e altri motivi è fondamentale prepararsi in anticipo. È stato sottolineato in tutta questa sezione,
+ma non può essere sopravvalutato: preparare, preparare, preparare. La maggior parte degli scenari di risposta agli incidenti che presentano complicazioni
+può attribuirlo ad una mancanza di preparazione. Questa è la parte della risposta agli incidenti che non è così "divertente", come tende ad esserlo
+trascurato. Ma è la parte più importante dell'indagine.
+
+Ad esempio, coloro che eseguono NSM dovrebbero già lavorare con i team di architettura per garantire che la registrazione lo sia
+prendere posto. Questi registri sono preziosi durante la risposta agli incidenti. Stabilisci un contatto, assicurati che lo siano e disponi di un piano
+collaborare con loro in caso di incidente. La risposta integrata è quella più efficace.
+
+Negli ambienti ICS avrai anche alcune opportunità uniche per i log, come syslog su vari PLC o
+RTU. Raccoglierli è spesso l'unica informazione che avrai sull'attrezzatura da campo.
+
+Motivazione e compensazione
+
+Ricorda di compensare adeguatamente coloro che lavorano sulla risposta agli incidenti e di intraprendere azioni per mantenere alto il morale.
+Le pizze e le bevande analcoliche fanno molto bene sia al morale che all'energia. Le bevande analcoliche potrebbero essere un
+scelta ovvia, ma nel caso non lo fosse, va sottolineato: non bere sul caso…mai.
+
+Se il personale viene assegnato a una squadra di risposta agli incidenti a tempo pieno o come compito aggiuntivo, quando si verifica un incidente
+si verifica, devono essere una risposta agli incidenti a tempo pieno al 100%:
+
+Ad esempio, prevedere piani per reintegrare le persone nel team da cui sono state prelevate se la risposta agli incidenti è un compito aggiuntivo
+per loro.
+
+Avere un piano per ruotare e compensare i tuoi dipendenti durante il giorno; la risposta agli incidenti richiede normalmente mesi.
+
+Gli orari prolungati sono normali, gli orari di Panama (12 ore attive/12 ore libere per 3 giorni attivi, 2 giorni liberi, 2 giorni attivi e poi 3
+giorni liberi) sono uno standard accettato.
+
+Ogni organizzazione dovrebbe essere in grado di mettersi in una posizione difendibile durante uno scenario di risposta agli incidenti.
+A seconda della gravità dell'incidente, del gruppo o della capacità percepita come minaccia e della tolleranza del cambiamento
+all’interno dell’organizzazione, la posizione informatica difendibile varierà notevolmente.Sarebbero quattro buone raccomandazioni da realizzare
+la possibilità di disconnettere l'accesso a Internet (quindi anche tramite proxy e forwarder), attualmente disabilitata
+funzionalità inutilizzate come Assistenza Desktop remoto, limitazione o disabilitazione delle connessioni remote (anche per fornitori e
+personale di manutenzione) e protocolli di sicurezza aggiuntivi per il personale, inclusa l'autenticazione o la modifica in due forme
+password anche se tutti utilizzano le stesse password (trasmettendo informazioni agli operatori e persino avendo
+password su foglietti adesivi per tutti non è una cattiva idea se l'obiettivo è un avversario remoto).
+
+Assicurati che tutto questo sia provato, in modo che le tue azioni non facciano più danni dell'avversario.
+
+Questa posizione informatica difendibile consentirà ai soccorritori di identificare più rapidamente l'incidente e di individuarne l'ambito
+aree interessate e limitare l’impatto sull’organizzazione.
+
+Soprattutto, prendi una pagina dalla Guida galattica per autostoppisti e non farti prendere dal panico. Un piano ben attuato
+può aiutare, ma le cose andranno sempre male o inaspettatamente. Va bene. Finché viene mantenuta la professionalità, il
+il personale addetto alla risposta agli incidenti contribuirà a garantire uno stato di sicurezza migliore rispetto a prima del loro arrivo. Andrà tutto bene,
+anche quando sembra più teso.
+
+Questo è un altro incidente poco noto accaduto in cui è molto probabile che si trovasse un terminale marittimo venezuelano
+colpiti da un avversario remoto durante uno sciopero dei lavoratori. L'aggressore è riuscito ad accedere alla rete SCADA e
+essenzialmente ha cercato di bloccare il personale della struttura, presumibilmente chiedendo un riscatto per "rilasciare il controllo". IL
+La risposta del personale venezuelano è stata quella di recarsi ai PLC e ripristinare la logica durante la ricerca in rete del file
+attaccare il vettore ed eliminarlo. L'impatto è stato un ritardo di otto ore ma difficilmente un lungo caso di risposta all'incidente e
+difficilmente un impatto grave. Gli scenari di risposta agli incidenti in genere richiedono molto più tempo e questo scenario probabilmente non era adatto
+di un avversario estremamente talentuoso o di una minaccia mirata.
+
+Per questo processo fisico, la mappatura dei punti può essere vista qui per il cablaggio al modulo di controllo principale.
+
+Esaminare ciascuna delle aree, partendo dagli elementi fisici e intervistando un operatore per capire di cosa
+stanno vedendo, ed esaminare ciò che sta realmente accadendo sul campo può aiutare a fornire un contesto su dove andare
+concentrarsi successivamente. Mentre procedi per esaminare le varie risorse di sistema, prova a identificare dove potrebbe verificarsi il problema.
+Osserva ciascuno degli elementi logici per identificare cosa sta creando l'evento sospetto.
+
+Questo particolare attacco e altri esaminati nel corso di questo corso possono essere piuttosto difficili da identificare sul campo se si
+non utilizzano approcci specifici di visibilità, rilevamento e risposta OT. Risoluzione dei problemi solo tramite il controller in uso
+solo gli strumenti nativi avrebbero portato questo ad essere un evento “quasi mancato” che probabilmente non sarebbe mai stato completamente diagnosticato o
+
+risolto.
+
+Il 17 dicembre 2016 si è verificato in Ucraina il secondo attacco informatico in assoluto volto a bloccare le operazioni di una rete elettrica.
+Ancora. Questa volta è stata colpita solo 1 sottostazione, ma si trattava di una sottostazione a livello di trasmissione che ha provocato 3 volte l'impatto
+interruzione di corrente durante l'attacco del 2015, anche se le persone colpite furono meno numerose e il ripristino della corrente iniziò appena 30 anni dopo.
+minuti dopo l'attacco.
+
+L'Activity Group che ha creato e sfruttato il malware CRASHOVERRIDE nell'attacco in Ucraina del 2016 è stato
+identificato da Dragos, Inc. come ELECTRUM. L’analista di Dragos Joe Slowik ha pubblicato un articolo dettagliato su ELECTRUM
+attività nel 2018.I dettagli precedentemente non divulgati sull'attacco includevano la fase "Act" di Stage | per identificare uno storico dei dati
+la compromissione nella rete IT ha portato all'accesso nella rete OT. Da lì utilizzo di strumenti comuni e nativi
+i comandi consentivano all'avversario di sviluppare la propria conoscenza dell'ambiente, mentre anche separatamente
+sviluppato CRASHOVERRIDE. Gli avversari hanno utilizzato un server OPC per enumerare l'ambiente, che ha dato
+loro le informazioni sul targeting da caricare in CRASHOVERRIDE come file di configurazione.
+
+Riferimento:
+https://www.dragos.com/blog/20180607Electrum.html
+
+I dettagli dell'attacco del 2016 non erano noti fino a quando ESET non ha rilasciato un rapporto pubblico seguito da un rapporto pubblico
+rilasciato da Dragos, Inc. circa un'ora dopo. ESET ha identificato il malware come Industroyer, valutando che potesse esserlo
+mirare a un numero qualsiasi di industrie e non solo alla rete elettrica. Dragos non era d'accordo con questa valutazione e così la chiamò
+CRASHOVERRIDE invece della scelta a tema “distruttore di industrie” di ESET. Entrambi hanno lavorato prima del
+pubblicazioni per analizzare e informare i propri clienti. Dragos ha anche assicurato che la comunità statunitense e le varie nazioni
+I CERT di tutto il mondo lo sapevano prima che ESET lo rendesse noto alle notizie. Gli allarmi privati ​​sono stati trasmessi tramite E-ISAC, EEI,
+e DHS alla comunità elettrica statunitense dopo la notifica loro da parte di Dragos, che ha messo in mostra una grande comunità
+sforzo.
+
+Riferimento:
+CrashOverride-01 .pdf
+
+CRASHOVERRIDE è stato il primo malware in assoluto progettato specificamente per interrompere le reti elettriche. Conteneva un numero
+di moduli che ESET e Dragos sono stati in grado di identificare e analizzare. I moduli 1EC104, 1KC61850 e OPC
+erano ciascuno in grado di provocare l'attacco; tuttavia durante l'attacco è stato utilizzato solo il modulo IEC104. I Drago
+i ricercatori hanno valutato che ciò era un'indicazione che gli aggressori avrebbero potuto testare i propri
+capacità contro gli ucraini, lasciando gli altri moduli disponibili per futuri attacchi. La combinazione di
+consentono al malware di essere scalabile su qualsiasi rete elettrica che utilizzi questi protocolli (Europa, Medio Oriente e
+Asia) e richiederebbe solo una leggera personalizzazione per includere DNP3 per consentire al malware di funzionare negli Stati Uniti e nel resto del mondo
+il mondo. La vulnerabilità SIPROTECT non era necessaria affinché l'attacco funzionasse ma avrebbe potuto essere fisica
+impatti se il dispositivo di protezione, in questo caso un relè digitale, non fosse più funzionante durante l'attivazione degli operatori elettrici
+ricollegato l'apparecchiatura. Tuttavia, durante questo attacco non si è verificato alcun danno fisico.
+
+Riferimento immagine:
+Dragos, Inc.
+
+Ecco un'immagine di una tipica sottostazione elettrica che utilizza i protocolli presi di mira da CRASHOVERRIDE.
+CRASHOVERRIDE ha effettivamente inviato comandi IEC104 assumendo la posizione di master dopo l'installazione su un HMI. Esso
+quindi inviato ripetutamente comandi di apertura attraverso il relè digitale alla RTU per forzare l'apertura e mantenere aperto il circuito
+interruttori - diseccitando così l'apparecchiatura.
+
+La capacità è altamente scalabile ma deve comunque essere messa in atto dall’avversario, il che significa che esiste un essere umano
+componente dell'attacco richiesto. Questo è un effetto della Fase 2 nella Cyber ​​Kill Chain di ICS, ma deve esserci ancora un effetto
+Operazione fase 1. Questa non è una capacità wormable che funzionerebbe in modo efficace, a causa della segmentazione e
+strutturazione delle reti.
+
+Il gruppo di attività ELECTRUM era responsabile della capacità CRASHOVERRIDE e da esso è stato in grado di orientarsi
+storici dei dati (server SQL in questo caso dalla rete IT alla rete OT) e mettere in atto CRASHOVERRIDE.
+
+Riferimento immagine:
+Dragos, Inc.
+
+Vettori di attacco iniziali
+
+- Il punto di partenza per analizzare e comprendere una minaccia è
+generalmente il suo vettore di attacco iniziale
+
+- I vettori di attacco iniziali includono e-mail di spear phishing, sfruttamento di
+siti web esterni, collegamenti Internet diretti a sistemi di controllo, abusi
+reti affidabili e connessioni tra altre reti, come
+
+fornitori o reti aziendali:
+
+- L'analisi del modo in cui una minaccia ha inizialmente infettato l'ICS può favorire la risoluzione
+raccomandazioni e può aiutare a identificare e chiudere la vulnerabilità dell'organizzazione
+affrontati per ridurre le possibilità di reinfezione
+
+- Uno dei vettori di attacco iniziale più comuni sono le e-mail di phishing:
+
+- Le prossime diapositive mostrano alcuni metodi di analisi per le e-mail di phishing che
+
+potrebbero essere passati al personale TEM
+
+I vettori di attacco iniziali possono variare, includendo una varietà di attacchi lato client, ma anche e-mail di social engineering ed phishing
+sono estremamente comuni perché efficaci. I PLC connessi a Internet sono comuni e vulnerabili, ma
+Le e-mail di phishing spesso danno accesso a sistemi che l'avversario deve comprendere appieno e orientare durante un processo
+rete. Per questo motivo, esamineremo un po' le e-mail di phishing e alcuni modi per analizzarle per ottenere indicazioni di
+essere dannoso.
+
+La manutenzione e i collegamenti con i fornitori sono un'area a cui la maggior parte dell'IT aziendale trascura la prima volta che iniziano a pensare
+connettività dentro e fuori le reti operative. Esistono numerose connessioni che tradizionalmente aggirano il file
+Rete IT aziendale, il che significa che non si vedono i compromessi che si verificano o l'azione dell'avversario dopo il fatto. È
+best practice per entrare negli impianti da monitorare (analisi del traffico est-ovest) e se sei in pentesting prova a pentest out
+dell'ICS invece che nell'ICS dalla rete IT.
+
+Questo è emerso come un grosso problema in SolarWinds, dove numerosi OEM e integratori utilizzavano Solar Winds
+direttamente attraverso i collegamenti di manutenzione e le strutture compromettenti senza la consapevolezza dei proprietari degli asset, spesso come
+soluzioni di sicurezza con etichetta bianca o utilizzando direttamente SolarWinds.
+
+La parte e-mail di un'e-mail di phishing di solito non è la funzionalità utilizzata dall'avversario. Molto spesso c'è un file
+allegato che deve essere eseguito affinché il "payload" o "dropper" (il codice dannoso) venga eseguito sul sistema. Spesso
+questo include lo shellcode che consente agli avversari di accedere al sistema. Le e-mail di phishing spesso contengono codice dannoso
+loro, anche se contenuti in qualcosa come un PDF, e devono essere maneggiati con cura.
+
+Allora perché i PDF sono così comuni? I PDF sono incredibilmente popolari e le persone sono abituate ad aprirli. Adobe è anche un
+un'applicazione relativamente semplice in cui individuare le vulnerabilità. Ma, come puoi vedere in questo esempio, c'è molto spazio da fare
+cose in un PDF. Puoi incorporare JavaScript o altri comandi come "oggetti" e incorporare codice dannoso che può essere
+chiamato e giustiziato. Esistono indizi noti di comportamenti dannosi perché le persone hanno analizzato un numero sufficiente di PDF
+per rendersi conto di quali aree comuni siano dannose.
+
+Un file PDF è composto da intestazione, oggetti, tabella di riferimenti incrociati (per individuare gli oggetti) e un trailer.
+
+Riferimento:
+http://resources.infosecinstitute.com/analyzing-malicious-pdf/
+
+Lenny Zeltser apparirà alcune volte in questo corso; è il guru dell'analisi del malware e insegna presso
+SAN. Ha messo insieme un elenco sul suo sito web di alcune aree specifiche di interesse da cercare nei file PDF.Potresti
+creare un CIO da questo, ma ci sono già strumenti disponibili per farlo.
+
+Nessuno di questi dovrebbe essere considerato un indicatore evidente di attività dannosa e alcuni possono essere abbastanza comuni, ma lo sono
+buoni comandi da evidenziare e cercare, in particolare, impara cosa è normale per il tuo ambiente e cerca
+
+comandi che non sono normali. Inoltre, un numero elevato di ciascuno di essi può indicare attività dannose.
+
+Riferimento:
+http://zeltser.com/reverse-malware/analyzing-malicious-documents.html
+
+Questo è uno strumento semplice ma potente creato da Didier Stevens che scansiona rapidamente un PDF alla ricerca di parole chiave e oggetti chiave
+che probabilmente sono dannosi. Restituisce un conteggio delle diverse parole chiave trovate.
+
+Riferimento:
+
+http://blog.didierstevens.com/2009/03/3 I/pdfid/
+L'immagine è presa dal riferimento sopra
+
+L'analisi automatizzata del malware è un'ottima risorsa per gli analisti ed è uno dei tipi di analisi del malware
+metodologie. Verrà esplorato più avanti in modo approfondito, ma a questo punto tieni presente che è possibile inserire semplicemente un PDF dannoso
+in una piattaforma automatizzata di analisi del malware ed estrarrà informazioni utili.
+
+L'analisi effettuata dai ricercatori di Contagio ha mostrato che il PDF creava un file iniziale e poi alcuni altri.
+“Questo è il tipo di informazioni che il personale TEM potrebbe raccogliere e trasmettere agli operatori in cerca di infetti
+sistemi. I dati della rete potrebbero essere passati al personale NSM per cercare indicatori basati sulla rete.
+
+Informazioni aggiuntive:
+
+Ho sfruttato la vulnerabilità CVE-2010-0188 in Adobe Reader.
+Il vertice si è svolto a Washington, DC nel 2010.
+
+All’epoca, meno del 13% degli AV colse la minaccia.
+
+Riferimento:
+http://contagiodump.blogspot.com/2010/04/apr-10-cve-2010-0188-pdf-research-paper.html
+
+In questo caso di risposta all’incidente, l’organizzazione vittima sapeva di essere stata compromessa a causa del ransomware
+note e sistemi bloccati. Tuttavia, dopo aver esaminato le analisi forensi disponibili, era ovvio che ce n'erano diversi
+avversari nell'ambiente, due per la precisione. Sembrava che l'attore statale stesse svolgendo attività di spionaggio e
+ha inizialmente compromesso l'organizzazione tramite un'e-mail di phishing e poi ha aperto i punti di accesso al firewall
+delle operazioni dell'impianto.L'accesso aperto è stato sfruttato da un attore di ransomware per distribuire il ransomware che
+alla fine ha catturato l'attore statale. L’evento fisico accaduto era del tutto estraneo ad entrambi i casi.
+
+L’analisi della sequenza temporale è stata fondamentale qui.
+
+Trovare e condividere casi di studio aiuterà il nostro settore a crescere. Applicazione dell'ACDC, in particolare con particolare attenzione a
+osservare (NSM) e raccogliere casi di studio che coinvolgono l’avversario (Incident Response) ci consentiranno di farlo.
+
+Le reti private virtuali sono comuni negli ambienti ICS. I loro registri sono generalmente piuttosto statici e archiviati nel tempo
+BENE. In un ambiente IT, questi non sarebbero probabilmente considerati dati altamente volatili. Tuttavia, gli avversari stanno bene
+consapevoli delle tracce che lasciano e le VPN tendono a essere un punto di accesso privilegiato e una strategia di movimento laterale per gli avversari.
+Pertanto, è più probabile che eliminino o manipolino i registri delle VPN in ICS. È importante raccogliere i log VPN
+all'inizio di un'indagine.
+
+Gli hive del registro e le relative chiavi di registro rivelano molte informazioni su un sistema. Tutto da chi è stato registrato
+al momento in cui si sono verificati determinati eventi, all'ultimo dispositivo USB collegato al sistema. È importante afferrarlo
+informazione. L'analisi forense delle chiavi di registro può rappresentare un intero sottocampo dell'analisi forense per quanto dettagliata e importante possa essere.
+Concentrati sulla raccolta dei dati e osserva le aree chiave (come l'elenco USB) senza concentrarti troppo su altro
+analizzando i dati. La possibilità di averlo a disposizione per le attività forensi digitali in un secondo momento si rivelerà preziosa.
+
+Regedit è un comando nativo di Windows per aprire e visualizzare il registro.
+
+Dopo aver estratto le chiavi di registro da un altro sistema, possono essere caricate e visualizzate in Regedit in modo forense
+postazione di lavoro pulita.
+
+L'analisi dipende dalla conoscenza del Registro e della sua struttura.
+
+Un'altra opzione utilizzando Regripper:
+
+https://codice.google.com/p/regripper/wiki/RegRipper
+
+In grado di estrarre e analizzare informazioni dal registro
+
+In un ambiente ICS, non è consigliabile scaricare strumenti nel sistema di destinazione, ma utilizzare invece strumenti come
+Regripper come un'altra opzione per visualizzarli dopo la raccolta.
+
+Lo strumento da riga di comando è scritto in Perl.
+
+Lettura dell'orticaria:
+http://msdn.microsoft.com/en-us/| libreria/windows/desktop/ms724877(v=vs.85).aspx
+
+Visita il sito per una buona presentazione ad una conferenza SANS di Harlan Carvey:
+https://nanopdf.com/download/harlan-carvey-registry-analysis pdf
+
+Per l'utilizzo del cloud fuori sede, le politiche e la scrittura del contratto richiedono ai fornitori di fornire accesso o prova quando un
+si verifica l'incidente. Le risorse cloud in loco e le risorse virtuali possono essere ottime fonti di dati. Le macchine virtuali fanno affidamento
+pesantemente sulla memoria che, come discusso, è una grande risorsa, e quindi raccogliere i file di memoria salvati o utilizzati per ultimi lo è
+perfetto per l'analisi.
+
+Quando si esegue l'acquisizione dei dati di risposta agli incidenti da un ambiente virtuale, in genere si copia l'intera VM
+percorso della cartella. Sfortunatamente, se non metti prima in pausa il sistema, non otterrai tutti i dati. Ad esempio, nel
+in alto a destra, l'immagine mostra cosa c'è nel percorso della cartella mentre il sistema è spento (non c'è il file .vmem). Il basso a sinistra
+l'immagine mostra quando il sistema è in esecuzione (c'è un file .vmem) e in basso a destra mostra cosa c'è dentro quando
+
+il sistema è in pausa (sono presenti .vmem e .vmss).
+
+Il vmss è essenzialmente la modifica rispetto alla memoria di base (vmem) con cui è stato caricato il sistema. Tutto l'utente
+azioni, processi, applicazioni e attività relative agli avversari che desideri si trovano nel file vmss. Ma devi farlo
+
+combinalo per ottenere quel valore.
+
+Qualsiasi sistema su cui è installato VMWare verrà fornito con vmss2core. Ciò ti consentirà di combinare il file vmem
+e vmss in un singolo file di memoria (puoi nominarlo come preferisci ma per impostazione predefinita diventa
+memoria.dmp). Questo file viene quindi facilmente elaborato negli strumenti di cui parleremo in questo corso, come Volatility.
+
+Anche se in questo corso non ci occupiamo specificatamente di analisi forense dei dischi poiché si tratta più di analisi forense che di risposta agli incidenti,
+
+capire che il vmdk è l'immagine digitale. Collezionarlo è ancora vitale. In questo modo è possibile utilizzare anche lo strumento gemu-
+img per convertire il vmdk in un'immagine disco grezza che può essere analizzata con strumenti tradizionali.
+
+Senza immergerci troppo in profondità nel funzionamento interno della memoria fisica (RAM), il punto importante è quella RAM
+gestisce dati estremamente volatili ma raccoglie tutto ciò che accade sul sistema che passa attraverso il sistema operativo, ad esempio
+come malware, chiavi di crittografia e file modificati.
+
+Risorse utili:
+
+Ecco un video di due ore sull'analisi forense della memoria da uno degli sviluppatori principali di Rekall. (Anche se questo video era
+realizzato prima della creazione di Rekall e utilizza la volatilità nel video):
+
+https://www.youtube.com/watch? v=9aC7ylYwvA Y
+
+A volte sentirai la memoria virtuale rispetto a quella fisica. La memoria fisica è la memoria in esecuzione sul sistema
+che è mappato su indirizzi fisici (ad esempio, RAM). Il sistema operativo gestisce queste mappature tramite file di paging e
+assegnando thread ed elaborando risorse attraverso il kernel.
+
+La memoria virtuale è destinata principalmente alle attività di programmazione e sviluppo e fa riferimento ai file di paging come file
+struttura astratta. La memoria virtuale consente a un programmatore di determinare quanto potrebbe richiedere un programma o un processo,
+mentre la memoria fisica è la memoria effettivamente utilizzata da quel programma.
+
+Valore dell'analisi della memoria
+
+Poiché tutto passa attraverso la memoria, è una fonte estremamente valida di prove forensi. Per malware
+l'analisi è fondamentale. Invece di cercare malware nell'intero disco fisico (e il malware ha
+diventare davvero bravo a nascondersi sul disco fisico), è possibile analizzare la memoria e vedere solo il malware
+corsa. Non è così facile come sembra, ma non è in alcun modo così difficile. Con un po' di allenamento, analisi della memoria
+può e dovrebbe diventare una serie di competenze critiche per il personale TEM in un ambiente ICS.
+
+chiunque esegua analisi forensi sulla memoria ha familiarità con la volatilità. È lo strumento di fatto e completamente gratuito
+
+usare. È reso potente da un elenco di plugin che chiunque può sviluppare e contribuire al prodotto (once
+testato/convalidato). Questo sarà il framework che utilizzeremo in laboratorio e nel caso di studio.
+
+Il libro Malware Analyst's Cookbook fornisce un campione di memoria di un sistema infetto (a scopo di analisi)
+con Stuxnet. Questo presenta un interessante caso di studio per esaminare Stuxnet nella volatilità e utilizzarne alcuni più avanti nella lezione
+delle informazioni per i CIO. In generale, se puoi esercitarti su Stuxnet, perché no? Ciò dimostra anche il potere di
+condividere informazioni sulle minacce allo scopo di istruire e formare difensori migliori.
+
+Il file discusso è a disposizione degli studenti come laboratorio facoltativo.
+
+Questo è uno dei primi comandi che dovrebbero essere eseguiti in Volatility. Fornisce informazioni sulla memoria del sistema
+l'immagine è stata raccolta ed è necessaria per alcuni plugin.
+
+Possiamo vedere che la "Versione principale" è 5 e la Versione minore è 1, rendendo questa 5.1 che è un Windows XP
+sistema.
+
+Vediamo anche che l'ora locale sul sistema è 18:31:06 e raccolta il 13 aprile 2008, per il fantastico libro The
+Il ricettario dell'analista di malware
+
+Identificare i processi in esecuzione su un sistema al momento della raccolta della memoria è un ottimo modo per determinare cosa
+i programmi erano in esecuzione. Il malware può offuscare queste informazioni, ma ogni offuscamento e cambiamento lascia una traccia.
+Una delle cose più importanti di pslist, oltre a determinare eventuali processi dai nomi strani, è comprendere il file
+catena di esecuzione. Una volta compreso un sistema e come dovrebbe funzionare, capirai come dovrebbero funzionare i processi
+spawn, quindi anche il processo con il nome giusto generato dalla posizione sbagliata sarà un enorme indizio
+qualcosa è sbagliato.
+
+Anche se non capisci tutte le informazioni sullo schermo, puoi identificare rapidamente le anomalie.
+
+Informazioni aggiuntive:
+
+Local Security Authority Subsystem Service (LSASS) è un processo nei sistemi Microsoft di cui è responsabile
+
+applicare la politica di sicurezza del sistema.
+
+Inoltre, questi Isass.exe sono stati generati successivamente (sembra non all'avvio); pertanto, è stato assegnato loro un ID processo più elevato.
+
+Questi file Isass.exe ora sono sospetti.
+
+Il comando malfind è un potente plugin che cerca processi che hanno iniettato codice, tipicamente dannoso
+comportamento che ha poche ragioni per verificarsi. Questo aiuta a eliminare processi potenzialmente dannosi.
+
+Qui vediamo che è stato evidenziato services.exe, che è stato il processo che ha generato i due file sospetti Isass.exe.
+Allo stesso modo, entrambi i processi Isass.exe sono evidenziati.
+
+Malfind esporta i processi in una cartella di tua scelta. Vengono salvati come file .dmp.Questi file non possono essere
+
+eseguito in modo nativo per l'analisi del malware; tuttavia, possono essere utilizzati per raccogliere informazioni, ad esempio per eseguire un hash digitale
+ciascuno per l'utilizzo in un CIO successivo. Inoltre, se il malware è già noto e stai cercando di vedere se questo
+è una nuova variante, a quel punto è ragionevole utilizzare la guida in linea, ad esempio inviare il file a VirusTotal. Tuttavia,
+
+se hai la possibilità di eseguire una farm antivirus (discussa più avanti) sarebbe preferibile.
+
+Ecco alcuni altri comandi utili per analizzare la memoria. Ce ne sono molti disponibili, ma questi sono abbastanza
+popolare. C'è un altro comando, però, che non è necessariamente popolare per la sua funzionalità, ma per la pulizia del file
+il concetto è.
+
+La visibilità tende ad essere un importante valore aggiunto anche per i casi di risposta agli incidenti in cui gli attacchi informatici non sono il problema. Nostro
+Il mondo industriale sta diventando sempre più complesso e l’impronta dell’automazione è più complicata che mai
+Prima. Ciò significa che gli operatori e gli ingegneri che erano abituati a comprendere appieno il processo possono solo capire
+determinati circuiti di controllo o componenti di esso. Ciò porta a difficoltà nell’analisi delle cause profonde. Come sistema di sistemi è
+È fondamentale avere visibilità della rete con la comprensione dei protocolli ICS.
+
+In questo caso si è verificato un IPP a cui è stato attivato inaspettatamente un circuito di controllo, attivando un'unità di generazione. Questo è
+a dir poco anormale. Il team ha studiato le comunicazioni ICCP tramite il collegamento AGC, come energia del TSO
+il sistema di gestione (EMS) avrebbe potuto essere il problema o addirittura compromesso, ma non è stato trovato nulla. Dopo aver distribuito a
+soluzione di visibilità della rete con l'analisi del protocollo ICS, sono stati in grado di vedere che c'erano comandi HMI in corso
+inviato all'unità di generazione.Tuttavia, non potevano installare alcuno strumento sull'HMI o interagire con esso con soggetti non
+strumenti nativi. Non potevano essere positivi finché l'addetto all'intervento, Lesley Carhart, non ha brillantemente pensato all'utilizzo
+Windows Paint da quando era nativo. Ha avviato Windows Paint e visibilmente si poteva dire che iniziavano piccole righe
+apparso su Paint mostrando che l'HMI era sovrapressurizzato e quindi "faceva clic" casualmente sui pulsanti
+HMI, che portava ai comandi. Senza visibilità e un po’ di creatività, ci sarebbe voluto molto più tempo
+tempo per analizzare le cause principali e ripristinare le operazioni in modo sicuro.
+
+Un vettore di attacco comune osservato in varie intrusioni ICS sono stati gli USB e i computer portatili. Per questo
+Per questo motivo, le postazioni di lavoro di ingegneria tendono ad essere coinvolte nelle infezioni. La capacità di raccogliere dati dal laptop (come
+una politica in atto secondo la quale i fornitori devono consentire l'accesso ai dati in caso di incidente) è fondamentale. Ricerca per uso USB
+sul laptop potrebbe anche indicare un problema se è contrario alla politica o successivo all'incidente.
+
+Se un avversario vuole veramente comprendere il processo, una cosa fondamentale da cercare è la postazione di ingegneria e trovarla
+i file di progetto e i documenti di ingegneria. Comprenderli può aiutare un avversario a raggiungere la fase 2 di ICS Cyber
+
+Attacco. Cerca l'accesso ai sistemi e ai documenti che escono dal sistema.
+
+Riferimento immagine:
+Mondo dell'automazione
+
+La scienza forense digitale non ha fatto molti progressi, se non nessuno, con la ricerca forense sui controllori. Il proprietario
+Anche i sistemi lo rendono difficile. Tuttavia, la registrazione può essere vitale. Ancora più importante, i dati di rete e l'interazione in
+la forma di acquisizione dei pacchetti può rivelare molto. Gli incidenti più gravi spesso riguardano l’accesso remoto. Gli aggressori hanno
+per accedere al sistema tramite la rete: identificare e acquisire i dati lì.
+
+L'acquisizione digitale e l'analisi forense a livello sul campo sono difficili, soprattutto a causa dei protocolli proprietari e
+sistemi operativi.
+
+Concentrati su aree conosciute, come protocolli comuni e ben compresi, cerca manipolazioni o stranezze.
+Essere in grado e disposti a estrarre file di progetto e informazioni logiche, eseguirne l'hashing e confrontarli con file noti (o
+
+informazioni "vaulted").
+
+Nel raro caso in cui la registrazione sul dispositivo sia possibile e abilitata, assicurati che la raccolta venga eseguita in anticipo poiché limitata
+spazio di archiviazione.
+
+File di progetto
+
+I file di progetto e la logica sui controller non vengono spesso in mente quando si pensa a malware e minacce. Tuttavia,
+qualsiasi avversario che voglia effettivamente manipolare il processo di un sistema, o causare danni, dovrà manipolare il processo
+file logici o di progetto ad un certo punto. Si sapeva che Stuxnet aveva manipolato i file di progetto della Siemens
+controllori. Non esiste un modo semplice e veloce per analizzare routine dannose o indicatori di compromissione. IL
+concetto sembra che non sarebbe fattibile. (Piccoli cambiamenti possono significare grandi danni, e non c'è nulla che sembri o
+è intrinsecamente dannoso.) Tuttavia, raccogliere gli hash di questi file e chiedere al personale di risposta agli incidenti di eseguire l'hashing dei file
+I file di progetto durante un incidente consentiranno al personale TEM di identificare se si sono verificate manipolazioni.
+Quindi, gli ingegneri possono essere coinvolti per determinare cosa sta cercando di fare la minaccia e come fermarla. Inoltre, considera di avere
+le discussioni con i tuoi avvocati per garantire che i problemi di conservazione dei record e di eDiscovery non entrino in conflitto con il file di progetto
+esigenze o requisiti del programma di protezione delle informazioni nella tua organizzazione.
