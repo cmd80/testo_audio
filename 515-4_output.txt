@@ -1,0 +1,4855 @@
+vsv vewvsewsewvwsewwst 8&8 & s&s &
+
+w
+
+oS IF DF IF IS IF IH IE DH
+
+1CS515.4 ICS Visibility, Detection, and Response
+
+SANS | Incident Response
+
+© 2021 Robert M. Lee | All Rights Reserved | Version GO|_07
+
+The SANS ICS515 —ICS Visibility, Detection, and Response course was developed by Robert M. Lee with input
+from a collection of experts, whose diverse work experiences, knowledge, and skills truly blended to cover the
+specific content areas for this course. The author would like to thank them for their support and contributions.
+Please see the following page.
+
+Robert M. Lee
+
+Robert M. Lee is the CEO and Founder of the industrial (ICS/OT/IloT) cyber security company Dragos, Inc. He
+is a SANS Senior Instructor and the course author of SANS ICS515 — “ICS Visibility, Detection, and Response”
+and the lead-author of SANS FOR578 — “Cyber Threat Intelligence.” He is currently also a Department of Energy
+special service employee on the Electricity Advisory Committee as the Vice Chair of the Grid Resilience National
+Security committee.
+
+Robert obtained his start in cyber security in the U.S. Air Force where he served as a Cyber Warfare Operations
+Officer in the National Security Agency. He has performed defense, intelligence, and attack missions in various
+government organizations, including the establishment of a first-of-its-kind ICS/SCADA threat discovery mission
+blending incident response, threat hunting, and threat intelligence together. Lastly, Robert is author of the book
+SCADA and Me, Threat Intelligence and Me, Santa and Me, and the weekly web-
+
+comic http://www.LittleBobbyComic.com
+
+Robert may be found on Twitter @RobertMLee or contacted via email at: RLee@Dragos.com
+
+© 2021 Robert M. Lee
+Contributions By:
+
+Tim Conway
+
+Tim Conway is currently the Curriculum Lead for ICS Security at SANS. He was responsible for developing,
+reviewing, and implementing technical components of the SANS ICS and SCADA product offerings and is the
+course author of [CS456 — NERC CIP Essentials. He was formerly the director of CIP Compliance and Operations
+Technology at Northern Indiana Public Service Company (NIPSCO). He was responsible for Operations
+Technology, NERC CIP Compliance, and the NERC training environments for the operations departments within
+NIPSCO Electric. Throughout his career, Tim was previously an EMS computer systems engineer at NIPSCO for
+eight years, with responsibility over the control system servers and the supporting network infrastructure. Tim
+previously served as the chair of the RFC CIPC, is the current chair of the NERC CIP Interpretation Drafting Team,
+a current member of the NESCO advisory board, the current chair of the NERC CIPC GridEx 2013 Working Group,
+and current chair of the NBISE Smart Grid Cyber Security panel.
+
+Michael Assante
+
+Michael Assante was pivotal in creating this course and it was his vision that pushed me to author it. This class is
+dedicated to his memory. For those of you who didn’t know Mike, it is almost guaranteed that your career that has
+brought you to the ICS community was influenced by him at some point. I wrote this blog on what Mike meant to
+me, and why | would not be where I am today without him. I hope these words help keep his memory alive in this
+class: http://www.robertmlee.org/goodbye-mike-assante-thank-you-for-literally-everything/
+
+Jeff Shearer and Jason Dely are both members of the SANS “SROC” team that help create and test technical
+components for labs. It’s through their work and dedication with Tim that the kits in the class and interactions with
+them were possible. They were the masterminds behind a lot of the hands-on kit work and helped immensely.
+
+Dragos team members also significantly contributed to the course through their own research and just countless
+
+conversations. Additionally, Austin Scott, Grant Freter, Jackson Evans-Davies, and others operated the range and
+performed red teaming of the ICS range at the Dragos HQ that is used in the course scenario.
+
+2 © 2021 Robert M. Lee
+
+@, mm, ww, ww nN a, am, «me, ww mm, mm, cm, ay ae, ray m-, oe, m@,
+
+ow,
+Sue ve ve vueuevewvwbebevbvbkb sewuwwu
+
+a“
+
+Section 4 Outline
+
+Case Study: SANDWORM - Ukraine 2015
+
+ICS Digital Forensics and Incident Response Overview
+
+Lab 4.1: Acquisition in an Operational Environment
+
+Preparing an ICS Incident Response Team
+
+Lab 4.2: Logic Analysis and Reset
+y
+
+Case Study: ELECTRUM and CRASHOVERRIDE - Ukraine 2016
+
+Initial Compromise Vectors
+
+Lab 4.3: Analyzing Phishing Emails
+
+Forensic Data Sources in ICS Networks
+
+Lab 4.4: HMI Memory Forensics Lab 4.5: Process Triage
+
+ICS5I5 | ICS Visibility, Detection, and Response
+
+As you'll see, the focus of this section is familiarizing you with incident response concepts in ICS with some
+elements of digital forensics (such as memory forensics and logic analysis). Incident Response and Digital Forensics
+are two separate fields, but you need to understand some of each to be effective at either. Incident response is all
+about getting the facility or environment back to the place it needs to be in (i.e., last known good state) while
+ensuring the mission is met of that environment (e.g., manufacturing is back up) and gathering evidence to support
+questions that need to be addressed (e.g., root cause analysis of the issues that occurred). Forensics is about taking
+that digital evidence and diving deeply to answer questions of the data to support a wide variety of needs, including
+business and operations goals. Incident responders should only be analyzing information so far as it helps them get to
+the purpose of the incident response effort faster.
+
+Of course, requirements are always different in incidents, so very few incident response cases are similar, but it’s
+important to be armed with core skills for the common situations. In this section, we do that through a number of
+sections and labs.
+
+© 2021 Robert M. Lee 3
+
+3
+
+Ata high level, understand digital forensics
+
+Understand key focus points for incident response
+Understand key sources of forensic data
+Acquire, verify, and quickly analyze digital evidence
+
+Stress the value of maintaining safe/reliable operations
+
+ICS515 | ICS Visibility, Detection, and Response
+
+Welcome to Section 4 of the course. In the first two sections, we focused on how to understand and consume threat
+intelligence, and how to identify your assets and monitor them for security incidents. In this section, we cover
+incident response (IR). Incident response in ICS has a number of similarities and a number of differences to incident
+response in IT environments. In addition, a step in the Active Cyber Defense Cycle (ACDC) of the incident response
+process is likely different from what you might be used to if you have practiced incident response before. Taken
+from lessons learned and in field experience, we will discuss later why incident response, as presented here as a part
+of ACDC, is presented as it is and why it is incredibly important for ICS environments.
+
+The first objective of this section is an important one: At a high level, understand digital forensics. Digital forensics
+is a science, as is explored later, and it's usually wrapped up into the term Digital Forensics and Incident Response
+
+(DFIR). In addition, over the past decade, it's encompassed reverse engineering and interacting with malware. The
+
+incident response aspect is obviously key.
+
+The second objective of this section is to make sure that the focus points for incident response are understood, such
+as the importance of setting up an incident response team, participating in training, and having certain best practices
+incorporated. Next, participants should, at a technical level, understand key sources of forensic data. We will not
+perform deep digital forensic analysis; that is not a role of ACDC.
+
+It is important for the personnel who are going to be acquiring evidence to understand what evidence is of value and
+why. Next, and probably most critically, you are expected to walk away with the ability to acquire, verify, and
+quickly analyze digital evidence.
+
+The single biggest takeaway from this section is: It is an incident responder's purpose to preserve operations while
+acquiring forensic quality digital evidence and evaluating the scope of the incident (or how far/fast it's spread and to
+what systems). Lastly, 515 participants are expected to understand core concepts for maintaining and recovering
+operations. To fully understand the last focus point, it would require a full physical Jab setup unique to each
+participant's organization. For this course, the important part is to understand aspects of it.
+
+4 © 2021 Robert M. Lee
+
+4
+
+wn me wm & OM OO MT WS WM Cw
+
+wm wh
+
+wm - ™ -?
+
+m ™ wm
+
+-
+we wo ww
+
+FF GF F&F F&F BOB Bb BF BF HY Bw BE UV Ue Ww wo wo we wo wo WwW
+
+In addition, incident response personnel in ICS environments often are not actually restoring systems. Engineers and
+system architects are more likely the ones to restore operations, but their efforts would be in vain without high-
+performing incident response personnel.
+
+© 2021 Robert M. Lee 5
+Course Scenario Goals (1)
+
+* What is the malicious routine in the logic and what does it do?
+* What is the root cause of the attack?
+¢ Is the incident connected to C3PO’s incident?
+
+¢ C3PO:
+
+° What Register was manipulated with what value?
+* What malicious file executed on the HMI and when?
+
+1C$515 | ICS Visibility, Detection, and Response
+
+This page intentionally left blank.
+
+6 © 2021 Robert M. Lee
+
+6
+
+}
+
+y
+
+wy iy, iW WW \)
+eThibate » »
+iVes ; url Intelligence
+Ac ive w § Consumption
+
+(PHASE 4)
+
+Visibility
+
+ICS515 | ICS Visibility, Detection, and Response
+
+As discussed in the objectives slide, the focal point of incident response for ACDC is to inform the decision makers
+about the scope of the incident and acquire forensic quality evidence for analysis by the threat and environment
+manipulation team and digital forensic analysts after the fact. Digital forensic analysts and deep exploration of
+forensic data are not roles of active defense; that process is more accurately contained in passive defense. Active
+defense should have a level of effort and speed for maintaining operations that is not generally suitable for the
+meticulous and time-consuming tradecraft of traditional digital forensics.
+
+© 2021 Robert M. Lee
+
+7
+
+Case Study - SANDWORM
+
+Ukraine 2015 Electric System Cyber Attack
+
+by Robert M. Lee and Jeff Haas
+
+7 cooo tHine W' re meact wouos| | 7 NOTIES
+oe eat MOM N [7 cHoose to
+
+BELIEVE
+IT CAN OEFINITELY DA tr can’t?
+
+ICS515 | ICSVisibility, Detection, and Response
+
+This page intentionally left blank.
+
+8 © 2021 Robert M. Lee
+
+FY FF TF TF WM © VM WM @ @&
+
+wowremrwrrrnmrevrwrmne wy &
+oo © © © © © & S&S DS WwW YH BH ww ww wo wo wo wo HS WwW
+
+The Incident ‘
+
+On December 23, 2015, a Ukrainian Oblenergo reported outages
+Skepticism was the initial response
+
+Analysis of the ICS, and what could cause the issue, as well as an uncovered malware sample
+helped confirm the attack
+
+The attack was blamed on the Russian services by the Ukrainians
+The Sandworm team was linked in the attack
+
+Overall, 3 Oblenergos, ~62 substations were disconnected, leaving ~225,000 customers without
+power for 3-6 hours
+
+Ukraine was in manual operation for months
+
+ICS515 | ICS Visibility, Detection, and Response
+
+On December 23, 2015, attackers leveraged access that they had for the previous six months to knock three regions
+of Ukraine off the grid. Overall, around 62 substations were disconnected, and the outages lasted between 3-6 hours,
+depending on the region. The power was turned back on relatively quickly because of the Ukrainian’s ability to go
+back to manual operations, but they had to persist in manual operations for multiple months.
+
+From the official report:
+
+On December 23, 2015, the Ukrainian Kyivoblenergo, a regional electricity distribution company, reported service
+outages to customers. The outages were due to a third party’s illegal entry into the company’s computer and SCADA
+systems: Starting at approximately 3:35 p.m. local time, seven 110 kV and 23 35 kV substations were disconnected
+for three hours. Later statements indicated that the cyber-attack impacted additional portions of the distribution grid
+and forced operators to switch to manual mode. The event was elaborated on by the Ukrainian news media, which
+conducted interviews and determined that a foreign attacker remotely controlled the SCADA distribution
+management system. The outages were originally thought to have affected approximately 80,000 customers, based
+on the Kyivoblenergo’s update to customers. However, later it was revealed that three different distribution
+oblenergos (a term used to describe an energy company) were attacked, resulting in several outages that caused
+approximately 225,000 customers to lose power across various areas. Shortly after the attack, Ukrainian government
+officials claimed the outages were caused by a cyber-attack, and that Russian security services were responsible for
+the incidents. Following these claims, investigators in Ukraine, as well as private companies and the U.S.
+government, performed analysis and offered assistance to determine the root cause of the outage.
+
+© 2021 Robert M. Lee 9
+
+9
+
+What Are Power Grids Like?
+
+Generation: None eh
+
+Transmission: None ER
+Distribution: 3 Oblenergos 4
+
+& below
+
+Source: Modification to the DHS Energy Sector-Specific Plan 2010
+
+In Ukraine, three Oblenergos were impacted. Oblenergos are the Ukrainian version of energy companies. In a power
+grid there are generally three main components: Generation, Transmission, and Distribution. Historically, we have
+prioritized Generation and Transmission security which was well placed. Unfortunately, Distribution is the soft
+underbelly; many companies attempt to secure these sites, but many companies do not nor are there any regulations
+or requirements to do so (not that that is the best mechanism anyway). The Ukrainian attackers targeted Distribution.
+
+10 © 2021 Robert M. Lee
+
+ww @w
+
+,rPr FF PS TF F YF PW HP FH HW WP wD
+
+rome
+~~ wr wow we ow wwe we wow wow wow wo wm ww
+
+-
+
+ne Power Outage ICS Cyber Kill Chain
+
+Targeting Phishing E-mails
+
+Delivery
+
+BlackEnergy 3
+
+6)
+
+Exploit
+install / Modify
+
+VPN & Credential Theft
+
+Network & Host
+Discovery
+
+C2
+
+100
+
+|
+
+STAGE 2 - ICS Attack
+
+|
+i
+|
+
+Malicious Firmware
+Development
+
+©
+
+Install / Modify
+Firmware Upload
+
+Be cute iCSAttack KIUDisk Overwrites
+
+000
+
+Power Outage(s}
+
+Attack with Impact
+
+The first step in Stage 1 is Reconnaissance. There were no reports of observed reconnaissance having taken place prior
+to targeting the energy companies. However, an analysis of the three impacted organizations shows they were
+particularly interesting targets due to the levels of automation in their distribution system; enabling the remote opening
+of breakers in a number of substations. Additionally, the targeting and final attack plan for the electricity companies in
+general were highly coordinated, which indicates that reconnaissance took place at some point. This was very unlikely
+to have been an opportunistic attack. The second step is Weaponization and/or Targeting. Targeting would normally
+take place when no weaponization is needed; such as directly accessing Internet-connected devices. In this attack, it
+does not appear that targeting of specific infrastructure was necessary to gain access. Instead, the adversaries
+weaponized Microsoft Office documents (Excel and Word) by embedding BlackEnergy 3 within the documents.
+Samples of Excel and other office documents have been recovered from the broader access campaign that targeted a
+multitude of organizations in Ukraine; including Office documents used in the specific attack against the three
+electricity companies. During the cyber intrusion stage of Delivery, Exploit, and Install, the malicious Office
+documents were delivered via email to individuals in the administrative or IT network of the electricity companies.
+
+When these documents were opened, a popup was displayed to users to encourage them to enable the macros in the
+document. Enabling the macros allowed the malware to Exploit Office macro functionality to install BlackEnergy 3 on
+the victim system and was not an exploit of a vulnerability through exploit code. There was no observed exploit code in
+this incident. The theme of using available functionality in the system was present throughout the adversary’s kill
+chain. Upon the Install step, the BlackEnergy 3 malware connected to command and control (C2) IP addresses to
+enable communication by the adversary with the malware and the infected systems. These pathways allowed the
+adversary to gather information from the environment and enable access. The attackers appear to have gained access
+more than six months prior to December 23, 2015, when the power outage occurred. One of their first actions
+happened when the network was to harvest credentials, escalate privileges, and move laterally throughout the
+environment (e.g., target directory service infrastructure to directly manipulate and control the authentication and
+authorization system). At this point, the adversary completed all actions to establish persistent access to the targets.
+
+© 2021 Robert M. Lee 11
+While the initial footholds were used to harvest legitimate credentials for pivoting and systematic takeover of IT
+systems and remote connections, it is likely that the attackers moved quickly away from their initial footholds and
+vulnerable C2s in an effort to blend in to the target’s systems as authorized users. With this information, the attackers
+would be able to identify VPN connections and avenues from the business network into the ICS network. Using
+native connections and commands allows the attackers to discover the remainder of the systems and extract data
+necessary to formulate a plan for Stage 2.
+
+During the ICS Attack Stage, the adversaries used native software to Deliver themselves into the environment for
+direct interaction with the ICS components. They achieved this using existing remote administration tools on the
+operator workstations. The threat actors also continued to use the VPN access into the IT environment. In final
+preparation for the attack, the adversaries completed the Install/Modify stage by installing malicious software
+identified as a modified or customized KillDisk across the environment. While it is likely the attackers then ensured
+their modifications to the UPS were ready for the attack, there was not sufficient forensic evidence available to prove
+this. The last act of modification was for the adversaries to take control of the operator workstations and thereby lock
+the operators out of their systems. Finally, to complete the ICS Cyber Kill Chain and to Execute the ICS Attack, the
+adversaries used the HMIs in the SCADA environment to open the breakers. At least 60 substations (the total
+number is probably higher) were taken offline across the three energy companies, impacting roughly 225,000
+customers. Simultaneously, the attackers uploaded the malicious firmware to the serial-to-ethernet gateway devices.
+
+This ensured that even if the operator workstations were recovered, remote commands could not be issued to bring
+the substations back online (We have characterized the firmware attacks against field communication devices as
+“blowing the bridges”). During this same period, the attackers also leveraged a remote telephonic denial of service
+on the energy company’s call center with thousands of calls to ensure that impacted customers could not report
+outages. Initially, it seemed that this attack was to keep customers from informing the operators of how extensive the
+outages were; however, in review of the entirety of the evidence, it is more likely that the denial of service was
+executed to frustrate the customers since they could not contact customer support or gain clarity regarding the
+outage.
+
+12 © 2021 Robert M. Lee
+
+)
+
+* DM WP Ww
+
+rr ww we ww HP PW WPM PW PM
+
+e ww @w @w
+
+TP
+~~ Se we wow we we we © & & & S&S ww
+
+od
+
+Ukraine Power Outage
+
+Integrated Attack
+
+Highly Coordinated
+
+Logistic Sophistication
+
+Used Tools to Enable
+
+6+ Months in the Environment
+
+Artack with
+Physical
+Consequence
+
+Ukraine Incident
+
+Full Ukraine Report:
+TLP_WHITE_E-ISAC_SANS_Ukraine_DUC_6_Modular_ICS_Malware Final.pdf
+
+© 2021 Robert M. Lee 13
+Active Cyber Defense Cycle Takeaways
+
+ie Ne — Sonn EE =
+'» Previous BlackEnergy YARA rules, ) | VPNs into ICS frequency and
+TTPs, and C2 servers still applied : session length
+* Strategic understanding of ° Utilization of Remote Desktop
+geopolitical situation , : + Lateral movement in the
+* Sharing of IOCs/TTPs to larger
+_ community
+
+Asset
+
+ped 1D/Network
+Security
+
+Intelligence
+Consumption
+
+Monitoring.
+
+_ Analysis of the threat activity Threat and
+
+(human interaction and efforts to ~ Environment Incident
+
+i
+i
+:
+|
+
++ Analysis of the malware (KillDisk scope the infection
+| and BlackEnergy 3) + Collection of logs/traffic/memory for _
+
++ Documentation of IOCs, tools, and analysis and ID’ing potential impact
+tradecraft including C2 servers « Gathering sample of BlackEnergy3
+hardcoded into the malware and KillDisk
+
+|
+| learn DMS and environment) Manipulation ages. * Utilization of IOCs to and TTPs to
+|
+|
+|
+
+ICS515 | ICS Visibility, Detection, and Response 14
+
+There were numerous takeaways from the Ukraine scenario along the Sliding Scale of Cyber Security—Everything from
+Architecture decisions such as the need for limiting remote desktop access and enabling two-form authentication on VPNs, to
+Passive Defenses in the IT side of the house to detect abnormal activity and traversal into the ICS. The Active Defense
+takeaways are the most prominent, though, as with this style of targeted threat, the adversary would have worked to defeat the
+architecture and passive defenses in place. This is the perfect case study for showing what active defenders should have been
+doing against an active adversary.
+
+The Threat Intelligence Consumption personnel could have taken the larger geopolitical situation into consideration to
+determine that there was a heightened security posture needed, especially in relation to physical conflict and sabotage against
+electrical equipment and stations in other parts of Ukraine and Crimea. They also could have identified what threat actors have
+shown interest in the energy supply before, such as the Sandworm team, and gathered the indicators, tradecraft, and YARA
+rules related to them. These were all still useful and relevant in the Ukraine facility.
+
+This information could have been passed to the NSM analysts monitoring the environment. Monitoring the ICS particularly
+would have been useful, as frequency and session length changes in VPN connections, as well as odd utilization of remote
+desktop and the UPS could have helped identify abnormal activity. Additionally, log modifications on systems, such as new
+software being deployed across the ICS, would have been particularly worth seeing.
+
+The incident responders could have been guided to the impacted systems to gather samples and forensic evidence, while
+quickly passing information back to the Threat and Environment Manipulation analysts to analyze out and extract knowledge
+about the adversary, the potential impact of the actions, and helping give recommendations for personnel to clean up and secure
+the environment. Even something as simple as disabling remote desktop assistance temporarily would have been an awesome
+recommendation.
+
+All this information could be passed back to the Threat Intelligence Consumption personnel to drive the process numerous
+times in the face of the adversary and to share relevant information to the larger community, especially in Ukraine, to help
+everyone’s security posture get better.
+
+14 © 2021 Robert M. Lee
+
+> 7 @B w
+
+=
+ICS Digital Forensics and
+
+Incident Response Overview
+
+ICS515 | ICS Visibility, Detection,and Response 15
+
+This page intentionally left blank.
+
+© 2021 Robert M. Lee
+What Is Digital Forensics?
+
+* Digital Forensics is a subset of the forensic science:
+* Forensic Science is a scientific method of gathering and examining
+information
++ Generally, the standard for the quality and methods of gathering the
+information is if it would be admissible in court
+« Largely practiced and developed in the Law Enforcement Agency community
+with focuses on using digital mediums to find criminals
+¢ The field used to primarily be called computer forensics but expanded as the
+sources of forensics grew, such as:
+¢ Cell phone forensics
+¢ Windows/Mac/Linux/etc. forensics
+* Memory forensics
+¢ Network forensics
+Email and Browser forensics
+
+ICS515 | ICS Visibility, Detection,and Response 1s
+
+Digital forensics is a subset of forensic science. The important thing to note here is that it is a science. There's no
+need to inject the word "cyber" into it (some have started calling it cyber-forensics) because the field is a recognized
+and well-practiced science. It was largely influenced by Law Enforcement Agencies as a need to identify the source
+and impact of digital crimes. The safety and well-being of kidnapped children and those being exploited for child
+pornography were major catalysts for the development of many of the tools in the digital forensics community. The
+DFIR community is one of the most engaging to deal with partly for that reason, and the field has a certain maturity
+and fun-loving seriousness that goes with it. ICS professionals who interact in this community will find that there are
+certain responsibilities and passions that resonate between the communities that few others share.
+
+16 © 2021 Robert M. Lee
+
+wo wow 8S S&S 8S wweeeewweweweweewse &©§ &§ & & &
+
+SD
+
+a> wa ww
+
+Traditional Forensics Versus ICS
+
+‘ig PE nish FORENSICS DOMAIN
+scqutinon Repiattons :
+
+Setadase Configuration HME
+
+.Z
+eo ebeur se
+
+‘ ti oats ac roan
+
+TRADITIONAL FORENSIC}
+Sec° DOMAIN
+
+Fotos
+
+ICS515 | ICS Visibility, Detection, and Response
+
+This is a picture from an ICS-CERT recommended practices guide for digital forensics in an ICS. Notice that the
+New Forensics Domain at the top deals with things such as the field systems, data historians, engineering
+workstations, and so on. However, these systems often run on Windows operating systems and are connected
+through IP-based protocols. This does not mean that it is not unique from traditional forensics. However, it implies
+that there are many lessons learned from traditional forensics that can be applied smartly with testing.
+
+Reference:
+https://ics-cert.us-cert.gov/sites/default/files/recommended_practices/Forensics_RP.pdf
+
+© 2021 Robert M. Lee 17
+Historical Forensics Example: The Cuckoo's Egg
+
+° Cliff Stoll's The Cuckoo’s Egg is often credited as one of the first explorations
+into digital forensics
+* 1989 book documenting his account of interacting with a hacker who broke
+
+into the Lawrence Berkeley National Laboratory in 1986:
+He was asked to look into a $0.75 account error for computer usage accounts
+The hacker was using a 1200 baud connection, so he hooked up teleprinters to record what
+the hacker did, and when the hacker connected, Cliff had the telephone operator trace the
+line
+Cliff ended up tracking the hacker through multiple hop points where he found that military
+bases and nuclear research centers around the U.S. had been compromised
+Led to some great interactions with the NSA (including legendary Robert Morris)
+Government finally took interest after initial protests, found the significance, and discovered
+the hackers were in Germany and funded by the KGB
+
+ICS515 | \CSVisibility, Detection, and Response 18
+
+History tends to reveal shockingly similar case studies to those we deal with today on a regular basis. For those
+interested in truly understanding some of the roots of the digital forensic community and wanting to explore a near-
+spy-novel quality accurate historical account of "tracking the hacker," this book is a must read. Cliff Stoll has
+inspired countless people to take up digital forensics, and his book is a good read for ICS personnel in the incident
+response field. In fact, Cliff even figured out a useful way to analyze a 1200 baud connection—something that even
+the most old-school engineer can respect.
+
+18 © 2021 Robert M. Lee
+
+er Ww
+
+at Forensics Can Determine
+
+¢ Who compromised my organization?
+
+¢ What happened and what was the impact?
+
+ICS515 | (CS Visibility, Detection, and Response
+
+Forensics is good at answering the "who, what, where, when, and how” questions. It is valuable from a forensics
+standpoint to really understand the whole picture around an incident. This allows organizations to understand the
+impact, understand how they need to make changes based on what they learned from their environment (such as a
+new vulnerability), and to understand how to group the activity together. It is worth noting that the “who” sometimes
+is not as important—it’s forensics that can help with these questions, but it’s not necessarily true that each of these
+questions is as valuable as the others.
+
+© 2021 Robert M. Lee 19
+
+19
+
+What Digital Forensics Is Not: Enhance!
+
+* Digital forensics is not magic:
+
+* Many outsiders to the community have an image of digital forensic examinations crossing
+the line of the technically possible. How did you find the malware's encryption key in
+memory? It must be magic.
+
+* Digital forensics is not just about HDD recovery and crime:
++ Intrusion analysis is a good example in which forensics excel and are not in line with a
+
+traditional understanding of forensics.
++ Digital forensics cannot make up for bad security practices:
+° If logging is disabled, if the acquisition of evidence is put off for a while, and so on, there's
+not much that can be done.
+* Locard’s Exchange Principle is always at play
+¢ Anything you do (or the adversary does) leaves a trace.
+* Understand both to be able to ask the right questions of your data.
+* Understand both to be able to understand the impact to systems.
+
+ICS515 | ICSVisibility, Detection, and Response 20
+
+There always seems to be a bit of mystery surrounding digital forensics. Partly, it's the fault of CSI-type crime drama
+shows and their laughingly serious desire to yell out "enhance!" on digital photos (regardless of pixel limitations) to
+see the reflections on people's eyes to identify the killer. Digital forensics is not magic. Digital forensics is a deep
+way to understand systems and to interact with them to extract the information needed. For example, when data is
+"deleted" on a computer system, what actually happens (in traditional physical disks) is that a flag is flipped (such as
+a | bit to a 0 bit) showing that the data in that section is available to be overwritten. But the data isn't deleted; it's just
+available for being written over if the system needs the space. So, recovering "deleted" data can be as simple as
+having the right tool to ignore the 1 or 0 flag at the beginning of file sections to recover the "deleted" file. That's just
+an understanding of the system. Digital forensics is not a way to fix actual mistakes. It's not an ability to make up for
+bad security practices. Knowing the limitations of digital forensics is as important as understanding the strengths.
+
+The Science Behind It
+
+One of the single most important concepts to understand in digital forensics, and especially in incident response, is
+Locard's Exchange Principle, developed by Dr. Edmond Locard (1877-1966). Locard speculated that every time you
+make contact with another person, place, or thing, it results in an exchange of physical materials. He believed that no
+matter where a criminal goes or what a criminal does, by coming into contact with things, a criminal can leave all
+sorts of evidence, including DNA, fingerprints, footprints, hair, skin cells, blood, bodily fluids, pieces of clothing,
+fibers, and more. At the same time, the criminal will also take something away from the scene with him or her. This
+applies to digital forensics.
+
+Any interaction that occurs between a digital forensic analyst or incident responder and the evidence leaves traces of
+that interaction. There is impact. It's okay as long as you understand what that impact is. When an incident responder
+launches a tool to collect digital evidence on an infected system, Registry keys, process data, memory sectors, and
+such change. Without knowing what impact tools and actions have on evidence, there is a high possibility that
+analyst interactions can be mistaken for adversary actions. More importantly, understanding and implementing this
+principle is significant to the professionalism that the job requires. That is, analysts must know the impact of their
+actions. Whether the actions will damage the crime scene is secondary. Analysts who do not understand the tools,
+especially in an ICS environment, will eventually do more damage than good.
+
+20 © 2021 Robert M. Lee
+
+@ @ &
+
+wT TT VT TP PW SW HP
+
+vw © & Ww Ff
+wv woe wweeweiweejwveowwe & w
+
+oe 8 § 8S BS we we Ww ww
+
+What Is Incident Response?
+
+* Incident response is an organized approach to addressing and managing the aftermath
+of an incident:
+
+* Incidents are defined by the organization; although, they generally are associated
+with security breaches, intrusions, or loss of view/control in an ICS
+
+¢ Incidents should be declared only by a predefined person with defined authority
+There are a number of techniques and guides for helping to establish incident response
+
+practices, teams, and methodologies:
+
+* NIST's SP 800-61rev2 "Computer Security Incident Handling Guide"
+
+¢ ENSIA's "Good Practice Guide for CERTs in the Area of ICS"
+
+* FIRST's "Creating and Managing Computer Security Incident Handling Teams"
+Most methodologies and guides are high-level in nature
+Most existing practices focus solely, or primarily, on IT infrastructure
+
+ICS$515 | ICS Visibility, Detection, and Response 21
+
+With an understanding of digital forensics, the question is presented: What is incident response? The answer: It is an
+organized approach to addressing and managing the aftermath of an incident. It does not have to immediately restore
+the network to pre-incident stages. It does not need to have deep analysis performed to gather all information
+possible or attribution. It just has to be an organized approach to meeting the requirements laid out beforehand on
+how to address, and then manage, an incident. In ICS, that is almost always meant as: Keep operations safely
+running.
+
+There are many methodologies available for incident response, but they are mostly IT-focused. The ICS incident
+response field is young, and what little information exists is often more high-level advice or tightly guarded
+tradecraft. But it's important to look at the IT incident response life cycle and steps to see what might or might not be
+applicable to ICS.
+
+Reference:
+http://www.enisa.europa.eu/activities/cert/support/baseline-capabilities/ics-cerc/good-practice-guide-for-certs-in-the-
+area-of-industrial-control-systems
+
+http://www. first.org/conference/2008/papers/killcrece-georgia-slides.pdf
+
+© 2021 Robert M. Lee 21
+Traditional IT Incident Response Steps
+
+¢ Preparation:
+* Prepare the environment, team, tools, and the purpose
+Identification/Detection:
+
+* Detect that an event that has reached a threshold has
+occurred
+|
+|
+|
+if
+i
+
+* Analyze what caused the incident
+Containment:
+
+* Contain the intrusion and malware
+Eradication:
+
+* Eliminate the malware
+Recovery:
+
+* Restore backups, fresh install on systems, etc.
+Lessons Learned Post-Incident Activity:
+
+¢ Write up lessons learned and watch for reinfections Ref: NIST 800-61rev2
+
+ICS515S | ICS Visibility, Detection, and Response 22
+
+Traditionally, incident response has been to prepare, identify/detect, contain, eradicate, recover, and then perform
+lessons learned post-incident activities such as write up lessons learned, publish information at least internally, and
+watch the network for reinfections. That's a lot of responsibility for an incident response team. Keeping and
+maintaining personnel who are skilled in all those talents is costly and difficult. This is exactly why many companies
+choose to primarily outsource their incident response needs to experienced companies. However, some of these tasks
+are separated out in ACDC. For example, detecting and performing the first level of analysis for an incident is the
+job of the network security monitoring personnel. Identifying ways to contain and eradicate malware is the
+responsibility of the threat and environment manipulation team. Recovery is largely the role of engineers to make
+sure systems stay online and come back online appropriately. But that doesn't leave much available for incident
+response to "do"; although, there's a lot of work not accurately displayed by these steps.
+
+22 © 2021 Robert M. Lee
+
+Ww
+
+VT FD HMM WO we
+
+"rv www www Ww P
+
+w
+
+wv 7 ©
+eo ww we wewewoe ww wo wy
+
+wa
+
+Tailoring Needed for ICS
+
+Compliance Legal
+Reliability
+Government Vendors
+
+Legacy Unique Data
+systems systems collection
+
+ICS515 | ICS Visibility, Detection, and Response
+
+There is tailoring to the traditional incident response model that is needed for ICS, and likewise for the ACDC
+model. There is unlikely to be a full-sized incident response team at most companies, let alone ICS organizations. In
+ICS specifically, regulation, compliance, and legal requirements come into play ina way that IT doesn't normally
+have to experience. And ultimately, the operations continuing safely is a priority, where in IT, it is more acceptable
+to bring systems down in most scenarios. Also, there is a certain sense of timeliness to an incident that is highlighted
+extremely well in ICS.
+
+Simply put, it is ineffective to copy and paste IT methodologies onto ICS incident response. However, it is equally
+ineffective to ignore good process and methodologies from IT simply because they are IT and not OT. It is our duty
+to tailor the incident response methodology for ICS.
+
+ICS Incident Response Challenges
+
+In trying to meet the purpose of ICS incident response, it's important to note the challenges. First, there are few
+actual public practices that are usable by those performing incident response. There's a lot of good people in the ICS
+community who have tried to share information, but it has largely been extremely high level and in an extremely
+young field. In addition, with regulation and legal reasons complicating incidents, there are not many case studies to
+evaluate publicly. Another challenge is legacy devices and field equipment: They rarely have logging, and many of
+the scripts and tools to use in IT incident response do not work against legacy systems.
+
+Another major challenge is preparing ahead of time. When budgets are tight and the mission is operations, digital
+security usually takes a back seat. Somewhere in the back of the bus far behind digital security is where incident
+response sits. Yet, incident response requires the majority of the work to be done up front—preparation ahead of
+time. People are busy, mission takes priority, and budgets don't support personnel having everything they want. It's
+often an understandable challenge, but it's a challenge.
+
+One of the most frustrating challenges is undocumented/unknown proprietary operating systems and protocols in
+
+use. Obscurity is not a proper method for security. If you cannot understand your own systems and their
+communications,
+
+© 2021 Robert M. Lee 23
+
+23
+
+it is unlikely to make sense to you during an incident. This presents a serious challenge, and during an incident, one
+of the only ways to remediate this is to have a plan up front to interact with the various vendors in the ICS.
+
+Requirements from NERC demand that event data is stored in some fashion, usually for the purpose of event re-
+creation. The data might not help in a forensics investigation, but you should be aware that such requirements do
+
+exist.
+
+Reference:
+https://ics-cert.us-cert.gov/sites/default/files/recommended_practices/Forensics_RP.pdf
+
+24 © 2021 Robert M. Lee
+Ss & &F& SF &F S&F wevweewe wweeeeoewuwweeeo ww Ww WW
+
+Purpose of ICS Incident Response
+
+Maintain safe and reliable operations:
+
+This includes bringing information from incident response to the attention of decision makers to
+determine whether and when operations need to be delayed if at all
+
+Acquire meaningful forensic data:
+
+Threats facing one face us all; it is vital to gather sound forensic data so that analysis can be performed
+later to determine whether this is a targeted attack, how to defend against it in the future, if it is truly
+
+gone, and whether to share that information with others
+
+Perform timely analysis:
+
+Incident response personnel are not responsible for forensic analysis and interacting with the threat, but
+they need to identify the scope of the compromise and what type of threat is being dealt with to handle it
+Contain and eradicate threats:
+
+Containing and then eradicating threats in an environment is part of the incident response's primary
+
+purpose; although, in ICS it will likely be largely through the help of engineers and system architects
+reimaging, reinstalling, and reconfiguring
+
+ICS515 | ICSVisibility, Detection, and Response 2
+
+With all these thought processes about IT versus ICS in mind, it is time to look at the real purpose of incident
+response in an ICS environment. This can change from organization to organization and is largely driven by the
+requirements laid out ahead of time. In general, the major priorities are:
+
+1. Maintain safe and reliable operations.
+2. Acquire meaningful forensic data.
+
+3. Perform timely analysis.
+
+4, Contain and eradicate threats.
+
+Contain and eradicate are high on the list in IT but low on the list in ICS. Yes, we want the malware gone, but safe
+
+and reliable operations are #1. The ability to get data to determine whether there is a trend is what wins the war, not
+the fight, and then to accurately understand the threat's scope to support #1—3 are the keys. #4 is vital, but it is last.
+
+© 2021 Robert M. Lee 25
+ICS Incident Response Steps
+
+° Preparation:
+» Same as traditional IT but often more in-depth including reaching out to dependencies (ICS peers,
+FBI, ICS-CERT, eic.) and testing tools/methods in a lab.
+¢ Integrated Detection and Identification:
+* Working with NSM team to have them implement rules and detection capabilities tailored to the
+threat to identify all impacted systems (NSM finds that a threat occurred—IR should work with NSM
+to find all the impacts.)
+
+* Evidence Acquisition:
+* InICS there is often not enough time to do deep forensic analysis; the focus should be on maintaining
+operations, while acquiring enough evidence for meaningful forensics to be performed later.
+¢ Time Critical Analysis:
+* The use of fast and well-tested techniques to quickly determine the overall impact to operations, the
+type of threat faced, etc., which may drive further detection or the type of outside agencies/groups that
+need to be involved.
+
+ICS515 | ICS Visibility, Detection, and Response
+
+With the purpose defined and the challenges understood, we can look at the actual recommended steps. This is just
+one way to do incident response, but it has been well practiced and used in ICS before.
+
+Preparation: This is the same as traditional IT but in depth to understand dependencies, PoCs on other teams,
+extremely intense testing of tools prior to their use, and so on.
+
+Integrated detection and identification: The NSM personnel should be identifying when an incident occurs, but
+their job does not end there. If ACDC is done properly and with an emphasis on accuracy and speed, NSM personnel
+should be supporting incident responders by taking information from the incident response team and applying it to
+monitoring the network. This is explored a bit more in depth later in this section.
+
+Evidence acquisition: Digital forensics and deep analysis is not a priority in keeping systems running. But without
+real forensic data, lessons will not be learned, and history will repeat itself. In addition, the evidence is needed for
+timely analysis.
+
+Time critical analysis: Also known as "timely analysis," this is the methods employed (such as using IOCs) to
+
+quickly analyze acquired evidence to determine the scope of an incident and what can be done for preserving safe
+operations and/or making recommendations on how to contain or eradicate the threat.
+
+26 © 2021 Robert M. Lee
+
+26
+
+TPM wD HW HM WH WS HW
+
+ww Ww
+
+ww Ww wm Ww
+
+Ww © ow
+
+jw
+
+iw
+
+eo ue we wee we ew se es we wwewweWwe eee wv wo & Ww
+
+Supported Activities By ICS Incident Response
+
+¢ Information Sharing:
+* Evidence should be passed to the threat and environment manipulation team (Section 4) to begin deep
+analysis and determine more information.
+* Information that must be reported for compliance, safety, or actionable info to the ICS community
+must be shared out during incident response.
+* Containment:
+* Preservation of operations by actively engaging with the infrastructure through working with the
+threat and environment manipulation team (Section 4) and the engineers and operators of the systems
+(fight through the attack).
+¢ Eradication and Recovery:
+* Neutralize the threat by reimaging systems, reinstalling known good software, implementing patches,
+etc.
+* Recovery occurs when everything is 100% back to normal.
+* Lessons Learned:
+* Document findings for all and pass information to NSM team to watch for reinfection.
+
+ICS515 | ICS Visibility, Detection, and Response
+
+These actions are those that are supported by incident response personnel but are often not performed alone like the
+incident response steps. Information sharing to other facilities can be timely first-analysis information, but
+realistically it will eventually evolve into lessons learned from the entire ACDC process and incorporating ICS-wide
+lessons learned that can be used both internally and externally.
+
+Containment is supported by incident response but usually heavily relies on the team analyzing and interacting with
+the threat. The containment of the threat, such as architecture changes or system updates, is performed by architects
+and engineers. Incident responders should not be making changes to the network on the fly (in most cases).
+
+Eradication and recovery are also a joint effort and guided by incident response and the threat and environment
+manipulation teams, but also rely on engineers and architects.
+
+Lessons learned are more specific than information sharing. Information sharing is everything relevant that might be
+of use to people inside or outside the organization. Lessons learned are really meant to highlight best practices,
+things that didn't go according to plan, and so on, that can be used internally in the organization. These can be shared
+as well, but they are usually much more specific than early information sharing.
+
+© 2021 Robert M. Lee 27
+
+cu
+
+ersus ICS Incident Response Example: Unnamed Utility
+
+¢ Infiltrated the control system network
+¢ Infected multiple systems
+
++ Performed digital image acquisition
+¢ Collected evidence and samples
+¢ Determined incidental malware not spreading
+
+Had a plan regarding escalation
+Monitored malware to ensure no impact
+(8 « Cleaned up on next scheduled downtime
+
+ICS515 | ICS Visibility, Detection, and Response
+
+The utility remains unnamed for a variety of reasons (mostly its privacy), but there's a good case study on incident
+response that can be responsibly shared to highlight where ICS incident response is different from IT incident
+response.
+
+In this case, the utility identified that there was malware on the control system network. However, the malware was
+not impacting the process. Through quick analysis, the utility's personnel figured that the malware was, at worst,
+sending beacons off the network saying "Here I am" to the adversary. They monitored it to make sure the adversary
+didn't try to log in to the environment and manipulate systems, but they also didn't try to clean the systems. They
+took a mature and level-headed response of characterizing the threat, figuring out their requirements, and waiting
+until the next scheduled downtime to clean the malware off the network. They played through various scenarios to
+determine whether there was a point that operations would have to stop and what would happen if that occurred—but
+they were prepared.
+
+No damage was done; there wasn't a loss. Win for the utility.
+
+28 © 2021 Robert M. Lee
+
+TTT PWM WSP WM WM WW w w
+
+rww ww
+
+ww Ww wm Ww
+
+wom
+oo wo oF wo HS Uwe wewewweFeweesewoeewwewevweewee#e#e#e we wv & w
+
+Terminology
+
+* Digital Image:
+* Digital copy of a system's resources such as its hard drive, Registry files,
+memory, network connections, and so on
+* Raw: Bit-by-bit copy including unallocated and slack space
+* Logical: Copy of only the partitions and files that exist currently
+¢ Hash:
+
+* Cryptographic function that acts as a "digital fingerprint."
+
+« Any change in the hashed file will result in a nonpredictable different hash
+* Chain of Custody:
+
+* Documentation accompanying evidence that notes what the evidence is, how
+it was obtained, where it was obtained, who obtained it, and every person
+who has come in contact with it or held possession of it at any time
+
+* Aconcrete standard for any cases that leads to court and a good standard for
+internal practices in general
+
+ICS515 | ICS Visibility, Detection, and Response
+
+Every field has its own jargon. In digital forensics, three common terms you must be aware of are digital image,
+hash, and chain of custody. You’ve likely used these before, but they are worth stressing. A digital image can be a
+raw image that is a bit-by-bit copy or it can be a logical image, which is only a copy of the partitions that currently
+exist. To get the most evidence, gather a raw image; but to get some evidence in a time critical situation, use a
+logical image. A hash is a digital fingerprint and needs to be gathered at various stages of collection and analysis to
+document changes to the images. The Chain of Custody helps give an understanding of who has had access to the
+evidence and what its condition, hash, etc. was along the way. Chain of Custody is far more often used in law
+enforcement, but it is a good standard to keep to.
+
+The Purpose
+The purpose of acquiring digital evidence such as an image of the hard drive, Registry keys, memory, process data,
+and so on, is to allow forensic analysis to take place at a later time:
+¢ As noted previously, in ICS, it is especially critical, and the threats faced are often severe if they are targeted.
+¢ Forensic evidence is vital to piecing together exactly what happened and extracting threat information useful
+for intrusion analysis and threat intelligence.
+
+The Incident Response phase of ACDC does not deeply dive into forensic analysis, but some timely analysis will be
+performed on the acquired evidence, which is demonstrated later in this section.
+*  Itis likely that scenarios exist in which it is more preferable to clean systems and restore them quickly than it
+is to preserve them for forensic analysis; it is thus extremely important to acquire digital images.
+
+This is a useful site referencing numerous digital forensics tools and the functions they perform, with details on the
+benefits of one approach compared to another.
+
+Reference:
+http://en.wikipedia.org/wiki/List_of_digital_forensics_tools
+
+© 2021 Robert M. Lee 29
+Order of Volatility
+
+* When performing acquisition through the collection of digital images and
+network traffic, the Order of Volatility should be followed
+The Order of Volatility is a way to describe what evidence is most likely to be
+destroyed first
+The general Order of Volatility is:
+Cache and Register content
+
+Network information (routing tables and ARP cache)
+Memory*
+
+System processes
+
+Temporary filesystem
+
+Data on hard disk
+
+Remotely logged data
+
+Data on archival media
+
+ICS515 | ICS Visibility, Detection, and Response
+
+Order of Volatility (OoV) is a suggested approach to acquiring digital evidence based on how fast certain types of
+evidence decays and loses value. Be flexible; system memory is more volatile than system hard drives, but if an
+important system is about to be destroyed, collect its hard drives before another system's memory. There is an
+enormous amount of forensic data available on systems, and most analysts have no idea where all the sources are or
+how to get to them—it can be overwhelming. Therefore, collecting the data can be one of the most important aspects
+so that others can process it and utilize it later. Respecting the OoV will help ensure that you get everything.
+
+*Memory is often put below most other things in terms of volatile data, but in practice, memory is always the first
+thing to be collected because it has much of the other information (such as network information) inside it.
+
+Reference:
+https://www.sans.org/blog/best-practices-in-digital-evidence-collection/
+
+30 © 2021 Robert M. Lee
+
+30
+
+om m2
+A A ee ee ee
+
+A A
+
+Local Versus Remote Acquisition
+
+(sIt shouldbe)
+performed | __« Certain
+
+whenever _ conditions
+possible | must be met
+
+Local acquisition is Jan justify it
+faster a Se :
+
+ICS515 | ICS Visibility, Detection, and Response
+
+Acquiring evidence from a system (usually in the form of digital images) is vital to on-site and future analysis. In
+normal I'l’ environments, it is common to find that systems have preinstalled software to allow quick digital
+acquisition remotely from a centralized point such as a Security Operations Center. In an ICS, it is uncommon to
+have this level of preparation allowable (but it is doable sometimes). Local acquisition of system information can be
+performed on-site and in person, usually through pretested/preapproved bootable CDs or USBs. Remote acquisition
+of system information is performed across the LAN or WAN (either at a local site or field site).
+
+* Local acquisition is faster and often easier; it should be performed whenever possible
+* Remote acquisition is slow and certain considerations must be met first
+
+© 2021 Robert M. Lee 31
+
+31
+
+Remote System Considerations
+
+Is this action Can the network
+Is the remote
+bandwidth sup)
+tetmesiat be igation? on this and and operations
+
+Then Acquire
+Remote Evidence : : ( pee and.
+
+ICS515 | |CS Visibility, Detection, and Response 32
+
+There are certain considerations that must be considered before performing remote acquisition. For example, in a
+globally distributed ICS, you may have a site in Europe while conducting the investigation in the U.S —there are
+laws that forbid non-EU citizens from collecting that evidence. In that situation, you have to have someone in
+Europe who is a citizen go collect that evidence, even if it’s your company’s systems. Additionally, is the system
+even in scope of the investigation? Because of the time, effort, and some small risk to collecting remote system
+evidence, it needs to be justified. Ultimately you must consider uptime, bandwidth considerations, costs associated
+with data retrieved across systems such as Very Small Aperture Terminals (VSATs), and if the risk is worth the
+reward. Risk is hard to determine without testing ahead of time, which is another strong reason to do preparation and
+practice.
+
+32 © 2021 Robert M. Lee
+
+vv ww w
+
+Tw OOO OT Ow MW wT w
+
+vw @ @ @&
+we Ss we we we ww we we wo WH we WH WY Ww OS BS BS Se BS Se SS we
+
+vy
+
+Remote System Preparation
+
+Pre-position idate the
+vendor : software with
+approved is = operati i
+collection s and test when : cured and
+software possible used properly
+
+ICS515 | ICS Visibility, Detection, and Response
+
+DD and Netcat can go a long way in remote acquisition, but this process can be painful for many analysts. If it's
+possible to position software in advance to do collection, that is preferred - but make sure that there are no
+compliance issues with doing so. It is also important to establish exactly what is needed to determine the impact to
+operations or the network to obtain the evidence. Over the next few slides, we’ll look at a few remote system tools.
+
+Before beginning acquisition, determine exactly what is needed:
+For example, is an image of the HDD required or initially just the memory?
+Remote acquisition will likely take place on networks with minimal bandwidth overhead, so it is important
+to acquire only what is necessary at first and grab more as needed.
+
+ICS environments rarely have remote digital acquisition software installed, so using common lightweight tools is
+preferable:
+The combination of DD and Netcat (discussed in a few slides) is a perfect way to collect a digital image
+across a WAN or LAN, using open source and lightweight tools.
+
+If possible, contact someone at the remote site to monitor the system to ensure no adverse impacts or
+software/hardware failures.
+
+Good maturity is when you are able to pre-position (secure) software to aid in collection.
+
+© 2021 Robert M. Lee 33
+
+33
+
+Local System Methodology
+
+¢ When collecting digital evidence on a local system, ensure that:
+The tools to be used have been tested on identical systems
+Acquisition has been coordinated with all involved personnel
+Use a USB or LiveCD to acquire resources (USB preferred)
+Gather all evidence if time permits (Order of Volatility if not)
+
+Take pictures of the system if a physical breach may have
+occurred
+
+If there is anything on the screen such as command prompts or
+files, take a photo of them and do not close them unless needed
+for operations
+
+All data should be analyzed in an approved facility
+
+ICS515 | ICS Visibility, Detection, and Response
+
+When collecting digital evidence on a local system, ensure that the tools to be used have been tested on identical
+systems in a lab environment. Coordinate acquisition with local engineers or operators, and whenever possible have
+someone present to act as a witness to your actions. Use a USB or LiveCD (discussed in a few slides) to acquire
+resources (preferably a USB if acceptable on-site). Because it is a local system, if you have reason to acquire
+information from the system, gather it all if time permits: For example, get a digital image of the entire system
+including memory, processes, and HDD. Also, if a physical breach of the system could be involved, take pictures of
+the system and how it is wired and configured. Specifically, if there is anything on the screen such as command
+prompts or files, take a photo of them and do not close them unless needed for operations to continue—these could
+be useful to understanding what took place on the system. And remember, all data should be kept on-site with
+nothing leaving the area or at another approved facility—no at-home analysis should take place.
+
+In these next slides, we discuss how to gather the evidence and in the next section, we discuss the value of the
+different types of evidence. (This is partly so that we can start the lab, which can take some time.)
+
+34 © 2021 Robert M. Lee
+
+34
+
+ww w&
+
+TT TT DW WM GW DMD WM WM WD
+
+|
+
+vv 7 UF
+vw wo we © & &F & HS &
+
+ws we
+
+oD ae “se ae td “s ae o ap or ww wy
+
+USBs and LiveCDs
+
+* Because it is difficult, and sometimes not allowable, to preinstall digital imaging
+software, it is highly advised to use clean, approved, and tested USBs or
+LiveCDs
+
+* USBs allow digital imaging software to be run directly from the USB:
+
+* Pros: It allows the incident handler to run the software from the USB instead of installing
+software on the victim machine; Locard's Exchange Principle takes effect, but the executable
+
+is run in memory (lose memory not impact system)
+* Cons: It is a USB and thus may not be allowed; in addition, USBs on a system create new
+Registry key values and can spread infection (if use USB it’s a one-and-done device)
+
+* LiveCDs let you boot a new operating system from system startup without
+installing the operating system or run software from the CD for live system
+analysis:
+
+* Be aware that LiveCDs exist, but they are generally not advisable in an ICS environment
+especially with the more potent option of collecting system memory
+
+ICS515 | ICS Visibility, Detection, and Response
+
+USBs are not always allowable in ICS for good reasons. However, a forensically clean USB can be a great resource
+on an investigation. LiveCDs often have a lot of negative impacts; mostly, they consume a lot of memory on a
+system, which destroys one of the most valuable pieces of evidence.
+
+A SANS whitepaper on pros and cons of using different LiveCDs can be found at http://www.sans.org/reading-
+room/whitepapers/incident/pros-cons-linux-windows-live-cds-incident-handling-forensics-1706.
+
+© 2021 Robert M. Lee 35
+
+38.
+
+Digital Acquisition Software
+
+Redline and Memoryze dd and LiME
+
+* Command line tools for memory ¢ Linux-based command line tools
+¢ Redline cannot do a full disk image ¢ LiMEis memory and dd is full disk
+but also collects some strings/data ¢ Supports local or remote (over
+TCP) collection
+
+Dumplt FTK
+
+* Command line tool for memory * GUI-based tool
+¢ Developed by MoonSols * Extremely easy to utilize
+* Built off of Windows version of dd * FTK can collect full disk or memory
+
+ICS515 | ICS Visibility, Detection, and Response
+
+Although most imaging software can also acquire live system memory (such as FTK Imager Lite), there are specific
+memory acquisition tools:
+
+Tools specifically designed for memory acquisition are best to use when it is certain that the only desired evidence is
+a system's memory. Memory collection tools usually do not possess a GUI and can be interacted only via the
+command line; this ensures minimal memory loss. System memory is one of the richest forms of digital evidence
+with a lot of information that can be gathered quickly; as such, it will be discussed in depth in this section.
+
+Because of testing requirements in ICS, it is often advisable to stick to a single collection tool (for example, FTK
+Imager Lite or Mandiant's Redline suite):
+
+In IT environments, using tools for different scenarios makes sense, but the added overhead in ICS for testing and
+understanding impacts limits feasibility.
+
+Memoryze
+
+Memoryze is another great free Mandiant tool; Chad Tilbury's SANS blog is one of the best resources available on
+how to use Memoryze. In general, it is run from the command line and dumps memory to an output drive (usually a
+USB, but it can be sent across the network with Netcat) for acquisition.
+
+Reference:
+
+https://www.fireeye.com/services/freeware/memoryze.html
+
+SANS Blog by Chad Tilbury: https://www.sans.org/blog/digital-forensics-how-to-memory-analysis-with-mandiant-
+memoryze/
+
+Dumplt
+
+MoonSols made its memory acquisition tool, Dumplt, freely available a few years ago, and it's a great resource built
+on the Windows version for dd. Like Memoryze, though, the tool will work only on Windows systems.
+
+36 © 2021 Robert M. Lee
+
+36
+
+momo. wh wh DH WwW WM WH WM WW WM HH ww w
+
+ww,
+
+ren = @
+es ee ww  & & & & ww
+
+oe
+
+Instructional video from SANS instructor Lenny Zeltser:
+http://www.moonsols.com/201 1/07/18/moonsols-dumpit-goes-mainstream/
+
+LiME
+
+The tools presented so far in this class are heavily weighted toward Windows because those are the tools that have
+been available and heavily tested. However, for Linux systems, the native tool for physical drive logical images is
+dd. For memory in Linux, a great choice is LiME. In older versions of Linux, the dd tool could be used against
+memory because of where it was stored and how it was accessed. Linux has further locked down access to the space
+for protection, making acquisition harder. LiME attempts to work around that.
+
+https://github.com/504ensicsLabs/LiME
+
+dd
+This comes by default on the majority of Linux distributions (such as Ubuntu and Fedora). It is extremely powerful;
+use it correctly or you could wipe out your drive.
+
+The following is sample information on the commands:
+where if = input file, of = output file, bs = byte size
+
+dd if=/dev/sdb1 of=/home/andrew/newimage.dd bs=512 conv=noerror,sync
+where if = input file (or in this case drive), of = output file, bs = byte size, conv = conversion options
+
+The following is a typical command on a Windows system for using an executable version of dd with Netcat to send
+the image across the network:
+dd.exe if=\\.\f: | nc 192.168.154.1 1234
+
+On the target (receiving) machine:
+ne —I —p 1234 | dd <LiveCD name>-<machine OS>_data.img
+
+FTK Imager Lite
+
+FTK Imager Lite is probably the most widely used digital acquisition software. It is free, flexible, and only the bare
+minimum in terms of file size so that it does not negatively impact memory evidence too much. It's useful for
+collecting a wide range of evidence off a machine.
+
+AccessData software is expensive, but FTK Imager Lite is free. Download it as a zip file and extract it toa USB for
+installation (that's it). The guide for using it can be found at: https://www.sans.org/blog/forensics-|01-acquiring-an-
+image-with-ftk-imager/
+
+Network Data
+Utilize the tools and methodologies from Section 2; there is no difference in acquisition for IR and NSM as it relates
+
+to network collection.
+
+Network Security Monitoring personnel should be monitoring network traffic already, but incident response
+personnel should help guide collection efforts of key systems during an incident.
+
+Wireshark for quickly capturing and filtering through network traffic.
+TCPdump for more in-depth and sustained packet capturing.
+
+© 2021 Robert M. Lee 37
+Launching FTK Imager
+
+Application Tools
+
+View Manage
+
+Name
+
+euEncypeon
+
+ESD adencrypt_gui
+
+adfs_globals.dll
+ADIseDLL.dil
+
+adshattrdefs.dil
+boost_date_time-vc100-mt-1_49.dll
+boost_filesystern-vc100-mt-1_49.dll
+boost_regex-ve100-mt-1_49.dil
+boost_system-vc100-mt-1_49.dll
+
+} boost_thread-vcl00-mt-1_49.dll
+
+cximage.dil
+da7zip.dil
+FTK Imager
+icudta4.dil
+icuucd4.dil
+
+IPC » Removable Disk (F:) » Imager_Lite_3.1.1
+
+Date modified
+
+13 PM
+12 PM
+B12 PM
+
+1211:27 PM
+211:30 PM
+21:26 PM
+2:11:36 PM
+
+1
+1
+1
+11:11:15 AM
+
+Bfla/2o12
+
+6/28/2011
+
+Imager_Lite_3]
+
+Type
+
+PPC OUUIT EXLEN Se
+Application
+
+App
+
+Application extens.
+Application extens.
+tien extens...
+Application extens.
+Applicetion extens.
+Application extens
+Applicetion extens.
+Application extens,
+Application
+Application extens...
+
+Application extens...
+
+10,
+14,521 KB
+
+921 KB
+
+After the zip file is extracted onto a USB, you simply connect the USB to a Windows system and run the highlighted
+
+application file.
+
+38
+
+ICS515 | ICS Visibility, Detection, and Response
+
+© 2021 Robert M. Lee
+
+38
+
+ow w
+
+veo 7 7 7 7 Ow Ow OW WO DW
+
+mo @
+
+ow
+
+onmn
+es wv wow wweewwewe #8 & &© & &
+
+Running FTK Imager
+
+Project Edit Configuration — Communications Logs Monitoring Language Help
+"Current Project C:\users\root\Desktop|CYBATI_Labs\HMI\CybetiWorks-1 Trainer
+AccessData FTK Imager 3.1.1.8
+
+?
+e
+i
+i
+53
+
+Add Evidence Item... j { te) ee | 2
+Add alll Attached Devices
+
+Image Mounting...
+
+Jt DER RL@eaa
+
+6 Custom Content Image
+
+Decrypt AD1 image...
+Yerify Drivestm:
+Capture Memory.
+oncceeneneneand
+
+Obtain Protected Files... _a—iieeen—m—nn™
+ee
+
+gi
+
+ICS5I5 | ICS Visibility, Detection, and Response 39
+
+Notice that there is the capability to Create Disk Image (physical hard drives), Capture Memory, and Obtain
+Protected Files.
+
+© 2021 Robert M. Lee 39
+Case Informotion
+Acquired using: A0I3.2.0.0
+
+Manuaily entered
+by examiner at
+time of acquisition
+
+FTK Imoger 3.2 image of cruzer USS disk
+Examiner: 3¥
+Notes: THIS is a ohysicol disk imoge
+
+Informetion for C:\tnagel
+
+Prysical Evidertiary Ite= (Source) Information
+(Device Info}
+Source Type: Phystcal
+
+teers, Se FTK Imager Metadata
+
+Tase per Sytinders 255
+Sectors per Track: 63 E I
+aycee pat ductors aa2 xample
+SOG write momuertaks
+
+Ties fear? Sersian Crase: ene eeilis
+
+Orive Interface Type: USS
+Removable drive: True Cryptographic hashes
+
+Source date size: 7657 We , calculated over data on
+Sector count 15662599 v disk being imaged
+
+(Computed Hashes]
+MOS checksum: 341247 MGoDIDS Ive Te Meteo See I2z
+SMAI checksum:  QlalSeF#l lc@atETSSECTSOATS< "46672 OTROS
+
+Siege Tnorwertves Cryptographic hashes calculated
+Acquisition startes Sun Aug 20 ©9:52°53 204 over data in newly created image.
+Acquisition finished: Sun Aug 1@ ©9:54-B8 2034 Verified means that the hash of
+Segment List:
+co\teeged ant the image matches the hash of
+the source disk. The image is a
+Image Verification Resules Vain identical copy.
+verified
+
+Verification started: Sun Aug 1@ ©9:38:09 ze14
+Vertficotion finiened: Sun Aug 1@ @9:59:38 2016
+
+MOS checksum 341.247 946nd IBS Sac Te So4e36amOe 122
+
+SHAL checksum: SlalGef Si 1ceotG7ESbc#SORFS47496R7I74TIS4 © wert tt
+
+Ref: Sally Vandeven "Forensic Images Viewing Pleasure"; SANS Reading Room
+
+ICS515S | ICSVisibility, Detection,and Response 40
+
+Here's a quick example of the type of information that accompanies a digital acquisition performed by FTK Imager.
+The metadata is helpful for verifying and understanding the context of digital evidence. It has occurred on too many
+incidents in which personnel lose track of where and when the data was collected. Metadata files such as this one
+help with that.
+
+40 © 2021 Robert M. Lee
+
+Se
+
+eo mn
+wo ww w
+
+ww» w
+
+eo @~@ O68 DO HO Ww WD Ww ww Ww
+
+Time-Critical Considerations
+
+As highlighted throughout the day, there is a need in ICS incident
+response to focus on digital acquisition and then timely analysis
+Timely analysis empowers decision makers to understand the scope
+of the problem and make decisions about ICS operations and safety
+
+The safety and operations must outweigh normal incident response
+mindsets and, at times, best practices
+
+Timely analysis is best used incorporating information from Section
+1 and Section 2 (threat intelligence and NSM) and should focus first
+on understanding the scope of the problem and then the type of
+problem
+
+ICS5I5 | ICS Visibility, Detection, and Response
+
+The purpose of time-critical analysis is to understand the scope of the incident and to gather all the relevant forensic
+
+data from identified infected systems. In addition, quick analysis can reveal the type of threat that is being faced and
+
+pass important evidence and threat data to the threat and environment manipulation team. The combination of efforts
+can give decision makers important information regarding whether operations can continue.
+
+Consider the timely response benefits of prequalifying your Incident Response Teams on the required safety
+procedures and training requirements of various facilities.
+
+Using Asset Discovery and NSM in IR
+
+NSM personnel should be considered the scouts for the front-line incident responders. As data is passed back and
+forth to the team, the ACDC cycle speeds to faster and faster cycle iterations. Information becomes streamlined and
+analysis becomes more effective.
+
+A significant portion of time in any incident response investigation is gaining an accurate network diagram and
+identifying critical systems.
+
+The Asset Discovery and NSM phase of ACDC should have these documents mostly updated and ready for use in
+incident response.
+
+Identifying differences in current network traffic and flow data compared to the known maps is an easy way to
+quickly identify threats. :
+
+As incident response efforts uncover more information about the anomalies and threats, this information can be
+passed back to those performing NSM to establish IDS rules and focus efforts on identifying new and reoccurring
+infections:
+
+NSM personnel are in many ways like scouts for the front-line incident responders.
+
+© 2021 Robert M. Lee 41
+Baseline Information, Databases, and Whitelists
+
+ti 3 F ‘ F Collect data from.
+The more baseline information available, the faster Nhe envconiient
+
+incident response will go: ahead ofan
++ Baseline information, such as an asset and software ie ineident
+inventory and network flow data, drastically reduces the
+effort and time needed for incident response
+* Work with the NSM and architecture teams prior to : z
+ensure this baseline exists and is updated Create ee ood
+Having an accessible and safeguarded database of ‘ghee hae bee
+baseline information, digital hashes of installed "ete.
+software in the control environment, is vital ;
+Develop whitelists based off running process, files,
+and applications in the ICS environment Lac inne thee
+Internal whitelists > external whitelists cannot be validated
+. External whitelists are a good starting place but the goal
+should be internalizing the process
+
+should be
+| inspected further
+
+ICS515 | ICS Visibility, Detection, and Response
+
+Baseline information extends past network data to include the files, hashes, topologies, and more, that make up a
+network and its systems. Having access to a safeguarded database can mean drastic reductions in the effort and time
+
+needed by an incident response team.
+
+For many *nix environments, an interesting tool to look at is AIDE. Available on SourceForge, AIDE (Advanced
+Intrusion Detection Environment) is a file and directory integrity checker.
+
+Whitelists in incident response often take the form of files or collections of digital hashes:
+Enables analysts to quickly ignore known-good files and software.
+
+Pre-incident:
+Create and maintain a whitelist of digital hashes to make incident response faster, and to be able to spot evil.
+
+When creating a whitelist, especially for an ICS environment, try to internalize as much of this as possible.
+
+Although WhiteScope and NSRL (discussed in the next slides) can be good resources to get started or supplement
+the effort, realize they cannot represent 100% of what software is in every ICS.
+
+42 © 2021 Robert M. Lee
+
+a
+
+2.) © DT OD Ww ow
+
+o
+ese ese ee ee we Ve ee eeweeet wes w&
+
+ww 4
+
+a @ «a
+
+NSM to IR
+
+What could
+
+Identify. what Have cared
+
+was found in
+
+that network
+eons activity?
+
+Scanning on
+Beaconing out? the network?
+Look for IPs or Look for
+domains on the processes
+host. communicating
+on the network.
+
+ICS515 | ICS Visibility, Detection, and Response
+
+When you’re looking into the host, start with what you found during NSM. Is there a malicious scan taking place?
+Then there is a process on that system that’s communicating with the network that can be found. Find the process
+and you can uncover what initiated it. What the user did, what the infection vector was, and so on. Have a starting
+place and then pull on the string to uncover related activity and malicious activity.
+
+Once you identify a starting place, it is important to develop a timeline of activities. Search along your timeline of
+activities (with consideration to the kill chain model briefed in Section 1) what the adversary would have done
+before or after that abnormal activity appeared. If it’s a malicious process, then at some point something was
+installed onto the system. If it was installed, then something exploited the system at some point, or exploited
+someone via social engineering. At some point it was delivered into the environment,
+
+© 2021 Robert M. Lee
+
+43
+
+a
+
+Using Threat Intelligence in IR
+
+CC 7
+' ¢ Quickly assess
+
+systems after
+cleanup
+
+Utilize to
+ensure
+threats are
+gone after
+IR
+
+TTIPs to
+identify”
+adversary
+efforts
+
+|
+
+| « Understand where
+| threats would
+
+| target and how
+
+_ they’d do it
+
++ Assess priority
+systems first and
+validate as many
+as possible
+
++ Pass observed |
+host data related
+to network to
+NSM folks
+
+ICS515 | ICS Visibility, Detection, and Response
+
+Incident response is where we see the ACDC model start to come to life. The information from NSM triggers
+
+incident response and acts as scouts during the incident. Threat intelligence enables quick scoping and searching for
+threats in the environment. It also leads to NSM rules being developed to assist incident response. It's a self-feeding
+
+cycle to ensure the threat is completely identified and responded to. IOCs are a great way for tactical threat
+intelligence to become actionable for incident responders. IOC development is done in Section 4, but the ability to
+
+use IOCs is most certainly an incident response type function.
+
+Good threat intelligence should include IOCs for tactical use:
+
+Often used by NSM in the designing and implementing of IDS signatures
+Useful for system-level analysis; IOCs provide the ultimate quick analysis
+
+Threat intelligence consumption personnel should look for 1OCs from the internal Threat and Environment
+Manipulation folks, and from the external sources of threat intelligence and threat feeds:
+
+Work closely with those using threat intelligence to get IOCs and context to answer questions such as, "How serious
+
+of a threat is the IOC if it comes back positive?"
+
+Network-based IOCs, such as IP addresses and flow data are best used by NSM personnel, whereas System IOCs
+such as digital hashes of malicious software can be used in YARA rules and tools such as Mandiant's Redline.
+
+44 © 2021 Robert M. Lee
+
+44
+
+oem? m mom @ OM DO @ &
+
+oOo @ @® © Dw
+
+oo mm &
+
+a.
+
+a
+a
+
+w ww wwe wwe wwe & we & &
+
+se wv vw vs vs vw w&
+
+Incident Response Example: Mariposa Botnet
+
++ October 2012 Power Company infected
+
+1 ¢ * Mariposa botnet on turbine control network
+
+‘Responds ° 10 computers compromised; CERT sent guide
+
+ae
+
+¢ Registry key analysis identified original USB
+* Identifying USB helped scope the infection
+¢ Guide outsourced to IT company w/o ICS experience ,
+
+* Three weeks of downtime for infected systems
+* Could have been much more serious impact
+
+ICS515 | ICS Visibility, Detection, and Response
+
+As a last case study, the Mariposa Botnet gives a good example of "traditional" IT malware ending up in an ICS
+environment. The team took a great approach of reaching out to the ICS-CERT for help, but the issue creates a three-
+week delay in the plant restart. In addition, the initial infection vector was a USB used by a technician and could
+have been avoided. When the malware began scanning for systems to compromise, an NSM team would have seen
+this and pointed the incident response personnel in the right direction to hunt and eliminate the malware. If the
+malware is well known and it appears to be an accidental infection, it's entirely okay to not go through a full incident
+response scenario. NSM to cleanup is appropriate but must be decided beforehand with requirements and thresholds
+of response.
+
+© 2021 Robert M. Lee 45
+
+45
+
+SR A NL EI NT AU SE IE OT ETI I
+
+Lab 4.1
+Acquisition in an Operational Environment
+
+ICS515 | |CSVisibility, Detection,and Response 46
+
+This page intentionally left blank.
+
+46 © 2021 Robert M. Lee
+
+7mm © OM OOM OO OO -
+
+®
+
+Tee? ® ®
+
+7
+ow wvewewe we &
+
+wo oo ww
+
+wp 4D
+
+“ws us on) «p “ww «“p ws SF PP wp
+
+“ow
+
+Preparing an ICS Incident
+Response Team
+
+Determining Requirements
+Determining Dependencies
+Team Development
+
+In-House Versus Outsourced
+Building Your Lab
+
+Forensic Platforms
+
+Incident Response Best Practices
+
+ICS$515 | ICS Visibility, Detection, and Response
+
+1CS410 covered the high-level incident response discussion, but there are some points worth stressing. This is a
+relatively short section but provides some high-level advice that is important to keep in mind when building and
+maintaining an incident response team.
+
+© 2021 Robert M. Lee
+
+47
+
+a7
+
+Determining Requirements and Dependencies
+
+* What are your requirements for uptime, availability of specific systems, etc.
+
+* These drive what your incident response posturing should look like
+
+* Determine dependencies by asking management and the on-site personnel
+"what happens if" and "who is responsible for’—for example:
+
+¢ "What happens if this facility goes down completely?”
+
+* "Who is responsible for public safety if there is an incident?"
+
+* "What happens if that SIS goes offline?"
+
+* Dependencies can impact both the impacted site and non-impacted sites:
+
+* Determine dependencies of on-site infrastructure such as a Data Historian's
+impact on the process if it goes offline (even if the answer is none, document
+that)
+
+* Be good neighbors by determining the requirements of connected
+infrastructure - whether it is logically or physically impacted by operation
+downtime or breaches
+
+ICS515 | ICSVisibility, Detection,and Response 48
+
+Dependencies for an ICS can range from insignificant to nationally important. Whatever the dependencies are for
+your organization, make sure you identify them, account for them, and let them know you have done so. For
+example, if there is infrastructure depending on yours at sites not managed by your organization, it is important for
+them to know what you need from them in an incident or what you are going to do so that they can plan as well.
+Dependencies can also be regulation-related or vendor-specific. The requirements for your incident response team
+determines how it is developed, with what it is equipped, how it plans and trains, and ultimately what responsibility it
+has.
+
+Be mindful of state and federal laws as well as regulations regarding data loss, ICS compromise, and more:
+For example, Energy sector asset owners have mandatory incident reporting requirements under NERC
+CIPv5.
+
+Incident response is an important aspect of business and ICS operations:
+Involve senior management and determine their requirements, including acceptable downtime, whether they
+want to fund an internal team or outsource, and what is expected of on-site personnel versus the vendors,
+the government, and private industry.
+
+The rest of the day will operate under the assumption that there will be an on-site incident response team for
+collection and initial analysis:
+A full incident response team that can handle incidents from start to finish is a great resource to have but
+often too costly for most organizations.
+
+Make Contact with PoCs
+
+You need to reach out to various PoCs at organizations that might be contacted during an incident. These are not
+limited to dependencies but might include an ISAC to share information with the FBI for investigations that might be
+of a nation-state or criminal origin, fire/police/medical emergency response personnel, and so on. Fire/police/medical
+personnel might already be accounted for in an overall incident plan regardless of whether the incident is digital.
+Therefore, run this information by the overall incident coordinator for your organization and make sure efforts aren't
+needlessly doubled.
+
+48 © 2021 Robert M. Lee
+
+no - @~- ©
+
+na @
+
+o7m@om?@eo @mm@® @® @®
+
+> @®
+
+@@ @®
+wows &
+
+owe we we wa ww
+
+soso we we ws '§& 8 © SS ww
+
+od
+
+In-House Versus Outsourced
+
+¢ There are many advantages to performing in-house incident response:
+* Consistent access to and trust in the personnel involved
++ Ability to tailor plans and training to fit requirements
++ Intricate knowledge of the highly unique configuration/setup of the ICS
+* There are also advantages of outsourcing incident response:
+* Hire competent incident response personnel with extensive investigation experience
+* Temporary costs instead of cost of maintaining personnel and training on-site
+* Outside perspectives help avoid group think and narrow views on investigations
+* Suggestion:
+Build an in-house incident response team if it meets requirements but have at least one
+person acting as a Lead Responder to maintain knowledge and help guide others
+Regardless of the type of in-house team that is established, have a set threshold of when,
+who, and how to call outsourced help
+Have a plan worked out to hire consultant-type help occasionally to cross-examine
+
+ICS515 | ICS Visibility, Detection,and Response «9
+
+There are scenarios in which an all in-house incident response team makes sense, and there are scenarios in which it
+makes sense to have only a single person on staff who's responsible for incident response to coordinate an
+outsourced team when needed. The general suggestion is at a minimum have that one person act as the lead
+responder and maintain knowledge of the systems. This person will be vital to guiding the outsourced team. An in-
+house team generally has better knowledge of the systems and is of greater value to incident response, but
+outsourced teams can often hire and retain more trained and experienced personnel. That is, there is no right answer;
+just make sure to know what choice is being made and why.
+
+© 2021 Robert M. Lee 49
+Right Sizing Your Team
+
+¢ Itis not the size of your team but the quality that matters most:
++ 3-4 well-trained incident responders can effectively cover a large ICS
+
+1—2 personnel will act as
+Lead Responder and Director
+
+To have 3-4 on-site 2 personnel could be out Usually requires 8-10
+
+incident responders “sick, fired, or otherwise
+
+unavailable when needed personnel
+
+available
+
+Incident response usually
+requires 12-20 hour days;
+therefore, 2 shifts are advised
+
+ICS515 | ICS Visibility, Detection, and Response so
+
+Even just a few people can make a huge difference during an incident. Three-to-four well-trained incident
+responders can effectively cover a large ICS and pass needed information to the Lead Responder; however, you will
+not always have those people. There should always be at least one full-time incident response person whereas others
+might have incident response as their additional duty. This encourages them to have experience in other aspects of
+the ICS, When an incident occurs, they must be 100 percent dedicated to incident response. There will be no ability
+for them to reliably and sanely contribute to other work teams. That is, there will have to be backfills on those other
+teams for them. To help alleviate issues and to make things work more effectively, consider moving to an integrated
+Security Operations Center (SOC) model if your organization is ready.
+
+50 © 2021 Robert M. Lee
+
+> >
+
+>> wm
+
+Pm OO OP OO OO OO ©
+
+7? ® ®
+vows wvoweweweetss & &
+
+eo es FS wy ow
+
+wo
+
+Ss FS wD
+
+Chain of Command
+
+Incident Response
+Director
+
+« Interfaces with
+Lead Responder management/PoCs
+
+¢ Response for all + Pre-incident focus
+
+. handlers point
+Evidence and + Guides personnel,
+
+Incident Handlers triage, timeline,
+maintains situational
+
+¢ Acquire evidence, awarEnees
+
+scope infection, timely
+analysis
+
+ICS515 | ICS Visibility, Detection, and Response
+
+There must be a clear chain of command for any incident. Generally, it is best practice to have an incident response
+director who mostly prepares information for management-level personnel and/or interfaces with the public. The
+lead responder should be focused on the investigation and maintaining/running the team. The evidence or incident
+handlers are the individuals executing the plan.
+
+Incident Response Director:
+
+Interfaces with management and PoCs at other organizations.
+
+Majority of the work by this position is pre-incident in establishing and maintaining the team.
+Lead Responder:
+
+Responsible for all the evidence/incident handlers and implements the plan.
+
+Guides personnel, triage efforts, timeline of events, maintains situational awareness, and so on.
+Evidence/Incident Handlers:
+
+Responsible for carrying out the plan including acquiring digital evidence, containing/cleaning
+
+authorized and infected systems, performing timely analysis to determine the scope of response
+
+and informing Lead Responder of needs.
+
+Use the Chain Up and Down
+
+The chain of command works both ways; personnel contacting management or management contacting personnel
+(inside or outside the organization) must be corrected and informed of the appropriate behavior for the situation.
+Failure to do so creates confusion and ensures critical information will be missed. Oftentimes, inexperienced but
+technically sharp analysts will want to communicate more quickly with decision makers outside the team or just be
+excited to try and help. But all communications need to come through the IR Director.
+
+Sharp personnel who are well known by management will often be contacted directly by people outside of the IR
+efforts for information:
+
+Outside of direct technical analysis and assistance, this cannot work.
+Ensure that everyone outside of the IR effort (on-site or off) goes through the incident response lead for any
+of their needs and updates.
+
+© 2021 Robert M. Lee 51
+
+s1
+
+All personnel on the IR effort should go through the incident response Lead to communicate to management as well.
+This includes offsite personnel providing support.
+
+The Chain of Command works both ways.
+
+52 © 2021 Robert M. Lee
+
+oe
+
+oo ® @ ® DM ®M WM ® wD ©) wD w ww
+
+aaogeeeemeeew @® ®
+vouvweuwvwsev#sewsewvswesteee & & WW
+
+ov VF HF KF KH KH HH YD
+
+Finding Appropriate Personnel
+
+¢ Finding incident response trained personnel is good, but be sure to include people who
+have various ICS experiences
+« Engineers, operators,
+IT infrastructure
+personnel, etc.
+
+* Ensure that your . a:
+Have patience Are willing to ask
+personnel: and can follow a for help when
+
+plan/checklist needed
+
+Work well in
+- Have strong
+team and high- phee
+stress communication
+
+environments skills
+
+ICS515 | ICS Visibility, Detection,and Response 53
+
+Specially trained incident response personnel are always great to have. People with formal education or training
+backgrounds in IR can be of great value in both practicing sound methodologies and bringing good perspective on
+industry best practices. However, personnel who start in another field such as an engineer, integrator, or operator
+generally bring a high level of systems knowledge that is extremely important to ICS incident response. There is no
+single "perfect candidate" mold to choose from. Instead, focus on finding personnel who are patient, can work well
+with a team under high pressure, and are willing to say, "I don't know." It is important to include people on the team
+that have had experience in the ICS in some aspect so that they understand the big picture, understand some of the
+system oddities, and have credibility that they can leverage when needed during IR. Many scenarios in incident
+response occur where there's not going to be a clear answer—the last thing needed is an "expert" who acts when
+uncertain.
+
+The team should be diverse to avoid group-think and narrow-viewed focus areas (for example, someone who is
+
+experienced with Data Historians will likely value the forensic value of those higher than someone who has worked
+extensively on HMIs).
+
+© 2021 Robert M. Lee 53
+Jump Kit Necessities
+
+Good tools are important for incident response; good analysts are vital.
+One well-trained incident responder can help guide and lead a full team.
+Always choose training over tools, but ensure you have the right tools in your “jump kit”:
+
+Digital imaging/acquisition tools (such as forensically clean USB with acquisition software)
+Network hub or tap that can support the expected network throughput
+Network cables and converters (USB to Serial)
+
+Multiple 1-3 TB hard drives to store digital images and network traffic
+Blank CDs for when USBs are not allowed
+
+Clean laptop with approved scripts and software for timely analysis
+Camera to take pictures of scenes with physical tampering
+
+Plastic antistatic bags, labels, and a page numbered notebook
+
+Checklist with defined procedures, thresholds, and contact roster
+Personal Protection Equipment
+
+Out-of-band communication methods such as radios
+
+ICS515 | ICSVisibility, Detection, and Response — 4
+
+The necessities of a jump kit vary from facility to facility based on requirements. However, it's always a good idea to
+include storage mediums such as hard drives and USBs, network taps, a digital camera, various network cables,
+safety equipment such as hard hats, various cables, screwdrivers, power strips, flashlights, and checklists. The
+checklists are going to be important when the incident starts; they provide a sound and reliable way to ensure
+everyone is on the same page. Consider a quarterly review of the inventory in your Jump Kit; oftentimes, items may
+be "borrowed".
+
+Reference:
+https://isc.sans.edu/diary/Day+4+-+Preparation%3A++ What+ GoestInto+a+Response+ Kit/5 125
+
+Training Over Tools
+
+Tools make analysts better, but tools do not replace analysts and training. Having focused and dedicated analysts
+who have experience with the tools they are using. as well as an understanding of why they are using those tools and
+what exactly those tools do, is critical to incident response. Also, be sure to have an understanding from legal on
+chain of custody and admissible evidence, as well as state-to-state differences on inculpatory vs. exculpatory
+evidence data (data that is favorable to the prosecution vs. defendant respectively). Training can be formal such as
+SANS classes, or informal such as in-house table-top exercises, infecting a lab network with "malware" for people to
+respond to, or industry exercises such as NERC's GridEx.
+
+Building Your Lab
+
+Incident response personnel need a lab to test their tools and try their training. Just as emergency response
+firefighters often have courses where they run through scenarios and compete against each other, a lab environment
+can be incredibly beneficial to ensuring incident response team members are ready for the fight. In this section, we
+discuss making a safe virtual lab for malware analysis. It is perfectly acceptable to use the same lab for training.
+However, a dedicated lab for incident response personnel that is not in any way impacted with malware for training
+will be required during an incident. Personnel need to come back to a distraction-free environment to perform the
+timely analysis needed on acquired evidence.
+
+54 © 2021 Robert M. Lee
+
+we
+
+or vo © ww
+
+omnmnmnmnenmmn wm © © © ® © ® @
+
+wm @
+
+wv
+se wepoewwwws ww woe & & WwW
+
+ww ww ww
+
+2
+
+=)
+
+=)
+=)
+
+=]
+
+A lab is required for incident response so that tools can be tested and validated to work effectively in the ICS
+environment.
+
+The lab should, at a minimum, include:
+A few workstations with the identical configurations and software as those in the ICS.
+Hardware connected to the "lab network" mimicking the ICS.
+Off-network computer that will act as the Incident Responder's workstation.
+Managed switch to collect and understand normal network traffic.
+
+Virtual machines are a great cost-effective way to replicate systems that are otherwise too costly or difficult to
+implement in a lab.
+
+Building a lab can provide a place to test incident responders' skills, while showcasing to management competence
+and a proven plan.
+
+A few off-network computers should be prepared for a test lab.
+These computers will be used in the event of an incident for timely analysis.
+
+© 2021 Robert M. Lee 55
+The last place to test
+commands is on the ICS.
+
+fal f
+9
+
+wMICc
+
+REG
+
+FOR
+FINDSTR
+FIND
+WEVTUTIL
+
+Script out your actions
+and test them beforehand
+whenever possible.
+
+ae
+
+ETS SG
+Vege
+
+FRR AgG
+
+SCHTASKS
+BITSADMIN
+DRIVERQUERY,
+TREE
+
+DIR
+
+ASSOC
+
+FTYPE
+NETSTAT
+DOSKEY, [=<]
+
+Sjooy aylvads-anpoyy pve,
+
+RAV ATIG) PRGVGGR VIGg gy:
+AG RVVVG) |VRRL Vey PVA
+ARN VIV UGG TVG AT OPI Vag gay
+
+QS RS NS/8 RR Teg ee
+B88) GRP GV ggg e\ a g9)
+
+BRR ARs
+
+* Note: OS version requires installation of additional command-line utility package
+
+Ref: Nicholas Carr
+
+ICS515 | ICS Visibility, Detection, and Response s+
+
+Most of what is done on an information system for timely analysis or acquisition can be scripted. There are many
+systems where scripts will not be impacted but attempt to automate as much of the process as possible. Automation
+allows the steps to be testable and repeatable with confidence. It also ensures that analysts do not fat-finger any
+commands during a high- tension time and environment. There are no right answers in terms of what scripting
+language is best, but Perl, Ruby, and Python have been used extensively throughout the DFIR community.
+
+The last place to develop and implement scripts (Python, Ruby, etc.) is on-scene during an investigation.
+Most of the actions that need to be taken in an ICS environment use native tools (such as WMIC to enumerate a
+system or netstat to identify open ports and processes) that can be scripted and automated:
+Having scripts ready reduces analyst errors and "fat fingering" while encouraging analysts to prepare ahead
+of time and test their tools.
+
+All incident response engagements have oddities and events that were not planned for, but a significant portion of the
+activities undertaken on a target system can be scripted, automated, and practiced ahead of time.
+Scripting language preference comes after "politics and religion" for things that should not be discussed:
+
+However, be aware that there are a large number of incident response Ruby scripts.
+
+Nicholas Carr put out a great Naval Postgraduate School thesis paper on incident response in ICS environments.
+Here is a table he created showing native tools across different versions of Windows. This is a great resource for
+developing quick scripts with tools in a diverse environment. The takeaway is not a discussion or understanding of
+every tool available on this slide—the takeaway is understanding that some of your favorite scripts and tools may not
+be available on older Windows systems—be sure to validate and understand what is available before going on-site
+and before the incident.
+
+Reference:
+14Jun_Carr_Nicholas.pdf
+
+56 © 2021 Robert M. Lee
+
+oOo mf OM . OM DO wh ww
+
+rTP Pf OP PP OP Oe Ow ww
+
+v7Teg’ & ®
+eww wowwewew WwW
+
+ap
+
+wo 8 8
+
+* Just as there must be an incident response lead, there must be a "war room" where operations
+are centralized and monitored:
+Ensure that the War Room has whiteboards, cell reception, proper heating/cooling depending
+
+on the time of year, and is segmented off:
+* Normal operations personnel should not be walking through a War Room
+
+ICS515 | ICS Visibility, Detection, and Response
+
+A War Room is the central operations center for the incident response activities. It can get loud, it can be tense, and
+there are a lot of people who are often interested in knowing what is going on. Kick out people who do not need to
+be there, and do not let analysts do work in the War Room for analysis of the systems' acquired evidence. Consider
+this the SCADA system of the incident response field activities. Any forensic analysis should be performed away
+from the War Room. It can get hectic answering questions from management, contacting PoCs, updating timelines
+and patterns, charting the scope of the infection on network diagrams on the walls, etc. It’s no place for technical
+analysis to get done.
+
+Image reference:
+Star Wars
+
+© 2021 Robert M. Lee 57
+
+s7
+
+Prepare, Prepare, Prepare
+
+The significant bulk of work for incident response should take place in the preparation phase
+Work with architecture folks to make sure logging is taking place wherever possible and that
+network capture points are available
+
+Factor in motivation and keeping your folks happy and compensated
+
+by Robert M. Lee and Jeff Haas
+
+THING T SHOULO
+DO FOR INCIOENT s YOUR ENVICONMENT
+< DURING AN INCIDENT,
+
+ICS515 | ICS Visibility, Detection,and Response 8
+
+Incident response practices will change from ICS to ICS, based on requirements, unique systems and configurations,
+and so on. For these reasons and others, it is vital to prepare ahead of time. It's been stressed throughout this section,
+but it cannot be overstated: prepare, prepare, prepare. Most incident response scenarios that run into complications
+can attribute it to a lack of preparation. This is the part of incident response that isn't as "fun‘,, so it tends to be
+overlooked. But it is the single most important part of the investigation.
+
+As an example, those performing NSM should already be working with the architecture teams to ensure logging is
+taking place. These logs are invaluable during incident response. Make contact, ensure that they are, and have a plan
+to work with them in the event of an incident. The integrated response is the most effective one.
+
+In ICS environments, you will also have some unique opportunities for logs, such as syslog on various PLCs or
+RTUs. Collecting those are often the only insight into field equipment you will have.
+
+Motivation and Compensation
+
+Remember to appropriately compensate those working on incident response and take actions to keep morale high.
+Pizzas and nonalcoholic beverages go a long way for both morale and energy. Nonalcoholic beverages might be an
+obvious choice, but in case it is not, it should be stressed: Don't drink on the case...ever.
+
+Whether personnel are assigned to an incident response team full-time or as an additional duty, when an incident
+occurs, they must be 100% full-time incident response:
+
+For example, have plans to backfill people in the team they were taken from if incident response is an additional duty
+for them.
+
+Have a plan to rotate and compensate your people throughout the day; incident response routinely takes months.
+
+Long hours are normal, panama schedules (12 hours on/12 hours off for 3 days on, 2 days off, 2 days on, and then 3
+days off) are an accepted standard.
+
+58 © 2021 Robert M. Lee
+
+> wD ow
+
+wo ww
+
+ron nnn m7 7 OO OM OD wD w wD
+
+oe wm
+
+e
+wow wewewweet ws & &
+
+wo a
+
+eo w wwwewowes §&§ & §& SF &
+
+Set strict cutoff times where personnel must go home and rest after a set amount of hours (after 12-16 hours on duty,
+there is nothing the individual can contribute).
+
+Compensate with food, snacks, future time off, bonus pay, and so on.
+
+Motivation can get low if incident response does not appear to be going well; it is a long uphill battle and is tiring:
+
+Be attentive and creative regarding morale.
+
+© 2021 Robert M. Lee 59
+Defensible Cyber Position During Incident Response
+
+Disable Limit or disable
+currently remote
+unused features connections
+
+Additional
+Disconnect security
+Internet access 77™ protocols for
+Defensible staff
+Cyber
+Position
+
+ICS515 | ICS Visibility, Detection, and Response
+
+Every organization should be able to get itself into a defensible position during an incident response scenario.
+Depending on the severity of the incident, the perceived threat group or capability, and the tolerance of change for
+the organization, the defensible cyber position will vary greatly. Four good recommendations to achieve would be
+the ability to disconnect Internet access (that means through proxies and forwarders as well), disable currently
+unused features such as Remote Desktop Assistance, limiting or disabling remote connections (even for vendors and
+maintenance personnel), and additional security protocols for staff including two-form authentication or changing
+passwords even if everyone utilizes the same passwords (passing out information to operators and even having
+passwords on sticky notes for everyone is not a bad idea if the target is a remote adversary).
+
+Ensure that this is all rehearsed, so that your actions do not do more damage than the adversary.
+
+This defensible cyber position will allow incident responders to more quickly identify the incident, scope the
+affected areas, and limit the impact to the organization.
+
+60 © 2021 Robert M. Lee
+
+oo oo @
+
+o wm
+
+LY
+
+om 7 © OM @
+
+Tn PD ® ®
+
+oaeagwm ®
+wuwewesweweweweew ©
+
+=)
+
+Something will always go unexpectedly.
+
+Things will go wrong.
+
+Preparation and training efforts may have seemed inadequate (maybe they
+were), but there is always a way forward.
+
+Doing "something" is typically better than nothing; nothing is the standard for
+
+digital investigations in ICS environments and that must be changed.
+Ensure OT understanding of threat.
+Take pride and enjoy the ride.
+
+ICS515 | ICS Visibility, Detection, and Response 63
+
+Most important, take a page from the Hitchhiker's Guide to the Galaxy and don't panic. A well-implemented plan
+can help, but things will always go wrong or unexpectedly. That's fine. As long as professionalism is retained, the
+incident response personnel will contribute to a better state of security than before they arrived. It will all be all right,
+even when it seems the most tense.
+
+© 2021 Robert M. Lee 61
+Incident Response Example: Venezuela Marine Terminal
+
+“« Marine terminal in Venezuela in 2003
+eae Adversary gained access to SCADA network
+vee. © Manipulated PLCs connect to oil tanker
+
+¢ Adversary attempted to ransom control
+* Took PLC logic and cleared systems
+
++ PLC logic already vaulted
+_ + Disconnected network access
+e Re-loaded Logic from backups and avoided ransom ;
+
+ICSSI5 | ICS Visibility, Detection,and Response
+
+This is another little-known incident that occurred in which it is highly likely a Venezuelan marine terminal was
+impacted by a remote adversary during a workers’ strike. The adversary gained access to the SCADA network and
+essentially tried to lock out the facility's personnel, supposedly demanding a ransom to "release control." The
+Venezuelan personnel's response was to go to the PLCs and restore the logic while searching the network for the
+attack vector and eliminating it. The impact was a delay for eight hours but hardly a long incident response case and
+hardly a serious impact. Incident response scenarios usually take far longer, and this scenario was likely not the work
+of an extremely talented adversary or targeted threat.
+
+62 © 2021 Robert M. Lee
+
+®
+
+nO PO OOO DH DM OH
+
+o @@® Wm Ww
+
+oo @ &
+svvwvwsgeg8seodgseegpvw+evws#b#kewsewwew#sew#s#wsew wee &©& oe & & &
+
+Lab 4.2
+Logic Analysis and Reset
+
+ICS515 | ICS Visibility, Detection,and Response
+
+This page intentionally left blank.
+
+© 2021 Robert M. Lee
+
+63
+Course Scenario Goals (2)
+
+* C3PO
+
+* What Register was manipulated with what value?
+
+DS51 with a 1 which allowed the PLC to remotely operate and freeze out the
+HMI
+
+ICS515 | ICS Visibility, Detection, and Response
+
+This page intentionally left blank.
+
+64 © 2021 Robert M. Lee
+
+64
+
+wo w
+
+rneomrmnaaonn eon mr 7 TP OM OD OW DM OD OM W
+
+we @ @
+oo ow ow wo ww FS wow weoeewoeeeoe8&ewe8&w#sww#w#ewwe &@ BH WwW
+
+as
+
+Course Scenario Goals (3)
+
+¢ Calistoga Refinery
+AThatare-thename
+
+* What is the malicious routine in the logic and what does it do?
+* What is the root cause of the attack?
+* Is the incident connected to C3PO’s incident?
+
+¢ C3PO:
+
+—Gresica-opelgyetinecontzel nebvect
+Whatict lei : neHM
+
+* What malicious file executed on the HMI and when?
+
+ICS515 | ICS Visibility, Detection, and Response
+
+This page intentionally left blank.
+
+© 2021 Robert M. Lee 65
+j2 and J3 Wire Map
+
+Gen Breaker Open PB.
+Gen Breaker Close PB
+
+Trans Breaker Open P3
+Trans Breaker Close PB
+@ND
+
+Protection Relay Fault Light
+Trans Breaker Open Light
+Gen Breaker Open Light
+
+OoOoOO oo00
+
+Interconnect Status Light
+
+Distribution Residential Pot
+
+oo
+
+Distribution Industrial Pot
+
+BARI
+
+Ground
+
+Display’
+
+Generation Bar Graph
+
+Industrial Output % Meter
+
+ICS515 | ICS Visibility, Detection, and Response
+
+For this physical process, the point mapping can be seen here for wiring to the main control module.
+
+66
+
+© 2021 Robert M. Lee
+
+66
+
+no @
+
+TP OO OM OW DM OH WD
+
+enn @
+
+rn rn re
+
+ouvuvwesesveeewswebsuve
+
+w 9876543274
+
+Click Digital In /
+Relay Output
+CO-O8CDR
+
+GND
+
+Trans Protection Relay Fault PB
+
+Trans Protection Relay Clear Fault PB
+
+Dist Circuit Reclosure Open PB
+
+Dist Circuit Reclosure Close PB
+
+House 1 Light
+
+House 2 Light
+
+House 3 Light
+
+Factory Power Available
+
+ICS515 | ICS Visibility, Detection, and Response
+
+For this physical process, the point mapping can be seen here for wiring to the Digital Input / Relay Output module.
+
+© 2021 Robert M. Lee
+
+67
+
+67
+
+Complex Systems Req
+
+HMI Data
+Point
+
+Logical
+Analysis
+
+Operator
+Workstation
+
+Asset
+Detection
+
+Operator
+Action
+
+Physical
+Observation
+
+re Diverse Response Capabilities
+
+Front End Comm System Field RTU
+
+Tag List Point Map Mapping Terminal Map
+
+. System
+Display Front Ends
+Database
+
+ie 46 SCADA Network
+Sze Cémmunications mare
+
+Field Device
+Action
+
+1CS515 | ICS Visibility, Detection, and Response — 6s
+
+Examining each of the areas, starting with the physical elements and interviewing an operator to understand what
+they are seeing, and examining what is actually occurring in the field can help provide some context on where to
+focus next. As you move up to examine the various system assets, try and identify where the issue may be occurring.
+Look at each of the logical elements to identify what is creating the suspicious event.
+
+68
+
+68
+© 2021 Robert M. Lee
+
+sa’
+wouvudbssvebsbbb & b&b &
+
+we
+
+PLC Data and Memory Types
+
+[Te ascrte np pits ace mse Dy me" ymdo
+
+[Mh Disc Outpt pots af sprsortas by De *Y it,
+
+-32,768 to 32,767
+
+2,147,483 648 to 2,147,483,647
+
+~3.4028235E+38 to 340282356438
+
+0000h to FFFFH
+(The HEX data type requires the “h’ after the value.)
+Single ASCIi character
+| emma ASCE C008 OO HO FPR soanainmnnincil
+ASCII code $00 to SFF
+(The ASCII Code data type requires the ‘S’ before the value.)
+
+he snore Seton Gone
+fil gelieliociahideiaiiemall
+
+nieve
+
+Sse
+
+fm ue fais minty tO" atin
+pari t
+
+[ED Reine eps peste te 0" abt coe
+ising et
+
+cing fers kama Ya 18 tar
+
+B Dosis tie
+
+ie el ne 5 op
+Tl esta Spee Be Roce pnomaay spb
+
+These items shown are specific to the CLICK PLC, but other ICS devices will have similar capabilities available to
+
+engineers who are programming the devices for their specific purpose.
+
+© 2021 Robert M. Lee
+
+69
+
+69
+
+Exercise 4.2 Read Out
+
+“Appeared to be an HMI problem
+
+Action that caused it could have occurred months azo in the field and forgotten about as a potential
+contributing event
+Changing or specific system dynamics triggered the event when most impactful — winter, low generation
+
+ICS515 | |CSVisibility, Detection,and Response 7°
+
+This particular attack and others examined throughout this course can be rather difficult to identify in the field if you
+are not using OT specific visibility, detection, and response approaches. Troubleshooting only at the controller using
+only native tools would have led this to be a “near miss” event that likely would have never been fully diagnosed or
+
+resolved.
+
+70 © 2021 Robert M. Lee
+
+es @) es
+
+w A a
+
+7 DM DM DM DH w
+
+7m ® ® OM ® ®
+
+eee
+
+vu dees ese bv &
+
+Case Study - ELECTRUM
+and CRASHOVERRIDE
+
+Ukraine 2016 Electric System Cyber Attack
+
+ICS515 | [CSVisibility, Detection,and Response 71
+
+This page intentionally left blank.
+
+© 2021 Robert M. Lee
+ian Power Outage
+
+December 17, 2016
+4 23:53 Local Time:
+
+Ukrenergo substation de-energizes
+Resulted in outage for service area
+Utility transferred into manual mode
+Began restoring power in 30 minutes
+
+ICS515 | [CS Visibility, Detection, and Response 72
+
+On December 17, 2016, the second-ever cyber-attack to take down operations in a power grid occurred in Ukraine,
+again. This time only 1 substation was impacted but it was a Transmission level substation which resulted in 3x the
+power loss of the 2015 attack, although less people were impacted, and power restoration began as quickly as 30
+minutes after the attack.
+
+72 © 2021 Robert M. Lee
+
+vo DD Oo @
+
+OP PP Oe OD PP DM PD MD w
+
+?@?@® ®
+
+el
+
+o ®
+
+q
+w
+
+uw wewewewewiuw
+
+565 6 FEE YE
+
+—]
+
+ELEC ’s ICS Cyber Kill Chain
+
+ELECTRUM (Activity Group)
+
+¢ Stage | Activity in IT network remains unknown
+* “Act” Phase of Stage 1 was occurring at least as
+early as October 2016.
+* Created attacker-controlled accounts in the
+
+environment for “living on the land”.
+¢ IT data historian accessed on December 12.
+¢ IT data historian provided access to OT.
+
+* Stage 2 “Develop” phase included use of SQL
+commands, Mimikatz, and PowerShell to gain
+information and develop knowledge. Phase also
+included development of CRASHOVERRIDE.
+
+ICS515 | ICS Visibility, Detection, and Response
+
+The Activity Group that created and leveraged the CRASHOVERRIDE malware in the Ukraine 2016 attack was
+identified by Dragos, Inc. as ELECTRUM. Dragos analyst Joe Slowik released a detailed paper on ELECTRUM’s
+activity in 2018.
+
+Previously undisclosed details about the attack included the “Act” Phase of Stage | to identify that a data historian
+compromise in the IT network led to access in the OT network. From there utilization of common tools and native
+commands allowed the adversary to develop their knowledge of the environment, while separately they also
+developed CRASHOVERRIDE. The adversaries utilized an OPC server to enumerate the environment, which gave
+them the targeting information to load into CRASHOVERRIDE as a configuration file.
+
+Reference:
+https://www.dragos.com/blog/20180607Electrum.html
+
+© 2021 Robert M. Lee 73
+CRASHOVERRIDE Framework
+
+—
+
+‘adiditione!
+P Flee :
+EXECUTES
+
+|
+| | J J |
+
+ICS5I5 | ICS Visibility, Detection,and Response 74
+
+J, CONTROLS
+
+=
+
+joe, EXECUTES
+
+Details of the attack in 2016 were not known until a public report was released by ESET followed by a public report
+released by Dragos, Inc. about an hour later. ESET identified the malware as Industroyer, assessing that it could
+target any number of industries and not just electric grid. Dragos disagreed with this assessment, and thus named it
+CRASHOVERRIDE instead of the “industry destroyer” themed choice by ESET. Both worked before the
+publications to analyze and inform their customers. Dragos also ensured that the US community and various national
+CERTs around the world knew before ESET released it to the news. Private alerts went out through E-ISAC, EEI,
+and DHS to the US electric community after notification to them by Dragos, which showcased a great community
+effort.
+
+Reference:
+CrashOverride-01 .pdf
+
+74 © 2021 Robert M. Lee
+
+Fr PD OP OP PP OD PO OP we
+
+@
+
+PT ® PM T DP ®
+
+oe @
+ue weweweweww wW
+
+ap
+
+os » & SF we wy wv
+
+as
+
+7
+
+Payloads
+
+CRASHOVERRIDE
+MODULES and IMPACT
+
+1EC- 104
+1EC-104
+1850
+
+SIPROTECT Denial of Service
+
+" ESET analysis
+T Other sources
+
+ICS515 | ICS Visibility, Detection, and Response
+
+CRASHOVERRIDE was the first ever malware specifically designed to disrupt electric grids. It contained a number
+of modules that ESET and Dragos were able to identify and analyze. The 1EC104, 1KC61850, and OPC modules
+were each capable of causing the attack; however only the IEC104 module was used during the attack. The Dragos
+researchers put forth an assessment that this was an indication that the attackers may have been testing their
+capability against the Ukrainians, leaving the other modules available for future attacks. The combination of the
+modules allow the malware to be scalable across any electric grids using these protocols (Europe, Middle East, and
+Asia) and would require only slight tailoring to include DNP3 to allow the malware to work in the US and the rest of
+the world. The SIPROTECT vulnerability was not required for the attack to work but could have had physical
+impacts if the protection equipment, a digital relay in this case, was no longer functioning when electric operators
+reconnected the equipment. However, no physical damage took place during this attack.
+
+Image Reference:
+Dragos, Inc.
+
+© 2021 Robert M. Lee 75
+
+it
+
+Payloads in Context
+
+FIREWALL
+
+ENGINEERING ORG
+WORKSTATION SERVER
+
+[- =~] ROUTER
+DiorraL RELAY
+
+iE ees ten
+
+1 1€C 104 SLAVE IEC 104 SLAVE
+| RTo
+Are
+
+;
+i
+; |
+
+i
+
+‘aie dstsdiaiatsall
+
+i
+
+'
+
+H
+
+i
+
+- i
+
+PLC
+
+CONTROLLER.
+
+ICS515 | ICS Visibility, Detection, and Response
+
+Here is an image of a typical electric substation utilizing the protocols that CRASHOVERRIDE targeted.
+CRASHOVERRIDE effectively sent IEC104 commands by assuming a master position after installing on an HMI. It
+then repeatedly sent open commands through the digital relay to the RTU to force open, and keep open, circuit
+breakers - thus de-energizing the equipment.
+
+The capability is highly scalable but still must be put into place by the adversary, meaning that there is a human
+component to the attack that is required. This is a Stage 2 effect in the ICS Cyber Kill Chain, but there must still be a
+Stage 1 operation. This is not a wormable capability that would work effectively, due to the segmentation and
+structuring of the networks.
+
+The activity group ELECTRUM was responsible for the CRASHOVERRIDE capability and were able to pivot from
+data historians (SQL servers in this case from the IT to the OT network) and put CRASHOVERRIDE in place.
+
+Image Reference:
+Dragos, Inc.
+
+76 © 2021 Robert M. Lee
+
+7%
+
+@
+
+rv DD w
+
+rer 7erenwrmenrneeene © © © ® ® @®
+
+7 ©
+
+sv woevuewewsewewseweuwewe#eesexueuw
+
+Initial Compromise Vectors
+
+ICS515 | ICSVisibility, Detection,and Response 77
+
+This page intentionally left blank.
+
+© 2021 Robert M. Lee
+Initial Attack Vectors
+
+* The starting location for analyzing and understanding a threat is
+generally its initial attack vector
+
+* Initial attack vectors include spear-phishing emails, exploitation of
+external websites, direct Internet connections to control systems, abused
+trusted networks and connections between other networks, such as
+
+vendor or corporate networks:
+
+* Analyzing how a threat initially infected the ICS can drive remediation
+recommendations, and can help identify and close the vulnerability the organization
+faced to reduce the chances of reinfection
+
+* One of the most common initial attack vectors is phishing emails:
+
+¢ The next few slides demonstrate some analysis methods for phishing emails that
+
+may get passed to TEM personnel
+
+ICS5I5 | ICS Visibility, Detection,and Response 8
+
+Initial attack vectors can vary including a variety of client-side attacks, but social engineering and phishing emails
+are extremely common because they are effective. Internet-connected PLCs are common and vulnerable, but
+phishing emails often give access to systems that the adversary needs to fully understand and pivot throughout a
+network. For this reason, we'll look at phishing emails a bit and some of the ways to analyze them for indications of
+being malicious.
+
+78 © 2021 Robert M. Lee
+
+oOo @ @& DM . wo wo
+
+Wm
+
+re @ @
+
+oem ® ® © ® ®
+
+7m
+owe JF woweeeeteew &
+
+wo 48
+
+wo 8 JF JF JF VF FS WS I
+
+Initial Compromise Vector Example: Maintenance and Vendor Links
+
+sory * Many OEMs and Integrators
+maintain connections through
+permanent or time bound
+VPNs and connections.
+ae As an example, turbine
+control software and
+equipment requires
+diagnostics sharing.
+
+Those connections or the
+OEM/Integrator themselves
+can get compromised leading
+to access that bypasses
+Enterprise IT
+
+ICS5I5 | ICS Visibility, Detection, and Response 79
+
+Maintenance and vendor links are an area most in Enterprise IT miss the first time they start thinking about
+connectivity in and out of the operations networks. There are numerous connections that will traditionally bypass the
+Enterprise IT network, meaning you do not see the compromises that occur or the adversary action after the fact. It is
+best practice to get into the plants to monitor (east-west traffic analysis) and if you are pentesting, try to pentest out
+of the ICS instead of into the ICS from the IT network.
+
+This came up as a major issue in SolarWinds, where numerous OEMs and integrators were using Solar Winds
+directly across the maintenance links and compromising facilities without the asset owners’ awareness, often as
+white labeled security solutions or directly using SolarWinds.
+
+© 2021 Robert M. Lee 79
+Phishing Emails
+
+° Phishing emails often have "payloads" in them or a "dropper" that contains
+malicious code:
+« An example would be a PDF attached to an email that runs shellcode when
+opened
+° Shellcode is a specific type of code that is used as the payload of an
+exploitation attempt; it usually starts a command shell (thus the name
+
+shellcode) to run and execute processes, commands, and sets up a
+connection point
++ Because phishing emails have to take advantage of some vulnerability to
+introduce malware into the environment or open up a connection for a remote
+adversary, malware can be examined by TEM personnel
+* Given the nature of the malware as the initial attack vector for the adversary,
+
+the information gathered from it is extremely important, often representing
+the C2 servers of the adversary or indications into how advanced the threat is
+
+ICS515 | ICS Visibility, Detection,and Response — 80
+
+The email portion of a phishing email is usually not the capability that the adversary uses. Most often, there is a file
+attached that must be run for the "payload" or "dropper" (the malicious code) to be executed on the system. Often
+this includes shellcode that allows adversaries access to the system. Phishing emails often have malicious code in
+them, even if contained in something like a PDF, and must be handled with care.
+
+80 © 2021 Robert M. Lee
+
+oo @
+
+7TH MO MOMOOD*MPDODOO@D OD OD DM wD wD w
+
+T
+
+If
+vswewesewewewsewnsnwsewsewewewsw &
+
+we PS
+
+we
+
+oe FF FS
+
+ff o>». ae EPA's Water Sempling Report - Message (HTML) (Read-Onty)
+
+|fIREE, wewoe tw tse orton
+
+Gy junk Delete Reply Reply Forward H+ Move Translate
+2 Q
+
+5 Vuuses targetea 52 pF 3) Moth Unread
+
+3 Team E-mail =O i} Actions ¥ Follow Up > :
+
+Delete Respond Quick Steps a Move Trot + teiting
+
+© Tis message was Lent with High amportance
+From: Office of Chemical Safety and Polkution Prevention, EPA <OCS? @epe.gov > Sent: Tue 76/2010 &31 AM
+To
+te
+Subject: EPA s Water Sampling Report
+
+_d Message “7 water_upaste parti pat (519 KB) “)water_update_part2 pat (618 KB)
+
+EPA surface water samples collected June 17 ~ 26, 2010 along the Gulf Coast did not reveal elevated levels of chemicals found in oil
+
+Surface water results collected May 21 through June 24, 2010 along the coast of Louisiana were meanired for two of the cherstcals
+assoctated with dispersants (2-Butoxyethanol and 2-Ethythexyi Alcohol)
+
+‘Why is EPA sampling and monitoring the water?
+
+EPA's water sampling process includes the collection of the sample, laboratory analyses and data verification (which ensures high Phishing
+quality data) ‘These steps take about 7 days to complete before the data can be posted on EPA's website. As such, the data EPA posts ‘
+i5 not representative of current conditions but rather is » snapshot in time for a given location, We continue to take water sampies and Email Example
+will post data as 006 as it becomes available.
+
+My water tastes or smetis different, What should | do?
+
+‘You can contact the Joint Information Center, or IC, located in the heart of the response effort. The TIC is a coordination centet for
+federal, state and local responding agencies. You may call the JIC at 985-902-5231.
+
+Reference: Contagio
+
+Here's a phishing email that was found as part of an APT campaign. Contagio is a website that has a wide source of
+phishing emails, malware, and information useful for TEM personnel to get samples to train on. In this case, a well-
+tailored phishing email includes PDFs containing an exploit that gives an attacker access to the system that runs it.
+Here, we see water targeted from an EPA.gov email address. (The email address was spoofed.)
+
+All around this is a believable email and only one person in the organization has to click it. But having access to the
+email and the PDFs can reveal information vital to identifying the threat after it has breached the organization. Until
+you lose something of value or the adversary gains what they were after, there is no "defeat" in this threat getting in.
+But responding is vital.
+
+As an aside, a common misconception is that phishing emails have misspelled words like the Nigerian prince emails
+because the adversaries aren't that good. The truth is that research has shown that the Nigerian Prince emails often
+contain bad grammar and obvious indicators of malicious activity because those running the campaign want to get
+the gullible individuals. The type of people who respond to those emails is the type who might give over their credit
+card information. That is, the Nigerian Princes often just really know their target audience. Adversaries to ICS are
+the same way.
+
+© 2021 Robert M. Lee 81
+“EDE-1
+%heB1074 ; 81075 ; &#1055 681059
+0 obj)
+
+1
+Example PDF Structure “ “Type Catalog
+“Opendction <<
+
+AIS AOR
+/$ AavaScript
+
+<</length 6 ‘Filter (/ASCI1HexDecede) >>
+>>strean
+646£63756d6560742077727974652822486Sbcbc6E22293b>
+endstrean
+
+0000000000 65535 £
+
+0080000010 00000 n
+
+6000000120 00000 n
+
+trailer
+
+«<<
+
+fSize 2
+
+oat Root 10 R
+
+startxret
+
+633
+
+Reference: Infosec Institute XAEOF
+
+ICS515 | [CS Visibility, Detection, and Response #2
+
+So why are PDFs so common? PDFs are incredibly popular, and people are used to opening them. Adobe also is a
+relatively easy application to find vulnerabilities in. But, as you can see in this example, there's a lot of space to do
+things in a PDF. You can embed JavaScript or other commands as "objects" and embed malicious code that can be
+called and executed. There are known indications of malicious behavior because people have analyzed enough PDFs
+to realize what common areas are malicious.
+
+A PDF file is composed of header, objects, cross-reference table (to locate objects), and a trailer.
+
+Reference:
+http://resources.infosecinstitute.com/analyzing-malicious-pdf/
+
+82 © 2021 Robert M. Lee
+
+B®
+
+onwnownmmnemneemnememmnwon em ww
+
+oe
+
+w
+ses s&s w ws &S vw wb wb usb ue wb wo wb wb & &
+
+@» «ws as ws os
+
+PDF Aspects to Focus On
+
+* SANS Instructor Lenny Zeltser recommends (on his website) to focus on
+specific PDF file formats because they have been observed in various malicious
+instances:
+
+« /OpenAction and /AA (Additional Action) specify the script or action to run
+automatically
+/Names, /AcroForm, /Action can also specify and launch scripts or actions
+
+/JavaScript specifies JavaScript to run
+
+/GoTo* changes the view to a specified destination within the PDF or in
+another PDF file
+
+/Launch launches a program or opens a document
+
+/URI accesses a resource by its URL
+
+/SubmitForm and /GoToR can send data to a URL
+
+/RichMedia can be used to embed Flash in PDF
+
+/ObjStm can hide objects inside an Object Stream
+
+ICS515 | ICS Visibility, Detection, and Response
+
+Lenny Zeltser is going to come up a few times in this course; he is the guru on malware analysis and teaches at
+SANS. He put together a list on his website of some specific areas of concern to look for in PDF files. You could
+create an IOC out of this, but there are already tools available that do this.
+
+None of these should be seen as obvious indicators of malicious activity and some can be quite common, but they are
+good commands to highlight and look for—specifically, learn what’s normal for your environment and look for
+
+commands that aren’t normal. Additionally, a high number of each of these can indicate malicious activity.
+
+Reference:
+http://zeltser.com/reverse-malware/analyzing-malicious-documents.html
+
+© 2021 Robert M. Lee 83
+
+83
+
+Asimple tool to scan for strings in PDFs that may be malicious
+Created by Didier Stevens in 2009
+
+Outputs the number of times a PDF document has the set strings in it
+Useful for quick analysis of a single rae
+document given an understanding of what
+PDF objects and strings may be malicious:
+
+¢ For example, combine your knowledge or a list
+(such as the Lenny Zeltser one) with this tool to
+perform a quick strings search
+
+ICS515 | ICS Visibility, Detection, and Response 2
+
+This is a simple but powerful tool created by Didier Stevens that quickly scans a PDF for keywords and key objects
+that are likely malicious. It returns a count of the different keywords it finds.
+
+Reference:
+
+http://blog.didierstevens.com/2009/03/3 I/pdfid/
+The image is taken from the above reference
+
+84 © 2021 Robert M. Lee
+
+ena 8 @® ® ® ®H w& w&
+
+eon @ &
+
+on he ©
+
+Ld
+
+oon @
+wowwewwew W
+
+wweipwe ww w
+
+ws
+
+w ww
+
+Vv we Ww
+
+vy
+
+oo Fs FF Ww
+
+AnalyzePDF Ex.
+
+Reference: Glenn P. Edwards Jr.
+85
+
+AnalyzePDF is a Python script that uses PDFiD, PDFinfo, and YARA rules to analyze PDFs:
+One of the newer PDF analysis tools (2013) to be created with the intent of watching for well-known "bad"
+signs.
+
+Developed by Mandiant analyst Glenn P. Edwards, Jr. as an attempt to build upon the available tools and make
+something smarter that could use YARA rules:
+He analyzed 13k+ PDFs (clean and malicious) to determine common patterns that may indicate
+maliciousness.
+
+Great resource for incorporating YARA rules with traditional PDF scanning tools (PDFiD and PDFinfo) to get a
+better idea on if a PDF is malicious.
+
+AnalyzePDF Example
+
+Notice that this tool gives the SHA256 hash, counts some of those interesting commands noted earlier, displays
+entropy, and allows the use of YARA directly against the PDFs from this tool. This is a great tool to be able to use
+for those reasons.
+
+Reference:
+http://hiddenillusion.blogspot.com/2013/12/analyzepdf-bringing-dirt-up-to-surface.html
+
+© 2021 Robert M. Lee 85
+Automated PDF Analysis
+
+* Automated malware analysis will be discussed later today; however,
+be aware that it is possible to put a PDF into an automated malware
+analysis platform and let it execute its malicious code:
+
+* This lets an analyst determine not just if the PDF is malicious, but also what
+kind of activity the PDF performs
+
+* It is a good practice to use the manual PDF tools to analyze PDFs
+that may be malicious, and then let the potentially malicious PDFs
+run in an automated analyzer instead of wasting time
+
+° The next few slides demonstrate a case study of automated malware
+analysis on a phishing email that was targeting nuclear security
+community members
+
+ICS515 | ICS Visibility, Detection, and Response
+
+Automated malware analysis is a great resource for analysts, and it's one of the types of malware analysis
+methodologies. It will be explored later in depth but realize at this point that it's possible to just put a malicious PDF
+into an automated malware analysis platform and it will extract useful information.
+
+86 © 2021 Robert M. Lee
+
+on 8 ff ff ” oe. ff ff
+
+nn nnn ak kh fh
+ouedeg wb ewewwewesewwewewew
+
+vou ws Ww
+
+ows ws VY
+
+Research Paper on Nuclear Posture Review 2010 and the upcoming Nuclear Security Surimit - Message...
+
+SD Seas) Psy se ya
+- = Dy Related ~ —
+Biodk aor Cegonce Foon Manas Serato
+Rule Actions~ Sender ~~ * Up~ Unread “4 Select OneNote
+een Pic Coton Lind | onebte
+
+upcoming Nudear Security Summit
+
+‘The 2010 Nuclear Postufe Review (NPR) outlines the Administration’s approach to promoting the President's agenda for reducing
+nuclear dangers and pursuing the goal of a world without nuclear weapons, while simultaneously advancing broader U.S. security
+
+interests.
+
+According to the White House, the end goal of the upcoming Nuclear Security Summit 2010 will be “a communiqué pledging efforts to
+attain the highest levels of nuclear security, which is essential for international security as well as the development and expansion of
+peaceful miclear energy worldwide“
+
+‘Accompanying this letter is the!!!) Research Paper on Nuclear Posture Review 2010 and the upcoming Nuclear Security Summit.’
+
+| Please let us know whether you find it usefuul, and whether there is additional information you would like to see included in future
+
+editions. We very much value your support and assistance.
+
+Case Study:
+Nuclear Posture
+Review Phishing
+Email
+
+Reference: Contagio
+
+Over the next few slides, you’ll see some analysis that was done on an APT campaign where an adversary targeted
+members of the nuclear community, and specifically a summit, that was taking place in Washington, D.C. in 2010.
+After the PDF was opened, it executed on the system and started sending communication back to the adversary's
+
+command and control (C2) server.
+
+© 2021 Robert M. Lee
+
+87
+wo
+
+e
+®
+€
+
+Network Traffic from Targeted System
+
+24 554.455242. 172.29, 0.100 172.29.0.114 NEMS Name query response NB 172.29
+
+37 900. 653053 172, 29,0,114 https > ansoft-lm-2 [ACK] Seq=l Ack 205 Len:
+39 901. 640232 139, 172.29,0.114 https > ansoft-Im-2 [Ack] Segel Ack=48 win=64193 Len=0
+40 912,124742 172.29.0,114 Continuation Data
+42 912, 356588 172.29,0,114 https > ansoft-Im-2 [ACK] Seq=9 Ack=82 win=64159 Len=0
+44 912. 574972 139.92. 172.29,0,114 https > ansoft-Im-2 [ACK] Seg=9 Ack=87 win=64154 Len=0
+45 913, 777693 139,92. 172.29.0,114 Continuation Data
+48 917, 395205 139.92. 172.29.0.114 https > ansoft-Im-2 [ACK] Seg=13 Ack=126 win=64115 Len=0
+50 918,372746 174.139.92.6 172.29.0.114 fittps > ansoft-Im-2 [ACK] Seg=13 Ack=206 win=64035 Len=0
+§1 921.881126 174.139. 92.6 172,29. 0.114 Continuation Data
+§2 O97 WMS 174 120 07 & 179 20 0-144 bttne \ ancaftolm? Pacv] Can-27 Arh-290 Wwin-64N1 toned
+# Frame 32 (98 bytes on wire, 98 bytes captured) ri
+® Ethernet II, Src: Cisco-Li_éf:ac:09 (00:18:F8:6F:ac:09), Dst: vmware_eO:1f:2e (00:0c:29:e0:1F:2e)
+# Internet Protocol, Src: 68.87.73.246 (68.87. 73.246), Dst: 172.29.0.114 (172.29.0,114)
+® User Datagram Protocol, Src Port: domain (53), Dst Port: 51276 (51276)
+% Domain Name system (response)
+
+wm
+
+ovo @&
+
+000000 0c
+
+loo10 00 54 ‘ :
+
+10020 00 72 F 0 is as ies
+0030 00 OL reese orepiper
+0040 08 73 wsexidud e. com...
+0050 00 OL ba sees
+0060 5c 06 \
+
+w
+
+Reference: Contagio
+
+Ww
+
+Here, we see the communication that took place on the infected system. The Contagio analyst opened the PDF and
+had Wireshark running to capture the network communication. We see that the C2 server is located at the website
+sexidude.com. (Real website, actually malicious, don't go there.) A large amount of analysis could take place from
+there and what information is gathered from this network capture (such as looking up information for the website,
+seeing what other malware campaigns it’s been associated with, and looking for links in other malware).
+
+wo
+
+ogee @  @ @& @
+
+88 © 2021 Robert M. Lee
+
+ong m@m
+owe seweewwe+#ewweb#ewsewwwwe & WW
+
+ovevsev Vv ee we we Ww
+
+Analysis of Nuclear Phishing Email
+
+¢ Automated analysis by the Contagio researchers in the Anubis sandbox
+showed that the PDF, when opened, created the file
+%Temp%\AcrRd32.EXE with the hash MD5
+5a67c2a64e17a2e3e5efdoae94db715c
+The executable then created and opened:
+
+° %Temp%\11111111.pdf MD5 6b4162954594a6c6e4287773fced7e5f
+
+° %Temp%\wuweb.exe MD5 8ae20aabfb207f5bb4e3918b043d37!a
+Through automated analysis alone, a TEM team member could have
+written a YARA rule off of the digital hashes and filepaths/executables as
+well as given network information (the IP address for the C2 server) to
+NSM personnel to create network signatures in an IDS:
+
+¢ This would have also quickened any Incident Response efforts to locate the infected
+
+systems
+
+ICS515 | ICS Visibility, Detection, and Response
+
+Analysis performed by the Contagio researchers showed that the PDF created an initial file and then a few others.
+‘This is the type of information TEM personnel could gather and pass to incident responders looking for infected
+systems. The network data could be passed to NSM personnel to look for network-based indicators.
+
+Additional information:
+
+Took advantage of the CVE-2010-0188 vulnerability in Adobe Reader.
+The summit was in Washington, D.C. in 2010.
+
+At the time, less than 13 percent of AV caught the threat.
+
+Reference:
+http://contagiodump.blogspot.com/2010/04/apr-10-cve-2010-0188-pdf-research-paper.html
+
+© 2021 Robert M. Lee 89
+tiple Intrusion Vector Incident Response Example
+
+e Ransomware event occurred shortly before a physical event
+
+Ransomware
+
+Limited collection but network visibility deployed and controller logs on controllers showed
+errors related to scanning
+
+Incident responders found data across a multi-year timeline
+
+- ¢ The ransomware actor got the state actor caught
+
+ICS515 | ICS Visibility, Detection, and Response
+
+In this incident response case, the victim organization knew they were compromised because of the ransomware
+notes and locked systems. However, upon review of the forensics available it was obvious that there were multiple
+adversaries in the environment, two to be precise. The state actor looked to be performing espionage and
+compromised the organization originally through a phishing email, and then opened up access points out the firewall
+of the plant operations. The opened access was leveraged by a ransomware actor to deploy ransomware which
+ultimately got the state actor caught. The physical event that occurred was completely unrelated to both cases.
+
+Timeline analysis was key here.
+
+90 © 2021 Robert M. Lee
+
+90.
+
+eo as
+
+agg’ @ @ @ @ @ @ @ @ © & OP 2 OD OP OD
+
+oon
+vows JF ows ewe HHeewewwswb Ww
+
+a j
+
+ost 8 JF wo W
+
+uo
+
+Other Words —- We Need to Look More
+
+by Robert M. Lee and Jeff Haas
+
+T ASSURE YOU
+WE WILL NEVER SEE
+ANY ATTACKS,
+
+ICS515 | ICS Visibility, Detection, and Response
+
+Finding and sharing case studies will help our industry grow. Applying the ACDC, especially with a focus on
+looking (NSM), and gathering case studies engaging the adversary (Incident Response), will allow us to do that.
+
+© 2021 Robert M. Lee 91
+
+a1
+
+Lab 4.3
+Analyzing Phishing Emails
+
+Calistoga Refinery
+
+ICS5I5 | ICSVisibility, Detection, and Response 2
+
+This page intentionally left blank.
+
+92 © 2021 Robert M. Lee
+
+oo oo. & &
+
+re
+
+wm
+
+oo @
+
+ow @ @® @® @&
+
+m@
+
+ogg Fs
+we ee ww wow wes ws GS WF UF Ww ww © | Ww WD
+
+~~ 4
+
+Forensic Data Sources in
+ICS Networks
+
+ICS515 | ICS Visibility, Detection, and Response  %3
+
+This page intentionally left blank.
+
+© 2021 Robert M. Lee
+
+° VPNs are heavily used in most ICS environments for business -> control network
+communication and for vendor -> ICS access across the WAN
+VPNs have been observed as paths into ICS that threats love to use:
+° Infected vendors can pass malware through the VPN, or infected ICS can be used into the Enterprise
+» Stuxnet spread to various sites not through the Internet but through VPNs
+Most VPN services have the capability to view logs
+¢ VPN logs are not necessarily highly volatile but are often overlooked and degraded
+
+* Connection attempts, Session lengths, and data transfer sizes are all key components to look for
+
+2021/9/17 03:34:31.853 2960 2740 G1 — File transfer request from 66.145.232.15 allowed
+2021/9/17 03:34:32.658 2960 2740 G1 — Views folder
+
+2021/9/17 03:34:57.358 2960 2740 G1 — Views folder C:\Programs\SIMATIC\
+
+2021/9/17 03:35:04.333 2960 2740 G1 — Processing file transfer...
+
+2021/9/17 03:35:04.333 2960 2740 G1 — Write file C:\Programs\SIMATIC\projectfiles.exe
+2021/9/17 03:35:04.343 2960 2740 G1 — File transfer finished.
+
+2021/9/17 03:35:04.348 2960 2740 G1 — Views folder C:\Programs\SIMATIC\
+
+2021/9/17 03:35:12.153 2960 2588 G1 — Ending CFileTransferThreadServer...
+
+2021/9/17 03:35:12.153 2960 2740 G1 — File transfer server shut down.
+
+2021/9/17 03:35:12.153 2960 2588 G1 — The CFileTransferThreadServer has ended.
+
+ICS515 | ICS Visibility, Detection, and Response
+
+Virtual private networks are common in ICS environments. Their logs are generally quite static and stored over time
+well. In an IT environment, this wouldn't likely be considered highly volatile data. However, adversaries are well
+aware of tracks they leave, and VPNs tend to be a prime access point and lateral movement strategy for adversaries.
+Therefore, they are more likely to delete or manipulate the logs for VPNs in ICS. It's important to collect VPN logs
+early on in an investigation.
+
+94 © 2021 Robert M. Lee
+
+iy m= = 7 C2 . rt] ?@ 7? @ > > > - —_ - -
+
+™
+vow wwe we eesewweseu iw
+
+wo ww
+
+ow
+
+se wv vw ww ve wee w
+
+Registry Hives
+
+Registry Hives are groups of Registry keys and subkeys
+Some common hives are:
+* HKEY_CURRENT_USER
+* HKEY_CURRENT_CONFIG
+° HKEY_LOCAL_MACHINE\SAM
+° HKEY_LOCAL_MACHINE\Security
+* HKEY_LOCAL_MACHINE\System
+° HKEY_USERS\DEFAULT
+Registry keys have different data such as passwords, browser settings and information, and any
+changes on the system such as new USBs:
+* SYSTEM\CurrentControlSet\Enum\USBSTOR displays details/vendor of USBs
+* NTUSER.dat\Software\Microsoft\Windows\CurrentVersion\Explorer\MountPoints2
+shows what user was logged in when a USB was inserted
+Some malware use the Registry Hives for persistent access
+
+ICS515 | ICS Visibility, Detection, and Response
+
+Registry Hives and their Registry keys reveal a lot of information about a system. Everything from who was logged
+in, to when certain events occurred, to what USB was plugged in to the system last. It's important to grab this
+information. Registry key forensics can be a whole subfield of forensics with how detailed and important it can be.
+Focus on gathering the data and look at key areas (such as the USB listing) without focusing too much on over
+analyzing the data. The ability to have it available for digital forensic efforts later will prove invaluable.
+
+Regedit is a native Windows command to open and view the Registry.
+
+After extracting Registry keys from another system, they can be uploaded and viewed in Regedit on a forensically
+clean workstation.
+
+Analysis is dependent on knowledge of the Registry and its structure.
+
+Another option using Regripper:
+
+https://code.google.com/p/regripper/wiki/RegRipper
+
+Capable of extracting and parsing information from the registry
+
+In an ICS environment, it is not recommended to download tools to the target system, but instead to use tools such as
+Regripper as another option for viewing them post collection.
+
+Command-line tool is written in Perl.
+
+Hives reading:
+http://msdn.microsoft.com/en-us/| library/windows/desktop/ms724877(v=vs.85).aspx
+
+Visit the site for a good presentation at a SANS Conference by Harlan Carvey:
+https://nanopdf.com/download/harlan-carvey-registry-analysis s pdf
+
+© 2021 Robert M. Lee 95
+
+95
+
+Highly Volatile Data
+
+¢ System Memory:
+* Importart enough that it has a dedicated section toward the end of this section.
+* High value and highly volatile as things constantly enter and exit memory
+* Malware, executables, crypto keys, etc. all get passed into and through memory.
+* Memory is significantly smaller (512 MB-8 GB in most ICS environments) than hard disks
+(250+ GB), making it more quickly analyzed.
+
+* Network Information:
+» Routes and ARP tables on a system reveal where it is connected and what systems it has interacted
+with; potentially reveals lateral movement by adversaries or scanning.
+* Network traffic is volatile, but malware often communicates regularly, making network traffic less
+volatile but extremely valuable given patterns seen by ICS threats before.
+e System Processes:
+* Processes and their handles (resources such as PIDs) show what is truly running.
+
+ICS515 | ICS Visibility, Detection,and Response %
+
+Think back on Order of Volatility. It's important to gather the most volatile data first to preserve as much evidence as
+possible. Here are some of the reasons behind OoV and the sources/value of the evidence.
+
+Temporary filesystems, swap pages, and so on, are all volatile but are less likely to be of value for ICS threats than
+
+the preceding mentioned information. Therefore, remain flexible with how you prioritize collection for your
+organization.
+
+96 © 2021 Robert M. Lee
+
+@
+
+oo © © © @&
+
+og  @®@ @®  @ OO OC
+
+agw@
+owwwo ww
+
+S| | i! | ee
+
+owe
+
+4a
+
+aU)
+
+Cloud and Virtual Resources
+
+If using cloud resources, involve vendors and have them check for compromises
+and acquire digital evidence.
+
+On-site "cloud" resources or virtual machines largely rely on system memory
+that can be collected and analyzed.
+
+Systems that are powered off store saved states:
+
+* .vmem in VMWare is the paging file and back up of the main memory of the
+host
+¢ .vmdk in VMWare is the virtual disk
+Copying files over can be as.good (and potentially less impactful) as loading
+systems and attempting to run forensic acquisition software.
+
+ICS515 | ICS Visibility, Detection, and Response
+
+For off-site cloud use, policies and writing in the contract require vendors to provide access or evidence when an
+incident occurs. On-site cloud resources and virtual resources can be great sources of data. Virtual machines rely
+heavily on memory which, as discussed, is a great resource, and thus collecting the saved or last used memory files is
+perfect for analysis.
+
+© 2021 Robert M. Lee 97
+
+97
+
+and vmss Files
+
+The image on the right is before turning on
+* Notice the lack of the 3GB .vmem file
+The image below has the .vmem
++ Ithas not been paused yet and thus isn’t all the data
+The image on the bottom right also has the .vmss
++ This 134,402 KB file is the change from the base .vmem
+To get the full value out of memory you need it all
+* ie. ensure you pause the VM before collection
+
+2 ccm
+
+() PCCHMIT
+
+GApccHmit
+
+1) PCC HMI
+
+Py PCC HMI 1-4b02629.7mem
+
+B PCCHMI tediskt-c2
+vmuare
+
+vmwares
+
+deme
+
+occ HM
+
+PCCM T
+
+AY PCC HME
+
+2) PCC HME
+
+PCC HM disk cl?
+vorweare
+
+Bi Pcc Mt
+
+pce Heat
+
+PCC HM t
+
+3 PCC HME t
+BCC HMI 1-<d02680¥.vmem:
+
+2 PCC Ht t-db26aot
+
+B PCC Hen todick etd
+vente
+
+verweare-0
+
+ICS515 | ICS Visibility, Detection, and Response
+
+When doing incident response data acquisition from a virtual environment, you will generally copy off the full VM
+folder path. Unfortunately, if you do not pause the system first, you will not get all the data. As an example, in the
+top right, the image shows what is in the folder path while the system is off (there’s no .vmem file). The bottom left
+picture shows when the system is running (there is a .vmem file) and the bottom right shows what’s in there when
+
+the system is paused (.vmem and .vmss is present).
+
+The vmss is essentially the change from the base memory (vmem) that the system was loaded with. All the user
+actions, processes and applications, and activity related to adversaries you’d want is in the vmss. But you need to
+
+combine it to get that value.
+
+98 © 2021 Robert M. Lee
+
+@
+
+oOo @
+
+wo WD
+
+oo Ww
+
+oe ff @ OO OP
+
+)
+
+wm @ ¢
+
+om @
+
+aogWwa@
+owwewwwseewe wes wb w&
+
+ow wo
+
+as
+
+e Any system with VMWare has the vmss2core utility
+* This tool combines .vmem and .vmss into a single memory dump file for analysis
+* This memory.dmp file can be utilized with memory forensic tools
+
+¢ The —W argument is for Windows and —N for Linux systems
+
+ry memory.dmp
+!) PCC HMI 1-db02689f.vmem
+[& PCC HMI 1-db02689F
+
+ICS515 | ICS Visibility, Detection, and Response
+
+Any system that has VMWare installed will have come with vmss2core. This will allow you to combine the vmem
+and vmss file into a single memory file (you can name it anything you’d like but by default it becomes
+memory.dmp). This file is then easily processed in tools that we will discuss in this class, such as Volatility.
+
+Although we do not specifically do disk forensics in this course since it is more forensics than incident response,
+
+understand that the vmdk is the digital image. Collecting it is still vital. In this way, you can also use the tool gemu-
+img to convert the vmdk to a raw disk image that can be analyzed by traditional tools.
+
+© 2021 Robert M. Lee 99
+How Memory Works
+
+* When an operating system needs to run a process or execute a file, it needs to pass
+from the physical disk into physical memory. (Everything goes through Random Access
+Memory.)
+
++ Encryption keys to encrypt/decrypt, Registry keys that are modified, execution of files such as
+malware, and so on.
+
+* As processes and threads get allocated to the various changes going on in the system,
+they are continually added or removed from memory as space allows:
+
+If the system has 8 GB of RAM, 8GB of information can be stored; as processes/threads are exited and
+as the RAM storage fills up, data moves out of the RAM.
+
+RAM is incredibly volatile, and information constantly passes in and out of memory.
+
+Think of RAM as a bucket; as water (information) is added, other water is pushed out when the bucket
+overflows.
+
+* Because everything that runs on the OS passes through memory, a large amount of
+data can be collected and analyzed:
+
++ Physical disks contain all saved information on the system, but memory is a good picture of what
+happened recently.
+
+ICS515 | ICSVisibility, Detection, and Response — 100
+
+Without diving too deeply into the inner workings of physical memory (RAM), the big takeaway is that RAM
+handles extremely volatile data but collects everything that happens on the system that passes through the OS, such
+as malware, encryption keys, and modified files.
+
+Helpful resources:
+
+Here is a two-hour video on memory forensics from one of the core developers of Rekall. (Although, this video was
+made prior to Rekall being created and he's using volatility in the video):
+
+https://www.youtube.com/watch? v=9aC7ylYwvA Y
+
+You will sometimes hear virtual versus physical memory. Physical memory is the memory running on the system
+that is mapped to physical addresses (for example, RAM). The OS handles these mappings through page files and
+assigning threads, and processes resources through the kernel.
+
+Virtual memory is mostly meant for programming and development efforts and is referencing page files as an
+abstract structure. Virtual memory lets a programmer determine how much a program or process might need,
+whereas physical memory is the memory actually used by that program.
+
+Value of Memory Analysis
+
+Because everything goes through memory, it is an extremely viable source of forensics evidence. For malware
+analysis it is crucial. Instead of hunting the entirety of the physical disk looking for malware (and malware has
+become really good at hiding itself on the physical disk), it is possible to analyze memory and just see the malware
+running. It's not as easy as it sounds but it is in no way that difficult. With a little bit of training, memory forensics
+can, and should, become a critical skill set for TEM personnel in an ICS environment.
+
+100 © 2021 Robert M. Lee
+
+€
+s
+
+o@ww?@wergm? © @* @®@ @®@ @ Ww
+
+wv
+
+ow
+wowewewewewwew
+
+Ly
+
+7
+
+40
+
+Memory Forensic Considerations
+Memory decays quickly and loses its value when not powered:
+If a system is shut down or restarted, the memory value is destroyed.
+
+Because memory is so volatile, it displays only recent information about a system:
+Obtaining information from multiple weeks ago is not often practical.
+As soon as incidents happen, Incident Responders need to collect the memory from systems so that TEM
+personnel can analyze it and provide relevant data.
+
+Memory Forensics History Lesson
+In the 1990s, people started advocating for memory images to be taken during IR:
+The only way to analyze these samples were extracting strings.
+In 1990s—2005, there wasn't much done publicly in the way of memory forensics development.
+
+In 2004, Michael Ford wrote two tools (memget and mempeek).
+
+In 2005, Chris Betz, George M. Garner, Jr., and Robert-Jan Mora won the DFRWS Forensics Challenge:
+Memparser (made by Chris) enabled physical memory dumps of Windows systems to have their process
+information reconstructed and extracted.
+
+In 2005, memory forensics started gaining a lot of attention with Mandiant's Memoryze tool.
+
+In 2007, the first version of The Volatility Framework was released and made memory forensics accessible to a
+wider audience.
+
+In 2010+, memory forensics specific tools and classes have been developed including SANS FORS26.
+
+Memory-Only Malware
+Memory-Only Malware is good to be aware of, because in instances where a threat is well hidden in a network, it
+may be that only memory analysis can identify it.
+
+Memory-only malware is not extremely popular for a few reasons:
+* It cannot survive a reboot of the system.
+¢ Antivirus software often scans memory first; malware defeats AV by gaining access to a lower ring (root,
+
+driver, BIOS, and more) than the program running, so it can hide itself; this is not feasible with memory-only
+
+presence.
+
+Caution:
+
+* One of the biggest weaknesses in memory-only malware is the inability to survive a reboot, so it is not useful
+
+in IT environments. ICS environments do not usually have frequent reboots of systems, making memory-
+only malware fairly useful in ICS.
+
+© 2021 Robert M. Lee 101
+Volatility Framework
+
+Just
+
+Created and supported by the Volatility Foundation, which is led by Aaron Walters,
+Jamie Levy, Andrew Case, and Michael Hale Ligh.
+One of the de-facto memory analysis tools (open source and free to use).
+Older versions (pre v2.2) supported only Windows but updates were made since 2012:
+« 2.2 gave support for the majority of Linux systems.
+¢ 2.3 introduced support for Mac OS and Android ARM.
+* 2.4 introduced Windows 8 and Windows 8.1 support.
+* Currently on V3+ with a wide range of plugins and support.
+Can analyze memory in various formats including raw memory image (dumps),
+Firewire, crash dumps, hibernation files, VirtualBox and VMware sessions, LiME,
+
+QEMU, and more.
+
+ICS515 | ICS Visibility, Detection, and Response 102
+
+about anyone who performs memory forensics is familiar with Volatility. It's the de-facto tool and entirely free
+
+to use. It's made powerful by a list of plugins that anyone can develop and contribute to the product (once
+tested/validated). This will be the framework we use in the lab and in the case study.
+
+Reference:
+
+http:
+
+//www.volatilityfoundation.org/
+
+https://github.com/volatility foundation
+
+SANS Forensics blog post about memory analysis for Linux systems: https://www.sans.org/blog/getting-started-
+
+with
+
+102
+
+-linux-memory-forensics/
+
+© 2021 Robert M. Lee
+
+wo
+
+oO @ @ @D @ DM OO WD HO w
+
+wo @
+
+o@g@wga@eQ @ @® @ @
+ooewwewewweww
+
+ab
+
+wW
+
+Case Study: Stuxnet Memory Analysis
+
+The extremely advanced and destructive piece of malware actually stands out in
+
+memory.
+Most pieces of malware are relatively easy to detect in memory as long as the analyst
+has an idea of what should be present in memory already:
+
+* That is, having an understanding of the systems and what "good" looks like is helpful.
+
+* However, it is not required to have a baseline because many threat actors are not concerned about
+
+most defenders using memory forensics and analyses.
+In the book Malware Analyst's Cookbook, there is an accompanying CD that contains
+a memory dump from a machine infected with Stuxnet.
+To demonstrate the power of memory forensics and to educate on some of the features,
+public analysis is going to be re-created for the course and displayed over the next few
+slides.
+
+ICS515 | ICS Visibility, Detection, and Response 103
+
+The book Malware Analyst's Cookbook gives a memory sample of a system that was infected (for analysis purposes)
+with Stuxnet. This presents an exciting case-study to examine Stuxnet in Volatility, and later in the lesson use some
+of the information for IOCs. In general, if you can practice on Stuxnet, why not? This also shows the power of
+sharing threat information for the purpose of education and training better defenders.
+
+The file discussed is available to students as an optional lab.
+
+© 2021 Robert M. Lee 103
+* The command windows. info is often one of the first run and gives us
+information about the system that the memory dump was collected from.
+
+Fa
+
+Terminal
+
+1CS515 | ICS Visibility, Detection, and Response 104
+
+This is one of the first commands that should be run in Volatility. It gives information about the system the memory
+image was collected from and is needed for a few plugins.
+
+We can see that the “Major Version” is 5 and the Minor Version is 1, making this 5.1 which is a Windows XP
+system.
+
+We also see the local time on the system is 18:31:06 and collected on April 13, 2008, for the fantastic book the
+Malware Analyst's Cookbook
+
+104 © 2021 Robert M. Lee
+
+®
+
+o> @
+
+wm ad
+
+Oo @f@ @ @ @ ® @ ® Of OD OP OD OD ww
+
+LD
+
+v,.am
+wowowsewewsewesws wv w&
+
+Hoo YY yyy W
+
+AY)
+
+A)
+
+Au
+
+¢ One of the next commands to run in Volatility is generally pslist to identify
+running processes.
+
+¢ The key is to identify the PID (Process ID) and Parent Process ID (PPID) to
+identify if the execution path is appropriate (e.g., smss.exe launching out of
+System is correct).
+
+ICS515 | ICS Visibility, Detection, and Response 105
+
+Identifying the processes running on a system when the memory was collected is a great way to determine what
+programs were running. Malware can obfuscate this information, but every obfuscation and change leaves a trail.
+One of the most important things about pslist, besides determining any oddly named processes, is understanding the
+execution chain. Once you understand a system and how it should work, you’!I understand how processes should
+spawn, so even the right named process spawned out of the wrong location is going to be a huge give away that
+something is wrong.
+
+© 2021 Robert M. Lee 105
+Quickly Analyzing pslist
+
+* Through quick analysis, we can see VMWareUser.exe showing that this was
+
+yxB126b660 VHwareUser. exe
+10-29 17:11:50 UTC#0600
+
+7 . fox@1feSda0 VMwareTray.exe
+analyzed in a VM: [: ae ents
+
+wie 1961 5G) 2010
+
+155 96 9 HL NB
+
+In addition, some analysis tools are running like Process Monitor:
+
+foxeicS43a0 Procnon. exe 601196
+[ps-03 04:25:50 UTe+9860
+
+Doli
+
+More important, we can look at PID and PPID (Process ID and Parent Process
+ID) to determine the processes that spawned specific processes
+
+One process stands out under this analysis: Isass.exe
+
+Lsass.exe spawns off of winlogon.exe to enforce security policies, but there are
+two Isass.exe processes that spawned off of PID 668 (services.exe):
+
+loxeic498c@ Isass. exe
+jos-02 04:26:55 UTC+0000
+Joxsicd7c00 Isass.exe
+los-03 94:26:55 uTt-+0000
+
+6 oll
+
+6 2011
+
+ICS515 | ICS Visibility, Detection, and Response
+
+Even if you don't understand all the information on the screen, you can quickly identify anomalies.
+
+Additional information:
+
+Local Security Authority Subsystem Service (LSASS) is a process in Microsoft systems that is responsible for
+
+enforcing the security policy on the system.
+
+Also, these Isass.exe were spawned later (not at startup it seems); therefore, they were given a higher process ID.
+
+These Isass.exe files are now suspect.
+
+106 © 2021 Robert M. Lee
+
+106
+
+rT oD OD OD © wD ww
+
+Core wv Ww
+
+ew wim wv wm @#
+
+a
+
+o wo @
+woweoeu#swuwo wv
+
+Vv Vw wo Ww Ww Ww WY YH HY wy wy WH ww
+
+Ay)
+
+malfi
+
+¢ The malfind command in Volatility looks for injected DLLs and hidden code
+(usually bad) and outputs the potentially malicious files to a folder of your
+choosing.
+
+ICS515 | ICS Visibility, Detection, and Response _ 107
+
+The malfind command is a powerful plugin that looks for processes that have injected code, a typically malicious
+behavior that has few reasons to ever occur. This helps pull out possibly malicious processes.
+
+© 2021 Robert M. Lee
+
+107
+
+“» oo ®
+
+Quickly Analyzing malfind
+
+* A quick inspection shows that services.exe (the process that spawned the potentially malicious
+lsass.exe) was seen as having some potentially malicious activity going on:
+
+file Edit Tabs Help
+
+Tocess: services.exe Pid: 668 Address; 0x940008
+Vad Tag: Vad Protection: PAGE_EXECUTE_READWRITE
+‘lags: Protection: 6
+
+wm
+
+)x08940000 90 06 94 00 c6 07 94 00 24 00 O4 OD ab 04 00 00
+
+100940010 £2 04 94 00 48 06 09 OG cO 04 94 00 29 00 06 00 on
+x00940020 00 00 c5 00 28 13 00 00 00 5a 77 4d 61 705669 Zwtlap¥1
+100940030 65 77 4f 66 53 65 63 74 69 Gf Ge 00 5a 51 B1cl ewdfSection.20..
+
+wm WwW
+
+* Likewise, lsass.exe (both versions spawned from services.exe) was also observed:
+
+@
+
+file Edt Tabs Help
+Process: Isass,exe Pid: 1928 Address: 0x680000
+fad Tag: Vad Protection: PAGE_EXECUTE_READWRITE
+IFlags: Protection: 6
+
+ox00680006 90 06 68 00 c6 07 68 OO 24 09 68 OD a5 04 00 00
+0x00680019 f2 04 68 60 48 66 00 08 cO 04 68 60 29.00 60 00 ..h,
+00 00 Gf 60 28 13 00 00 00 5a 77 4d 61 70 56.69 ..0,
+65 77 4f 66 53 65 63 74 69 Sf Ge 60 5a 51 81 cl ew0fSection.20,.
+
+€
+
+ICS515 | ICS Visibility, Detection, and Response — tes
+
+wm
+
+Here, we see that services.exe was highlighted, which was the process that spawned the two suspect Isass.exe files.
+Likewise, both Isass.exe processes are highlighted.
+
+Oo ®? @ Pe Pp DP
+
+,
+
+a
+
+108 © 2021 Robert M. Lee
+
+a @
+owvwnonoweseww
+
+9 HH HHHHHUHUHBHHUH
+
+Ww
+
+Gathering dmp Files
+
+¢ These .dmp files can then be hashed for the “_ Reenter Baht
+
+©. A [fonstcnnnDedke
+
+creation of IOCs and submitted for follow-on
+analysis at an online location such as olan
+
+VirusTotal. fies ‘auc
+Appheations
+15 GB Fesy..
+
+If it's suspected that this is previously pres
+
+Oec7eB.O255 47%
+
+unknown malware, it would be good to wondey
+involve someone who has skills in analyzing e
+
+process.0¥B2
+
+.dmp files, which usually involves static Foeetoao
+
+; onary
+analysis.
+
+process Oxf]
+498¢8.05800
+odmp
+
+process.0x81 process.0v#l
+ATCOO.Ax6I0 e61da0.0<d8
+
+000.dmp
+
+06. dp
+
+4
+
+Pracess.0x81 process.0«81
+ATO0.0x800 A700. 0%680
+
+o.dmp
+
+pracess.0v82
+073020.064
+00 dp
+
+600 deap
+
+9000.dmp.
+
+900.dmp
+
+0900.dmp
+
+process. 0x81
+
+0 e61da0.cxbl0
+
+o60.dme
+
+process. 0x81
+eblda0 oxb?
+000.dmp
+
+ICS515 | ICS Visibility, Detection, and Response
+
+Malfind exports the processes into a folder of your choosing. They are saved as .dmp files. These files cannot be
+
+natively run for malware analysis; however, they can be used to gather information such as taking a digital hash of
+each for use in an IOC later. In addition, if the malware is already a well-known one and you're looking to see if this
+is a new variant, it is reasonable to use online help at that point, such as submitting the file to VirusTotal. However,
+
+if you have the ability to run an antivirus farm (discussed later) that would be preferable.
+
+© 2021 Robert M. Lee
+
+109
+
+109
+
+Other Useful Volatility Commands
+
+* There are many different plugins and commands to Volatility but here are a few worth
+mentioning:
+» netscan finds local/remote IPs and the process that spawned the connection
+* pstree can help detect hidden processes by comparing processes observed in different locations
+* cmdline prints what was accessed via the cmdline
+* There is a public list of plugins, you can develop custom plugins, and the —h command lists all
+commands
+
+ICS515 | (CS Visibility, Detection, and Response 110
+
+Here are some other commands that are useful to analyzing memory. There are many available, but these are fairly
+popular. There's another command, though, that's not necessarily popular for its functionality, but for how neat the
+concept is.
+
+110 © 2021 Robert M. Lee
+
+7”
+
+ro wD ww
+
+Oo @ @ @ @® @ @®© @® © Of © OW OO OD DO WH
+
+ae @
+wowwewewwowesww
+
+yey vy Ye yw wW
+
+)
+
+7)
+
+Lab 4.4
+
+HMI Memory Forensics
+
+This page intentionally left blank.
+
+Calistoga Refinery ©
+
+ICS515 | ICS Visibility, Detection, and Response
+
+© 2021 Robert M. Lee
+
+mi
+
+Course Scenario Goals (4)
+
+* Calistoga Refinery
+
+* What malicious file executed on the HMI and when?
+
+Beacon.exe at 17:36:38 local time
+
+ICS515 | ICS Visibility, Detection, and Response
+
+This page intentionally left blank.
+
+112 © 2021 Robert M. Lee
+
+412
+
+“oo ®
+
+oer ae @ @ DM OD OP OW OD DOD DM DMD DH ww
+uowwuwewowewoww
+
+wo Ws ywBVyyVvyvyvypy ys
+
+w
+
+Course Scenario Goals (5)
+
+* What is the malicious routine in the logic and what does it do?
+* What is the root cause of the attack?
+* Is the incident connected to C3PO’s incident?
+
+° C3PO:
+
+ICS515 | ICS Visibility, Detection, and Response
+
+This page intentionally left blank.
+
+© 2021 Robert M. Lee 113
+Human adversaries tend to
+gravitate toward the HMI.
+
+Windows Events or Syslog
+should be obtained from
+the system.
+
+HMI applications often
+have logging that can be
+enabled and collected for
+what commands were
+issued when.
+
+Alarming conditions should
+be considered as well.
+
+The systems that run HMIs are often Windows-based. In this way, they aren't truly unique from other Windows
+systems, but the type of interactions adversaries might have with them tend to be. Well-educated adversaries will
+treat the system more sensitively and as a prized asset with direct control over often sensitive systems. Logging
+should be enabled for these systems and things such as Windows Events and Security logs should be gathered.
+The HM1 is going to be a target eventually, so it's important to make sure you can analyze it. The HMI will also
+often have logging for what commands and buttons were clicked, alarms dismissed, etc. and when that occurred.
+This can be disabled by default so check, enable it, and gather that data.
+
+114 © 2021 Robert M. Lee
+
+7
+
+a @ @ @& @ @& @ ee ff oo 8 OO oO OO OO OO OD DD OD HD ww
+ww w
+
+wo w
+
+ww
+
+9HUUHHYVUYYYVIUEYYYWY
+
+=)
+
+ident Response Req
+
+« Independent Power Producer (IPP) i
+* Transmission System Operator (TSO) different company with Automatic |
+
+Generation Control (AGC) |
+
+Was down for maintenance and started itself
+¢ Operations staff started troubleshooting but couldn’t determine root
+cause of the start
+
+« While operations worked IR was initiated
+
+* AGC’s ICCP links were investigated but no issue
+
+« Network monitoring deployed and found HMI was sending commands
+« HMI was touchscreen and was over pressurized
+
+ICS515 | ICS Visibility, Detection, and Response 115
+
+Visibility tends to be a major value add even for incident response cases where cyber-attacks aren’t the issue. Our
+industrial world is becoming more and more complex where the automation footprint is more complicated than ever
+before. This means that operators and engineers who used to fully understand the process may only understand
+certain control loops or components of it. This leads to difficulty in root cause analysis. As a system of systems its
+vital to have network visibility with an understanding of the ICS protocols.
+
+In this case there was an IPP that had a control loop kick off unexpectedly, firing up a generation unit. This is
+abnormal to say the least. The team investigated the ICCP communications via the AGC link, as the TSO’s energy
+management system (EMS) could have been the issue or even compromised but found nothing. Upon deploying a
+network visibility solution with ICS protocol analysis, they were able to see that there were HMI commands being
+sent to the generation unit. However, they couldn’t install any tools on the HMI or interact with it with any non-
+native tools. They couldn’t be positive until the incident responder, Lesley Carhart, brilliantly thought about using
+Windows Paint since it was native. She fired up Windows Paint and visibly you could tell that little lines started
+appearing on Paint showing that the HMI was over pressurized and thus was randomly “clicking” buttons on the
+HMI, which led to the commands. Without visibility and some creativity, it would have taken a significantly longer
+time to get root cause analysis and restore operations in a safe manner.
+
+© 2021 Robert M. Lee 115
+Engineering Workstation
+Engineering Workstations oor ail
+(especially traveling laptops) a
+are important for
+understanding the process and
+the systems.
+
+Watch for data transferal,
+especially USB devices.
+
+Identify type of project files
+and software and look for these
+leaving the environment.
+
+ICSSIS | ICS Visibility, Detection, and Response
+
+One common attack vector observed in various ICS intrusions has been USBs and portable computers. For this
+reason, engineering workstations tend to be involved in infections. The ability to gather data from the laptop (such as
+a policy in place that vendors have to give access to the data if an incident occurs) is critical. Searching for USB use
+on the laptop might also indicate an issue if it's against the policy or post-incident.
+
+If an adversary really wants to understand the process, a key thing to search is the engineering workstation and find
+the project files and engineering documents. Understanding these can help an adversary get to a phase 2 ICS Cyber
+
+Attack. Look for access to the systems and documents leaving the system.
+
+Image Reference:
+Automation World
+
+116 © 2021 Robert M. Lee
+
+116
+
+oo) ®
+
+nm
+
+eoeowrerwrg? ®ve @©@ OO DM OD OD DM Ww
+wows wvwowww ww
+
+oH9HvHHYUHMUH¥YVUUYUYUYVMyY
+
+aN)
+
+Controllers (PLCs/RTUs)
+
+* Network Traffic. + Many controllers have ¢ Record hashes. :
+¢ Proprietary Protocols. logs that can indicate ¢ Store files securely off
+
+— 4 errors and issues on the network.
+Field Logging. the controller.
+
+¢ Interrupted network
+communications logs
+can arise from
+scanning activity by
+adversaries.
+
+ICS515 | ICS Visibility, Detection, and Response
+
+Digital forensics has not made much, if any, headway with research on forensics into controllers. The proprietary
+systems make it difficult as well. However, logging can be vital. More importantly, network data and interaction in
+the form of packet captures can reveal a lot. The most serious incidents often involve remote access. Attackers have
+to access the system over the network—identify and capture the data there.
+
+Digital acquisition and forensic analysis at the field level is difficult, especially due to proprietary protocols and
+operating systems.
+
+Focus on areas that are known, such as common and well-understood protocols—look for manipulations or oddities.
+Be able and willing to pull project files and logic information, hash it, and compare it against known good files (or
+
+"vaulted" information).
+
+In the rare case that on-device logging is possible and enabled, ensure that collection is done early given limited
+storage space.
+
+© 2021 Robert M. Lee 117
+
+7
+
+Project/Logic Files
+
+| | Project files are less
+
+likely to have malware
+
+}, and more likely to have
+| Manipulations
+
+pee este be Sonie OEMs have project
+roprictary formats but : sates
+
+of ye 4 table wane file comparison tools,
+and sometimes even ~
+
+f ; Others you can utilize
+| XML or HTML based tools such as Notepad++
+
+ICS515 | ICS Visibility, Detection, and Response — 110
+
+Project Files
+
+Project files and logic on controllers don't often come to mind when thinking about malware and threats. However,
+any adversary actually wanting to manipulate a system's process, or cause damage, is going to have to manipulate the
+logic or project files at some point. Stuxnet was known to have manipulated the project files of the Siemens
+controllers. There's no quick-and-easy way to analyze for malicious routines or indicators of compromise. The
+concept seems like it would not be feasible. (Small changes can mean big damage, and there's nothing that looks or
+is inherently malicious.) However, gathering hashes of these files and having Incident Response personnel hash the
+project files during an incident will allow TEM personnel to identify if there's any manipulations that have occurred.
+Then, engineers can be involved to determine what the threat is trying to do and how to stop it. Also, consider having
+discussions with your lawyers to ensure record retention and eDiscovery issues do not conflict with project file
+needs, or information protection program requirements in your organization.
+
+118 © 2021 Robert M. Lee
+
+oo ®
+
+OC @ PP DP DP De DD eee OD wh
+
+a @
+oOo menmneneemnth o& & & &@& BWM B&H BS B&BS HH & HO #&

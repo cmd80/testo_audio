@@ -1,0 +1,1762 @@
+88 8 Oo HEHHHSEHHHKEHeHKeKeKHeHeKeHSHeULSHDD YH
+
+ICS515 | VISIBILITÀ, RILEVAMENTO E RISPOSTA DEI ICS
+Risposta GIAC e difesa industriale (GRID)
+
+515.3
+
+Rilevamento delle minacce ICS
+
+GIAC
+
+CERTIFICAZIONI
+
+NANS
+
+LA FONTE PIÙ AFFIDABILE PER LA FORMAZIONE, LA CERTIFICAZIONE E LA RICERCA SULLA SICUREZZA DELLE INFORMAZIONI | sans.org
+
+ ICS
+
+SANS | Rilevamento delle minacce ICS
+
+|
+
+ dell'ICS
+
+Come vedrai, lo schema di questa sezione si concentra principalmente sul commercio di intelligence. Troppo spesso le persone fanno pubblicità
+stessi come "analisti delle minacce" o "esperti di intelligence" senza avere una comprensione fondamentale dell'intelligence
+mestiere. Esaminiamo alcune delle minacce presenti nella comunità (come HAVEX) e dove troviamo una buona intelligence
+Le pratiche possono essere utilizzate per comprendere e difendersi in modo più accurato da tali minacce. Considera questo il "Com'è".
+Made" di questo corso in cui guardiamo dietro le quinte del mondo dell'intelligence per vedere quanto siano accattivanti
+vengono redatti rapporti di intelligence sulle minacce.
+
+ dell'ICS
+
+La sezione 3 riguarda il rilevamento delle minacce. Inizieremo con la comprensione della caccia alla minaccia che è l'essere umano
+processo guidato di ricerca proattiva delle minacce nella vostra organizzazione. Poi passeremo alla comprensione
+diverse strategie di rilevamento e tipi di rilevamenti che è possibile utilizzare con vari casi d'uso. Lungo la strada
+sarai esposto a diversi strumenti e approcci comuni con l'analisi pratica di una compromissione in un ICS
+rete. Essere in grado di identificare quando una compromissione è solo un'infezione o qualcosa che si concentra sull'ICS
+(Fase 2 della Cyber ​​Kill Chain di ICS) ti aiuterà a stabilire le priorità e a classificarle in modo appropriato.
+
+4 © 2021 Roberto M.Lee
+
+Dp
+
+©’ ©) } © WY TY YF © w TF FF FF FF ae Pe Oe ST TG GS G G
+oe © &© &© &§ © ©&© @& BW © 6 BW © OB GB GS YS YH GBS |Y | Bw
+
+w
+
+vedere Ciclo
+(FASE 3)
+
+o
+
+P@iewee®
+
+Wn
+
+ICS5I5 | Visibilità, rilevamento e risposta dell'ICS
+
+Gli attacchi informatici mirati sono in aumento e rappresentano un grave rischio per gli ambienti ICS. Ricerca e incidente
+la decostruzione sta iniziando a mostrare che gli aggressori stanno sviluppando strumenti compatibili con ICS e se ne sono dotati
+conoscenze di base sulla tecnologia e sulle architetture ICS per avere successo. Il successo di questi attacchi dipende da
+vulnerabilità ICS esistenti e incapacità delle strategie difensive esistenti di far fronte ad attacchi prolungati
+campagne. Molte difese ICS sono state ottimizzate per proteggere da attacchi informatici non strutturati e non diretti/mirati.
+attacchi. La maggior parte delle strategie si basa su una forte difesa perimetrale con una certa protezione basata sull'host e buona
+igiene della sicurezza. Queste difese sono efficaci contro alcune minacce, ma non riescono a bloccarne o illuminarne altre
+tentativi di intrusione avanzati. Molte difese, se violate, forniscono poca o nessuna conoscenza di dove si trova l'avversario
+stato e cosa sta accadendo all’interno della rete di controllo. Dobbiamo evolvere oltre lo statico perimetro focalizzato
+difesa e costruire nuovi modelli per integrare le strategie di difesa.
+
+Benefici
+
+Questa fase del ciclo ti consentirà di aiutare i team di architettura e difesa a rimanere consapevoli di ciò che è la rete
+la topologia assomiglia. Basandosi su questa conoscenza della rete, puoi identificare le stranezze della rete e abbinarle
+avvisi ed eventi sulla rete per identificare il tipo di avversari che le difese tradizionali non troveranno. Puoi
+aiutare a prendere decisioni sulla necessità di una risposta agli incidenti e fornire contesto al team. Puoi anche identificarti
+parti critiche della rete su cui il team dovrebbe concentrarsi. La fase di identificazione delle risorse e NSM è il punto fondamentale
+tiene insieme il ciclo di difesa attiva. Dovrebbero pensare in modo più chiaro le persone che operano in questa fase
+avendo quattro obiettivi principali:
+
+* Identificare le risorse di rete e le connessioni che i team di architettura e difesa hanno mancato e trasmetterle
+quelle squadre per la loro consapevolezza e utilizzo.
+
+* Fornire raccomandazioni ai team di architettura e difesa in merito alla segmentazione della rete,
+strozzature e sensori aggiuntivi che andrebbero a vantaggio del NSM.
+
+* Identificare le minacce nella rete oltre ciò che le difese tradizionali troverebbero e fornire raccomandazioni al
+squadra di difesa per la messa a punto di sensori e mezzi di difesa.
+
+* Identificare se una minaccia è sufficientemente grave da avviare una risposta all'incidente e formulare raccomandazioni al management
+riguardo a questo, offrendo allo stesso tempo un contesto agli eventi.
+
+ dell'ICS
+
+«Questa pagina è stata lasciata intenzionalmente vuota.
+
+6  dell'ICS
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+ dell'ICS
+
+Il 18 dicembre 2014, il Bundesamt fiir Sicherheit in der Informationstechnik (BSI, tradotto come Federale) tedesco
+Office for Information Security) ha riferito sui suoi risultati annuali. In un caso, è stato notato che un attore malintenzionato
+si è infiltrato nella rete impiantistica di un'acciaieria. L'aggressore ha utilizzato un'e-mail di spear phishing per ottenere l'accesso al file
+rete aziendale per poi inserirsi nella rete di stabilimento. Lì, l'avversario ha mostrato una quantità relativa di
+sofisticatezza e conoscenza ICS e ha proceduto a causare il guasto di più componenti del sistema. Ciò ha causato un
+l’altoforno non è più regolamentato, provocando ingenti danni fisici. L'unica altra volta c'era il
+la distruzione fisica dei sistemi di controllo (nota pubblicamente) era Stuxnet.Questa storia emozionante e preoccupante lo era per lo più
+sepolto nelle notizie (in parte a causa della violazione di Sony, avvenuta esattamente nello stesso momento).
+
+Riferimenti:
+
+BS tedesco] Rapporto annuale:
+https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Publikationen/Lageberichte/Lagebericht2014.pdf?__ blob
+=File di pubblicazione
+
+Analisi Dragos Security e traduzione in inglese: http://dragossecurity.com/blog/
+
+L'analisi del Wall Street Journal: http://blogs.wsj.com/cio/2014/12/1 8/cyberattack-on-german-iron-plant-causes-
+danni-diffusi-
+report/?utm_content=buffer59558&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
+
+8 -  dell'ICS
+
+Un altoforno è un'ottima tecnologia ma non è esattamente l'attrezzatura più sicura. Un sacco di buona ingegneria va ~
+per renderli sicuri, ma dal punto di vista di ciò che può andare storto, questi sistemi sono ancora qualcosa da tenere d’occhio. (=
+Ad esempio, ogni volta che aggiungiamo insieme cose come carburante e ossigeno, dobbiamo pensare alla sicurezza
+
+implicazioni. Un avversario inesperto potrebbe anche facilmente cliccare sull'HMI, il che mostra abbastanza per poter ~
+aggiungere più carburante e ossigeno. Allora cosa lo impedisce? Buona ingegneria della sicurezza. Le misure e i sistemi di sicurezza {=
+collegati qui aiutano a mantenere le cose in condizioni di sicurezza. Sfortunatamente, se un avversario dovesse rovinare quella sicurezza
+
+sistemi, o anche solo i sensori che li alimentano, potrebbero causare ulteriore caos.
+
+Riferimento:
+Siemens
+
+/
+
+4
+
+)
+
+ma ww W
+
+10  dell'ICS
+
+Ciò che non sappiamo, ma possiamo fare un'ipotesi plausibile, è che la rete aziendale era probabilmente collegata direttamente
+con la rete dell'impianto attraverso zone fidate, o peggio. E sebbene l’impianto siderurgico probabilmente avesse un’eredità
+componenti, avrebbero dovuto esserci sistemi di sicurezza e dispositivi di sicurezza per l'altoforno che avrebbero potuto indicare che il
+l'attacco è stato mirato. In tal caso, potrebbe essere stato manipolato tramite l'HMI.
+
+12
+
+ dell'ICS
+
+Da questo caso di studio possiamo estrarre alcune importanti lezioni apprese che si applicano direttamente all’ACDC. Innanzitutto, il monitoraggio
+del sistema di controllo e delle reti di processo ne aumenta assolutamente l’affidabilità e la sicurezza. NSM lo avrebbe fatto
+ha identificato comandi strani, traffico di rete e movimenti dell'avversario sulla rete, ma potrebbe anche aver aiutato
+identificare il problema molto prima che l’altoforno subisse un guasto. Nel processo di NSM, gli analisti potrebbero
+sono stati anche in grado di identificare l'architettura e le risorse che probabilmente non erano documentate o sconosciute, incluso
+connessioni sconosciute nell’ambiente aziendale. Se esistessero collegamenti noti, avrebbero potuto e dovuto
+sono stati collocati in configurazioni di tipo chokepoint per l'analisi. I clienti aziendali non hanno mai motivo di poterlo fare
+interfacciarsi direttamente con HMI o altri sistemi di controllo.
+
+Dopo che il personale NSM ha identificato una minaccia, il personale IR avrebbe potuto adottare le misure appropriate per contribuire a mantenerla
+operazioni in corso o, più probabilmente in questo scenario, hanno identificato che le operazioni dovevano essere interrotte prima della distruzione fisica
+si è verificato. Probabilmente anche la struttura non si considerava critica e pertanto potrebbe non aver ricevuto una risposta agli incidenti
+personale. Abbiamo anche visto in prima persona che questo caso di studio era importante da condividere con la comunità. È utile in questo
+classe ed è utile per aiutare gli altri a imparare dalle minacce e a creare le migliori pratiche per la difesa.
+
+Tutto ciò è più facile a dirsi che a farsi, ma è fattibile. E dobbiamo adottare una risposta matura agli avversari, se mai vogliamo farlo
+vincere: quella risposta matura include la sicurezza.
+
+Il vettore di attacco iniziale per l'attacco all'acciaieria era un'e-mail di phishing che probabilmente conteneva una sorta di "carico utile"
+(identificato anche come "dropper") per ottenere l'accesso.
+
+Al di là della rete aziendale, tuttavia, non sembra che sia coinvolto alcun malware, ma solo l'azione dell'avversario
+erano ovviamente una minaccia per la struttura (intento + opportunità + capacità). Comprendere le azioni della minaccia nel
+la rete dell'impianto richiedeva qualcosa di più della semplice analisi del malware; comprendere una minaccia richiede processi di pensiero e
+esami. Il corso di questa sezione sarà fortemente incentrato sull'analisi del malware perché rappresenta la maggior parte delle minacce
+affrontato. Tuttavia, l’interazione diretta di una minaccia senza malware deve essere considerata rilevante e pericolosa,
+ma anche qualcosa che può essere esaminato, compreso e contrastato.
+
+14  dell'ICS
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+© 2021 Roberto M.Lee
+
+Caccia alla minaccia
+
+La caccia alla minaccia è una caccia alla minaccia che richiede il
+focalizzato e iterativo, un focus sulle persone
+
+approccio alla ricerca, ra
+
+identificare e ; fo, il tuo lavoro si concentra sugli avversari umani,
+comprendere gli avversari 4° ma potresti non incontrare avversari
+
+fonde quello del difensore; Hai bisogno dell'apertura mentale di a
+pes Lo nuova persona, ma la caccia non fa per
+gente nuova
+Valore significativo: ; 5 I venditori di prodotti lanceranno la caccia
+valore significativo: i 7x ase ma non è una questione di prodotto
+
+Andando oltre 'y:
+impronta dell'automazione wy ​​È necessario fare affidamento sull'automazione,
+Aggiungendo aes o 4 ma non è possibile automatizzarlo completamente
+
+eee. ae eee caccia: la caccia è un passo
+impronta dell'automazione ) ay eA A oltre l'automazione
+Individuazione delle lacune nella raccolta i
+Preparazione per l'IR
+
+1CS515| Visibilità, rilevamento e risposta dell'ICS
+
+La caccia alle minacce è un approccio mirato e iterativo per cercare, identificare e comprendere gli avversari
+interne alle reti del difensore. È un tipo di difesa attiva (la difesa attiva comprende anche aspetti come
+risposta agli incidenti, che non è una componente della caccia alle minacce). Il concetto della caccia alle minacce è che aiuta
+assicurati che la tua organizzazione identifichi le minacce “sconosciute” che le tue normali pratiche di sicurezza non riescono a rilevare. Suo
+si tratta di un team specializzato di persone che hanno l'esperienza necessaria per scovare le minacce veramente avanzate.
+
+Qui presentati sono cinque concetti; ciascuno supporta il primo, ovvero che la caccia alle minacce richiede che l'attenzione sia focalizzata su
+persone. Questo però non riguarda solo i difensori, ma anche l’avversario. La caccia è l’epitome di un duale
+rapporto tra avversario e difensore. Anche se tutti speriamo di tenere gli avversari fuori dai sistemi, ecco
+non c'è scopo per la caccia alle minacce se non esiste un avversario. Altri tipi di sicurezza possono contribuire al monitoraggio e all'affidabilità
+della rete, e anche gli aumenti di efficienza operativa osservati attraverso l’interazione della rete e del sistema. Ma
+
+la caccia è focalizzata esclusivamente sull'elemento umano.
+
+Il valore della caccia alle minacce non sta solo andando oltre l’attuale impronta dell’automazione (strumenti, rilevamenti, ecc.)
+ma anche nel portare avanti l’impronta dell’automazione. Quando fai una caccia dovrebbe sempre esserci un output del genere
+come creare rilevamenti a partire da ciò che hai cercato per spostare tale sforzo in modo più automatizzato. Inoltre, uno di
+il vantaggio principale della caccia alle minacce è la scoperta delle lacune nella raccolta e dei problemi relativi ai dati. In sostanza, la caccia alle minacce lo è
+
+risposta all'incidente senza l'incidente e può aiutarti a prepararti in modo più completo.
+
+16  dell'ICS
+
+Non è appropriato essere costantemente a caccia di minacce. Ciò che la maggior parte delle organizzazioni chiama caccia continua alle minacce è giusto
+normali operazioni di sicurezza. Fa parte della valutazione degli avvisi e della ricerca degli avversari dai segnali che ricevi
+l'impronta dell'automazione e, in definitiva, è reattivo (identificare un rilevamento e quindi valutarlo). Caccia alla minaccia, quando
+fatto correttamente, è più intenso e fornisce più valore per andare oltre l’impronta dell’automazione. Ci sono due
+pone nel tuo percorso verso la sicurezza il momento in cui la caccia alle minacce entra naturalmente in gioco e fornisce il massimo valore.
+
+Il primo è nei primi giorni del tuo viaggio verso la sicurezza. Mentre stai cercando di capire le priorità e cosa sei
+fare (ad esempio, la roadmap della sicurezza) è molto utile identificare gli scenari di minaccia che ti interessano di più, in base
+su punti di vista guidati dall’intelligence e dalle conseguenze. Da lì è opportuno sviluppare un incidente
+piano di risposta contro questi tipi di scenari, solitamente dando priorità a 3-5 scenari. Questi scenari dovrebbero trasformarsi in
+esercizi pratici orchestrati tra IT e OT e spesso con la consapevolezza della leadership esecutiva e altro
+approfondimenti del team (ad esempio, risorse umane e legale). Tuttavia, un problema comune con gli esercizi da tavolo (TTX) è che lo sono
+in base a ciò che pensi di sapere sull’ambiente. La caccia alle minacce può rappresentare un enorme valore aggiunto in questo caso
+essenzialmente testando il TTX. Una caccia alle minacce eseguita in questo modo è in definitiva una risposta all’incidente senza l’incidente.
+Dovresti prendere il TTX/scenario e creare una caccia nella rete appropriata per cercare la minaccia che rappresenti
+interessati nello scenario. Ciò fornirà un feedback se hai i dati che pensi di avere, come li otterresti
+le immagini forensi di cui avresti bisogno nell'incidente, ecc. L'output idealmente non sarà l'individuazione di minacce, ma in
+preparandosi per loro.Inoltre, più avanti nel tuo percorso verso la sicurezza per l'area o i siti di interesse, idealmente ne dovresti inserire alcuni
+impronta dell'automazione. L’impronta dell’automazione includerà alcune difese passive che forniscono prevenzione,
+come i firewall, ma anche difese passive come l'analisi della rete e i prodotti di rilevamento. Chiedi ai tuoi analisti di prenderlo
+un approccio di difesa attiva per sfruttare e identificare problemi e minacce. Ti sarai essenzialmente trasferito
+continue operazioni di sicurezza. A quel punto, la caccia alle minacce dovrebbe essere effettuata regolarmente, con una frequenza trimestrale, ma a cadenza trimestrale
+almeno una volta all'anno. Questi possono essere sforzi di dimensioni diverse, vincolati dal focus e dal tempo (ad esempio, non limitarsi a cacciare all'aperto
+finito perché perderesti molto tempo). Qui stai cercando quelle minacce che stanno aggirando la tua automazione
+impronta e, così facendo, creare risultati finali come nuovi rilevamenti o posizionamenti di sensori per aumentare la copertura
+dell'impronta di automazione esistente.
+
+ dell'ICS
+
+Non esiste un unico modo per eseguire una caccia alle minacce. Spesso si tratta di un approccio molto personale che dipende sia dall'analista che dall'analista
+e l'intento della caccia alla minaccia. Tuttavia, quando la caccia alle minacce è più efficace, è guidata dall’uomo (e non eccessivamente
+dipendente dall’automazione) ed è guidato da ipotesi. Un’ipotesi deve essere qualcosa di facilmente enunciabile, e deve esserlo
+testabile. Questi componenti fondamentali delle ipotesi le rendono adatte ad aiutare gli analisti a cercare nelle loro organizzazioni
+guidando e definendo l’ambito di tale sforzo e garantendo un certo livello di successo come risultato.
+
+Tuttavia, Dan Gunter e Marc Seitz hanno sviluppato un modello molto utile, qui identificato come Modello Pratico
+Threat Hunting, che si basa su un bel po' di lavoro svolto nella comunità militare statunitense e su altri modelli, come il
+Modello del diamante. Fornisce un approccio ripetibile alla caccia alle minacce strutturate. È il modello che verrà esplorato
+qui in classe ed è generalmente raccomandato come modello concettuale.
+
+Riferimento:
+Caccia-con-rigore.pdf
+
+18  dell'ICS
+
+Nella fase Scopo stai cercando di catturare esattamente il motivo per cui stai cacciando, cosa speri di ottenere da
+caccia e i potenziali risultati che genereranno valore. In sostanza, questo sta definendo il requisito. Senza bene
+requisiti, la portata della caccia diventerà spesso troppo ampia o non verificabile, con il risultato di cacce prolungate e inferiori
+valore.
+
+È ideale, ma non obbligatorio, avvalersi di altre persone per fare un brainstorming sui requisiti. Ad esempio, comprensione
+le preoccupazioni del personale operativo o quelle dei leader aziendali contribuiranno a personalizzare il tuo approccio. Puoi anche fare leva
+eventi emergenti (un nuovo incidente nel tuo settore) e il tuo modello di minaccia (quali tipi di minacce ti interessano di più)
+per iniziare a soddisfare tali requisiti.
+
+In questo esempio, potremmo segnalare che DRAGONFLY ha preso di mira numerose aziende e che la nostra azienda lo ha fatto
+
+sia nel settore elettrico che in quello petrolchimico. Vogliamo quindi capire se DRAGONFLY è già presente nel ns
+ambientale o meno, e ottenere rilevamenti migliori come risultato per loro e per i loro TTP.
+
+ dell'ICS
+
+Esistono tre tipi di generazione di ipotesi. Puoi farlo in base alla tua esperienza (competenza nel dominio), su un
+comprensione dell’ambiente e dell’organizzazione (Situational Awareness) o sull’intelligence amichevole o sulle minacce.
+Capire che tipo di ipotesi stai generando e come ti vengono le idee influenzerà il modo in cui
+raccogliere dati e rilevare minacce nel proprio ambiente.
+
+La competenza nel dominio è la tua comprensione del problema. Ad un certo punto probabilmente sei stato influenzato da informazioni o
+consapevolezza della situazione lungo il percorso, e ora è radicata in te. Ad esempio, potrei capire che si aggiorna
+all'ICS al di fuori di un periodo di inattività o di manutenzione sono rari. | non ho bisogno di niente e nessuno da dire
+io questo, poiché è l'esperienza e la mia comprensione del problema.
+
+Guidato dall'intelligence (informazioni amichevoli o minacciose) sta prendendo spunto da qualcuno o qualcos'altro, con un
+comprensione di ciò che stanno facendo i nostri difensori (amichevole) o di ciò che stanno facendo gli avversari (minaccia). Non sta guardando
+per gli indicatori, poiché ciò non fa parte della caccia alle minacce, ma è invece essere consapevoli dei loro TTP, vittimologia e tipologie
+dell’infrastruttura sfruttata da un avversario. Anche comprendere le motivazioni può aiutarmi a capire dove cacciamo.
+
+La consapevolezza situazionale è il mondo che ci circonda, il che significa che potrebbe essere correlato a eventi non legati alla sicurezza, come ad esempio
+conflitto geopolitico tra stati che potrebbe essere un evento scatenante per determinate minacce. Potrebbe essere basato su cose come
+acquisire un'altra società e generare l'ipotesi che siano già compromessi, e possono essere cose del genere
+comprendere il nostro ICS abbastanza profondamente da comprendere le conseguenze di ciò che può accadere e come, a prescindere
+delle minacce che li colpiscono. L’analisi delle conseguenze è una delle forme più potenti di consapevolezza situazionale.
+ipotesi basate.
+
+Riferimento:
+Ipotesi-di-caccia.pdf
+
+ dell'ICS
+
+Con una buona comprensione del motivo per cui stiamo cacciando e cosa speriamo di ottenere, contro quali ipotesi e con cosa
+ambito, siamo quindi pronti per entrare nella fase Equip. Nella fase Equipaggia si tratta di determinare il
+lato persone/processi/tecnologia della caccia. Quali strumenti sfrutteremo, quale personale inseriremo
+la caccia e quali fonti di dati siamo in grado di sfruttare? È qui che avere un CMF diventa incredibilmente utile:
+comprendere la combinazione dell'ipotesi e della raccolta è una combinazione perfetta per accelerare i nostri sforzi
+e renderli più efficaci. Invece di cercare di entrare nell'ambiente e quindi determinare le origini dei dati e
+quindi determinare quali persone e strumenti sono necessari, possiamo farlo in anticipo.
+
+Possiamo anche dotarci di approfondimenti a seconda delle ipotesi. Perché l’ipotesi di questo esempio lo è
+
+concentrandoci su DRAGONFLY vorremmo capire i loro TTP e le loro capacità. Quindi appoggiandosi alla squadra dell'intelligence
+o semplicemente raccogliere noi stessi queste intuizioni sarebbe un'ottima cosa di cui dotarci.
+
+ ICS
+
+Combinare ciò che stiamo cercando come sovrapposizione sul CMF ci aiuterà a determinare rapidamente se lo saremo
+successo o no. Ad esempio, se pensiamo di dover sfruttare le comunicazioni OPC, ma non esistono OPC
+comunicazioni nella rete di Calistoga, allora è inutile informarsi sull’argomento o cercarli
+abusi. Invece, potremmo determinare che DRAGONFLY dovrebbe utilizzare la scansione delle porte ICS e nativa
+comunicazioni diverse da OPC. Esaminarlo con ciò che è disponibile può mantenerci rapidamente sulla buona strada. Inoltre,
+se non c'era un'applicazione installata sul sistema (le applicazioni trojanizzate erano una tattica di DRAGONFLY), allora
+
+anche la revisione di tutti i possibili log dell'host è inutile. Ci concentreremo sulla comprensione delle nuove installazioni e dei nuovi processi
+esecuzione seguita dalle comunicazioni ai titolari.
+
+Scoprirai che varie fonti di dati e personale sono disponibili e non sono disponibili durante la revisione del piano. Suo
+ok per personalizzare rapidamente il piano. Finché raggiungi ancora l'obiettivo originale, puoi continuare.
+
+24  dell'ICS
+
+Dalla nostra comprensione di DRAGONFLY e del nostro CMF, possiamo identificare rapidamente le fonti di dati più rilevanti,
+dove si trovano e per quanto tempo li abbiamo. Abbiamo 6 mesi di analisi del traffico, 90 giorni di Windows
+registri eventi e 7 giorni su richiesta per l'acquisizione dei pacchetti. Sfrutteremo l'acquisizione dei pacchetti, ma è una procedura che dura solo 7 giorni
+finestra, il che significa che se venissimo presi di mira prima di quella finestra, probabilmente non sarebbe molto utile. Possiamo arrivare ad a
+buona risposta per 90-180 giorni guardando indietro all'ambiente. Il periodo di riposo di 7 giorni giocherà probabilmente un ruolo importante
+ruolo nel determinare se una minaccia è ancora attiva e nello sviluppare i rilevamenti poiché si tratta essenzialmente di una raccolta grezza/completa
+
+da usare.
+
+ dell'ICS
+
+Nella fase Esegui si procede con la ricerca e si entra nell'analisi tecnica e nella raccolta dati. Come un
+Ad esempio, analizzeremo le acquisizioni di pacchetti dalla raffineria di Calistoga alla ricerca dell'utilizzo del protocollo ICS, in particolare su
+profilazione di più controllori (ovvero, utilizzo del protocollo anomalo per i sistemi con cui comunicano).
+Inoltre, esamineremo i registri VPN e firewall alla ricerca di utilizzi anomali e esamineremo i registri host per le applicazioni
+installato di recente. Quindi analizzeremo quei file per vedere se c'era connettività o altra applicazione
+
+non dovrebbe essere lì.
+
+La fase di esecuzione può essere molto più efficiente e mirata se abbiamo seguito il modello fino a questo punto.
+
+26  dell'ICS
+
+Alla fine di ogni caccia c'è un risultato. Semplicemente non trovare minacce non è un buon risultato. Il punto della caccia
+sta trovando le minacce che stiamo cercando, ma alcuni dei risultati migliori si ottengono personalizzando la nostra collezione, realizzando che
+avevamo delle lacune e che non avremmo avuto successo senza estendere la nostra impronta di automazione, ecc. In questo caso lo abbiamo fatto
+non troviamo HAVEX nella raffineria di Calistoga, ma conosciamo alcune tattiche che possiamo trasformare in rilevamenti attraverso il nostro
+ambiente. Inoltre, l'analisi pcap veniva raccolta e controllata manualmente e lontana dal monitoraggio continuo; IL
+la raccomandazione non solo di implementare i sensori ma anche di dove posizionarli esattamente può estendere la nostra automazione
+impronta, collocando la nostra organizzazione in una posizione molto migliore e rendendo gli sforzi di controllo futuri molto più efficienti.
+
+ dell'ICS
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+ dell'ICS
+
+Esistono quattro tipi di rilevamento delle minacce suddivisi in due categorie. I quattro tipi sono analisi di configurazione,
+modellazione, indicatori e analisi del comportamento delle minacce. Le categorie sono ambiente e minaccia.
+
+L'analisi della configurazione è un approccio basato sull'ambiente per identificare il sistema o la rete in modo sufficientemente accurato
+cambiamenti spot. Stai letteralmente cercando la “novità”. Cosa c'è di nuovo nell'ambiente da
+configurazione? Questo è un approccio in stile whitelist. Tecnicamente può catturare tutto perché è un avversario
+alla fine deve fare qualcosa di nuovo per fare qualcosa di dannoso. Ma questo ha il più alto tasso di falsi positivi
+perché tecnicamente cattura... tutto.
+
+La modellazione è l'evoluzione della configurazione in cui viene applicato un modello, spesso un modello matematico come a
+tecnica di machine learning, al set di dati per sviluppare un profilo per l'ambiente. Ad esempio, una macchina-
+il modello di apprendimento potrebbe imporre che la configurazione si evolva in un determinato periodo di tempo e presenti modifiche accettabili.
+Forse il codice funzione 121 non viene utilizzato spesso, ma va bene purché non venga utilizzato più di 5 volte alla volta
+Periodo di 24 ore. La modellazione è ottima per identificare le “anomalie” nell’ambiente e quindi può catturare novità davvero nuove
+tecniche. Tuttavia, i due grandi svantaggi del rilevamento delle anomalie sono che c'è una cura e un'alimentazione costanti
+richiesto (non esiste un periodo di preparazione di 30 giorni e poi il gioco è fatto: devi costantemente addestrare il modello) e,
+Ancora più importante, nessun approccio di rilevamento basato sull’ambiente può fornire un contesto sulla minaccia. Così sono gli analisti
+lasciato con avvisi senza contesto. L'intero costo di proprietà dell'indagine e quali anomalie contano, perché e
+
+cosa fare al riguardo spetta al difensore.
+
+Gli indicatori cercano dettagli sull'attività dell'avversario, come l'hash digitale del malware. Loro tecnicamente
+contengono la maggior parte del contesto se usati correttamente, ma spesso vengono usati in modo errato poiché vengono espansi in cosa
+cercano finché non diventano inutili (non forniscono contesto e scarsa capacità di rilevamento). Elementi atomici delle intrusioni
+e il malware cambiano così rapidamente che un approccio basato su indicatori richiederebbe un flusso quasi costante di
+indicatori mutevoli si sono riversati nell'ambiente.
+
+I comportamenti di minaccia sono l’evoluzione degli indicatori. Invece di cercare attributi specifici di un avversario o dei suoi
+
+capacità, l’analitico cerca l’abilità commerciale. Si tratta di TTP avversari letteralmente codificati. In questo modo, minaccia
+l'analisi comportamentale fornisce comunque il contesto su ciò che un difensore sta guardando quando avviene un rilevamento
+
+30  dell'ICS
+
+L'analisi della configurazione nella sua forma più elementare cerca la “novità”, ovvero la prima volta che qualcosa accade per la prima volta
+tempo. Ciò implica contro tutto il tempo. Questo non deve essere confuso con un evento di base che si verifica proprio all'interno di un set
+di tempo. Se vuoi sapere se viene visualizzato un nuovo valore di protocollo, rispetto alle ultime 24 ore, sarebbe a
+rilevamento basato sulla modellazione. Ma se stai cercando una notifica che indica che un valore di protocollo è stato visto per la prima volta in
+il tuo ambiente, si tratterebbe di una modifica della configurazione. Sembra pedante, ma gli ambienti di riferimento non lo sono
+necessariamente la stessa cosa che identificare la novità. Il modo più semplice per mantenerlo coerente è confrontare a
+configurazione su un insieme di tempi e cercando deviazioni, in realtà si tratta di modellazione: la componente chiave è il tempo
+
+confronto.
+
+Al di là delle novità, però, l'analisi della configurazione può essere estremamente utile per avvisare gli analisti di eventuali modifiche al file
+configurazione. Ad esempio, un PLC con il tasto in modalità RUN che poi passa alla modalità PRGRM è una modifica
+la configurazione dei PLC. Quando torna a RUN si tratta anche di una modifica nella configurazione. Essere consapevoli di
+i vari cambiamenti di configurazione nell'ambiente, come i cambiamenti logici, possono fungere da ottimo strumento forense
+fonte. Non vorrai valutare questi rilevamenti ma avere le notifiche disponibili per rivedere le modifiche
+nell'ambiente dopo che hai già un'altra notifica o evento a cui stai valutando e a cui stai tentando di aggiungere contesto.
+
+Negli esempi sopra vediamo due rilevamenti di Suricata. Questi sono stati sviluppati dal team R&D/Intel di Dragos, as
+erano gli altri esempi di Suricata nelle prossime diapositive. Nella prima cerca un aggiornamento firmware per il PLC,
+in questo caso specificatamente Phoenix Contact, e notando che SNMP viene utilizzato sul PLC per modificarlo
+configurazione. La seconda ricerca un aggiornamento della logica applicata ad un PLC Beckhoff ADS. Entrambi questi eventi
+sarebbe utile saperlo, ma ancora una volta non è qualcosa che valga la pena valutare senza un altro contesto.
+
+L'analisi della configurazione non contiene il contesto di come o perché qualcosa è dannoso o potrebbe essere dannoso.
+L'aggiunta del contesto di minaccia sposterebbe il rilevamento su un comportamento di minaccia. Tecnicamente un'analisi della configurazione
+il rilevamento basato sul comportamento delle minacce e il rilevamento basato sul comportamento delle minacce potrebbero cercare esattamente la stessa cosa. La separazione è la
+contesto, ma questi sarebbero comportamenti di minaccia orribili. C'è un'aspettativa di valutazione di quelli e di questi invece
+
+sarebbe meglio atom
+triaging. Per ora hanno valore forense.
+
+32
+
+eventi IC che vengono poi inseriti con altri eventi e contesto per rendere più efficace il rilevamento
+
+ dell'ICS
+
+I rilevamenti di modellazione cercano deviazioni da una configurazione nel tempo. Questo può essere creato o creato manualmente
+utilizzando metodi automatici come il machine learning. Quando senti parlare di prodotti o approcci che devono “cuocere
+"in" o "sintonizzarsi" con l'ambiente per i loro rilevamenti, c'è qualche elemento di modellazione in atto.
+
+Il valore ovviamente con Modeling è che non è necessario sapere cosa stai cercando e, a seconda del
+gravità della deviazione o del contesto ambientale, potresti scegliere di valutare alcuni di questi rilevamenti.
+Tuttavia, senza contesto su come o perché qualcosa è dannoso, può trattarsi di uno sforzo molto dispendioso in termini di tempo. Invece,
+La modellazione viene utilizzata al meglio in modo proattivo quando si cercano proattivamente cose sbagliate nel proprio ambiente
+rispetto alla valutazione di un avviso.
+
+Ad esempio, potrei essere preoccupato per gli avversari che sperimentano le mie RTU in una sottostazione di trasmissione
+e potrebbe cercare attività anomale. Potrei farlo attraverso l'apprendimento automatico, oppure potrei saperlo con certezza
+Gli avvisi di configurazione sono importanti per me, come i riavvii a caldo DNP3, e quindi impostare una soglia per cercarne più di 5
+verificarsi entro un periodo di 60 minuti.
+
+ dell'ICS
+
+capacità rapida di rilevare minacce e definire l'ambito del tuo
+
+Gli indicatori sono spesso abbastanza facili da creare e implementare, fornendo a
+g di un avversario
+
+ambiente per le minacce note. La componente chiave di un indicatore è che si concentrano sulla rilevazione;
+struttura. Ciò non significa solo indirizzi IP e malware. Ad esempio, se un avversario lo è
+
+capacità o infrastrutture
+quel percorso di file che non è nativo del tuo
+
+creando un percorso file univoco sul tuo sistema per installare la loro capacità dannosa,
+il sistema è un ottimo indicatore.
+
+La chiave è che non è nativo. Ad esempio, un avversario potrebbe sfruttare PowerShell per scopi dannosi, ma
+f la configurazione di quel sistema. Alla ricerca di un uso dannoso di PowerShell
+
+è uno strumento nativo di Windows. Fa parte o
+sarebbe qualcosa attorno al quale potresti invece creare un comportamento di minaccia. Tuttavia, PowerShell Empire è un file
+
+Strumento basato su PowerShell che non è nativo dei sistemi Windows, quindi cercarlo sarebbe un indicatore.
+
+Nell'esempio di rilevamento è presente un modulo CIP nel popolare framework Metasploit di pentesting. Quel CIP.
+Il modulo CRASHSCPU è qualcosa che può essere cercato e il contenuto in tutta la rete (i byte che siamo
+
+cercando) sono un ottimo indicatore.
+Gli indicatori possono essere falsi o veri positivi perché affermano che il rilevamento sta rilevando accuratamente uno specifico
+cosa. Quella specificità e la valutazione “questo è vero” è ciò che porta ad avere positivi Vero e Falso (cioè, il
+
+il rilevamento è corretto o sbagliato).
+
+34  dell'ICS
+
+I comportamenti di minaccia sono rilevamenti che cercano tattiche e tecniche dell'avversario. Non cercano
+capacità e infrastrutture specifiche dell'avversario, oppure sarebbero indicatori. La logica di rilevamento è spesso alla ricerca
+per una combinazione di eventi che possono verificarsi in modo nativo nell'ambiente, ad esempio basati sulla configurazione o sulla modellazione
+rilevamenti. Ciò non significa che si tratti solo di rilevamenti di configurazione e modellazione con contesto di minaccia. Una minaccia
+Il comportamento è un'analisi, una ricerca tra i dati per qualcosa di specifico, mentre Configurazione e Modellazione
+i rilevamenti spesso non cercano qualcosa di specifico ma avvisano quando si verificano tali cambiamenti. Un'analisi delle minacce di
+la sua stessa natura è la ricerca di qualcosa di specifico e contiene il contesto del motivo per cui ti interessa. Questo lo rende un
+potente forma di rilevamento trasponibile che dovrebbe assolutamente essere valutata dagli analisti.
+
+Ad esempio, se un avversario installa un nuovo file su un sistema, si connette a un indirizzo IP e quindi avvia
+sistemi di scansione per comunicazioni OPC. Tutta quella serie di eventi potrebbe costituire un comportamento minaccioso. Non sei
+cercando qual è il file specifico o qual è l'indirizzo IP specifico: stai cercando una combinazione di "new
+file” + “nuovo indirizzo IP esterno” + “Scansione OPC” in un certo periodo di tempo. Ciò rappresenterebbe il comportamento HA VEX.
+Ma, cosa ancora più importante, non catturerebbe solo HAVEX: rileverebbe quel malware così come qualsiasi altra famiglia di malware
+sfruttando quel TTP.
+
+I comportamenti di minaccia non possono avere veri o falsi positivi perché non dice "questo rilevamento avvisa su HAVEX", lo è
+dicendo "questo rilevamento avvisa sui comportamenti sfruttati da HAVEX". Non sta dicendo che questi comportamenti siano sempre presenti
+dannosi e sicuramente non affermano che siano specifici di un malware o di un avversario.Tali comportamenti potrebbero innescarsi
+per ragioni del tutto legittime, ma meritano comunque la tua ispezione in quanto sono stati abusati in precedenza
+scopi dannosi. Ma la logica dell’allerta è corretta secondo cui tali comportamenti esistono, quindi non esiste un falso o un vero positivo
+elemento per loro.
+
+ del CS
+
+In questo esempio il rilevamento cerca modifiche alla logica del sistema di sicurezza Triconex laddove la versione della logica non lo è
+aggiornato. Qualcuno sta modificando la logica del controller ma non aggiornando le informazioni sulla versione. Questo potrebbe essere
+fatto come un incidente dall'operatore o dal sistema, o questo potrebbe essere fatto da un avversario che cerca di cambiare la logica
+di nascosto, come è stato osservato nel malware TRISIS nel 2017.
+
+Non vengono introdotte nuove capacità o infrastrutture avversarie nell’ambiente che stiamo cercando
+per. Cerchiamo eventi di cui si è abusato in precedenza, o che potrebbero esserlo, e il contesto che li circonda.
+
+36  dell'ICS
+
+I difensori hanno bisogno del contesto di ciò che stanno guardando e di cosa dovrebbero fare con le informazioni. È
+È possibile ottenere il rilevamento delle minacce utilizzando uno qualsiasi dei quattro approcci, ma ciascuno di essi può essere incredibilmente inefficace e
+inefficiente se usato in modo errato. Solo perché stai raggiungendo il successo non significa che stai prendendo la strada giusta
+approccio per arrivarci e spendere saggiamente le risorse. L’analisi del comportamento delle minacce è la migliore forma di minaccia
+rilevamento ma richiedono molto lavoro iniziale. La modellazione è uno dei modi peggiori per eseguire il rilevamento delle minacce e richiede
+tutto il lavoro che deve essere svolto dopo il rilevamento da parte della squadra investigativa. Se si dispone di un'analitica del comportamento delle minacce che si attiva
+sulla rete e “si è verificata un’anomalia anche nello storico dei dati”, se ne può amplificare l’accuratezza e la pertinenza
+dell'analisi del comportamento di minaccia senza nemmeno sapere quale fosse l'anomalia.
+
+Gli indicatori sono ampiamente abusati, ma sono strumenti di analisi fantastici e possono essere utilizzati anche nel processo forense.
+
+Tuttavia, i migliori dati forensi sono i dati grezzi stessi o i dati di configurazione del periodo di tempo in cui
+qualcos'altro è stato rilevato come potenzialmente dannoso.
+
+© 2021 Roberto M.Lee 37
+MITRA ICS ATT&CK
+
+Modifica stato progr
+
+[Comrant ine teace Eipotalon ot Reva Surveas
+
+sezison ean API sums amon Serves
+
+craps ae ere Progen ogee es
+
+Hom Aimee Remete Fle Cony
+
+reoran Ogaizabon Uns p20 Reptog Mec Sip Discovery | decalcomanie dell'AED
+
+Pj ents, izecnange Modalità operativa [Sea Cam
+
+[vedi
+
+iar Exess
+
+ICS5I5 | Visibilità, rilevamento e risposta dell'ICS
+
+I comportamenti di minaccia comprendono tattiche e tecniche. MITRE utilizza il framework Enterprise ATT&CK come lessico
+e insieme di conoscenze sulle tattiche e sulle tecniche pubbliche associate alle minacce aziendali. Nel 2020 hanno creato ICS
+ATT&CK per tattiche e tecniche specifiche dell'ICS. Molte delle tattiche e delle tecniche sono state fornite da
+Dragos, Inc. data l'intuizione unica del suo team di intelligence. Ciò significa molte delle minacce che abbiamo già
+trattati in questo corso (ALLANITE, ELECTRUM, ecc.) sono già in MITRE ICS ATT&CK. Dopo aver completato
+questo corso, poiché cerchi casi d'uso di rilevamento per assicurarti di avere copertura, è molto efficace
+quadro da utilizzare.
+
+È importante notare che gli indicatori, la modellazione e i rilevamenti basati sulla configurazione non possono essere mappati su ICS ATT&CK.
+Si può dire “possiamo rilevare la tattica X”, il che è vero. Una regola “qualsiasi qualsiasi” di Snort potrebbe rilevare la maggior parte degli attacchi. Ma a
+rilevare qualcosa significa comprenderlo e il suo contesto, in modo che il difensore abbia il giusto livello di informazioni per
+atto. Nello specifico nel contesto di ATT&CK deve trattarsi di un rilevamento basato sul comportamento delle minacce; cioè tattica e tecnica,
+non qualcosa di specifico per una determinata minaccia o malware.
+
+MITRE ATT&CK e rilevamenti di minacce
+
+Nel senso più ampio, è possibile ottenere rilevamenti in un'ampia varietà di modi. Potresti ottenere un
+Rilevamento basato su configurazione/modellazione/indicatore/comportamento di minaccia che coincide con una tattica MITRE ATT&CK o
+tecnica. Tuttavia, il punto centrale delle tattiche e delle tecniche non è essere specifiche per un avversario
+capacità/infrastruttura e avere il contesto per sapere cosa è dannoso e perché. Pertanto, i comportamenti di minaccia lo sono
+
+il modulo di rilevamento che effettivamente si riferisce a MITRE ATT&CK.
+
+Quando provi a ottenere rilevamenti per MITRE ATT&CK puoi sfruttare una sovrapposizione di minacce per capire cosa
+ti interessa in modo specifico. L'obiettivo non è avere rilevamenti per tutto, ma concentrarsi su ciò che ti interessa
+
+maggior parte.
+
+38  dell'ICS
+
+Una volta compresi gli scenari che ti interessano di più (guidati dalle conseguenze o dalle informazioni), puoi tracciare il percorso
+Kill Chain come vista su MITRE ATT&CK per ICS. In questo esempio, questo è il navigatore Dragos, che è a
+strumento pubblico/gratuito. Mostra i diversi gruppi di attività, o gruppi di minacce, tracciati e osservati
+tattiche/tecniche che hanno eseguito. Puoi allinearlo con i tuoi sforzi di caccia e CMF per vedere se hai il file
+copertura nella raccolta/rilevamento per gli scenari che ti preoccupano maggiormente. Puoi anche usarlo per l'emulazione
+minacce e pianificazione degli impegni delle squadre rosse, riflessione sui programmi di TTX e di risposta agli incidenti e
+in generale vari sforzi di sicurezza in cui è utile comprendere le tattiche e le tecniche delle minacce.
+
+Riferimento:
+https://www.dragos.com/mitre-attack-for-ics/
+
+ dell'ICS
+
+Ad esempio, parleremo più avanti nel corso di XENOTIME, che ha condotto l'attacco TRISIS. Questo gruppo lo è
+selezionati nell'overlay e vengono mostrate le tattiche e le tecniche che hanno utilizzato per la prima parte della catena di uccisione
+
+nel grafico sulla diapositiva.
+
+Ad esempio, il "compromesso della workstation ingegneristica" può essere ottenuto in diversi modi, a seconda
+sul fornitore/implementazione/integrazione dell'Engineering Workstation. Pertanto, basta crearne uno singolo
+il rilevamento di "Compromissione della workstation di ingegneria" probabilmente non sarebbe adatto ai diversi modi
+gli avversari possono portare a termine le loro operazioni. È un buon strumento per comunicare e monitorare la tua attenzione, ma unico
+il rilevamento non coprirà tutte le diverse varianti di questa tecnica.Pertanto, vogliamo esaminare cosa ha fatto specificamente l'avversario nello scenario che ci sta informando (in questo caso
+XENOTIME) e iniziare da lì con il rilevamento. Dovremmo apportare modifiche ragionevoli in diversi modi in cui potrebbe farlo
+si sono verificati e forse diverse linee di prodotti, protocolli, ecc. rilevanti. In quanto tale, otterremo un ampio
+varietà di rilevamenti, ma hanno tutti lo stesso focus/contesto per aiutarci a guidarci. Questo è il concetto di Analitico
+
+Profondità.
+
+40  dell'ICS
+
+Il raggiungimento dell’ampiezza analitica si trova nell’ottenere copertura delle varie tattiche/tecniche di una minaccia. In sostanza,
+coprire l'intera catena di uccisione è ampio. Sarebbe opportuno coprire diversi modi in cui la stessa tattica/tecnica può essere rilevata
+essere Profondità. Raggiungere una combinazione di ampiezza analitica e profondità analitica è il modo più efficace per avere
+copertura contro la minaccia che ti interessa e contro le future minacce sconosciute che sfruttano tattiche/tecniche simili.
+
+Pochissimi set di rilevamenti validi possono coprire un insieme molto ampio di famiglie di malware e minacce.
+
+ dell'ICS
+
+Il tuo obiettivo dovrebbe essere quello di identificare i comportamenti di minaccia (tattiche e tecniche) che puoi rilevare (attraverso il tuo
+metodi o combinati con gli acquisti dei tuoi prodotti) e comprendere le tue lacune. Dovresti cercare costantemente di imparare
+da nuova intelligenza e spinta verso rilevamenti migliori. Spesso puoi farlo cacciando dove non lo fai
+avere rilevamenti attuali e quindi codificare le lezioni apprese in rilevamenti stabili.
+
+So che questo non è colore nei tuoi libri, ma il punto qui è riuscire a monitorare ad alto livello la tua copertura
+Avere. È buona norma considerare i rilevamenti A-B e A-D. A-B è l'ampiezza analitica (copertura tra tattiche e
+tecniche) e A-D è la profondità analitica (quante rilevazioni diverse hai per la stessa tattica o
+tecnica). Dovresti cercare di avere 1 rilevamento per spostare qualcosa in giallo, quindi cercare 3+ rilevamenti
+prima di considerare qualcosa di verde. Il rosso verrebbe usato per dove non hai nulla, e io userei il blu dove
+qualcosa non è applicabile a ciò che stai facendo. È importante sottolineare che, dati i diversi ambienti, attrezzature,
+fornitori, ecc. dovresti prendere in considerazione la possibilità di mapparlo nel tuo framework di gestione della raccolta, poiché è improbabile che sia tutto
+la tua infrastruttura avrà lo stesso livello di copertura tra i rilevamenti A-B e A-D.
+
+Combinata con un framework di gestione delle raccolte, un'adeguata strategia di rilevamento basata sull'intelligence può essere uno strumento potente
+
+affinché i difensori sappiano dove hanno copertura, dove hanno lavoro da svolgere e per collegare attività come la caccia,
+risposta agli incidenti e sforzi di raccolta che aumentano le loro difese.
+
+42  dell'ICS
+
+È importante capire cosa stanno facendo i tuoi rilevamenti per te. Nello specifico, cosa stanno rilevando? Garantire
+che hai il rilevamento lungo l'intera Cyber ​​Kill Chain di ICS. Molte organizzazioni danno priorità a tutti i loro sforzi
+comando e controllo e Stage | Atti (posso rilevare esfiltrazioni e comunicazioni fuori dalla mia rete). Tuttavia,
+gli avversari possono creare nuove tecniche, abilità commerciali e capacità per ogni fase della catena di uccisione. È
+estremamente difficile e statisticamente contro l'avversario sviluppare modi veramente nuovi per ogni singola fase. Molti
+gli avversari usano tecniche commerciali comuni e poi fanno qualcosa di impressionante da qualche parte nella loro catena di uccisione. Eppure se tu
+rileva *qualsiasi* delle loro fasi, puoi ruotare per comprendere appieno l'intera catena di uccisione.
+
+Usa questo a tuo vantaggio. Spesso sentiamo dire che l'avversario deve fare solo una cosa giusta, mentre i difensori devono farlo
+
+fare tutto bene. Semplicemente non è vero.I difensori devono individuare con precisione l'avversario solo una volta alla volta
+fase: per avere successo, l'avversario deve passare inosservato in ogni azione in tutte le fasi.
+
+ dell'ICS
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+44  dell'ICS
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+ dell'ICS
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+46  dell'ICS
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+ dell'ICS
+
+BlackEnergy2 (BE2) e BlackRnergy3 (BE3) rappresentano un caso studio interessante. Era un pezzo tradizionale
+malware di tipo criminalità informatica utilizzato anche negli attacchi DDoS (Distributed Denial of Service) da parte di tali gruppi. Tuttavia, esso
+è stato racchiuso in un set di strumenti che è stato identificato come BlackEnergy2 da una minaccia persistente avanzata (APT).
+Lì è stato reso più complesso ed è stato sfruttato in campagne di spionaggio rivolte a vari gruppi, tra cui
+NATO e appaltatori della difesa.
+
+48
+
+ dell'ICS
+
+Il rapporto Sandworm Exploit di iSIGHT Partners (https://www.isightpartners.com/2014/10/cve-2014-4114/) ha portato a
+l'identificazione di più server C2. Gli analisti di Trend Micro si sono spostati dai server C2 per trovare un file con estensione
+stato visto comunicare con uno degli indirizzi IP. Il file è stato identificato come config.bak, che è un tipo di file
+che si abbina al software CIMPLICITY SCADA di GE. Da questo gli analisti hanno potuto identificare altri file correlati
+nel file config.bak, inclusi i file scaricati dal server C2. Questi altri file erano aggiuntivi
+tipi di file dannosi correlati a CIMPLICITY e malware non correlati a CIMPLICITY. Gli altri file erano
+utile per identificare indirizzi e-mail, file successivi, server C2 e destinazioni.
+
+Il lavoro degli analisti Trend Micro a partire dal rapporto iSIGHT ha consentito agli analisti iSIGHT di rivisitare i dati in modo
+rapporto successivo (http://www.isightpartners.com/2014/10/sandworm-team-targeting-scada-systems/) e identificare
+file aggiuntivi come CCProjectMgr.exe che venivano utilizzati, che sono correlati a SIMATIC e Siemens
+Software WinCC. Ciò ha contribuito a sviluppare nuovi indicatori utili agli analisti per identificare i sistemi infetti.
+
+© 2021 Roberto M.Lee 49
+Obiettivi diversi Approcci diversi
+
+«Documenti Word
+(PPT/Excel/Documento)
+
+| Phishing
+‘ +» Sfruttamento dei vermi della sabbia
+
+E-mail di phishing
+con file PNG
+
++ Nessuna infezione, semplicemente
+
+notificato letto
+
+« Exploit ICS per
+Connesso al web
+HMI
+
++ Legittimo falsificato
+
+File ICS
+
+1CS515| Visibilità, rilevamento e risposta dell'ICS
+
+È anormale nominare una vulnerabilità, un exploit e il gruppo con lo stesso nome, ma è quello che è successo
+con verme della sabbia. Ciò può portare ad alcune correlazioni che potrebbero non essere accurate nel tempo, come tutti coloro che lo utilizzano
+l'exploit deve far parte di questo gruppo (non necessariamente vero). Detto questo, le varie campagne predisposte da
+I SANDWORM hanno raggiunto moltissime vittime. È interessante notare che l'approccio dell'avversario era diverso
+a seconda della tipologia delle vittime. Ciò potrebbe far sì che siano presenti più team anziché uno generale
+
+gruppo.
+
+Quando il gruppo ha perseguito obiettivi NATO e militari, ha sfruttato in gran parte le e-mail di phishing con contenuti dannosi
+documenti word che sfruttano una vulnerabilità. Quando il gruppo ha iniziato a prendere di mira obiettivi di infrastrutture critiche, ecco
+c'era la tendenza a fare più ricognizioni nell'invio di e-mail che non infettassero l'utente ma richiamassero per lasciare che
+il gruppo sa che l'e-mail è stata letta. Lo sfruttamento diretto (presente in BlackEnergy2) è stato sfruttato contro ICS
+reti dove potevano trovare HMI ospitati online, i file rilasciati sul sistema falsificato erano legittimi
+
+File Advantech, GE e Siemens.
+
+Anche se è utile cercare tutto se hai abbastanza risorse, con risorse limitate dovresti concentrarti
+le tattiche/tecniche/capacità sfruttate dall'avversario contro la vittima che rappresentava la tua
+organizzazione. Se stai cercando nelle reti ICS, non c’è motivo di cercare inizialmente le e-mail di phishing.
+
+50  dell'ICS
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+ dell'ICS
+
+NSM è stato ampiamente influenzato dalle forze armate statunitensi e dal desiderio di cercare segnali e avvertimenti precoci in merito
+si sta svolgendo un'attività dannosa su una rete. Nella sicurezza IT tradizionale esiste un approccio incentrato sulla vulnerabilità
+alla sicurezza: trova le vulnerabilità, chiudile e attendine di nuove. Questo aspetto di limitare le vulnerabilità lo è
+importante, come abbiamo visto nella sezione precedente.Tuttavia, partendo da ciò, NSM si concentra su un approccio incentrato sulla minaccia
+valutazione. Con la conoscenza della rete e un panorama delle minacce ridotto, come pattugliare la rete per cercare
+minacce? Il NSM è un processo continuo che comprende che la prevenzione prima o poi fallirà. In questo processo, hai bisogno
+riconoscere che questa non è la tua pratica di sicurezza delle informazioni di base. Hai bisogno di analisti formati e dedicati
+eseguire la NSM. Non è un lavoro part-time e non deve essere assegnato come compito aggiuntivo. Un'altra limitazione di
+NSM significa che devi avere la capacità di preparare la tua infrastruttura e i tuoi strumenti in anticipo. Se non puoi lavorare
+con il team dell'architettura per stabilire punti da monitorare e ottenere l'approvazione degli strumenti, avrai difficoltà
+eseguire la NSM.
+
+I vantaggi della NSM sono numerosi. Il principale di questi vantaggi è che NSM fornisce un approccio proattivo
+approccio alla sicurezza e al rilevamento delle minacce. Invece di aspettare semplicemente che ti venga detto che i tuoi sistemi lo sono
+infetto, questo processo consente ai team di sicurezza di identificare attori avanzati e mirati all'interno della rete. l'obiettivo
+è identificare e mitigare la minaccia prima che il gruppo raggiunga la sua missione. NSM, combinato con minaccia
+intelligence, può identificare le minacce che stanno sondando le vostre reti prima che possano accedervi. Ciò consente un approccio proattivo
+misure di difesa da adottare per impedire l’accesso all’avversario.
+
+Questo processo riguarda la raccolta dei dati giusti, la loro analisi e il rilevamento delle minacce. Dovrebbe portare a un incidente
+approccio di risposta quando viene rilevata una minaccia e si determina che è una situazione che richiede elevazione.
+
+Nessuna discussione sul NSM sarebbe completa senza menzionare alcune delle persone che lo hanno sostenuto
+gli anni. Di seguito sono riportati tre grandi libri su questo argomento:
+
+Il Tao del monitoraggio della sicurezza di rete: oltre il rilevamento delle intrusioni di Richard Bejtlich
+
+Il Tao del monitoraggio della sicurezza della rete di Richard Bejtlich
+Monitoraggio applicato della sicurezza di rete di Chris Sanders e Jason Smith
+
+54  dell'ICS
+
+NSM non si occupa solo di trovare intrusioni; si tratta di monitorare la tua rete. Qualsiasi cosa, dai problemi di configurazione a
+le violazioni delle politiche possono essere tutte questioni che NSM mette in luce. Quando non è necessario che un evento venga trasformato in un incidente,
+può ancora essere utilizzato per l'azione quando si lavora con i team o il management della difesa e dell'architettura. Questi eventi aiutano
+far crescere le difese della rete e la competenza degli analisti.
+
+La visibilità tramite NSM consente di:
+
+¢ Identificare i cambiamenti rispetto a comportamenti normali o previsti.
+
+¢ Applicare il controllo e la politica delle modifiche.
+
+¢ Risolvi rapidamente i problemi di configurazione errata.
+
+* Rileva i tentativi di intrusione e di spostamento nei sistemi ICS/SCADA.
+¢ Illuminare potenziali percorsi di attacco.
+
+I miglioramenti della produttività derivano dal monitoraggio e dalla definizione di base del comportamento corretto noto del sistema mediante:
+
+¢ Riduzione dei tempi di consegna (convalida più rapida e ritorno al buono stato operativo noto).
+
+¢ Riduzione dei tempi di risoluzione dei problemi del sistema.
+
+* Riduzione dei problemi di modifica e configurazione e rilevamento di errori/configurazioni errate rapidamente prima che possano farlo
+influenzare il processo o le operazioni.
+
+NSM viene utilizzato per ottimizzare il sistema tramite:
+* Perfezionamento delle zone di segregazione e di controllo per le reti di controllo.
+* Generazione e convalida rapida delle regole del firewall.
+
+* Ridurre (in tal modo rafforzando) le porte e i servizi non richiesti e caratterizzare i cambiamenti nel sistema
+comunicazioni.
+
+ dell'ICS
+
+I dati possono essere pensati come informazioni che non sono state analizzate. Come abbiamo parlato nella Sezione 1, dati analizzati
+diventa intelligenza. Nella fase di raccolta di NSM, siamo molto interessati a ottenere la maggior parte dei dati corretti
+come possiamo. Ciò significa che se una persona responsabile della sicurezza è responsabile della rete di vigilanza, vorrà farlo
+raccogliere i dati che fluiscono tra l'HMI e i PLC. Questa persona probabilmente non è così interessata al traffico di rete
+rete aziendale, salvo che interagisca direttamente con la rete di vigilanza. Più dati possono significare di più
+i problemi. La raccolta dei dati giusti consente agli analisti di concentrarsi senza essere sommersi da più dati di quelli che possono elaborare. Se
+hai pensieri sui Big Data, vai avanti e buttali fuori dalla finestra. Desideri dati mirati di probabile valore.
+
+Contenuto completo
+Questo tipo di dati è l'acquisizione completa del pacchetto di dati di rete. Ad esempio, se si acquisiscono pacchetti completi di
+
+dati tra controllori di processo, ovvero dati a contenuto completo, siano essi basati su seriale o su base Ethernet.
+
+Metadati
+I metadati sono dati sui dati.I metadati possono essere considerati come informazioni come l'accesso modificato creato
+
+(MAC) informazioni sui file. Lo sono i timestamp, il tipo di sistema operativo e persino il tipo di traffico hardware originato
+metadati.
+
+Dati di sessione/flusso
+I dati di sessione e di flusso rappresentano il modo in cui si muove il traffico di rete. Determinare quale dispositivo ha inviato traffico e cosa
+
+ricevuto dal dispositivo, verranno considerati dati di sessione e di flusso. Tecnicamente sono dati su dati, ma questo è qualcosa di più
+tipo specifico di metadati che vale la pena identificare.
+
+Dati storici/statistici
+Una visione di alto livello dei dati di rete può essere utile per comprendere l'utilizzo delle risorse di rete, ad esempio
+
+larghezza di banda e latenza prevista. Deviazioni da questo tipo di dati possono rivelare eventi sulla rete che vale la pena cercare
+in. Ad esempio, se si dispone di un client Modbus che effettua circa 100 letture all'ora e arriva a 400,
+
+sarebbe motivo di esaminare il traffico in modo più approfondito.
+
+56  dell'ICS
+
+NSM non dipende dalla tecnologia. Non importa se parliamo di ICS o di sistemi IT per il processo di
+NSM. Tuttavia, il modo in cui viene condotta la NSM dipende dal tipo di sistemi su cui si sta lavorando. Il NSM
+Il processo di raccolta, rilevamento e analisi va oltre il tipo di sistemi in uso. Tuttavia, in ogni passaggio, ci sono
+considerazioni su ICS e difesa attiva. Ad esempio, verrebbe condotta la tradizionale fase di analisi NSM
+analisi del malware e analisi forense dell'host. Nel ciclo di difesa attiva, questi passaggi vengono spostati nella risposta all'incidente
+e passaggi di Triage delle minacce. Ciò è dovuto alla sensibilità di alcune reti ICS e all'ulteriore separazione dei compiti
+che i team di sicurezza della rete possano specializzarsi in modo appropriato per gli aggressori avanzati. In ICS, il team NSM
+dovrebbe raccogliere informazioni, rilevare eventi di sicurezza in tali dati e analizzarli per determinare se esiste un vero
+minaccia degna di risposta all’incidente. Le risorse dedicate per gli analisti di malware non rientrano nell'ambito di questo processo
+e probabilmente al di fuori del budget per un team di sicurezza ICS dedicato.
+
+Perché le difese IT tradizionali non sono sempre adatte agli ambienti ICS e perché le risorse sono numerose
+che semplicemente non possono essere garantiti, NSM è una strategia altamente efficace per ICS. NSM è una pratica IT forte, ma non è così
+eccelle nell'ambiente ICS. Anche le dipendenze e le connessioni su cui fa affidamento ICS forniscono ampie possibilità
+opportunità per le aree che dovrebbero essere monitorate.
+
+Una considerazione è che il NSM tradizionale spesso non si occupa dei dati raccolti da sistemi come
+controllori del processo. Lo storico dei dati che raccoglie informazioni sul processo dovrebbe essere considerato a
+risorsa preziosa per determinare se si verificano eventi strani su una rete. Tassi di frequenza, velocità delle turbine,
+i livelli di pressione e così via non sono tipi di dati normali per NSM, ma devono essere monitorati in ICS NSM.
+
+58  del CS
+
+Il ciclo di vita dalla progettazione alla messa in servizio è importante quando si pianifica una difesa attiva perché fornisce il processo
+e informazioni specifiche sulle apparecchiature che supportano l'analisi dei rischi e gli schemi di sicurezza, come la rete ICS
+monitoraggio. FAT e SAT sono finestre in cui l'utente finale può richiedere e documentare come è l'ICS
+configurato e determinare una linea di base per le comunicazioni richieste e previste. Sforzi di integrazione e finale
+è possibile determinare le configurazioni (si consiglia quella più restrittiva ma funzionale) e convalidarle prima del sistema
+operazioni. La visualizzazione "come costruito" può aiutarti a definire la tua strategia, ma è necessario determinare "come gestito".(Noi
+sappi che le cose iniziano a cambiare dopo la messa in servizio.)
+
+Approvvigionamento
+
+Gli aggiornamenti delle apparecchiature hanno costi proibitivi; pertanto, il linguaggio degli appalti è importante per la gestione del rischio. DHS
+fornisce indicazioni sulle specifiche di approvvigionamento per mitigare i problemi relativi alle specifiche di sistema di base. I riferimenti sono
+effettuato in base a tempistiche specifiche delle informazioni consegnabili. Tutta la lingua viene concordata al momento dell'aggiudicazione pre-contratto; proprietario o
+le informazioni aziendali sensibili verranno consegnate dopo la firma del contratto (aggiudicazione post-contratto).
+
+Test di accettazione in fabbrica
+
+Il Factory Acceptance Test (FAT) è necessario per verificare che le funzionalità di sicurezza funzionino correttamente e forniscano il
+livelli di funzionalità attesi. Ogni argomento include attività FAT specifiche per quell'argomento. In generale, prima dell'inizio di
+ogni FAT, il fornitore dovrà installare tutti i sistemi operativi e le patch delle applicazioni, i service pack o altri aggiornamenti
+certificato per l'uso con il sistema fornito al momento del test e documentazione della configurazione di base.
+Il FAT è un processo, non un evento, e potrebbe estendersi per diverse settimane o mesi. Garantire adeguati controlli di sicurezza
+esistono in questa fase, poiché può essere normale che i controlli vengano aggirati nel tentativo di "far funzionare il sistema". Confermare
+esistono controlli di sicurezza a livello di file per i dati introdotti o rimossi dal sistema e assicurano che Internet/
+la connettività della rete esterna è ben compresa e controllata. Assicurarsi inoltre che il cambiamento appropriato e
+vengono seguite le pratiche di controllo della configurazione.
+
+Test di accettazione del sito
+
+Il test di accettazione in loco (SAT) dell'acquirente della risorsa in genere ripete un sottoinsieme di un FAT dopo l'installazione del sistema con
+ulteriori funzioni integrate. In genere, il SAT viene eseguito prima del cutover o della messa in servizio per la convalida
+che l'installazione in loco è equivalente al sistema testato in fabbrica. Come il FAT, il SAT può estenderne diversi
+settimane o mesi e possono verificarsi in più luoghi.
+
+ ICS
+
+Preparare le infrastrutture sembra un po’ fuori luogo per un difensore attivo. Idealmente, il tuo team di architettura dovrebbe esserlo
+più che capace di farlo. Tuttavia, se non comunichi le tue esigenze al personale dell'architettura, lo faranno
+probabilmente non sai dove o perché desideri che i punti di accesso alla rete raccolgano dati.
+
+Per preparare l'infrastruttura è necessario identificare il tipo di dati che si desidera raccogliere. Se stai cercando il servizio completo
+dati del contenuto, dovrai inserire una porta SPAN/mirrored su uno switch gestito e raccogliere il traffico da esso
+utilizzando strumenti come TCPdump o Wireshark. Se desideri i dati degli avvisi, devi avere accesso ai firewall e agli eventi
+registri. Tutto sulla rete dovrebbe essere valutato per determinare se contiene dati utili per le tue esigenze, quindi puoi farlo
+determinare il modo migliore per ottenere tali dati.
+
+Consigli veloci:
+
+* Su uno switch di rete, ricordare che solo gli switch gestiti possono essere impostati per avere una porta SPAN/mirror. In
+Inoltre, fai attenzione alla quantità di throughput che la tua porta può gestire rispetto alla quantità di rete
+traffico che hai. Se hai una porta da 1 GB e stai eseguendo il mirroring di 2 GB di traffico su di essa, perderai uno-
+metà della tua raccolta dati. Puoi avere più di una porta con mirroring.
+
+* Uno dei migliori strumenti per raccogliere il traffico di rete è TCPdump perché consuma meno risorse di
+WireShark; ne discuteremo più tardi.
+
+* Gli switch di rete spesso dispongono di dati di flusso di valore come lo standard IPFIX.
+
+° Gli hub ottengono i dati "più puri". Gli switch di rete spesso scartano pacchetti mal formati o eventuali errori. Mozzi
+acquisire tali dati in modo da poter determinare il motivo per cui i pacchetti non sono corretti.
+
+Cambia porta SPAN/Mirror
+
+Finora nel corso abbiamo parlato di alcune cose che sfruttano lo SPAN o il mirroring di uno switch di rete
+porta. I due termini sono spesso usati in modo intercambiabile. L'uso originale di SPAN era specificamente per gli switch Cisco.
+La preparazione di una porta con mirroring sugli switch gestiti nella tua infrastruttura ti consentirà di effettuare raccolte passive e in sicurezza
+traffico di rete senza aumentare la latenza o la larghezza di banda. La porta con mirroring rispecchia semplicemente tutte le altre porte su di essa. Se
+la porta riceve più dati della sua velocità effettiva, abbandonerà il traffico senza che le altre porte ne risentano.
+
+60  dell'ICS
+
+Gli aggressori adorano trovare reti piatte. Le reti flat rendono incredibilmente facile per gli aggressori utilizzare credenziali e
+informazioni raccolte da una parte della rete attraverso l'intera rete. Semplici attacchi in stile spoofing ARP
+diventare incredibilmente potente per un avversario che trova una rete senza un'adeguata segmentazione della rete. Piatto
+Le reti sono anche difficili da monitorare dal punto di vista della difesa, il che rassicura gli aggressori che se trovano un
+rete come questa, probabilmente i difensori non la guardano nemmeno.
+
+Quando si considera una difesa attiva, questo tipo di rete presenta un problema. Reti che non lo sono correttamente
+segmentati e non dispongono di infrastrutture di rete gestite, come switch di rete che possono abilitare un mirroring
+porto, offrono poche opportunità ai difensori di raccogliere dati significativi. Una corretta architettura aiuta a garantire la sicurezza
+limitando l'efficacia dell'avversario al compromesso iniziale e dando tempo ai difensori per rilevare l'attacco
+fornisce una base essenziale per i meccanismi di difesa attiva.
+
+ dell'ICS
+
+Dopo che l'identificazione delle risorse e della rete è stata eseguita e verificata rispetto ai documenti di architettura esistenti, il file
+la rete deve essere monitorata per determinare i problemi. Il monitoraggio della sicurezza della rete è quasi impossibile senza
+comprendere l'architettura. Il primo passo del NSM è la raccolta.
+
+La raccolta dei dati è necessaria per valutarli rispetto a minacce ed eventi relativi alla sicurezza. Firewall, IDS, server OPC e
+Le porte SPAN/mirror sono utili come origini di raccolta. Li esamineremo nelle diapositive seguenti.
+
+Assicurati di collaborare con il team dell'architettura di rete per creare punti di strozzatura. Un punto di strozzatura è essenzialmente
+un collo di bottiglia previsto sulla rete che non limita la larghezza di banda né causa latenza. Ad esempio, se multiplo
+le risorse sulla tua rete richiedono connessioni remote, un chokepoint sarebbe un unico punto di accesso per i vari
+connessioni remote. Gli utenti si collegheranno a questo punto di accesso e quindi si collegheranno al dispositivo di cui hanno bisogno. Invece di
+avendo più punti per raccogliere il traffico, ora hai un unico punto di strozzatura. Questo è un altro motivo per cui la rete
+la segmentazione è così importante. Quando una rete è segmentata correttamente, si formeranno naturalmente numerosi
+strozzature. Queste connessioni tra le reti possono essere punti vitali di raccolta dei dati. In questi punti di strozzatura, lo è
+È inoltre utile implementare sistemi che possano essere utilizzati per avvisare delle minacce, come firewall e IDS. Comunicare i bisogni
+in modo efficace al personale IT, poiché spesso è abile nell'utilizzare le difese tradizionali e nell'istituirle
+strozzature.
+
+È più importante avere i dati giusti che tutti i dati. Identificare e raccogliere da segmenti di rete critici,
+punti di strozzatura e dati provenienti da risorse critiche.
+
+Hai visto il film 300? Nel film, gli Spartani devono affrontare legioni di combattenti persiani. Tuttavia, lì
+sono solo 300 spartani. In campo aperto sarebbero stati rapidamente sconfitti dagli eserciti persiani. Per contrastare questo,
+Leonida, il re spartano, posizionò i suoi 300 guerrieri in un passaggio tra due montagne. Questo passaggio naturale
+assicurò che gli Spartani dovessero combattere solo un numero limitato di Persiani alla volta. Hanno creato un punto di strozzatura.
+I difensori della rete devono essere abili nell’utilizzare la propria infrastruttura per garantire la protezione contro la vasta legione di minacce
+(non necessariamente persiani).
+
+ dell'ICS
+
+Quando si coordina la raccolta o si distribuiscono strumenti di rilevamento, è molto comune che il personale dell'impianto desideri il
+sforzi di rilevamento per sedersi all'esterno dell'impianto/sottostazione/sito operativo. Ciò significa che si troverebbe fuori dal Firewall, o
+basta analizzare il traffico davanti o dietro il firewall per le comunicazioni Nord/Sud. C'è valore nel Nord/Sud
+comunicazioni, come il controllo degli indicatori, il traffico tra siti e l'identificazione del tipo di connessioni in entrata e in uscita
+fuori dal luogo delle operazioni. Tuttavia, ci sono molte comunicazioni che ti mancheranno, soprattutto la maggior parte degli aspetti di ICS
+valore e le VPN/connessioni OEM/integratore saranno probabilmente offuscate.
+
+L'analisi del traffico est/ovest richiede la creazione di un rapporto di fiducia con il personale operativo. Quando possibile, dovrebbe esserlo
+impiegati in una funzione completamente passiva, senza interrompere attivamente le comunicazioni o eseguire alcuna prevenzione
+funzione. Nella configurazione Est/Ovest, vedrai le comunicazioni/protocolli ICS e sarai in grado di identificarli
+risorse e vulnerabilità. Ancora più importante, tutte le azioni “interessanti” dell’avversario, come il movimento laterale,
+saranno disponibili per il rilevamento modifiche logiche, manipolazioni dei controlli, ecc.
+
+ dell'ICS
+
+Molti analisti vogliono essere in grado di analizzare i protocolli seriali. Sembra più "ICS" in natura e attraente come a
+sfida. Tuttavia, non ci sono stati avversari che abbiano dimostrato l'intenzione di utilizzare il seriale
+comunicazioni.Ciò non significa che non dovremmo preoccuparci della sicurezza di questi sistemi, ma sì
+significa che in qualsiasi architettura adeguata, l'avversario dovrà utilizzare i sistemi aziendali nel
+sistemi tecnologici operativi e tutte le aree che possiamo raccogliere e analizzare adeguatamente molto prima di arrivare al
+livello seriale.
+
+Quando si verifica un problema a livello di comunicazione seriale, è anche importante avere una risposta
+ingegnere che comprende il sistema e l'implementazione per agire. Quell'ingegnere, assistito da una guardia
+analista, può valutare meglio le comunicazioni con un ritorno sul valore in termini di tempo investito maggiore rispetto a
+formare il personale di sicurezza per comprendere le comunicazioni seriali. Molto raramente verrà effettuata anche la raccolta seriale
+ammissibile.
+
+Si consiglia tuttavia di effettuare l'acquisizione di base, se possibile. Questo può essere fatto con molti protocolli che utilizzano Linux
+versione di Wireshark. Inoltre, lo strumento NetDecoder comprende circa 20 protocolli ICS.
+
+Riferimento immagine:
+NetDecoder
+
+ dell'ICS
+
+I server OPC forniscono uno standard aperto per consentire l'interazione con diversi controllori di processo di Windows
+applicazioni. MatrikonOPC Sniffer è uno strumento gratuito che può essere utilizzato tra un client OPC e un server OPC per
+emettere la comunicazione andando avanti e indietro. È pubblicizzato come uno strumento di interoperabilità di rete per determinare
+problemi di configurazione per gli integratori. Tuttavia, può servire come utile strumento di raccolta per esaminare i dati OPC e
+assicurarsi che nulla sembri dannoso o fuori dall'ordinario. Questo potrebbe non essere il tipo di dati utilizzato come © iniziale
+indicazione di una minaccia, ma i dati possono essere utilizzati dopo l'identificazione della minaccia per verificare l'integrità dei sistemi OPC.
+
+Lo scopo di mostrare lo strumento è semplicemente quello di notare che sono disponibili strumenti di diagnostica e configurazione nel file
+ICS che possono essere utilizzati come strumenti di sicurezza. Dipende dall’ICS, dai fornitori, dall’industria, ecc. Non limitarti a chiedere
+strumenti di "sicurezza": potresti non trovarne nessuno mentre troverai una serie di strumenti di "diagnostica" che puoi utilizzare per
+sicurezza.
+
+Riferimenti:
+Manuale di installazione e utente:
+https://www.matrikonope.com/secure-login.aspx?ReturnUrl=%2 fportal%2fdownloads%2fproduct_manuals%2fOPC-
+
+Sniffer-manuale.pdf
+https://www.matrikonopc.com/products/opc-data-management/opc-sniffer.aspx
+
+72  dell'ICS
+
+Vari dispositivi hanno il syslog abilitato, come gli interruttori intelligenti Emerson DeltaV e la serie RTUS00 di ABB. IL
+l'elenco è cresciuto negli ultimi anni; abilitare syslog sui dispositivi è qualcosa per cui dovresti contattare il tuo fornitore,
+poiché è più che probabile che i sistemi non legacy lo dispongano (potrebbe essere disabilitato per impostazione predefinita ma può essere abilitato).
+Sylog aiuta a identificare gli eventi chiave del sistema sui dispositivi come accessi utente, aggiornamenti firmware o modifiche alla logica. È un
+fonte di dati incredibilmente preziosa, soprattutto per quando parleremo di correlazione dei dati più avanti in questa sezione.
+
+PRI:
+Il PRI è formato dalla Facility e dalla Severity (valore a 8 bit determinato moltiplicando la Facility per 8
+e aggiungendo il valore della Gravità)
+Intestazione:
+L'intestazione contiene il timestamp ISO e il nome host o l'indirizzo IP
+Messaggio:
+Informazioni aggiuntive suddivise nei campi TAG e CONTENUTO
+
+Esempio di messaggio syslog:
+<10> 2014-12-12T05:15:05:015Z 172.168.15.10 su—ID15 — BOM'su root' non riuscita per cybati
+
+Formato del messaggio syslog
+
+Il formato del messaggio syslog è abbastanza facile da capire dopo aver interagito alcune volte. Aiuta a identificare gli eventi
+sui sistemi.Se, ad esempio, sai che nessuno dovrebbe aggiornare il firmware su un PLC, puoi ricevere un avviso syslog
+che qualcuno sta eseguendo quell'azione. Ciò ti farebbe rapidamente sapere che qualcosa non va. Inoltre,
+eventi apparentemente non correlati e insignificanti, se osservati in un contesto più ampio attraverso la rete, potrebbero rivelarsi
+modelli e attività dannose.
+
+Esempio di syslog: Struttura | è un messaggio a livello utente. La gravità 2 è critica. Il PRI sarebbe 8*1+2=10. Poi,
+
+hai il timestamp ISO, l'applicazione "su" è "super user", l'ID è 15, BOM è il tipo di codifica e "su
+root" non riuscito per cyabti è il contenuto del messaggio del protocollo syslog.
+
+ dell'ICS
+
+Snort è un NIDS open source e gratuito. È ampiamente utilizzato e considerato uno dei migliori progetti open source in assoluto
+tempo. Può essere difficile eseguire la configurazione la prima volta, ma sono disponibili numerosi documenti online che ti guidano attraverso
+processi. La cosa importante da sapere è che Snort ha preprocessori per Modbus TCP e DNP3 while
+avere numerose firme ICS integrate per impostazione predefinita. I preprocessori gli consentono di sezionare Modbus TCP e DNP3
+correttamente in modo che possa generare firme basate su informazioni come codici funzione non validi. Lo Snort governa
+da SourceFire possono essere scaricati gratuitamente e ne vengono rilasciati di nuovi regolarmente. Inoltre, c'è un grande
+comunità attorno a Snort dove le persone sviluppano regole che li aiutano e le condividono in tutta la comunità.
+
+Se utilizzato, Snort dovrebbe essere distribuito nei punti critici della rete con un tocco o su una porta con mirroring. Fare attenzione a non mettere
+in linea a meno che non sia necessario, perché i dispositivi posizionati in linea possono minacciare le operazioni se falliscono.
+
+Ottimizza il set di regole della tua firma in base al segmento di rete su cui è in esecuzione Snort. Considera quanto segue:
+
+© Le reti OT avranno requisiti e comportamenti diversi rispetto alla DMZ aziendale.
+© I sensori più esterni (confini di Internet, impresa e così via) saranno meno specifici.
+* I sensori più interni (rete di supervisione, Fieldbus, ecc.) saranno molto più specifici.
+
+Dovresti utilizzare la tua conoscenza della rete in combinazione con l'intelligence sulle minacce e le informazioni open source
+crea e distribuisci le firme più personalizzate possibili per il tuo ambiente.
+
+Formato regola Snort: Intestazione
+Le regole di Snort sono estremamente preziose per testare idee su una rete, oltre ad essere un IDS efficace e gratuito.
+
+Comprendere il formato delle regole consente il loro utilizzo efficace. Le regole sono suddivise in intestazioni e opzioni. IL
+le intestazioni contengono informazioni per identificare visualizzazioni di dati di livello superiore come NetFlow o informazioni su 5 tuple. Che cosa
+dovrebbe andare bene la regola? Contro quale tipo di protocolli basati su IP? Contro quali indirizzi IP? Su quali porti?
+
+L'esempio è solo parte di una regola. Si noti che viene fornita anche una direzione.
+
+74  dell'ICS
+
+Il team di DigitalBond ha ideato un progetto chiamato QuickDraw, in cui sono state rilevate una serie di vulnerabilità ICS
+e ha creato per loro firme Snort, oltre ad alcuni preprocessori.
+
+Ecco un esempio di firma che cerca richieste di scrittura non autorizzate su un PLC:
+
+Messaggio: DNP3 — Richiesta di scrittura non autorizzata su un PLC
+alert tcp !$DNP3_CLIENT qualsiasi -> $DNP3_SERVER $DNP3_PORTS (flusso:from_client,stabilito;
+contenuto:"|05 64|"; profondità:2; pcre:"/[\S\s] {10} (\x02\\x04|\x05|\x06\\xO9/\xOA|\xOF|\x12)/iAR";
+msg:"SCADA_IDS: DNP3 — Richiesta di scrittura non autorizzata su un PLC";
+riferimento: URL, digitalbond.com/tools/quickdraw/dnp3-rules; tipo di classe: cattivo-sconosciuto; sid: 1111207; giro:1;
+priorità: 1;
+
+Nello specifico, si afferma che dovrebbe essere generato un avviso se si rileva che i dati TCP NON provengono da DNP3 noto
+client in direzione dei noti server DNP3 tramite porte DNP3. I dati TCP dovrebbero essere stabiliti dal file
+client ed è presente una stringa HEX specifica da cercare (05 64). La regola spiega che questa stringa HEX
+dovrebbe trovarsi a 2 byte nel pacchetto esaminato. PCRE nella regola ci fa sapere che la regola utilizza Pearl
+espressioni regolari per la seguente stringa nella regola. Quindi dice "msg", che sta per messaggio e invia il file
+avviso che dice: SCADA_IDS: richiesta di scrittura non autorizzata DNP3 su un PLC. Il resto delle informazioni dà
+riferimenti per cercare il contesto di questo avviso.
+
+Il problema con questa e molte altre regole ICS è che sono eccessivamente complesse e non avvisano molto spesso. Sono
+utili come strumenti forensi, ma non come strumenti di rilevamento. Un rilevamento migliore sarebbe la rimozione del contenuto e del flusso
+sezioni e cercare invece solo le comunicazioni che NON sono client DNP3 che comunicano con server DNP3
+sulle porte DNP3.
+
+Riferimento:
+DigitalBond
+
+ dell'ICS
+
+Suricata è un motore di rilevamento delle minacce open source in grado di eseguire funzionalità di tipo IDS/IPS/NSM e pcap
+in lavorazione. È uno strumento potente e paragonabile a Snort, anche se spesso è preferito a Snort per via della sua caratteristica
+caratteristiche di prestazioni e scalabilità. Ancora più importante, però, molti prodotti professionali moderni utilizzano entrambi
+Suricata direttamente o accettarne il linguaggio basato su regole. Molti dei prodotti ICS disponibili ti permetteranno di scrivere
+Suricata governa e poi loro’! convertirli nei loro motori di rilevamento. Pertanto, imparando Suricata e i suoi
+il linguaggio può essere un modo molto efficace per sfruttare prodotti open source o professionali per cercare minacce in ICS
+reti.
+
+ dell'ICS
+
+Le regole di Suricata seguono una struttura piuttosto standard con cui avrai familiarità se hai mai scritto le regole di Snort.
+È necessario dichiarare un'Azione (ad esempio, "avviso"), il Protocollo (ad esempio, TCP o HTTP o UDP o DNS), il
+Indirizzi IP di origine/destinazione (ad esempio, 8.8.8.8 o $HOME_NET), porte di origine/destinazione (ad esempio, ANY o 443),
+Direzione delle comunicazioni (monodirezionale o bidirezionale), Opzioni regola/Contenuto (cosa stai cercando
+for), quindi qualsiasi meta parola chiave desiderata (ad esempio, riferimenti, ID e quanto grave sia).
+
+Ovviamente c'è molta flessibilità e opzioni qui, si consiglia vivamente di leggere la documentazione di Suricata
+regolano la scrittura poiché forniscono esempi fantastici e spiegano in modo approfondito cosa fanno tutte le parole chiave. Puoi includere
+tutto, da un semplice IOC all'espressione regolare di contenuti alla ricerca di vari byte nel traffico di rete.
+
+Riferimenti:
+
+https://suricata.readthedocs.io/en/latest/rules/intro.html#rule-options
+
+Tatyana Shishkova ha fatto un fantastico video introduttivo su Suricata e vale la pena rivederlo:
+https://www.youtube.com/watch?v=tvoqFBVSShA&ab_channel=OISF-Suricata
+
+80 © 2021 Roberto M.Lee
+
+oO @ &@ & @M
+
+oem @
+
+Di @ @ &@
+
+)
+
+NO
+
+n@®®®
+sì
+
+noi noi Ww Ww noi
+
+oe wow &§ F&F FTF WwW &
+
+&
+
+Esempio Suricata
+
+alert icmp qualsiasi qualsiasi -> qualsiasi qualsiasi (msg:"Richiesta di query sullo stato di SolarWinds";
+itipo:8; contenuto: "Query sullo stato di SolarWinds"; profondità:23; soglia: limite di tipo,
+traccia by_src, conteggio 1, secondi 86400; priorità:0; sid:9003452; giro:1;)
+
+Azione = Avviso "Eco")
+
+Protocollo = ICMP componente 5 Cosa facciamo —_
+IP di origine/destinazione = Qualsiasi/Qualsiasi carico utile molti anni dalla fase di progettazione
+Porte di origine/destinazione = Qualsiasi/Qualsiasi soglia = frequenza di avviso
+
+Direzione = -> (dall'origine alla destinazione) Priorità = 0 (quanto è grave?)
+
+Opzioni regola SID=ID _
+* Msg = Cosa avvisare Rev = Revisione 1
+° Itype = Numero di tipo ICMP specifico (8
+
+1CS515| Visibilità, rilevamento e risposta dell'ICS
+
+Questo è un esempio del team Dragos in cui hanno scritto un rilevamento focalizzato su SolarWinds. È una regola semplice
+mostrare come si forma la struttura di una regola. È solo un'opzione: esistono molti modi per utilizzare un'ampia gamma di
+parole chiave e contenuti.
+
+Qui vediamo che inizia con l’azione di “avviso” che significa “si”! generare un avviso quando si verificano le condizioni
+incontrato. Quindi richiede il protocollo ICMP con QUALSIASI IP di origine, seguito da QUALSIASI porta di origine che comunica nel file
+direzione della destinazione su QUALSIASI IP di destinazione e QUALSIASI porta di destinazione. Poi vediamo le opzioni. Si comincia
+con Msg di cosa includere nell'avviso all'utente. L'itype è un'opzione per annotare quale numero di tipo ICMP specifico;
+8 è per Eco. Quindi il tag content viene utilizzato per designare una distinzione tra maiuscole e minuscole (puoi dichiarare che non dovrebbe essere maiuscole e minuscole
+sensibile se lo desideri), in questo caso "SolarWinds Status Query" apparirà da qualche parte nel contenuto del
+pacchetti in fase di analisi. La profondità indica quanti byte dopo l'inizio del payload da ispezionare dovrebbe essere
+contenuto essere trovato. La soglia è utile per assicurarsi di non generare troppi avvisi, qui dice limite entro
+Source in modo che ogni query Source generi solo | avvisa ogni 86.400 secondi prima di riemettere un avviso. Ha priorità 0
+(solo metadati sulla gravità) e ha un ID Suricata e si dichiara Revisione 1.
+
+Anche se hai molte opzioni nelle regole di Suricata e puoi crearle in una moltitudine di modi diversi, devi averlo
+la prima parte (action/protocol/src/dst/ip/ports) e dovrai assegnare un ID.
+
+ dell'ICS
+
+Come per tutta la creazione di regole, assicurati di non renderla più complessa delle tue esigenze. Il punto non è la lingua o
+tutte le opzioni ma soddisfare la domanda che hai. Nell'esempio di questa diapositiva vedi un semplice assegno per un sospetto
+Indirizzo IP. Manca il messaggio/contesto ma la regola funziona bene.
+
+82  dell'ICS
+
+Zeek, precedentemente chiamato Bro, è considerato uno degli strumenti centrali per NSM perché può servire a molteplici scopi.
+Zeek è un framework di monitoraggio della rete con la capacità di raccogliere dati completi sul contenuto (acquisizioni di pacchetti), rilevare
+minacce che utilizzano firme altamente personalizzabili per i propri IDS e consentono alle persone di analizzare gli avvisi e i dati tramite a
+linguaggio scriptabile e adattabile. Coloro che praticano il NSM dovrebbero dedicare del tempo a familiarizzare con Zeek, anche se
+all'inizio può essere un po' scoraggiante. Sebbene sia più complesso di Snort, ha anche una grande comunità attorno a sé
+una varietà di manuali utente e tutorial video.
+
+Zeek può essere installato ed eseguito da qualsiasi piattaforma basata su Unix. Sebbene il suo utilizzo principale sia spesso visto come un IDS, esso
+ha anche potenti funzionalità di analisi del flusso e sono disponibili framework di intelligence e framework di firma per
+elaborare e utilizzare rapidamente gli IOC.
+
+Nel laboratorio di questa lezione, ci concentreremo sull'uso di Snort, perché è uno strumento valido sia per i principianti che per gli esperti, ma se
+intendi eseguire qualsiasi quantità di NSM nel tuo ambiente per un lungo periodo di tempo, vale la pena provarlo
+Zeek.
+
+Riferimento:
+Moduli Modbus: https://docs.zeek.org/en/latest/scripts/base/protocols/modbus/index.html
+https://tcipg.org/sites/default/files/papers/2012_Q2_IDSforDNP3-1.pdf
+
+Zeek contro Snort
+
+Non è possibile trattare Zeek in modo approfondito in questo corso perché è un linguaggio di scripting e richiederebbe di spendere un
+molto tempo per capire come scrivere nella lingua prima di implementarla. Esistono numerosi file specifici di Zeek
+corsi di formazione, tutorial e informazioni sul sito Web principale di Zeek. La cosa importante da capire per questo
+La classe è che Snort è uno strumento eccezionale e veloce da utilizzare per impostare firme che corrispondano all'accesso e all'utilizzo non autorizzati
+Dati di tipo IOC provenienti dall'intelligence sulle minacce o per testare rapidamente le idee che hai sui dati di rete dannosi. Zeek è il
+strumento di monitoraggio della sicurezza della rete più potente e vale la pena comprenderlo. È la capacità di decodificare un numero di ICS
+protocolli e analizzarli con un'ispezione approfondita dei pacchetti. Come Snort, Bro può essere configurato per archiviare
+i suoi avvisi in formato syslog o inviarli a una posizione centralizzata.
+
+ dell'ICS
+
+ELK è una combinazione di tre strumenti: Elasticsearch, Logstash e Kibana. I tre strumenti si combinano insieme per creare
+uno strumento estremamente versatile noto come ELK. ELK è più o meno un fork di Splunk gestito dall'open source
+Comunità. Vale la pena menzionarlo in questo corso, anche se non lo useremo. Sicurezza Onion è di più
+spesso utilizzato in ambienti ICS (menzionato nella diapositiva successiva). Tuttavia, se stai configurando un ambiente per l'IT
+e le persone OT con cui lavorare in tutto il settore IT e ICS, è preferibile guardare ELK.
+
+Riferimento:
+https://www.elastic.co/products
+
+ dell'ICS
+
+Gran parte di ciò che viene cercato, soprattutto con i feed delle minacce, si basa sulle firme. Esistono molte grandi firme, e
+sono utili: ancora più utili sono le firme che corrispondono al tuo ambiente. Ad esempio, se OPC non è nel tuo file
+ambiente, è bene affermare che se quella porta viene mai vista in uso, potrebbe essere un problema.
+
+Tuttavia, un altro modo efficace per rilevare le minacce in un ICS è attraverso le anomalie. Data la natura più statica di
+un ICS, questo può essere estremamente efficace con dati di flusso, dati storici/statistici e linee di base.
+
+Linee di base
+
+Uno dei modi migliori per identificare le anomalie in un ICS è creare una base di riferimento per l'ambiente. Qualsiasi aspetto della "lista bianca" lo è
+sarà sempre migliore nel trovare i problemi rispetto a un approccio da "lista nera". La difficoltà è che le whitelist sono difficili da creare
+mantenere. Tuttavia, in un ambiente ICS, è possibile applicare e mantenere una linea di base almeno per la rete
+comunicazioni. Ancora più utilizzabile, tuttavia, è una linea di base di natura passiva. Un esempio di linea di base passiva
+è uno che rileva un problema e ti avvisa ma non accetta un blocco attivo, che potrebbe arrestarsi in modo critico
+comunicazioni. Ciò conferisce potere al difensore senza ostacolare le operazioni.
+
+86  dell'ICS
+
+In precedenza in questa sezione abbiamo discusso i dati di flusso/sessione come un tipo di dati NSM. IPFIX era un esempio di questi dati
+e può essere utile raccogliere le informazioni basate su NetFlow. Con questi dati possiamo iniziare a rilevare anomalie.È facile dire che dovremmo essere in grado di rilevare HMI | parlando con l'HMI 1 o altre anomalie nel tuo
+ambientale, ma farlo su larga scala e nel tempo può essere impegnativo. Sono disponibili numerosi strumenti
+supportare queste informazioni. Due strumenti open source che possono essere utilizzati (e vengono utilizzati insieme) sono SiLK e FlowBAT,
+che vedremo nelle prossime diapositive.
+
+ dell'ICS
+
+Un modo semplice per pensare ai dati storici è pensarli nel contesto dei dati nel tempo. Da che tipo di dati
+un livello elevato e nel tempo, potresti identificare rapidamente e quali modifiche potresti identificare? Questo di solito si occupa
+con cose come i picchi di larghezza di banda, le volte in cui viene utilizzato un protocollo o quanti sistemi utilizzano quel protocollo, il
+numero di connessioni e durata delle sessioni. Ciò è utile anche nel contesto di orari e orari diversi del
+giorno. Potresti avere più connessioni all'ICS alle 14:00. di giovedì che alle 3 di domenica. Quanti
+i dispositivi utilizzano Modbus TCP? Se vedi un picco in questo, potrebbe anche essere strano. Questi tipi di set di dati storici sono
+utile.
+
+88  dell'ICS
+
+Al 315* Chaos Computer Congress di Amburgo, Germania, nel 2014, Eireann Leverett ha presentato l'argomento
+"Switches get Stitches" in cui ha valutato gli switch di rete industriali di numerosi fornitori come Siemens
+Scalance X200 versione 4.3, GE Multilink ML800 versione 4.2, GarrettCom e altro ancora. Poi ha costruito su questo
+presentazione per 44CON e includeva i ricercatori Colin Cassidy e Matt Erasmus.
+
+Per Black Hat e DEF CON 2015, Eireann e Colin hanno scoperto nuove vulnerabilità e hanno incluso Robert M. Lee
+sul discorso per parlare dal punto di vista del difensore. La ricerca di Eireann e Colin era/è vitale per la scoperta
+vulnerabilità in questi switch industriali. Si tratta di vulnerabilità avanzate e difficili da scoprire. Molti
+sono stati scoperti cercando meccanismi di sicurezza di base che avrebbero dovuto esistere. Lo scopo non era quello previsto
+evidenziare un singolo fornitore, ma mostrare invece ai proprietari e agli operatori delle risorse le vulnerabilità di molti avversari
+lo saprei già. Robert è stato coinvolto nel discorso per mostrare ai proprietari e agli operatori di asset come agire
+NSM per identificare quando queste vulnerabilità sono state abusate.
+
+Discorso del cappello nero:
+https://www.youtube.com/watch?v=urj KkQaspHQ
+
+© 2021 Robert M..Lee 89
+Esempio di grafico I/O da Switch Ottieni punti
+
+ICS515 | Visibilità, rilevamento e risposta dell'ICS
+
+Eireann ha apportato una modifica al firmware di uno switch di rete industriale su una rete, basata su uno dei
+vulnerabilità nel firmware. Qui, Robert M. Lee ha preso i dati storici della rete su cui era acceso l'interruttore
+sotto forma di un grafico I/O di Wireshark. Riesci a individuare la stranezza? Si verifica circa 320 secondi dopo
+catturare il campione.
+
+Alcune delle vulnerabilità mostrate ai difensori negli Switch vengono evidenziate nella serie di presentazioni di Stitches
+backdoor non documentate, crittografia debole, chiavi RSA integrate e metodi per modificare il firmware su uno switch.
+Tutte queste cose fanno sì che l’avversario possa fare tutto ciò che vuole sulla rete. Non c'erano patch
+poiché la maggior parte di queste e molte delle vulnerabilità non verranno mai risolte. Pertanto, è importante poterlo fare almeno
+identificare il problema. Poi potranno aver luogo le pratiche adeguate. Ad esempio, se presente, sarebbe richiesta la risposta all'incidente
+è stata la modifica del firmware in qualsiasi dispositivo, in particolare negli switch di rete.
+
+90  dell'ICS
+
+Esistono molti modi per eseguire operazioni di sicurezza e tutti richiedono che tu sia adattato alla missione che stai svolgendo
+e le risorse di cui disponi.Tuttavia, in uno stato ideale, ecco una panoramica di come è possibile avere un SOC OT dedicato
+(che è solo persone/processi/tecnologia – non significa nemmeno un organigramma separato) con la dovuta attenzione
+all'ICS con operazioni integrate con l'IT.
+
+Dovresti avere i vari avvisi/registri aziendali/IT e avvisi/registri ICS in arrivo nel SIEM aziendale. Voi
+dovrebbe sfruttare prodotti specifici ICS in grado di comprendere le comunicazioni ICS, le minacce, ecc. per la parte ICS. Nel
+Enterprise SIEM, la normale funzione di livello 1, senza competenze specifiche ICS, esegue il lavoro di triage/escalation.
+
+Quando gli avvisi vengono inoltrati al "Livello 2", se sono aziendali/IT dovrebbero seguire il normale flusso di lavoro
+hanno, il che probabilmente equivale al Livello 2 che esegue indagini e al Livello 3 che esegue una risposta agli incidenti più specializzata,
+attività forense o di analisi del malware.
+
+Quando gli avvisi inoltrati provengono dalla rete ICS, dovrebbero essere inviati a un livello 2 specifico ICS dedicato e formato
+funzione. Quella persona o squadra dovrebbe quindi tornare agli strumenti di sicurezza ICS per ottenere contesto ambientale e
+trarre vantaggio dalla comprensione specifica dell’ICS fornita da tali strumenti. È particolarmente prezioso se si tratta dello stesso prodotto
+eseguendo il rilevamento e ha la capacità di eseguire analisi di registro/rete nello strumento.
+
+Da lì, se la funzione ICS Tier 2 valutasse l’esistenza di un rischio reale, passerebbe a una funzione Tier 3. Il livello 3
+La funzione non sarebbe un team di sicurezza specializzato e centralizzato, bensì un sostenitore/sostenitore/collegamento presso l’impianto
+o lato operativo della casa (ad esempio, qualcuno al Centro di Controllo, qualcuno alla Raffineria, qualcuno al
+Stabilimento produttivo, ecc.). Quel personale capirà quell'impianto specifico e il potenziale impatto. Possono anche
+dedurre rapidamente se vale la pena dedicare del tempo a indagare ulteriormente su qualcosa. Non è necessario che siano cyber-specifici
+gente ma gente che capisce il linguaggio informatico; vale a dire, hanno interagito in anticipo con persone ICS di livello 2 e
+capire come attenuare l'impatto.
+
+Gli analisti specifici dell'ICS di livello 2 non dovrebbero valutare tanti avvisi quanto quelli specifici dell'IT; La sicurezza ICS è più elevata
+
+impatto, frequenza più bassa. Ciò significa che quel personale dovrebbe costruire rapporti con il personale dell'impianto e
+cacciare quando non si effettua la selezione, che dovrebbe costituire la maggior parte dei loro sforzi.
+
+ dell'ICS
+
+Alcune analisi utili per iniziare ruotano attorno a cose che non si basano su molta conoscenza della rete. Per
+ad esempio, quali indirizzi IP e porte sono i più attivi sulla rete? Assicurati che siano tutti legittimi
+comunicazioni. Ci sono file di grandi dimensioni che vengono costantemente trasferiti agli indirizzi IP? Esaminateli attentamente. Se ci sono
+collegamenti crittografati sulla rete, assicurarsi che siano crittografati; il malware non invia necessariamente tutti i file
+traffico fuori dalla rete: i siti di rilascio sono comuni (raccogliere l'esfiltrazione in una posizione prima di inviarla
+rete). Se disponi di un indirizzo IP che rientra in tutte e tre queste categorie (top talker, larghezza di banda più alta e
+crittografato), è probabilmente dannoso. Controlla e assicurati. Inoltre, impara a conoscere la tua infrastruttura e capisci quando
+gli eventi dovrebbero e non dovrebbero verificarsi sulla rete, come aggiornamenti del firmware e patch.
+
+92  dell'ICS
+
+Zeek è un potente strumento di scripting di rete che ti permetterà di analizzare i pcap e i loro dati (simile a syslog per
+traffico di rete) rapidamente. Ecco alcuni comandi che potrebbero essere utili nei prossimi lab. Solo i laboratori lo faranno
+utilizzare Zeek una volta, ma facoltativamente puoi continuare a utilizzare Zeek durante i laboratori di questa sezione.
+
+ dell'ICS
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+94  dell'ICS
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+ dell'ICS
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+96  dell'ICS
+
+Con i dati raccolti adeguati e la capacità di rilevare una minaccia, spetta alla fase di analisi determinarlo
+se la minaccia è reale e se vale la pena avviare un processo di risposta agli incidenti o se la minaccia può essere mitigata e
+difeso rapidamente senza alcun impatto sulle operazioni.
+
+Senza dubbio avrai avvisi sulla tua rete che sembrano dannosi ma non lo sono. Questi sono identificati come falsi
+positivi e consumerà la maggior parte del tuo tempo in NSM, soprattutto quando i sensori non sono sintonizzati correttamente. Tuttavia,
+ci saranno una serie di violazioni delle policy, problemi di configurazione o anche minacce isolate che puoi analizzare e
+determinare che in realtà non è necessario un processo di risposta agli incidenti. Queste cose possono essere risolte rapidamente
+senza consumare tempo e risorse preziose.
+
+ dell'ICS
+
+La fase di analisi non è intesa a far sì che il personale prenda decisioni sull'interruzione delle operazioni, sulla messa offline dei sistemi,
+o eseguire analisi approfondite sulle minacce. Questi sono tutti passaggi trattati nelle Sezioni 3 e 4. La fase di analisi
+riguarda la convalida delle minacce rilevate in modo che sia possibile prendere una decisione sul passaggio successivo. Nella fase di rilevamento,
+agli analisti viene chiesto di avere una visione olistica della rete per rilevare le minacce su più tipi di sistemi e
+avvisi. In Analisi, il tuo compito è andare oltre i sistemi per determinare se e come la minaccia dovrebbe essere elevata
+gestione.
+
+98  dell'ICS
+
+A volte il rilevamento e l'analisi si sovrappongono. Ad esempio, forse vedere un picco di I/O è sufficiente in caso di criticità
+segmento per dire che qualcuno dovrebbe indagare con la mentalità e la metodologia di risposta agli incidenti. Realisticamente
+tuttavia, ciò è dovuto al fatto che il rilevamento e l'analisi avvengono contemporaneamente. È importante riflettere su
+analisi e formulare ipotesi concorrenti prima di avviare la risposta agli incidenti se si desidera evitare falsi
+positivi. Questo non deve essere un processo lento, ma renderlo una parte integrante del processo.
+
+L'analisi può aiutare a promuovere tattiche di raccolta e rilevamento migliori. Forse è necessario un nuovo rubinetto per potersi riunire
+traffico in un segmento di cui non hai visibilità attuale. Forse ci sono state delle anomalie in fase di rilevamento
+
+avrei dovuto vedere anche lui.
+
+I tipi comuni di analisi di cui parleremo nel resto di questa sezione sono pacchetto, traffico, file e sequenza temporale
+analisi.
+
+© 2021 Roberto M.Lee 99
+Metodologia comune di Wireshark
+
+una fase di rilevamento genera un avviso
+
+Esamina il traffico catturato in Wireshark
+
+Inizia con la 5-Tuple di alto livello
+Ga Identificare valori anomali e anomalie
+
+a B Cercare anomalie nel protocollo*
+
+ICSS515 | Visibilità, rilevamento e risposta dell'ICS
+
+La prima volta che guardi il traffico sulla tua rete in Wireshark, avrai un momento di panico. Imparare nuovo
+protocolli, comprendere le regole di colorazione e acquisire familiarità con il normale traffico basato su TCP come HTTP
+
+Le richieste GET sono tutti prerequisiti per eseguire l'analisi in Wireshark.
+
+È comune vedere un singolo dispositivo utilizzato come punto cardine per gli avversari. A volte è difficile "tornare indietro nel tempo".
+Cioè, non si hanno le catture dei pacchetti ma, se si facesse qualcosa, è improbabile che venga eseguita una pulizia completa e
+il processo antiforense è condotto da un avversario. Il movimento laterale è comune ma i server C2 interni,
+Sono comuni anche i punti graduali in cui il traffico SSL può essere utilizzato per espellere i dati dalla rete.
+
+Wireshark contiene una serie di funzionalità come Segui flusso TCP e Segui flusso UDP per identificare i pacchetti di
+interessa a te e a tutti coloro che sono nella stessa sessione. Inoltre, è possibile impostare regole di colorazione e opzioni di filtro
+per filtrare rapidamente ciò che gli analisti del traffico non vogliono vedere o attirare la loro attenzione su modelli o problemi insoliti.
+
+Come metodologia generale, non utilizzare Wireshark solo per esaminare grandi quantità di dati alla ricerca del male. Lascia il
+La fase di rilevamento del NSM si occupa di generare un avviso, tramite firme o anomalie. Una volta c'è
+è stato rilevato qualcosa, utilizza Wireshark sul traffico già catturato o filtra l'IP dell'avviso e cattura il traffico in tempo reale,
+e iniziare esaminando i dati di alto livello. Utilizza 5 tuple (IP di origine/destinazione, porta di origine/destinazione e
+Protocol) dati per esaminare cose che potrebbero essere fuori posto. Ad esempio, HMI | normalmente parli con l'HMI 2? È
+Il Modbus TCP viene solitamente utilizzato nella rete aziendale? Quali dispositivi utilizzano solitamente l'OPC?
+
+È anche possibile cercare manipolazioni del protocollo. Nuovi dissettori Wireshark possono essere realizzati con il supporto di
+fornitori per aiutarli a cercarlo. C'è un asterisco accanto al passaggio "Cerca anomalie del protocollo" perché finora,
+non si è mai verificato un avversario che abbia eseguito manipolazioni del protocollo ICS in un'intrusione nella vita reale. C'è
+stata ricerca ma nessun avversario ne ha avuto bisogno. È stato utilizzato comandi, funzioni e accesso alla rete nativi
+Abbastanza. Tuttavia, dobbiamo essere in grado di esaminare i pacchetti per individuare eventuali minacce future e capirne di più
+realisticamente, i comandi accurati vengono utilizzati in modo inappropriato. Quanti comandi di scrittura dovrebbero essere Modbus TCP
+fare in un determinato segmento di rete?
+
+100  dell'ICS
+
+NetworkMiner è un modo rapido per elaborare l'acquisizione di pacchetti ed esportare file, dati di sessione e altri dati preziosi
+informazioni come chiavi e credenziali SSL osservate. Ciò è particolarmente utile dopo aver rilevato una minaccia sulla rete.
+Molti avversari utilizzano l'autenticazione durante l'esfiltrazione e utilizzano servizi crittografati per inviare dati dal tuo
+rete privatamente e senza motivo di allarme. NetworkMiner può cercare le credenziali attraverso le acquisizioni dei pacchetti
+che gli avversari avrebbero potuto utilizzare. Fare attenzione a rispettare sempre la privacy degli altri sulla rete e a
+non abusare di altre credenziali che potresti trovare.
+
+© 2021 Roberto M.Lee
+
+101
+Determinazione della risposta all'incidente
+
+È necessario determinare cosa si qualifica come un problema che richiede una risposta all'incidente
+
+eseguita molto prima che si verifichi un incidente
+* La pianificazione è la chiave dell'IR
+
+Il NSM alla fine porta alla determinazione se un problema deve essere intensificato, ma
+non è il personale NSM che dovrebbe dichiarare un incidente:
+
+* Probabilmente il management ti ascolterà se hai stabilito un rapporto di fiducia, ma alla fine è loro
+chiamata
+
+Analisi abbinata a ruoli, responsabilità e piani compresi in un
+L’organizzazione è spesso la differenza tra un incidente fallito e uno riuscito
+operazioni di risposta
+
+Dove si trova il tuo avversario nella Cyber ​​Kill Chain di ICS?
+
+ICS515 | Visibilità, rilevamento e risposta dell'ICS
+
+e.a
+
+e.a
+
+eo 8 ® ® 2 Ym @
+
+Non è compito di coloro che eseguono il NSM dichiarare un incidente a meno che non gli venga specificatamente data tale autorità. Invece, esso
+Il loro ruolo è informare il team più ampio e il management sulle scoperte convalidate e analizzate che dovrebbero essere
+indagato con un processo di risposta agli incidenti.
+
+Per la gestione:
+
+* Consenti al tuo personale la formazione tecnica, la comprensione e l'autorità necessarie per eseguire l'intero ciclo NSM.
+
+* Ascolta i tuoi analisti, ma alla fine la decisione di impegnarsi nell'IR è una decisione a livello di gestione basata su
+esigenze operative.
+
+* Si verificheranno minacce; comprendere la rete e il panorama delle minacce può aiutare a determinare le soglie per
+risposta.
+
+Per gli analisti:
+* Essere espliciti riguardo ai bisogni e ai requisiti per completare un ciclo completo di NSM; il credito parziale non conta.
+
+¢ Gli analisti devono fornire analisi basate sull'evidenza e sulla migliore comprensione in quel momento.
+* Quanto più preparato e informato è il team IR, tanto più sicure saranno le operazioni di rete e le persone.
+
+102  dell'ICS
+
+I fattori di escalation ICS dovrebbero essere determinati con largo anticipo rispetto a un incidente e fare affidamento sulle informazioni derivanti dal rischio
+processo di valutazione. Idealmente, le valutazioni vengono inizialmente eseguite prima della messa in servizio del sistema e vengono aggiornate
+riflettere i cambiamenti nella funzionalità e nell’architettura del sistema attuale. I sistemi dovrebbero avere un profilo di rischio determinato
+in base alla loro funzione ed esposizione. Per qualsiasi tipo di tecnologia operativa (OT), è importante determinarlo
+in che modo i componenti del sistema influiscono sul funzionamento sicuro e affidabile di un processo industriale o in una sua specifica applicazione
+automazione. Gli ICS possono spesso avere un impatto sulla sicurezza del personale in loco ed eventualmente fuori sede, influire sull'ambiente e causare
+impatti aziendali significativi derivanti dalla perdita della disponibilità commerciale di un asset o della capacità produttiva. Le conseguenze possono
+essere difficile da determinare correttamente e richiede una buona valutazione ingegneristica per determinare se si tratta di un uso improprio di un ICS
+Il componente può semplicemente interrompere il processo o può provocare uno scenario di errore in grado di aggirare o corrompere il file
+sistema di sicurezza e danneggiare apparecchiature difficili da riparare o sostituire.I fattori di escalation possono riguardare il tipo di incidente o violazione delle policy e il possibile rischio associato all'incidente
+in questione e la tua capacità di gestire e rispondere all'incidente.
+
+I fattori di escalation degli incidenti specifici dell'ICS includono:
+
+* In quali livelli o livelli segmentati esistono prove che potrebbero indicare un compromesso?
+
+¢ Esistono percorsi sfruttabili verso reti più affidabili?
+
+* Qual è la funzione dei sistemi a rischio? È legato alla sicurezza (priorità più alta), al controllo (seconda priorità più alta).
+priorità), monitoraggio (visualizzazione e visualizzazione) o ausiliario/supporto?
+
+* Quanti sistemi potrebbero essere colpiti dalla minaccia o dal malware in questione? (Ad esempio, l'attaccante può
+raggiungere la scala?)
+
+° Si è verificata recentemente una rimozione delle persone che hanno accesso ai componenti ICS?
+
+* Esistono prove del traffico del sistema di controllo o dei dati di produzione che escono dal vostro sistema controllato o protetto
+reti?
+
+104  dell'ICS
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+106  dell'ICS
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+ dell'ICS
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+108  dell'ICS
+
+In molti ambienti di processo i normali cicli di funzionamento e manutenzione portano verso attività di riparazione delle rotture.
+Gli ingegneri di strumentazione e controllo, gli integratori di sistemi o gli appaltatori in genere arrivano con l'obiettivo di
+"riparare" tutto ciò che attualmente non funziona per ripristinare le operazioni il più velocemente possibile, e quindi stare lontano da
+sistema per evitare qualsiasi rischio di causare un’interruzione forzata.
+
+Questa modalità operativa esaminerebbe ogni potenziale cambiamento (patch di sicurezza, prestazioni o logica di ottimizzazione).
+modifiche, rafforzamento della sicurezza, gestione dell'accesso degli utenti, modifiche della rete, modifiche del firewall, ecc.) come rischio
+al processo. Pertanto, ogni modifica passerebbe attraverso un processo di revisione per valutare la priorità del
+cambiamento proposto rispetto al rischio per il processo. Per questo motivo, probabilmente vedresti una serie di modifiche in attesa di a
+interruzione della manutenzione programmata.
+
+ dell'ICS
+
+In alcuni settori, come il Bulk Electric System nordamericano, esistono standard che richiedono un rafforzamento del sistema
+azioni, azioni di gestione dell'account, registrazione, monitoraggio, patch di sicurezza, codice dannoso e comunicazioni
+rilevamenti e vengono implementate pratiche complete di gestione delle modifiche. Questi standard richiedono una maggiore interazione
+attività e la frequenza con cui tali attività devono essere eseguite.
+
+Inoltre, esistono standard della catena di fornitura che forniscono requisiti specifici quando si eseguono azioni come questa
+nella collaborazione con OEM, fornitori e altre terze parti.
+
+Al di fuori del settore elettrico nordamericano, non ci sono molti altri settori dell’ICS che forniscono requisiti in tal senso
+livello di interazione o dei processi della catena di fornitura.
+
+110  dell'ICS
+
+Sebbene in alcuni settori si registrino elevati livelli di cambiamenti legati alla sicurezza informatica, ci sono cambiamenti legati alle operazioni
+che si verificano in tutti i settori. Questi cambiamenti sono generalmente guidati da sforzi di miglioramento dei processi, modifiche delle apparecchiature o
+integrazioni, miglioramenti operativi per gli operatori di sistema, modifiche identificate a seguito di un evento, o potenzialmente
+cambiamenti nell’azienda o in un settore che richiede nuove capacità operative.
+
+ dell'ICS
+
+Nel settore elettrico si discute da tempo sulle connessioni degli OEM e dei fornitori nella rete ICS
+segmenti allo scopo di monitoraggio, analisi, regolazione delle prestazioni e ottimizzazione. Molte entità hanno guardato
+a queste connessioni con preoccupazione per la sicurezza informatica, i requisiti di conformità e gli obblighi di garanzia. In molti
+In alcuni casi queste connessioni sono una realtà della vita che deve essere gestita e molti hanno sviluppato approcci innovativi
+alla riduzione dei rischi. Tuttavia, i vantaggi forniti all’azienda potrebbero rendere necessaria la necessità dell’accesso
+in qualche forma controllata.
+
+Con questo accesso gli OEM e altre terze parti possono fornire servizi preziosi all'operatore proprietario dell'asset.
+
+4112  dell'ICS
+
+apportare le modifiche e lavorare in remoto con il sistema 3"4. Nel laboratorio successivo, l'OEM ha apportato una modifica minore al
+calcolo della valvola di controllo del carburante e ha chiesto al proprietario della risorsa di applicare la modifica del runtime per evitare eventuali impatti sul sistema.
+
+L'azienda sta cercando di rendere l'unità più redditizia diminuendo i costi di generazione dell'elettricità
+massimizzando il valore di mercato dell’elettricità venduta nel mercato energetico, comunemente denominato “scintilla”.
+
+spread”: genera a basso, vendi a alto.
+
+ dell'ICS
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+114 © 2021 Roberto M.Lee
+
+*oeoneorr® © MOD OH OD GH GH HF & PM
+
+a @O @ ® ® ®
+WO ww www ww
+
+ww ww ww
+
+Qw
+
+YY wweveVv VVyvUVvewveWwyoyW
+
+La risoluzione dei problemi è difficile
+
+Inizia con l'elemento fisico locale che sembra essere sbagliato
+operativo
+
+Guarda la mappatura dei punti I/O dove si trova l'elemento di controllo finale
+essere scacciato da
+
+Esaminare il segnale o il percorso di comunicazione in cui si trovano i comandi
+essere ricevuto
+
+Esaminare l'elenco di tag associato alle aree di traduzione dell'elenco di punti
+Determinare se i display dell'HMI ricevono dati accurati e
+visualizzandolo nelle aree corrette
+
+ICS515 | Visibilità, rilevamento e risposta dell'ICS
+
+Durante la risoluzione dei problemi, spesso è più utile iniziare dal livello fisico. Anche quando sembra che sarebbe così
+improbabile, è meglio convalidare. In un sistema complesso ci sono numerose aree che devono essere riviste
+accuratezza e ciò richiederà la documentazione su quale dovrebbe essere il buono stato previsto del sistema.
+L'esecuzione di questa convalida e revisione richiederà probabilmente anche una varietà di personale diverso con competenze diverse
+ruoli e responsabilità attraverso l’organizzazione.
+
+ dell'ICS
+
+non lo è, sarà necessario caricare la logica sicuramente valida nel sistema.
+
+116
+
+ dell'ICS
+
+Eventi come questo creeranno confusione in tutta l'organizzazione, mettendo in discussione molte cose
+l’organizzazione tenta di ripristinare le operazioni e incontra ulteriori sfide. Dettagli e analisi dell'evento
+Le nostre capacità diventeranno molto importanti nello sforzo di comprendere appieno cosa sta accadendo e perché. Inoltre,
+c'è sempre una decisione difficile da prendere durante molti eventi operativi: è un dispositivo difettoso,
+configurazione errata, errore umano o potenzialmente qualcosa di dannoso?
+
+Quando un'organizzazione sa con certezza che si è verificato un incidente? Dovrebbero impegnarsi regolarmente
+i soccorritori tempestivi nel caso in cui un evento sia dovuto ad attività dannose? Nel tentativo di ripristinare un sistema, ecco
+Sono molte le azioni che il personale operativo sul campo può intraprendere che potrebbero “risolvere” il problema e, parallelamente, involontariamente
+nascondere la causa. Questo potrebbe essere un passo necessario per garantire sicurezza e affidabilità in modo rapido, ma coinvolgendo la risposta agli incidenti
+il personale in anticipo può consentire la raccolta di informazioni per l'analisi successiva.
+
+ dell'ICS
+
+L'invio del segnale pipistrello e l'avvio di un'attività di risposta agli incidenti avvierà uno sforzo più ampio con un team di
+soccorritori che avranno bisogno dell'aiuto delle squadre operative prima di poter contribuire a qualsiasi attività di risposta. Per
+per gli addetti alla risposta agli incidenti, è importante comprendere l'unicità di ciascun ambiente ICS e le specifiche di cosa
+assomigliano alle normali operazioni, poiché aiutano a cercare di identificare la causa dell'attività sospetta.
+
+118  dell'ICS
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+ dell'ICS
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+120  dell'ICS
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+© 2021 Robert M. Lee 121

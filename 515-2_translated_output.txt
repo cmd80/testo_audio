@@ -1,0 +1,2776 @@
+Gs
+
+ICS515 | VISIBILITÀ, RILEVAMENTO E RISPOSTA DEI ICS
+Risposta GIAC e difesa industriale (GRID)
+
+515.2
+
+Visibilità e identificazione degli asset
+
+GIAC
+
+CERTIFICAZIONI
+
+SAN
+
+LA FONTE PIÙ AFFIDABILE PER LA FORMAZIONE, LA CERTIFICAZIONE E LA RICERCA SULLA SICUREZZA DELLE INFORMAZIONI | sans.org
+
+ ICS
+
+| Visibilità e asset
+
+Identificazione SANS
+
+© 2021 Robert M.Lee | Tutti i diritti riservati | Versione GOI_07
+
+Il corso SANS ICS515 —ICS Visibility, Detection, and Response è stato sviluppato da Robert M. Lee con il contributo di
+una raccolta di esperti, le cui diverse esperienze lavorative, conoscenze e competenze si sono davvero fuse per coprire lo specifico
+aree di contenuto di questo corso. L'autore desidera ringraziarli per il loro sostegno e contributo. Si prega di consultare il
+pagina seguente.
+
+Robert M. Lee
+
+Robert M. Lee è il CEO e fondatore della società di sicurezza informatica industriale (ICS/OT/IIoT) Dragos, Inc. È un
+SANS Senior Instructor e autore del corso SANS ICS515 - "ICS Visibility, Detection, and Response" e il
+autore principale di SANS FOR578 — “Cyber ​​Threat Intelligence”. Attualmente è anche uno speciale del Dipartimento dell'Energia
+impiegato di servizio nel comitato consultivo per l'elettricità in qualità di vicepresidente della sicurezza nazionale per la resilienza della rete
+Comitato.
+
+Robert ha iniziato la sua carriera nel campo della sicurezza informatica nell'aeronautica americana, dove ha prestato servizio come addetto alle operazioni di guerra informatica
+Ufficiale dell'Agenzia per la sicurezza nazionale.Ha svolto missioni di difesa, intelligence e attacco in varie missioni
+organizzazioni governative, inclusa l’istituzione di una missione di scoperta delle minacce ICS/SCADA unica nel suo genere
+combinando insieme risposta agli incidenti, caccia alle minacce e intelligence sulle minacce. Infine, Robert è l'autore del libro
+SCADA and Me, Threat Intelligence and Me, Santa and Me e il webcomic settimanale
+
+http://www. LittleBobbyComic.com
+
+Robert può essere trovato su Twitter @RobertMLee o contattato via e-mail all'indirizzo: RLee@Dragos.com
+
+ dell'ICS
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+ dell'ICS
+
+"Dato che non possiamo mai sapere cosa ci aspetta, dobbiamo sapere qual è la nostra postura in tempo reale (nel contesto di
+consapevolezza situazionale globale) e hanno la capacità di rafforzare le difese di fronte a un avversario determinato e capace
+con l'intento di aggirare le nostre difese o di sfruttare tali difese per i propri scopi." —Richard Schaeffer,
+ex direttore della NSA Information Assurance Division (IAD), luglio 2014
+
+Nella Sezione 1 abbiamo appreso l'intelligence sulle minacce e i suoi usi per la difesa attiva. Nella Sezione 2, gli obiettivi sono:
+comprendere lo scopo dell'identificazione e della visibilità delle risorse. Lo realizzeremo comprendendo alcune chiavi
+metodologie come l'analisi dei gioielli della corona e i quadri di gestione delle collezioni. Li metteremo
+metodologie per esercitarsi a sfruttare i laboratori con ICS nativi e comunicazioni IT per culminare nella scoperta delle risorse
+in una migliore comprensione dei protocolli ICS. L’intelligenza è inutile se non si ha una buona comprensione
+te stesso e ciò che ti sta a cuore. Questo ci preparerà per la Sezione 3 dove potremo utilizzare queste informazioni rapidamente
+
+scopi di sicurezza.
+
+4  dell'ICS
+
+Gli attacchi informatici mirati sono in aumento e rappresentano un grave rischio per gli ambienti ICS. Ricerca e incidente
+la decostruzione sta iniziando a mostrare che gli aggressori stanno sviluppando strumenti compatibili con ICS e se ne sono dotati
+conoscenze di base sulla tecnologia e sulle architetture ICS per avere successo. Il successo di questi attacchi dipende da
+vulnerabilità ICS esistenti e incapacità delle strategie difensive esistenti di far fronte ad attacchi prolungati
+campagne.Molte difese ICS sono state ottimizzate per proteggere da attacchi informatici non strutturati e non diretti/mirati
+attacchi. La maggior parte delle strategie si basa su una forte difesa perimetrale con una certa protezione basata sull'host e buona
+igiene della sicurezza. Queste difese sono efficaci contro alcune minacce, ma non riescono a bloccarne o illuminarne altre
+tentativi di intrusione avanzati. Molte difese, se violate, forniscono poca o nessuna conoscenza di dove si trova l'avversario
+stato e cosa sta accadendo all’interno della rete di controllo. Dobbiamo evolvere oltre lo statico perimetro focalizzato
+difesa e costruire nuovi modelli per integrare le strategie di difesa.
+
+Benefici
+
+Questa fase del ciclo ti consentirà di aiutare i team di architettura e difesa a rimanere consapevoli di ciò che è la rete
+la topologia assomiglia. Basandosi su questa conoscenza della rete, puoi identificare le stranezze della rete e abbinarle
+avvisi ed eventi sulla rete per identificare il tipo di avversari che le difese tradizionali non troveranno. Puoi
+aiutare a prendere decisioni sulla necessità di una risposta agli incidenti e fornire contesto al team. Puoi anche identificarti
+parti critiche della rete su cui il team dovrebbe concentrarsi. La fase di identificazione delle risorse e NSM è il punto fondamentale
+tiene insieme il ciclo di difesa attiva. Dovrebbero pensare in modo più chiaro le persone che operano in questa fase
+avendo quattro obiettivi principali:
+
+* Identificare le risorse di rete e le connessioni che i team di architettura e difesa hanno mancato e trasmetterle
+quelle squadre per la loro consapevolezza e utilizzo.
+
+* Fornire raccomandazioni ai team di architettura e difesa in merito alla segmentazione della rete,
+strozzature e sensori aggiuntivi che andrebbero a vantaggio del NSM.
+
+* Identificare le minacce nella rete oltre ciò che le difese tradizionali troverebbero e fornire raccomandazioni al
+squadra di difesa per la messa a punto di sensori e mezzi di difesa.
+
+* Identificare se una minaccia è sufficientemente grave da avviare una risposta all'incidente e formulare raccomandazioni al management
+riguardo a questo, offrendo allo stesso tempo un contesto agli eventi.
+
+ dell'ICS 6
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+6  dell'ICS 7
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+ del CS 8
+
+Nelle notti tra il 2 e il 3 dicembre del 1984 si verificò un incidente sul lavoro, fino ad allora il peggiore del suo genere.
+Un investimento insufficiente in controlli di sicurezza/formazione/attrezzature/manutenzione e una cultura di negligenza aziendale hanno portato a
+incidente prevenibile in cui si è verificato un rilascio di gas isocianato di metile (MIC) (utilizzato nella produzione di pesticidi)
+la zona di Bhopal, in India. La “baraccopoli” che si era costruita intorno allo stabilimento era priva di risorse e di un ospedale scadente
+personale, e dipendeva dallo stabilimento per gran parte della sua economia. Il rilascio del gas uccise immediatamente circa 3.000 persone
+persone e numeri non ufficiali stimano che altre 16.000 persone moriranno nelle prossime settimane. Centinaia di migliaia lo erano
+feriti (stimati intorno a 700.000 persone) e il gas MIC è stato notato per l'aumento dei tassi di mortalità tra i
+popolazione indiana, un aumento significativo degli aborti e dei difetti congeniti e problemi di salute generali. In un primo momento, il
+l'azienda e il suo personale hanno preso le distanze dall'incidente. Fu solo quando intervenne la Corte Suprema indiana
+che alla fine la società ha accettato la responsabilità e ha pagato circa 500 milioni di dollari in sinistri e investimenti
+
+la comunità.
+
+Questo orrendo caso di studio è in questo corso per ricordare i tipi di conseguenze che possono verificarsi in ambito industriale
+siti anche senza azioni dannose intraprese dagli avversari.Nonostante tutto il suo orrore, l'unica cosa buona che è arrivata
+L’incidente di Bhopal ha portato a un rilancio delle iniziative e degli sforzi per la sicurezza in tutta la comunità industriale.
+L'ingegneria della sicurezza si è sviluppata più pienamente nella propria pratica e impegno con competenze specializzate, formazione, attrezzature,
+certificazione e risorse per garantire che le aziende possano ridurre i danni ambientali e umani che ne derivano
+
+guasti nei siti industriali.
+
+Riferimento:
+https://en.wikipedia.org/wiki/Bhopal_disaster
+
+8  dell'ICS
+
+Alcuni dei componenti industriali con cui avere familiarità in questo caso e come conoscenza generale sarebbero il gas
+scrubber, torre di combustione e serbatoi di refrigerazione/raffreddatori.
+
+Uno scrubber di gas è un processo industriale per pulire i gas di scarico. In questo esempio, lo scrubber preleva gas vapore (MIC in
+questo caso di studio) e lo mette a contatto con un liquido che lascia passare alcune delle componenti gassose
+mentre i componenti gassosi che sarebbero considerati rifiuti o non desiderati nel gas pulito vengono disciolti nel gas pulito
+liquido. Ad esempio, in un altro settore, il gas naturale, il gas naturale non trasformato (o “gas acido”) contiene idrogeno
+solfuro che danneggerebbe apparecchiature e generatori. Uno scrubber di gas può rimuovere i contaminanti in modo naturale
+il gas può essere utilizzato senza danneggiare l'apparecchiatura. Dal punto di vista della sicurezza, e nel contesto di Bhopal, il gas
+lo scrubber avrebbe potuto pulire il gas MIC con soda caustica, neutralizzandone gli effetti non appena veniva rilasciato.
+
+Un camino a fiaccola è un processo che può avere considerazioni sia economiche che di sicurezza. In alcuni processi industriali, il
+È più costoso tentare di utilizzare e trasportare il gas prodotto di scarto piuttosto che bruciarlo semplicemente. Pertanto, il gas potrebbe
+essere indesiderabili e bruciarsi nel tempo. Separatamente, può verificarsi una sovrapressione delle apparecchiature dell'impianto in cui si trova il gas
+estratto come sottoprodotto (ad esempio, estrazione del petrolio) e durante l'avvio, l'arresto, la manutenzione o semplicemente dell'impianto
+eventi di sovrapressione non pianificati. Le valvole di sicurezza rilasciano invece il gas nel camino per essere bruciato in sicurezza
+di consentire un'esplosione, danni alle apparecchiature o fuoriuscite di gas.
+
+Le unità di refrigerazione vengono sfruttate in molti ambienti industriali, compresi i sistemi di riscaldamento, ventilazione e raffreddamento
+(HVAC) negli edifici. Nel contesto di Bhopal, il sistema di refrigerazione era collegato a serbatoi di stoccaggio ad elevata purezza
+azoto e MIC. L'aumento delle temperature può portare rapidamente ad un'accelerazione delle reazioni chimiche
+la temperatura deve essere mantenuta a livelli adeguati. Pertanto, il sistema di refrigerazione, anche se una piccola parte del
+processo, diventa una parte critica soprattutto dal punto di vista della sicurezza.
+
+In tutti questi diversi processi, ci sarebbero tecnologie fondamentali per qualsiasi processo industriale come valvole,
+sensori e, infine, avvisano gli operatori quando si verifica una deviazione nel sistema oltre la norma prevista.
+
+ dell'ICS
+
+All'UCC un semplice modello di come questi sistemi si sono riuniti può essere trovato nell'immagine sulla diapositiva. Raffinazione MIC
+entrerebbe nei serbatoi di stoccaggio miscelato con azoto ad elevata purezza in modo che non vi sia ossidazione. I carri armati agiscono come
+stoccaggio per l'utilizzo del MIC nel processo di produzione dei pesticidi.
+
+Qui possiamo vedere più chiaramente che il Vent Gas Scrubber e la Flare Tower sono presenti dal punto di vista della sicurezza.
+Se i serbatoi sono sovrapressurizzati, o se devono scaricare gas, lo faranno attraverso una valvola di sfiato del gas
+scrubber o la torre a torcia (o idealmente attraverso lo scrubber del gas alla torre a torcia). Ciò che non è facilmente visibile qui
+tuttavia, in questo progetto solo 2 serbatoi dovrebbero essere pieni di MIC e il terzo serbatoio dovrebbe essere utilizzato solo come serbatoio
+serbatoio di troppopieno in modo che se il serbatoio 610 o 611 presenta problemi, il MIC può essere conservato in sicurezza nel 619. Il depuratore di gas
+qui aveva una capacità di 190 libbre all'ora (molto meno di quanto richiesto dove alcune strutture erano dotate di depuratori
+performando a 60.000 libbre all'ora).
+
+L'unità di refrigerazione non viene utilizzata per il trabocco ma viene utilizzata per mantenere la temperatura nei serbatoi. Il MIC in questo
+il processo deve essere conservato a 0 gradi centigradi.
+
+Riferimento:
+Ramificazioni dell'UCC.pdf
+
+© 2021 Roberto M.Lee 11
+
+W
+
+P&ID IC
+
+SERBATOIO DI STOCCAGGIO DEL MICROFONO
+
+(@FO PROCESS VENT INTESTAZIONE (PVH)
+DALL'INTESTAZIONE DELL'AZOTO AD ALTA PUREZZA AL RITORNO DELLA POMPA DI TRASFERIMENTO
+
+DALL'UNITÀ DI REFRIGERAZIONE
+AL COLLETTORE DI SFIATO DELLA VALVOLA DI SICUREZZA (RVVH}
+
+DA MIC REFINING STILL (MRS)
+
+ALL'UNITÀ DERIVATI
+€}
+
+Pi ~ INDICATORE PRESSIONE TIA ~ INDICATORE/ALLARME TEMPERATURA
+PIC ~ INDICATORE/REGOLATORE DI PRESSIONE LIA = INDICATORE/ALLARME DI LIVELLO
+
+ICS51I5 | Visibilità, rilevamento e risposta dell'ICS
+
+Un'altra vista del processo MIC, da uno schema di tubazioni e strumentazione (PID o P&ID) è contenuta in
+La diapositiva. Qui puoi vedere come il processo fisico dovrebbe interagire con le apparecchiature ingegneristiche come
+valvole, pompe e indicatori. Il danneggiamento di uno qualsiasi di questi componenti potrebbe portare alla perdita della vista o alla perdita del
+controllo del processo da parte degli operatori.
+
+Riferimento:
+Affidabilità dei processi.pdf
+
+12  dell'ICS
+
+20:00 del 24 dicembre
+
+Lavaggio di più tubazioni per manutenzione.
+
+Le tende antiscivolo richieste come procedura di sicurezza non sono state installate a causa della scarsa formazione.
+La valvola di spurgo (troppopieno) era bloccata, quindi l'acqua non veniva scaricata correttamente.
+
+9-13, 13:00, 24 dicembre
+
+L'acqua si è riversata nel serbatoio E610 dove erano immagazzinate 42 tonnellate di MIC.
+
+Acqua e MIC creano una reazione che aumenta rapidamente la pressione e la temperatura.
+Gli allarmi della temperatura erano stati precedentemente disattivati ​​e la pressione rientrava in un intervallo accettabile.
+
+23:30 del 24 dicembre
+I lavoratori hanno notato l'odore del MIC e hanno visto la perdita.
+
+00:15 dicembre 3"4
+L'operatore si è accorto che la pressione è salita al valore massimo di 55 psi e una valvola di sicurezza è saltata fuori rilasciando il gas.
+
+00:40 del 34 dicembre
+Sirene a gas attivate, spruzzatori d'acqua antincendio portati, ma non abbastanza alti da raggiungere la cima della torre.
+I tentativi di raffreddare il gas fallirono poiché il freon del sistema di refrigerazione era stato scaricato
+
+1:00 del 34 dicembre
+Il serbatoio di riserva 619E non era vuoto e quindi non è riuscito a ridurre la pressione in E610
+
+La polizia è stata informata, ma non si è verificata alcuna mobilitazione significativa.
+
+Riferimento:
+Bhopal RCA.pdf
+
+ di 1CS
+
+L'analisi delle cause profonde è un processo comune da eseguire dopo un guasto o un incidente nel mondo industriale. Questo
+si collega molto bene con ciò che è necessario nell'analisi forense digitale e nella risposta agli incidenti. Sfortunatamente, con il
+crescente complessità dei nostri ambienti industriali e, senza un’adeguata pianificazione anticipata, sta diventando ancora più complessa
+e più difficile eseguire l’analisi delle cause profonde. Se non si pianifica adeguatamente quali dati sarebbero necessari,
+da quali sistemi o persone potresti non essere mai in grado di eseguire l'analisi della causa principale e quindi non puoi imparare
+e migliorare l’ambiente contro il rischio successivo.
+
+Ci sono stati numerosi problemi che si sono verificati a Bhopal. Alcuni dei problemi di sistema su cui concentrarsi erano intorno al
+
+scarsa manutenzione e progettazione delle apparecchiature di sicurezza.
+
+Ad esempio, lo scrubber del gas è stato costruito per gestire una portata di 88 Kg di MIC all'ora, ma l'impianto
+la portata era effettivamente di 20.000 Kg/ora. I serbatoi di stoccaggio dovevano trasportare 5 tonnellate al giorno e il MIC non dovrebbe esserlo
+
+conservati per lunghi periodi di tempo; Tuttavia, il MIC veniva immagazzinato per mesi di seguito e i serbatoi contenevano 55 tonnellate di MIC
+
+loro. I sistemi di sicurezza che avrebbero potuto aiutare, come le valvole di sicurezza e di controllo della pressione, non avevano funzionato
+
+mesi e ha avuto grossi problemi di manutenzione. La valvola di sicurezza MIC indicava 10 psi, ma la pressione effettiva era 40
+psi. L'unità di refrigerazione avrebbe dovuto mantenere la MIC al di sotto dei 5 gradi Celsius, ma è stata spenta per risparmiare denaro
+
+la temperatura era ambiente. Il Freon dell'unità veniva spedito ad altri impianti, quindi quando l'unità veniva attivata, veniva spedito ad altri impianti
+
+non aveva Freon ad aiutarlo.I sensori di temperatura nel processo non funzionavano correttamente da anni, così come gli operatori
+
+aveva disabilitato proattivamente gli allarmi di alta temperatura nella sala di controllo. Nessuna registrazione regolare della temperatura in
+Di conseguenza furono compilati i fogli di registro, che avrebbero colto la reazione in fuga molto prima.
+
+Al di là dei fallimenti del sistema, c’è stata una significativa carenza di preparazione, formazione e investimenti in termini di come farlo
+gestire la pianificazione e la risposta alle emergenze. Il personale dell'impianto, la polizia e il personale medico erano impreparati all'evento
+incidente, amplificando gli impatti sulla popolazione locale.
+
+Riferimento:
+Ramificazioni dell'UCC.pdf
+
+14
+
+ dell'ICS
+
+Bhopal ha molti corollari alla sicurezza informatica. I meccanismi di prevenzione hanno fallito nel tempo o non erano adeguati
+mantenuto. L'atrofia dei controlli preventivi nelle reti ICS è comune (qualsiasi regola nei firewall, nuove connessioni,
+non mantenimento delle difese). Senza la capacità di identificare quell’atrofia (visibilità) non è possibile mantenerne il valore
+dei controlli preventivi. Inoltre, l'incapacità di rilevare problemi (indicatori di temperatura e pressione, nonché
+gli allarmi nel mondo fisico si associano bene ai punti di raccolta e ai rilevamenti nella sicurezza informatica) e rispondono ad essi
+(avere un piano e prepararlo/provarlo) ti lascia impreparato agli eventi.
+
+I gioielli della corona sono quei componenti dell'ambiente che sono fondamentali per il suo funzionamento. Ad esempio, a
+unità di refrigerazione disabilitata, allarmi disabilitati, depuratore di gas disabilitato e torre di razzi disabilitata erano tutti gioielli della corona,
+e il loro fallimento portò alla perdita di vite umane. Il moderno ambiente industriale sta diventando così complesso che tu
+non posso sperare di proteggere tutto. Ma dovresti sforzarti di iniziare con i gioielli della corona e capire “come sarebbe
+un avversario usa l’informatica come mezzo per compromettere questi gioielli della corona?” A partire dal processo fisico e dai suoi
+elementi di controllo per determinare cosa è importante e quindi mapparlo a ritroso su quali sono i percorsi di attacco attuali
+possibile attraverso l’abilitazione digitale di tali componenti è un modo molto praticabile per eseguire l’analisi delle conseguenze.
+
+È anche facile condannare tale digitalizzazione. Ad esempio, sarebbe facile dire che il sistema di sicurezza non dovrebbe esserlo
+in rete. Ciò può essere vero in molti casi, ma in questo caso altri stabilimenti UCC hanno deciso di mettere in rete la propria sicurezza
+sistemi in modo che possano identificare i problemi più velocemente ed essere più proattivi con la manutenzione. Questi sforzi hanno portato a
+il salvataggio della vita umana e dell’ambiente. Gran parte della digitalizzazione che avviene nel settore industriale non riguarda solo le imprese
+valore, ma anche sicurezza e valore della produzione. Sebbene sia facile criticarlo dal punto di vista della sicurezza informatica, è importante
+per vedere i problemi in modo più olistico e quindi determinare quali controlli compensativi devono essere applicati per ridurli
+rischio informatico consentendo al tempo stesso il business.
+
+ dell'ICS
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+ dell'ICS
+
+Se non sai quali risorse hai sulla tua rete, o anche quali reti ti appartengono, è quasi
+impossibile difenderli. La creazione di inventari delle risorse ICS può essere incredibilmente impegnativa con il numero di
+sistemi, fornitori e appaltatori presenti sulla rete in un dato momento. Strumenti tradizionali di gestione delle risorse IT
+che sono utili come Nmap e altre forme di scansione attiva possono essere dannose per le reti ICS. Perciò,
+sono necessari metodi precisi, misurati e validati.
+
+L'inventario ICS è inoltre molto attento al tipo di software, firmware, componenti e configurazioni
+stanno operando su un bene. Adottare un approccio sistematico per identificare questi aspetti è fondamentale per comprendere il
+rete e quella che sarebbe considerata un'attività normale. Gli ingegneri di processo possono avere questo tipo di informazioni
+già, quindi assicurati di visualizzarlo come difensore attivo e assicurati che sia praticabile per la sicurezza della rete. (Quello
+è, assicurati che sia memorizzato in modo tale da poterlo utilizzare.)
+
+È fondamentale capire quali dispositivi si trovano su ciascun segmento di rete e come sono in grado (non necessariamente
+configurati) per comunicare tra loro e come attraversano segmenti e reti.Dobbiamo capire
+i percorsi di attacco e iniziare a raccogliere le informazioni necessarie per determinare l'attacco esistente e potenziale
+superfici. Ciò richiede una conoscenza approfondita del tuo ICS. Molte organizzazioni non raccolgono informazioni sufficienti
+aiuto nell'identificazione dei percorsi di attacco e nella creazione di modelli completi di superficie di attacco. In questa sezione, | ne condividerò alcuni
+suggerimenti e strumenti su come identificare le tue risorse e preparare la tua infrastruttura a raccoglierne abbastanza del giusto tipo
+informazioni per avere successo.
+
+I dati e gli artefatti presentati nei report di intelligence sulle minacce potrebbero non essere utili senza comprenderne la natura
+sulla rete sono presenti artefatti. Quando Windows XP raggiunse la fine del suo ciclo di vita, Oracle lo annunciò
+non supporterebbe più Java 7. Se un rapporto di intelligence sulle minacce discutesse dell'utilizzo di exploit basati su Java 7 da parte di un avversario,
+sarebbe estremamente utile sapere se Java 7 funziona nel tuo ambiente. Fai affidamento su Java 7 nel tuo ICS
+sistema? Puoi scoprirlo velocemente? In caso contrario, un difensore attivo dovrebbe collaborare rapidamente con il personale dell'architettura
+contribuire a eseguire l'identificazione delle risorse ICS. In definitiva è responsabilità del team di architettura, ma difensori attivi
+possedere competenze e capacità professionali utili all'identificazione e alla verifica dei beni.
+
+ dell'ICS
+
+Come discusso in precedenza, è estremamente importante identificare le varie risorse di cui si dispone e le reti di cui si fa parte
+collegato a. Puoi fidarti dei tuoi fornitori e di tutte le reti a cui sono connessi.Puoi fidarti dell'IT aziendale
+reti e potresti anche fidarti di tutte le reti della tua organizzazione di cui non sei responsabile; ma da una sicurezza
+prospettiva non dovresti. Qualsiasi connessione in entrata e flusso di dati provenienti dall'esterno delle aree di tua responsabilità
+perché dovrebbero essere interrogati e monitorati. Fidarsi ma verificare.
+
+Determinare l'area di responsabilità (AOR):
+
+Scopri il tuo AOR, anche se non hai la proprietà/il controllo su tutti i dispositivi al suo interno. Se hai responsabilità
+per la rete, devi sapere tutto su di essa e tutto ciò a cui si connette. La direzione dovrebbe identificarsi
+qual è il tuo ruolo e su quali reti hai autorità. Se non può, aiutatelo a determinarlo e a lavorare
+elaborare un piano per quello che dovrebbe essere considerato il tuo AOR.
+
+Trova e utilizza le informazioni in uscita
+
+Identificare le mappe, i diagrammi e gli elenchi di inventario esistenti del personale che già lavora lì, di backup o esistente
+copie, fornitori che forniscono supporto (dovrebbero conoscere i propri dispositivi) e così via. Assicurati di includere tutti i file
+risorse, anche se non si ritiene che siano una risorsa ICS. Ad esempio, anche se il tuo UPS non fa parte del tuo OT ma lo è
+connesso alla tua rete tramite SNMP, ora è parte della tua responsabilità. Se si rimuove il server di fatturazione, lo farà
+incidere sulla capacità di eseguire ordini attraverso la pipeline e quindi portare alla chiusura della pipeline, quindi lo è il server di fatturazione
+parte dei tuoi sforzi. Ciò non dovrebbe essere esteso agli effetti di terzo ordine. Ad esempio, cercando di giustificare il modo in cui l'ho preso
+la disattivazione del sito Web eliminerebbe le operazioni attraverso 2™ o 3 effetti di ordine si estenderebbero troppo all'interno dell'Enterprise
+sforzi di sicurezza e servono come distrazione.
+
+Convalidare le informazioni note
+
+Qualsiasi informazione fornita da altri dovrebbe essere convalidata: convalida sempre le informazioni. Non darlo per scontato
+esiste realmente solo perché è su una mappa. Allo stesso modo, solo perché qualcosa non è sulla mappa non significa che non sia così
+esistere. È estremamente comune nel settore fare una passeggiata nello stabilimento, indicare un dispositivo e chiedere: "Cosa c'è?"
+quello?" La risposta "Non lo so, è lì da quando sono arrivato qui" non è né divertente da ascoltare né accettabile da parte di un
+prospettiva di sicurezza. Non limitarti a disconnettere le cose con cui non hai familiarità, ma scopri cosa sono e documentale
+loro.
+
+20  ICS =
+
+Gli inventari delle risorse sono disponibili in molte forme e il modo in cui registri e memorizzi le informazioni dipenderà in gran parte da cosa
+ti serve dall'inventario. Questa diapositiva mostra un esempio di ciò che potresti trovare per un inventario di controllo
+dispositivi in ​​una rete ICS. Il numero di serie e la versione del firmware potrebbero non essere tutto ciò di cui hai bisogno. Un comune
+L’errore per i professionisti della sicurezza è raccogliere e archiviare ogni possibile dato invece di ciò che è necessario
+raggiungere i loro obiettivi. Ciò non significa che non vuoi registrare informazioni facili da ottenere che potrebbero tornare utili in seguito,
+ma se non si utilizza la versione firmware per alcun motivo (ad esempio, non si applicheranno patch ai PLC e non si
+preoccuparsi del firmware più recente sul dispositivo) quindi impegnarsi a ottenere il firmware da ogni dispositivo
+potrebbe rappresentare una distrazione o, a seconda di come lo raccogli, qualche piccolo rischio per le operazioni.
+
+Tuttavia, ogni informazione può essere utile con il giusto caso d’uso. Se hai giustificato ciò di cui hai bisogno, il file
+informazioni e piani per fornire valore, in particolare al personale operativo, attraverso la raccolta e l'archiviazione
+
+di queste informazioni, procedere è l'ideale.
+
+Nella maggior parte delle organizzazioni, la raccolta del tipo di informazioni qui elencate sarà di grande valore non solo per la vulnerabilità
+gestione, ma anche casi d’uso che supportano il rilevamento delle minacce e la risposta agli incidenti.
+
+22  dell'ICS
+
+Ci sono notizie costanti su quanti miliardi di dollari vale la comunità delle infrastrutture critiche.
+Cicli di acquisizione nell’ordine di milioni sono una norma del settore. E sembra che ci siano soldi disponibili solo per
+su tutto, tranne che sull'unica cosa che vuoi fare. Tuttavia, poiché i proprietari degli asset si rendono conto di quella rete
+comprensione e sicurezza possono favorire la fiducia e ridurre i tempi di inattività, potrebbero essere resi disponibili finanziamenti aggiuntivi
+per sicurezza." Ma se fai parte del folto gruppo di persone che non hanno budget per acquistare l'ultimo e il più grande
+prodotto, è importante sapere come eseguire l’identificazione degli asset con un budget limitato. Anche se te lo puoi permettere
+strumenti di fascia alta, è necessario rendersi conto che molti strumenti a pagamento eseguono funzioni eseguite dagli strumenti open source. Il pagato
+gli strumenti solitamente vengono forniti con contratti di supporto, spesso accelerano il processo e possono far risparmiare ore preziose ai dipendenti.
+Tuttavia, è necessario comprendere la scienza dietro gli strumenti a pagamento e come eseguire lo stesso tipo di processi con open
+gli strumenti di origine sono importanti. Esistono quattro metodologie principali per eseguire l'identificazione delle risorse.
+
+Ispezione fisica
+
+L'ispezione fisica delle risorse può richiedere molto tempo ed essere difficile in ambienti di grandi dimensioni, soprattutto quelli dotati di
+reti geograficamente separate. Può anche essere pericoloso in alcune zone. Tuttavia è bene sapere come fare
+eseguire ispezioni fisiche, come identificare le risorse e come tracciare la fibra in tutta la struttura per vedere di cosa si tratta
+collegato e a cosa. Non è necessariamente il miglior tipo di identificazione delle risorse, ma ci sono scenari in cui lo è
+utile.
+
+Analisi del traffico
+
+L'analisi del traffico tende ad essere il metodo più sicuro e meno dispendioso in termini di tempo per eseguire l'identificazione delle risorse. OSI
+Esisteranno differenze di livello 1 tra vari tipi di dispositivi (come discusso in due diapositive) come seriale, Ethernet,
+o senza fili. Tuttavia, le informazioni e i dati devono essere trasmessi tra i dispositivi collegati. Capire di cosa si tratta
+quali sono i dati e come esaminarli può aiutare a identificare rapidamente le risorse. Ad esempio, Modbus TCP può rivelare l'IP e
+Indirizzi Ethernet di un dispositivo nonché I/O e registri a cui si accede.
+
+Analisi del file di configurazione
+
+I file di configurazione possono aggiungere ulteriore convalida delle risorse connesse alla rete. Puoi anche rivedere quelli esistenti
+documenti come documenti tecnici e progetti di rete per determinare cosa dovrebbe essere l'ambiente
+assomigliare. Queste informazioni rappresentano un'ottima sovrapposizione ad altri tipi di identificazione delle risorse.
+
+ dell'ICS
+
+Prima di iniziare a tracciare la fibra o ispezionare fisicamente i dispositivi, assicurarsi che l'ambiente sia sicuro e diverso
+il personale che opera nella zona sa che sei lì. Prova a identificare i punti caldi come gli armadietti di smistamento,
+apparecchiature, rack I/O e pannelli di distribuzione. Spesso esiste una sovrapposizione tra i dispositivi di tipo mesh e a stella
+configurazioni, identificando così i punti centrali (come un core router) e tracciando la fibra in modo gerarchico
+può aiutare a identificare i dispositivi. Contrassegnare un dispositivo dopo averlo ispezionato può essere utile, ma probabilmente crea anche distrazione
+l'ambiente di rete. Quindi conserva una buona documentazione utilizzando cose come i numeri di serie dei dispositivi.
+
+Riferimento immagine:
+https://www.researchgate.net/figure/Electric-control-cabinet_fig]_323150366
+
+ dell'ICS
+
+Tabelle ARP
+
+Le tabelle ARP riveleranno gli accoppiamenti MAC e IP sulla rete. Raccolta di file di configurazione da dispositivi in ​​rete,
+soprattutto i punti centrali come un router o uno switch, identificheranno rapidamente i dispositivi registrati sulla rete,
+compresi dispositivi non autorizzati e sniffer passivi. Tuttavia, gli switch non gestiti non disporranno delle tabelle ARP disponibili tu
+accesso. Gli switch non gestiti mantengono comunque le tabelle ARP (solo gli hub e i ripetitori no) ma perché non è possibile
+accedere al dispositivo, non è possibile raccogliere questi dati. Una buona metodologia consiste nell'identificare gli switch gestiti nel tuo
+rete (dovrai farlo comunque per raccogliere passivamente il traffico da loro in seguito) ed esportare le tabelle ARP. Se
+sei locale, puoi esportare i file e visualizzarli in seguito. Se stai visualizzando le tabelle ARP in remoto, i file possono
+essere utilizzati in seguito, ma probabilmente è altrettanto utile visionarli e documentarli sul posto. Ciò contribuirà a ridurre gli errori
+poiché hai il file originale da esaminare davanti a te.
+
+I fornitori possono avere comandi diversi per esportare o visualizzare la tabella ARP. Ad esempio, sugli switch Cisco, lo farai
+accedere allo switch e sulla riga di comando eseguire il comando show arp per visualizzare la tabella ARP. Ona
+Dispositivo Windows, accedi e quindi dalla riga di comando esegui il comando arp ~a. Si noti che il
+il processo stesso è lo stesso. Accedi, esegui un comando specifico e visualizza la tabella arp. Dovresti documentare ciò che
+vedere ed esportare il file. Conservare copie dei file ti consentirà di conservare documenti storici e verificare se esistessero
+cambiamenti nel tempo. Tuttavia, assicurati di archiviare questi file in modo sicuro (ovvero crittografati e protetti da password). Se tu
+avere file di configurazione, elenchi di risorse e mappe di rete su un computer, è un tesoro da trovare per gli avversari.
+Non lasciare che copino i tuoi compiti.
+
+Molti PLC connessi tramite IP inviano solo una richiesta ARP al momento dell'avvio iniziale. Ciò significa che vedi il
+dispositivo registrato sullo switch con il suo indirizzo IP e MAC, ma non è possibile osservare ulteriore traffico ARP in tempo reale
+acquisizioni dei dati di rete. Cioè, se esegui Wireshark, non sorprenderti se molti dei tuoi PLC sono connessi tramite IP
+non inviano traffico ARP.
+
+Valore:
+Trova gli indirizzi IP associati agli indirizzi hardware
+Identificare i dispositivi passivi (potenziali sniffer) sulla rete
+26 © 2021 Roberto M.Lee
+
+26
+
+ovo ovo e wt ve oe
+
+wo
+
+ooo wo w wo w
+
+oh
+
+eC
+
+@e
+ww noi wow noi di Qe ww
+
+w
+
+SE SF ae ae fw
+
+oo 8 § %§%§ S&F FS WS WwW
+
+“pe
+
+Fonte:
+
+Switch gestiti, router o singoli client Windows/Linux
+Metodologia:
+
+Switch, router e client hanno comandi simili ma specifici del fornitore
+
+Visualizza le tabelle ARP sul dispositivo o esporta il file per visualizzarlo successivamente
+
+Documentare le risorse osservate e conservare i registri storici per verificare e convalidare le modifiche nel tempo
+L’aspetto “ICS”:
+
+Molti dispositivi di controllo possono eseguire l'ARP solo quando vengono inizialmente accesi
+
+Quando i sistemi vengono riavviati o vengono completati i periodi di manutenzione, raccogliere le acquisizioni per raccogliere gli ARP
+
+Configurazioni del firewall
+
+Le configurazioni del firewall mostrano quali percorsi e porte sono aperti o filtrati sulla rete. Quando gli avversari si muovono
+in giro per la rete, se non dispongono già di un accesso privilegiato, spesso raccolgono informazioni sul traffico di rete
+attraverso mezzi passivi o attivi. Molti di noi sanno che un firewall può aiutare a tenere lontani gli aggressori
+negando loro l'accesso a specifici intervalli IP e sottoreti, nonché a porte e servizi. Tuttavia, anche un firewall può farlo
+modellare la visione della rete da parte dell'avversario. Una volta completate le scansioni e la raccolta delle informazioni degli aggressori, essi
+non vedrà tutto il traffico e i dispositivi dietro un firewall configurato correttamente. Perché l'attaccante non lo saprà
+dispositivi esistono, probabilmente non saranno i primi a essere colpiti. Comprendere la topologia della rete non è solo utile
+per l'identificazione di asset e reti, ma è utile anche per capire come pensare come l'avversario e identificarsi
+punti chiave che probabilmente verranno influenzati per primi.
+
+Tutti i firewall hanno file di configurazione e saranno accessibili tramite la riga di comando o una gestione remota
+finestra. Determina il tipo di firewall e cerca fornitore e manuali utente o Google (non usiamo Bing in questo
+class) per il modo corretto di accedere ed esportare i file di configurazione. È possibile visualizzare le configurazioni di un sistema Linux
+eseguendo iptables --L dalla riga di comando. È possibile visualizzare un firewall Windows eseguendo il comando
+firewall netsh advfirewall. La maggior parte dei firewall di fascia alta ha una funzionalità di gestione remota dove semplicemente
+l'accesso all'interfaccia di gestione dei firewall rivela le opzioni per visualizzare e scaricare i file di configurazione. Inoltre,
+sono disponibili script di Windows PowerShell (una volta apprese le nozioni di base) per molti tipi diversi di firewall
+per accelerare e automatizzare il processo di esportazione dei file di configurazione. L'esportazione delle configurazioni del firewall non lo consentirà
+li visualizzi su qualsiasi sistema. È necessario disporre di apparecchiature di prova su cui visualizzare i file di configurazione o essere
+a proprio agio con l'analisi in Excel (molte regole dei criteri e file di configurazione consentono la visualizzazione di Exce!) o avere un file
+prodotto a pagamento che esamina i file di configurazione supportati (come Firewall Security Manager di Solar Wind che può
+visualizzare file di configurazione di diversi fornitori e apportare modifiche secondo necessità.)
+
+Dopo aver visualizzato le configurazioni del firewall, assicurati di documentare i percorsi e le porte nel tuo
+ambiente e se sono filtrati o aperti. Concentrarsi sull'evidenziare le rotte e i porti aperti e poi annotarli
+sulla tua mappa di rete che tutto il resto è filtrato o chiuso. È utile non solo sapere su quali indirizzi IP esistono
+la tua rete ma anche con quali porte sono attualmente configurate perché questo aiuta a identificare il tipo di servizi
+loro stanno correndo. Ad esempio, è probabile che un dispositivo connesso tramite IP con la porta 502 aperta esegua Modbus TCP.
+
+Valore:
+Determina percorsi e porte aperte o filtrate sulla rete
+Fonte:
+File di configurazione del firewall
+Finestra di gestione remota
+Metodologia:
+Identificare il tipo di firewall
+Cerca i manuali del fornitore o dell'utente per i metodi di accesso ai file di configurazione
+Esaminare e documentare i porti, i servizi e le rotte esistenti
+L’aspetto “ICS”:
+L'accesso remoto è comune in un ICS e può essere utilizzato raramente
+Non chiudere i porti senza comprenderli appieno o senza chiedere a tutte le parti coinvolte
+Monitora le porte inutilizzate e imposta avvisi per un po' prima della chiusura
+
+Riferimento immagine:
+https://www.edrawmax.com/pid/
+
+© 2021 Roberto M.Lee 27
+Analisi del traffico
+
+Analisi passiva del traffico di rete e
+estrarre informazioni da
+record di comunicazione come
+analisi del protocollo
+
+Crea un inventario oltre ad essere
+vitale per creare una topologia del
+rete
+
+Essenziale per il rilevamento e il root delle minacce
+causare l'analisi dei guasti/errori
+Il metodo più sicuro/veloce per ottenere il
+quadro più completo
+
+[EER AE
+
+promainnncmnmiy
+Ethernet: 16
+
+Indirizzo w Pacchetti Byt
+Vmware _66:eb:86
+
+AsixElec_8f:0a:a0
+RsAutoma_03:8c:5¢
+Rockwell_a0:a9:50
+| Vmware_2e:92:98
+PhoenixC_96:08:46
+PhoenixC_96:80:07
+PhoenixC_96:80:08
+FeniceC_b3:1f:ab
+LLDP_Mutticast
+1¢:1b:0d:01:16:3e
+Siemens-_95:af:e1
+Siemens-_95:af:e2
+iPv6mcast_00:01:00:02
+Trasmissione
+
+ICS515 | Visibilità, rilevamento e risposta dell'ICS
+
+28
+
+DD@® oe oe
+
+w@®
+
+wo
+
+™
+
+L'analisi del traffico, nota anche come scansione passiva, è un modo veloce e sicuro per analizzare le comunicazioni sulla rete.
+Ancora più importante, invece di fornirti semplicemente un inventario, ti aiuta a identificare il modo in cui i sistemi comunicano e
+ti permette di analizzare i loro protocolli/comunicazioni/ecc. non solo per ulteriori informazioni sulle risorse ma anche sulla minaccia
+casi d'uso del rilevamento. Si tratta di una parte essenziale dell'analisi dei sistemi, in particolare per l'analisi delle cause profonde, indipendentemente dal fatto che si tratti di un guasto
+
+@
+
+o il problema deriva da una minaccia o da problemi di manutenzione.
+
+28
+
+ dell'ICS
+
+Mentre l'analisi del traffico (o scansione passiva) può estrarre gran parte delle stesse informazioni che si trovano in quella attiva
+scansione, deve ancora attraversare la rete per rendere possibile tale informazione. "il suo può richiedere tempo e, in alcuni casi,
+potrebbe non accadere mai. La scansione attiva può sollecitare tali informazioni direttamente e su richiesta, rendendola preferita
+metodo quando è richiesto quel livello di informazioni. Tuttavia, se stai eseguendo una scansione in modo sciatto (nmap
+scansionare cose che non comprendi appieno) o utilizzare metodi o strumenti più professionali per sollecitare le informazioni
+con mezzi noti al dispositivo come i protocolli ICS nativi, esiste assolutamente un rischio. Per qualche ragione, dibattito
+esiste a riguardo nella comunità, ma regolarmente gli studenti ICS515 condividono storie di utilizzo anche sviluppate appositamente
+Strumenti ICS in modalità di scansione attiva e controller che si bloccano. Ci sono molte ragioni per cui ciò può accadere. A volte
+il dispositivo può gestire la comunicazione, ma solo un certo numero di record di comunicazione. Ad esempio, a
+un PLC specifico potrebbe essere in grado di avere solo 10 sessioni alla volta e un 11" legittimo causerà un precedente
+uno da eliminare, il che potrebbe rappresentare una comunicazione critica. Inoltre, devi già comprendere profondamente il tuo
+inventario a utilizzare questo tipo di metodo, che in qualche modo può invalidarne la necessità in primo luogo.
+
+Nella mia esperienza ho risposto a numerosi guasti di impianti nonché a interruzioni evidenti e costose dovute a questi
+scansione attiva, anche con strumenti ICS appositamente creati. La fiducia tra IT e operazioni viene immediatamente distrutta
+per anni di conseguenza. Inoltre, se qualcosa va storto, anche se non si tratta del tuo strumento specializzato, quando l'impianto inciampa
+o si verifica un guasto sulla rete, è probabile che lo strumento di scansione attivo sia il primo ad essere incolpato.
+
+Il mio consiglio è di sfruttare gli strumenti di scansione attivi non in modalità continua o distribuiti in modo permanente
+strumento ma piuttosto come strumento di valutazione. Sfruttalo in un ambiente di laboratorio e poi in produzione con la supervisione di
+operazioni durante i periodi di inattività, ad esempio un periodo di manutenzione. Inoltre, assicurati che ci sia uno scopo per la scansione, ad esempio
+non farlo solo per comprendere una vulnerabilità per la quale comunque non farai nulla.
+Esiste un rischio, anche se piccolo, per qualsiasi tipo di azione intrapresa in un ICS e deve avere un valore adeguato come rendimento
+per giustificare le azioni.
+
+Riferimento immagine:
+https://github.com/mushorg/conpot/issues/373
+
+© 2021 Roberto M.Lee 29
+
+29
+
+e” Sistemi di Sicurezza
+
+° Sistemi di Sicurezza Attiva
+* Richiede feedback o input elettronici
+* Può essere un sistema di controllo come un PLC
+* Spesso “prende il controllo” a un punto prestabilito
+° Sistemi di Sicurezza Passiva
+¢ Non richiede feedback elettronico
+¢ Spesso integrato nel sistema complessivo
+* In alcuni casi garantisce uno scenario "fail-safe" come ad esempio
+in un reattore nucleare
+* I sistemi di sicurezza dovrebbero essere sistemi autonomi
+non connesso alla rete quando possibile
+* L'identificazione dei sistemi di sicurezza in rete è fondamentale
+trovare e discrepanza a meno che non sia assolutamente necessario
+ - * I controlli fisici spesso non sono dettagliati in una risorsa
+inventario ma importante da capire
+
+Rif: Sistema Westinghouse AP1000
+
+ICSS515 | Visibilità, rilevamento e risposta dell'ICS — 30
+
+I sistemi di sicurezza come il Safety Instrumented System (SIS) sono disciplinati nella loro progettazione da ISA 84.01/IEC61511
+e nella loro funzione dalla norma IEC 61508. Esistono versioni aggiuntive come la norma IEC 61513 per settori specifici (come
+anche nucleare). Questi standard sono solidi nel modo in cui i sistemi sono progettati e gestiti, considerando un'ampia varietà
+di problemi che un ingegnere non può prevedere. Sono progettati per garantire la sicurezza indipendentemente dalla causa dell'incidente,
+che si tratti di un terremoto o di un attacco informatico.
+
+Il motivo per cui è importante comprendere questi sistemi è perché ci sono aspetti dell'ICS che lavorano contro un sistema
+gli obiettivi dell’attaccante. Se l'aggressore vuole arrecare danni fisici ed è presente un sistema di sicurezza, dovrà farlo
+bypassalo. Questo è più facile a dirsi che a farsi. I buoni sistemi di sicurezza sono progettati nel sistema e ne sono il sottoprodotto
+ingegneria. Un sistema di sicurezza “attivo” è un sistema in grado di prendere decisioni in base a un setpoint. Considera un PLC che
+governa un altro aspetto del processo; prende il controllo quando viene raggiunto un set point. Un sistema di sicurezza “passivo” lo farebbe
+essere un aspetto del sistema coinvolto indipendentemente dalle decisioni logiche e senza feedback elettrico. UN
+Un esempio di sistema di sicurezza passivo sarebbe in un reattore nucleare dove si formano sacche di vapore che rallentano il funzionamento
+reazione, provocando così un abbassamento del livello di potenza e della temperatura. Questo è un aspetto di come è progettato il sistema:
+"fail safe" indipendentemente dal feedback elettronico o dalle scelte dell'operatore. Molti sistemi di sicurezza passiva necessitano di un
+L'operatore deve però fare una scelta ad un certo punto, spesso ore o giorni dopo l'incidente.
+
+Un buon esempio di sistema di sicurezza passiva nelle centrali nucleari è il nucleare AP1000 di Westinghouse
+sistema. Questo è anche il luogo da cui proviene l'immagine:
+
+http://www.westinghousenuclear.com/New-Plants/AP1000-PWR/Safety/Passive-Safety-Systems
+
+Dal sito Westinghouse:
+
+I sistemi di sicurezza passiva dell’impianto AP1000 comprendono:
+Sistema di raffreddamento passivo del nucleo (PXS)
+
+Isolamento di contenimento
+
+30  dell'ICS 2
+
+Per comprendere i sistemi di sicurezza attivi e passivi, considerare un sistema di distribuzione dell'acqua. Sulla destra vediamo un HMI
+per il sistema di distribuzione dell'acqua. Descrive in dettaglio i serbatoi dell'acqua, le torri e vari componenti come le valvole
+che regolano il flusso dell'acqua. Se un aggressore o un difensore entrasse nella rete, l'HMI rivelerebbe molto al riguardo
+il sistema. Anche la scoperta di risorse connesse tramite protocolli IP aiuterebbe a imparare molto sul sistema.
+Tuttavia i sistemi di sicurezza sono dettagliati nei disegni tecnici e non nel traffico di rete. Ad esempio, ciascuno
+la torre dell'acqua ha spesso un manometro sulla parte superiore e inferiore (sotterranea) della torre per determinare la pressione e quindi
+elevazione dell'acqua. Un sistema di sicurezza attiva sarebbe un sistema (forse un PLC ma forse un controllo fisico
+sistema) che ha un punto di regolazione per la quantità consentita di acqua nel serbatoio. Questa è chiamata valvola di altitudine. Se la
+serbatoio supera il setpoint, la valvola di altitudine si chiuderà, assicurando che non fluisca più acqua nel serbatoio.
+Queste valvole sono spesso impostate localmente. Non è richiesto alcun controllo remoto o connettività.
+
+Un sistema di sicurezza passivo sarebbe qualcosa come un disco di rottura o di scoppio. Questi tipi di componenti aiutano il
+il sistema fallisce nei punti previsti.Invece di consentire che uno scenario di sovrapressione danneggi la torre dell’acqua o quella delle persone
+case, il disco di rottura è tarato a una pressione inferiore rispetto a quella delle tubazioni, in modo che se si verifica un picco pericoloso, il disco scoppierà
+per aiutare ad abbassare la pressione dell'acqua in quel tubo. Un altro esempio potrebbe essere un serbatoio di compensazione che consente il flusso di acqua extra
+dentro.
+
+Tutto questo è stato dettagliato magistralmente da Patrick Coyle nel blog SANS a cui si fa riferimento di seguito (con raccomandazioni per
+rilevandolo sia dal lato SCADA che dal lato del personale OT).
+
+Riferimento immagine:
+SystemVIEW da Intellisyssoftware.com
+
+Riferimento:
+
+https://ics.sans.org/blog/20 1 6/04/12/ics-cross-industry-learning-water-distribution-systems-and-how-to-earn-trust-
+delle operazioni
+
+32  dell'ICS
+
+Ci sono molte ragioni per cui un inventario delle risorse può essere utile. Gli operatori e gli ingegneri vorranno queste informazioni
+inventario, sostituzioni, componenti, ecc. La sicurezza, così come le operazioni, potrebbero volere che queste informazioni si esauriscano
+configurazioni errate o risolvere problemi nell'ambiente. E se hai intenzione di eseguire qualsiasi livello di rilevamento delle minacce
+o risposta agli incidenti, dovrai sapere cosa hai.
+
+Ma sapere cosa hai da solo non è sufficiente. Sta diventando sempre più comune per le organizzazioni desiderarlo
+"visibilità." Ma se non sai che tipo di scenari di risposta vuoi gestire, quali requisiti/utilizzo-
+casi che hai, come tipi specifici di TTP/tradecraft, o il tipo di scenari per cui vuoi prepararti, tu
+potrebbe non fornire il giusto tipo di visibilità.
+
+Ad esempio, la scansione attiva (sondaggio, carezza gentile o qualunque nome le persone vogliano dare interrogando attivamente
+informazioni da un sistema di controllo) non è realmente utile per il rilevamento delle minacce e gli scenari di risposta. Scansione attiva
+tuttavia, può essere utile per altri scopi come identificare le vulnerabilità in un prodotto; dato ciò che sappiamo
+lo stato delle vulnerabilità, è necessario discutere sui compromessi e sui rischi. Ci sono pochissime cose che “non puoi”.
+fare” nel mondo della sicurezza ICS. Ma le cose che stai facendo valgono il rischio e l’investimento è la vera domanda.
+La scansione attiva, come in questo esempio, ha assolutamente causato interruzioni e problemi agli impianti in tutto il mondo. Più volte a
+anno emergono questi casi. Ma se questo rischio vale la pena per la tua organizzazione, allora non c’è niente di sbagliato in questo.
+
+In ogni caso, devo sapere cosa voglio collezionare e per cosa usarlo. Inoltre, non vogliamo trovarci in una situazione
+dove adottiamo una strategia “raccogli tutto”; alla fine, hai così tanta raccolta che affoghi nei dati e in te
+e i tuoi analisti non sanno mai cosa stanno cercando e non sono abbastanza concentrati per trovarlo. È lì che
+entra in gioco il concetto di un quadro di gestione delle collezioni.
+
+Un framework di gestione della raccolta è la comprensione di ciò che hai, del tipo di dati da cui puoi ottenere
+le tue risorse, dove le conservi e per quanto tempo le conservi. Puoi anche includere altre informazioni, come ad esempio
+a quali tipi di domande i dati possono rispondere per te o agli scenari in cui li hai utilizzati in passato, in modo da poter
+creare playbook ripetibili o addirittura segmentare le cose per unità aziendali o scopi funzionali.
+
+ dell'ICS
+
+Qui, dal documento Dragos Collection Management Framework (CMF), vediamo parte di un CMF per un elettrico
+società della rete di trasmissione.In alto abbiamo identificato il sito o la posizione che stiamo guardando, come Controllo
+Centro o sottostazione di trasmissione. Se dovessi andare lì per eseguire il rilevamento o la risposta alle minacce, uno dei primi
+La domanda che avrai sarà: “cosa ho a disposizione in termini di dati?” Il CMF cerca di risolvere questo problema, quindi
+sai quale copertura puoi avere con qualsiasi diverso tipo di rilevamento delle minacce che distribuisci (dove posso anche vedere
+le minacce?) e sai cosa sarà a tua disposizione negli scenari di risposta.
+
+Sotto ciascun sito, puoi dettagliare le diverse risorse che possiedi, i dati in loro possesso, lo spazio di archiviazione e l'archiviazione
+tempo. Qui, al CMF sono state aggiunte anche altre opzioni, come Follow On Collection (se voglio passare a più dati
+dopo aver analizzato questi dati, sulla stessa risorsa, su cosa posso orientarmi?) e Tipo di domanda (che tipo di kill chain
+domande possono supportare questi dati?).
+
+Ad esempio, nel Centro di controllo disponiamo di un HMI Windows in cui sono archiviati i registri eventi di Windows per 60 giorni
+il SIEM aziendale. Se ho bisogno di estrarre più dati, posso ottenere le chiavi di registro. Ho anche uno storico dei dati con allarmi
+memorizzati localmente e disponibili per 120 giorni. Poiché non sono nel SIEM, non potrò usarli
+per il rilevamento delle minacce in modo nativo; ma in caso di incidente, ho 120 giorni di allarmi che possono aiutarmi
+capire cosa sta succedendo nell’ambiente fisico.
+
+Ata colpo d'occhio, | può anche sovrapporsi ai tradecrafi/TTP delle minacce che mi preoccupano e rispondere alla domanda “se noi
+se venissero attaccati, saremmo in grado di rilevare e rispondere a queste minacce?”. Ad esempio, supponiamo di avere a
+minaccia che esegue uno scenario di dirottamento SCADA in cui ruotano attraverso l'azienda e compromettono il
+Centro di controllo per aprire gli interruttori nella sottostazione di trasmissione. Esistono molti modi per scrivere i rilevamenti
+questo comportamento, ma probabilmente è meglio farlo con l'acquisizione dei pacchetti (movimento laterale tra i sistemi e i comandi
+inviare alla sottostazione di trasmissione) e qualunque connettività abbiamo dall'Enterprise al Centro di controllo (come
+come registri VPN o registri Firewall). Tuttavia, i nostri dati si concentrano solo su host e allarmi. Non avremmo successo. Noi
+dobbiamo adattare la nostra raccolta per supportare i casi d'uso che abbiamo.
+
+Per fare un altro esempio, è bello sapere che nella sottostazione di trasmissione i miei dati sono tutti locali (posso spazzare
+indicatori o cercare TTP tutti | voglio, ma ho visibilità 0 nella sottostazione di trasmissione, quindi 1 non vedrei
+
+ dell'ICS
+
+Non esiste un modo per costruire o modellare un CMF. Tuttavia, questo è un approccio utile per creare e
+mantenere un CMF per i tuoi scopi e bisogni.Il processo è semplice e verrà esplorato in modo approfondito nelle prossime diapositive:
+
+- Sviluppare nuovi requisiti (per cosa vogliamo innanzitutto il CMF? Quali sono i nostri rischi? Qual è il
+problema che stiamo risolvendo?)
+
+- Sviluppare un piano di raccolta (costruire il CMF utilizzando ciò che sappiamo e abbiamo documentato o compreso
+Già)
+
+- Implementare (capire i processi e le procedure che sfrutteremo per utilizzare il CMF per soddisfare i
+Requisiti)
+
+- Test (assicurati che la nostra collezione sia ciò che pensavamo fosse e che i nostri processi/procedure funzionino con questo
+collezione)
+
+- Aggiorna il piano di raccolta (aggiorna il CMF in seguito ai nostri test o prendi nota dei nuovi requisiti di cui abbiamo bisogno)
+
+Seguire questi semplici passaggi può portarti rapidamente in una posizione in cui puoi avere una comprensione molto migliore di ciò che fai
+e non lo sai nel tuo ambiente e sfruttalo per i tuoi casi d'uso.
+
+ dell'ICS
+
+Nella fase Sviluppa nuovi requisiti, stai cercando di identificare i requisiti che aiutano a focalizzare la tua raccolta
+sforzi. Troppo spesso gli analisti adottano l’approccio del “raccogliere tutto”. In alcune sedi ICS, questo può essere incredibile
+gravoso, se non impossibile da raggiungere. Ad esempio, una piattaforma petrolifera offshore non avrà la larghezza di banda disponibile
+i suoi metodi di connettività per riportare ogni registro e ogni origine dati a un centro operativo di sicurezza. Si deve
+essere più mirato. Ancora più importante, se avessi effettivamente tutti i dati probabilmente affogheresti nei dati. Analisti
+stanno meglio quando determinano le loro esigenze e poi espandono la loro collezione a ciò che devono soddisfare
+tali requisiti.
+
+Esistono molti modi per determinare i requisiti. Uno dei modi migliori è iniziare con le pratiche di gestione del rischio
+di ciò che la tua organizzazione ha già dichiarato di essere preoccupata, Crown Jewels Analysis su ciò che è più importante
+importanti per l'azienda o con la modellazione delle minacce per determinare il tipo di minacce per cui vuoi essere preparato.
+Probabilmente proverai uno o più di questi in un esercizio da tavolo (TTX) in cui includi personale proveniente da
+all'interno dell'organizzazione ed esamina gli scenari che ti preoccupano. Ciò dovrebbe portare a
+domande ovvie come: saremmo in grado di determinare se quell'evento si è verificato con la nostra collezione attuale
+sforzi?
+
+Ad esempio, nella nostra raffineria di Calistoga potremmo voler essere pronti a rilevare e rispondere a una compromissione di
+il sistema di sicurezza da parte di un avversario.
+
+38  dell'ICS 3
+
+Per soddisfare la nostra esigenza, in questo caso relativa al sistema di sicurezza della Raffineria di Calistoga, dovremmo capire di cosa
+fonti di dati di cui disponiamo. Qui puoi adattare i campi CMF alle tue esigenze, ma per semplicità esamineremo l'Asset
+Tipo, Tipo di dati, Posizione di archiviazione dei dati e Ora di archiviazione dei dati. Possiamo determinare il sistema di sicurezza come un
+un esempio è un sistema di sicurezza Triconex che ha Syslog archiviato localmente per 7 giorni. Adesso sappiamo quanto tempo ci resta
+cercare una minaccia (in modo proattivo o storico), dove dovremmo cercare e utilizzando quali tipi di rilevamenti (in questo
+caso solo syslog per quel dispositivo). Possiamo anche documentare gli altri sistemi rilevanti per questo requisito, ad esempio
+come Engineering Workstation, il Domain Controller sulla rete e il fatto che questa rete abbia una rete
+dispositivo che monitora il traffico e genera avvisi e approfondimenti.
+
+Il punto centrale del piano di raccolta è costruire il CMF utilizzando ciò che già sai.Non è ancora necessario
+
+(ma va bene se fatto in parallelo) per passare in rassegna i sistemi e i dati e validare quello che effettivamente hai a disposizione
+a te.
+
+ dell'ICS 40
+
+Nella fase di implementazione di questo processo, stai pensando ai requisiti che hai, alla collezione che hai adesso
+documentato e cercando di determinare come sfruttarlo. Ad esempio, potresti scegliere di eseguire l'indicatore
+spazza per identificare le minacce dopo averle apprese da altre fonti. Non è raro che un analista gestisca un
+indicatore attraverso lo strumento di loro scelta, restituirlo senza risultati trovati e dichiarare che non lo sono
+compromesso, quando in realtà potrebbero non aver mai avuto i dati in quello strumento per convalidare o invalidare la domanda
+hanno semplicemente chiesto tramite l'indicatore. Avendo il CMF, sappiamo immediatamente se i dati stanno cercando l'indicatore
+for è persino possibile trovarlo, quindi possiamo creare alcuni buoni processi per eseguire controlli degli indicatori con altri
+confidenza e rispetto al tipo di set di dati che possiamo includere nella ricerca.
+
+Allo stesso modo potremmo decidere di voler cercare anche tattiche, tecniche e procedure (TTP).
+di cui parleremo più approfonditamente nel materiale della Sezione 3. Infine, potremmo scoprire che possiamo creare un'indagine
+playbook che cattura passo dopo passo ciò che dobbiamo fare per esaminare rapidamente e in modo completo gli avvisi che riceviamo
+sfruttare la collezione che abbiamo.
+
+Esistono molti altri esempi, tra cui i manuali di risposta agli incidenti e la caccia alle minacce. In definitiva dipende da
+la tua esigenza. Se il requisito fosse focalizzato a livello operativo, la procedura potrebbe includere operazioni
+il personale e i processi per aiutare a identificare cose come dispositivi guasti o problemi operativi per l'analisi della causa principale funzionano quando
+si verificano incidenti o tempi di inattività.
+
+40  dell'ICS
+
+La fase di test è in realtà incentrata sulla quantificazione e qualificazione della nostra collezione, nonché su ciò che intendevamo fare
+la fase di implementazione. Tutto questo fa parte di uno sforzo di convalida più ampio. Mentre guardi ora oltre la tua esistenza
+documentazione e conoscenza, avevi davvero i dati che pensavi di avere? Ci sono lacune nella collezione
+o processi che ne ostacolano il successo? La qualità dei dati aveva senso? Ad esempio, potresti collezionare
+log basati su host ma forse non stai raccogliendo gli eventi basati su host giusti per rispondere al requisito.
+
+Esistono molti modi per testare. Il primo è quello di esaminare gli sforzi nella fase di implementazione come il triaging a
+notifica o eseguendo uno spostamento dell'indicatore con qualcosa che sai essere presente (anche qualcosa che non c'è).
+dannoso). Un altro modo eccellente è eseguire una caccia alle minacce che è essenzialmente una risposta agli incidenti senza il
+incidente. Se sei preoccupato per uno scenario di minaccia specifico, come la compromissione di un sistema di sicurezza, allora
+eseguire una caccia alle minacce per quello scenario non solo confermerebbe per te che non sei attualmente compromesso
+ma, cosa ancora più importante, rivelerebbe se i dati necessari per la risposta agli incidenti sono effettivamente presenti e garantirebbe
+che il tuo CMF corrisponde alle tue esigenze.
+
+© 2021 Roberto M.Lee A
+
+A
+
+Aggiorna il piano di raccolta
+
+° Aggiornare le informazioni in base alla fase di Test
+* Da 90 giorni a 30 giorni in base SIEM
+
+° Guidare nuove esigenze di raccolta o ottimizzazione in base alle esigenze
+* Spostamento del registro di sistema locale e degli avvisi dall'appliance di rete al SIEM
+
+Tipo di risorsa
+Tipo di dati
+
+Posizione di archiviazione dei dati
+
+Tempo di archiviazione dei dati
+
+Sistema di sicurezza Triconex
+
+_ | Raffineria di Galistoge ©
+
+Stazione di lavoro di ingegneria
+
+Controller di dominio
+
+Raffineria di Colistoga
+
+Apparecchio di rete
+
+_ Raffineria di Calistoga |
+
+Apparecchio di rete
+
+Syslog
+
+Eventi dell'host Windows
+
+Eventi dell'host Windows
+
+Analisi del traffico di rete
+
+Cattura dei pacchetti
+
+Locale
+
+SIEM aziendale
+
+SIEM aziendale
+
+Apparecchio di rete
+
+Apparecchio di rete
+
+7 giorni
+
+30 giorni
+
+30 giorni
+
+6 mesi
+
+7 giorni e su richiesta
+
+ICS515 | Visibilità, rilevamento e risposta dell'ICS
+
+Nel piano di raccolta degli aggiornamenti è possibile identificare le lacune nella raccolta da modificare, seguire i requisiti o determinare
+di cui hai bisogno per ottimizzare il tuo CMF attuale. Ad esempio, nel nostro scenario stiamo dicendo che Local data storage
+sul Triconex non è appropriato e vogliamo portarlo nel SIEM. I 90 giorni precedentemente compresi
+l'archiviazione nel SIEM al momento della valutazione per le reti ICS è stata in realtà di soli 30 giorni, buono a sapersi ora! E il
+Anche i log di Network Appliance sono qualcosa che vogliamo inserire nel SIEM. Quindi ora ne abbiamo alcuni aggiornati e
+conoscenza convalidata e alcune azioni da intraprendere per adattare la nostra raccolta per supportare meglio la capacità di rilevare e
+rispondere a questo scenario di minaccia.
+
+42
+
+ dell'ICS
+
+Come notato in precedenza, i CMF sono completamente adattabili alle vostre esigenze. Ecco però un esempio per rendere il concetto
+più tangibile. Ad esempio, ora è stata aggiunta una riga "Copertura dati" in Tipo di dati. La copertura dei dati
+indica i dettagli sul tipo di dati disponibile. Ad esempio, non ci sono specifiche per Syslog oltre a
+registrazione nativa quindi è N/D. Gli eventi host di Windows possono essere configurati in molti modi per raccogliere eventi diversi
+ID evento e informazioni, quindi viene contrassegnato che questo sito utilizza la configurazione host standard che sarebbe
+sviluppato dal team di sicurezza in base alle proprie esigenze. Questo potrebbe essere un collegamento ipertestuale che si collegherebbe a ciò
+il pacchetto di raccolta è attualmente. Allo stesso modo, per l'appliance di rete esiste un elenco di protocolli a cui collegarsi
+la copertura per lo strumento. Ad esempio, potresti avere alcuni protocolli ICS come ModbusTCp, Pi-Connect,
+e il protocollo Tristation. Sta a te decidere come compilarli, ma in questo caso per semplicità il primo campo sarebbe
+Nessuna dissezione, dissezione limitata, modifiche di configurazione (ad esempio caricamenti, download, ecc.) o dissezione completa del
+protocollo. La riga successiva ti dirà se anche la dissezione del protocollo non estrae dettagli sulla risorsa, Asset limitato
+Dettagli o Dettagli completi della risorsa. L'ultima riga indica se sono presenti anche rilevamenti di minacce che sfruttano il protocollo
+ispezione della copertura di rilevamento limitata, prioritaria o completa contro gli scenari di minaccia e riguarda il
+organizzazione. Avere assegnazioni logiche può essere molto più semplice da mantenere che determinare ogni singola funzione
+codice e valore elaborati in un protocollo e ciascuna di queste scelte, come la copertura del rilevamento prioritario, potrebbe collegarsi a
+una risorsa di conoscenza in cui tale elenco viene mantenuto e si evolve nel tempo.
+
+Ciò diventerà più tangibile quando discuteremo delle strategie di rilevamento nella Sezione 3.
+
+© 2021 Roberto M.Lee 43
+
+43
+
+CMF + controlli di sicurezza come profilo di raccolta
+
+« I CMF possono essere utilizzati come requisito del pacchetto di raccolta e abbinati alla sicurezza
+controlli che forniscono la raccolta come profilo standard in tutta l'organizzazione
+
+« I siti di classe A potrebbero richiedere:
+Registrazione host su HMI, EWS e storici integrati nel SIEM che raccoglie dati elevati e
+eventi a priorità media e conservati per 1 anno
+Apparecchio di rete per la dissezione e gli avvisi del protocollo ICS integrato con SIEM e
+conservato per 1 anno
+Appliance di Multi-Factor Authentication con log di accesso al SIEM per 1 anno
+° I siti di classe B potrebbero richiedere:
+* Apparecchio di rete per la dissezione del protocollo ICS e avvisi al SIEM per 1 anno
+*Appliance Multi-Factor Authentication con log di accesso al SIEM per 1 anno
+*I siti di classe C potrebbero richiedere:
+¢ Appliance Multi-Factor Authentication con log di accesso al SIEM per 6 mesi
+
+ICS $ 15 | Visibilità, rilevamento e risposta dell'ICS
+
+I CMF possono essere strumenti molto potenti ma, soprattutto nelle organizzazioni di grandi dimensioni con molti siti, può essere noioso pensare
+sull'avere un CMF per ogni sito. Puoi invece sfruttare la combinazione del tipo di analisi dei gioielli della corona
+sforzi per comprendere i diversi tipi di siti che possiedi. Ad esempio, potresti avere High,
+Siti a rischio medio e basso denominati anche siti di classe A, classe B o classe C. Potresti averlo per diversi tipi
+di infrastrutture, nonché un centro di controllo di classe A, B e C rispetto a una sottostazione di trasmissione di classe A, B e C.
+L'intenzione è quella di semplificare il processo in modo che il CMF rappresenti un profilo di raccolta minimo in quel sito.
+
+Ad esempio, un sito di Classe A avrà sempre almeno una certa quantità di raccolta, come la rete
+analisi e avvisi risalenti a 1 anno fa. Se fosse andato sopra | quest'anno andrebbe bene, ma ora la sicurezza e le operazioni
+i team e tutti gli addetti all'emergenza sanno su cosa possono contare in qualsiasi sito. Abbinando questo con il
+le tecnologie di sicurezza che hanno anche registri che desideri implementare in un determinato sito possono essere fantastiche
+profilo di raccolta che consente pienamente ai difensori di comprendere ciò che hanno a disposizione in un dato sito. Non c'è
+motivo per perdere tempo a rispondere o indagare sui siti quando sai che non ci sono i dati per supportarlo
+indagine. Allo stesso modo, sapere quali dati sono disponibili su quali risorse riduce significativamente il tempo e gli sforzi necessari
+svolgere lavori di sicurezza in tali siti.
+
+44  dell'ICS
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+ dell'ICS
+
+Quando senti parlare del sistema di potere in Nord America, potresti sentire alcune descrizioni diverse del potere
+disposizione del sistema. In Nord America sono presenti 4 Interconnessioni sincrone Eastern Interconnection, ERCOT
+(Texas), Quebec Interconnection e Western Interconnection, mentre negli Stati Uniti ci sono tre interconnessioni,
+Est, ovest e Texas (ERCOT). Inoltre, nel Nord America c’è il sistema energetico messicano, di cui una piccola parte
+una parte è collegata alla Western Interconnection, e allo stesso modo ci sono sistemi elettrici isolati in Alaska.
+
+Anche se potresti sentire persone diverse fare riferimento a numeri diversi quando spiegano il sistema elettrico nel
+Negli Stati Uniti, o in Nord America, la cosa principale da riconoscere è che l’unico modo sbagliato di parlare del sistema elettrico è quello
+riferendosi ad essa come ad un’unica “griglia”. Ciascuno dei sistemi di interconnessione elettrica funziona come un sistema sincrono con
+una frequenza comune e si collegano tra loro per un flusso di energia limitato attraverso le linee di collegamento CC. La conversione da
+L'AC in un'interconnessione a DC e poi di nuovo all'AC in un'altra interconnessione garantisce che qualsiasi frequenza sia correlata
+i disturbi fanno passare da un'interconnessione all'altra. Dato che lo stoccaggio dell'elettricità ha una capacità limitata, noi
+stanno effettivamente eseguendo la produzione just in time per caricarsi, nel tentativo di bilanciare la domanda e l'offerta
+tempo reale in ogni momento.
+
+Riferimento:
+Interconnessioni NERC.pdf
+
+46 © 2021 Roberto M.Lee
+
+46
+
+un wa ww
+
+TT TF TPT WM WD MW WM wW
+
+7 PF © PP OP wT WM w
+
+Noi
+» SS AA noi YS VS BS UW WS WY WS noi SS ww wo wo wo ww w
+
+Frequenza del sistema
+
+ICS515 | Visibilità, rilevamento e risposta dell'ICS
+
+Il sistema elettrico nordamericano funziona a 60 Hz mentre in altre parti del mondo tende a funzionare a circa 60 Hz
+50Hz. La frequenza è estremamente importante per la manutenzione del sistema elettrico; l'interruzione della frequenza può avere
+effetti catastrofici non solo nel collasso del sistema elettrico ma, se fatto nei modi giusti e in condizioni precise,
+anche danneggiando le apparecchiature.
+
+Riferimento:
+http://fnetpublic.utk.edu/frequencymap.html
+
+ dell'ICS
+
+Il grafico del sistema di alimentazione di riferimento mostra i componenti principali di un sistema elettrico. Se pensi a
+vari componenti come qualsiasi altro bene prodotto che viene consegnato a un cliente, puoi pensare a Power
+
+48
+
+® &
+
+io)
+
+generazione come creazione del prodotto, trasformatore Generation Step Up come imballaggio di un gran numero di prodotti
+consegna, il sistema di trasmissione come trasporto di consegna a lungo raggio del prodotto, il trasformatore Step Down come
+separando i pacchi per la consegna finale, il sistema di distribuzione come consegna al consumatore e Carica come
+
+varie tipologie di consumatori grandi e piccoli.
+
+Riferimento:
+rete-elettrica-semplice-Nord-America.pdf
+
+48
+
+ dell'ICS 49
+
+Vedi le note della diapositiva precedente.
+
+ dell'ICS
+
+Mentre esistono varie tipologie di fonti di generazione di energia con sistemi molto complessi utilizzati per il controllo e l'ottimizzazione
+Durante il processo, possiamo esaminare le nozioni di base in questo grafico fornito dall'EEI ed evidenziare la riga superiore di tre
+processi di generazione di carbone, gas naturale e nucleare come metodi che utilizzano diverse fonti di combustibile per surriscaldare
+acqua, progettata per muovere una turbina a vapore, che aziona un generatore, producendo infine energia.
+
+Guardando la riga inferiore, vediamo Hydro che utilizza l'acqua per muovere una turbina mentre l'acqua si muove da a
+elevazione da alta a bassa pressione che converte l'energia potenziale in energia elettrica. Successivamente, guardiamo al vento come “carburante”
+fonte utilizzata per far girare le pale delle turbine e convertire l'energia eolica in energia elettrica. L'ultimo esempio evidenzia a
+enorme potenziale di crescita per l’energia in futuro per migliorare le capacità di cattura e conversione dell’energia solare
+e l'utilizzo di componenti fotovoltaici per convertirla in energia elettrica.
+
+50  dell'ICS
+
+Monitoraggio delle turbine
+Emissioni di gas
+Rifiuti solidi
+Raffreddamento
+Chimica dell'acqua
+Monitoraggio delle vibrazioni
+
+Sistema idrico
+
+Monitoraggio acustico
+
+51
+yl s, interazioni e output
+
+Una centrale elettrica tradizionale con più unità si collegherà al sistema elettrico e
+l'energia prodotta servirà il carico locale o verrà immessa nel sistema elettrico più ampio,
+', a seconda del sistema di alimentazione, i flussi attraverso il sistema di trasmissione e le intervie.H
+Unidirezionale al sito
+
+File di progetto (Livello 2)
+File [schede tecniche, MSDS,]
+Patch firmware (Livello 1)
+Patch software (Livello 3 e 2)
+Hardware acquistato
+Software acquistato
+Parti/attrezzature
+Utensili
+Rifornimento di carburante
+Manodopera/Appaltatori
+Acqua di raffreddamento
+Prodotti chimici/materiali
+Consegne
+Posta (CD/DVD/USB/lettere)
+
+= e
+
+Bidirezionale con sito
+
+AGC (Livello 2)
+
+SCADA (Livello 1 e 2)
+
+Protezione relè (Livello 0)
+
+Manutenzione remota Supporto (Livello 3,2,1)
+Montaggio della turbina remota. (Livello 0)
+Replica dello storico (Livello 3)
+Dall'impianto all'impresa (Livello 4-5)
+Internet (Livello 4)
+
+Calibrazione
+
+Telefono VOIP
+
+Centralino telefonico
+
+Telefono satellitare
+
+Trasmissione radio 900 Mhz
+
+Flusso di potenza
+
+pourruis
+
+‘Unidirezionale da sito/@sito
+
+Risultati del laboratorio di chimica
+
+File (report, dati, immagini, ecc.)
+Ordini
+
+Posta/spedizione
+
+Cenere (rifiuti)
+
+Prodotti chimici usati (rifiuti)
+
+Rottame
+
+Acqua
+
+Attrezzature/parti rimosse
+Monitoraggio delle emissioni
+
+1CSS15 | Visibilità, rilevamento e risposta dell'ICS
+
+Una centrale termica richiede una grande quantità di input, interazioni e output per funzionare correttamente. Alcuni di questi
+input, interazioni e output possono fornire opportunità di accesso o manipolazione. È importante notarlo
+le centrali elettriche ricevono spedizioni, si collegano a sistemi esterni e richiedono dati fuori sede. Il modello presentato
+Ciò costituisce la base per stabilire una revisione delle superfici di attacco e dei potenziali percorsi di accesso.
+
+AGC = Controllo automatico della generazione
+SCADA = Controllo di Supervisione e Acquisizione Dati
+
+52
+
+ dell'ICS
+
+Le sottostazioni sono punti del sistema energetico in cui i livelli di tensione vengono modificati e i percorsi elettrici si collegano. Essi
+contenere trasformatori, interruttori, interruttori, dispositivi di protezione, apparecchiature di monitoraggio, trasmissione CA flessibile
+(FACTS) dispositivi per la stabilità della potenza come unità di monitoraggio di fase e una varietà di controlli/comunicazioni
+attrezzatura. Alcune sottostazioni possono avere collegamenti di comunicazione dedicati, a seconda della lontananza e della quantità di collegamenti
+dati raccolti.
+
+ dell'ICS
+
+I proprietari e gli operatori delle risorse svolgono una varietà di funzioni nelle sottostazioni sul campo di trasmissione attraverso il loro controllo
+la zona. Sfruttando la commutazione del cantiere di trasmissione, le capacità di commutazione del carico dei trasformatori ad alta tensione e
+elementi di banchi di condensatori in tutto il campo: i progettisti e gli operatori possono intraprendere azioni per garantire l'affidabilità
+attraverso il sistema elettrico. Inoltre, le entità progettano e realizzano apparecchiature e capacità di protezione
+ambienti delle sottostazioni per limitare gli impatti delle condizioni di guasto del sistema e per intervenire durante le operazioni di emergenza.
+
+I dispositivi tipicamente presenti nelle sottostazioni di trasmissione includono:
+Relè di protezione (digitali ed elettromeccanici)
+
+Unità terminali remote (o telemetria) (RTU)
+
+Controller di automazione in tempo reale (RTAC)
+
+Dispositivi Elettronici Intelligenti (IED)
+
+Dispositivi di misurazione
+
+Ampia varietà di apparecchiature per le comunicazioni
+
+54  dell'ICS
+
+I centri di controllo del sistema a livello di trasmissione possono supportare funzioni che vanno dal coordinamento e bilanciamento dell'affidabilità
+alle operazioni di trasmissione.
+
+L'ingombro normale di una trasmissione SCADA-EMS comprende interruttori, commutatori, linee, trasformatori e
+generatori, compresi tutti i circuiti superiori a 100 kV, trasformatori con due o più terminali superiori a 100 kV e
+tutti i trasformatori elevatori collegati a generatori superiori a 20 MW. Per garantire l'affidabilità del centro di controllo, c'è
+spesso un centro primario e un centro di supporto responsabile di un'area di controllo.
+
+I centri di controllo della trasmissione ospitano applicazioni critiche tra cui terminali operatore di sistema, mappe e
+server di visualizzazione, server di allarme, server di applicazioni SCADA, database e processori front-end. Questi centrali
+I sistemi comunicano con i dispositivi di campo tramite una moltitudine di mezzi di comunicazione (radio, microonde, fibra e
+
+rame).
+Le principali comunicazioni SCADA sono:
+
+* Collegamenti dati Inter-Control Center Communications Protocol (ICCP) ai centri di controllo.
+* Collegamenti SCADA agli impianti tramite unità terminali remote (RTU) su vari protocolli come: IEC104, IEC61850,
+Protocollo di rete distribuito (DNP3.0).L'ICCP fornisce la visibilità necessaria sull'intero sistema elettrico per supportare il dispacciamento della generazione in tempo reale. Risorsa
+proprietari e operatori sono distribuiti su più nodi ICCP. Idealmente questo impedisce un singolo punto di errore e
+fornisce ulteriore visibilità durante le interruzioni.
+
+HMI = interfaccia uomo-macchina
+
+EMS = Sistema di Gestione dell'Energia
+
+RTU = Unità terminale remota
+
+IED = Dispositivo Elettronico Intelligente
+
+GSM = Sistema Globale per le Comunicazioni Mobili
+
+ dell'ICS
+
+I sistemi di distribuzione ricevono la maggior parte della loro elettricità dal sistema di trasmissione e poi la dimettono
+tensione per soddisfare le esigenze dei vari clienti nei loro territori di servizio, compresi quelli industriali,
+clienti commerciali e residenziali. Le società di distribuzione sono in genere le entità considerate dai clienti finali
+la “società elettrica” e, a seconda della particolare ubicazione, la società di distribuzione può far parte di una società più grande,
+servizi di pubblica utilità integrati verticalmente o operazioni di generazione, trasmissione, distribuzione e centro di controllo, o il
+la società di distribuzione può essere un'entità autonoma che fornisce i servizi "pali, cavi e misurazione" ai clienti.
+
+Le sottostazioni di distribuzione varieranno notevolmente da struttura a struttura, a seconda del carico servito e dell'ubicazione.
+
+56  dell'ICS 57
+
+I sistemi di distribuzione sono generalmente considerati inferiori a 100 kV con tensioni di servizio primarie tipiche a 14,4 e 12,5
+
+kV e alimentazioni secondarie a 120, 240 e 480V decrementate in base alle specifiche esigenze del cliente.
+
+I feed di distribuzione ai clienti possono avere un paio di approcci progettati a seconda della posizione e della criticità
+
+carico. Questi includono:
+
+¢ Un'unica alimentazione radiale da una sottostazione di distribuzione a un cliente
+
+¢ Un feed ad anello con due linee attraverso percorsi geografici diversi che alimentano i clienti della stessa distribuzione
+sottostazione
+
+¢ Una doppia alimentazione con due circuiti provenienti da diverse sottostazioni di distribuzione che alimentano i clienti con circuito aperto
+
+ ICS
+
+I centri di controllo e i centri di spedizione comunicano con le posizioni sul campo e consumano dati dai dispositivi. Operatori
+eseguire azioni di controllo per garantire l'affidabilità e la sicurezza del sistema. Un centro di controllo della distribuzione ne rispecchierà alcuni
+delle funzioni e delle capacità di un centro di controllo della trasmissione, meno la necessità di controllo della generazione.
+
+58  dell'ICS
+
+Questa è una vista di rete di alto livello dei sistemi tipici presenti attorno a un centro di controllo. Tieni presente che sono tutti tipici
+server e PC Windows. Considerarli come sistemi IT e non OT/ICS sarebbe un fallimento significativo
+comportano un impatto maggiore rispetto agli attori statali stranieri messi insieme.
+
+© 2021 Roberto M.Lee
+
+59
+Prospettive BES
+
+Stazione di generazione
+
+Fai un passo avanti
+Trasformatore
+
+Controllo della turbina
+Equilibrio dei sistemi vegetali
+Sistema di controllo distribuito
+Sistema di pressione dell'aria
+Sistema di protezione relè
+Sistema di olio lubrificante
+Sistema di chimica dell'acqua
+Sistema di gestione del bruciatore
+Sistema di movimentazione del carbone
+Sistema di monitoraggio acustico
+Sistema di velocità di calore
+Emissioni continue
+Gestione
+Sistema di controllo della caldaia
+
+CampoBus
+FieldNet
+op
+Profinet
+ModBus
+FoxNet
+
+765, 500, 345, 230 e 138 kV
+occhi
+
+“Cliente di trasmissione
+A3BRV da 230KV
+
+Controllo dell'interruttore
+Controlli di commutazione
+Relè protettivo
+rospo commutatori
+Trasformatori di corrente TA
+Trasformatori potenziali PT
+Misurazione
+Banche di condensatori
+
+SENZA ICS. Versione 1.4
+
+stomer
+
+tè sedis
+
+Sistema di gestione dell'energia
+Server dati
+Server di visualizzazione
+Front-end di comunicazione
+Stimatori dello Stato
+Gestione degli allarmi
+Analisi di contingenza
+Storici
+Sistemi di supporto
+
+Automazione della distribuzione
+Banche di condensatori
+Richiusure
+Controllo della commutazione
+Relè protettivo
+Trasformatori di corrente TA
+Trasformatori potenziali PT
+Misurazione
+
+HEC61850|
+DNP3 | TCP tradizionale
+Landis e Gyr |
+REDAC
+101/104
+
+Le società di servizi energetici dipendono fortemente da una catena di fornitura globale per fornire materiale fisico e componenti operativi.
+Molti paesi hanno riconosciuto il rischio di tempi di consegna lunghi che esiste in questa catena di approvvigionamento. e hanno intrapreso azioni
+
+per garantire che gli inventari delle attrezzature fisiche siano adeguati per le strutture ad alto rischio. Alcuni paesi hanno emanato
+requisiti specifici di sicurezza informatica della catena di fornitura.
+
+60
+
+ ICS 6!
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+ ICS
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+62  dell'ICS
+
+Quasi tutte le reti contengono quantità significative di informazioni nei protocolli nativi, eliminandone la necessità
+interrogare attivamente i dispositivi per ottenere le stesse informazioni. La maggior parte degli analisti è sorpresa di quanto puoi tirare fuori
+reti semplicemente comprendendone i protocolli. Nelle reti ICS, molti protocolli che non ti aspetteresti, ad esempio DNS,
+sono utilizzati da vari produttori di apparecchiature ICS. Il DNS, ad esempio, può essere utilizzato per archiviare informazioni sulle risorse
+Reti Profinet. Inoltre, HTTP è comune, ad esempio, per le pagine di destinazione sui controller.
+
+Comprendere questi protocolli di rilevamento IT e il valore che contengono è un semplice passo iniziale per identificarli
+
+apparecchiature e le relative informazioni sulla rete.
+
+ dell'ICS
+
+Gli endpoint Wireshark sono tutti gli endpoint logici in ciascun protocollo identificabile sulla rete. Ad esempio, un
+L'endpoint Ethernet sarebbe l'indirizzo MAC. Un endpoint IP sarebbe l'indirizzo IP. E un TCP o UDP
+endpoint sarebbe il numero di porta. I protocolli ICS sono ampiamente supportati in Wireshark, ma gli endpoint sono dissettori
+Wireshark non riconosce nativamente gli endpoint ICS. In altre parole, se visualizzi DNP3 nella versione predefinita di
+Wireshark, non è possibile utilizzare Endpoint per determinare indirizzi oltre MAC, IP e numero di porta. Tienilo a mente
+quando si utilizzano gli endpoint; è un modo efficace per identificare molte delle risorse sulla tua rete, ma non è l'unico
+processo che dovrebbe essere utilizzato.
+
+La metodologia generale per l'utilizzo di Wireshark consiste nell'utilizzarlo per aprire le acquisizioni di pacchetti (pcap) prelevate dalla rete,
+o per acquisire e analizzare il traffico in tempo reale. Per elaborare il traffico in tempo reale, Wireshark deve essere eseguito su Windows o Linux
+computer e, una volta aperto, assegnata un'interfaccia.Se Wireshark viene eseguito da un computer IT tradizionale, non è così
+vedere tutto il traffico della rete; osserva i dati trasmessi da o verso lo switch e altri dispositivi, nonché il traffico
+passando tra quel sistema e qualsiasi altro sistema, come lo switch. Pertanto, quando si utilizza Wireshark, è meglio farlo
+collegarlo a uno switch di rete. (Come eseguire questa operazione è discusso nella sezione "NSM ICS — Raccolta" di questa sezione
+formazione. Inoltre, per monitorare il traffico su uno switch non gestito, è necessario eseguire l'"hub out", anch'esso discusso
+
+Dopo).
+
+Per utilizzare gli endpoint, apri Wireshark, fai clic su Acquisisci e scegli un'interfaccia dopo l'avvio dell'acquisizione e lasciala eseguire
+per un po. Quindi, passa il mouse su Statistiche sulla barra degli strumenti e seleziona Endpoint dal menu a discesa. Ecco, tu
+può notare i diversi endpoint logici osservati sulla rete. Dovrebbe essere preso un elenco di ciascun indirizzo Ethernet,
+ciascun indirizzo IP e quindi ciascuna porta associata agli IP. Questa analisi del traffico aiuta a identificare tutte le risorse attive
+e reti presenti o connesse alla tua rete. Ricorda di eseguire Wireshark da tutti gli switch di rete disponibili
+
+e interfacce per avere una visione completa.
+
+64  dell'ICS
+
+Wireshark Conversations utilizza la stessa configurazione e metodologia di Wireshark Endpoints perché sono giusti
+diverse opzioni all'interno dello strumento. Endpoint identifica gli indirizzi logici sulla rete a ciascun livello di protocollo,
+e Conversazioni identifica le comunicazioni tra tali indirizzi logici. Ad esempio, se vedi che tu
+si dispone di un dispositivo Profinet-RTM con indirizzo IP 10.25.22.30, è utile sapere che sta comunicando con un
+dispositivo che utilizza la porta 58635 e l'indirizzo IP 10.25.22.252. L'identificazione di questo percorso mostra il traffico in tempo reale sulla tua rete
+e le diverse connessioni (o conversazioni) che hanno luogo. Un singolo dispositivo che comunica con più ICS
+le risorse potrebbero indicare un server SCADA o un HMI. Se hai visto protocolli o indirizzi IP che non ti aspettavi di vedere,
+è importante notarlo e poi indagarlo.
+
+Per utilizzare Conversazioni, apri Wireshark, eseguilo su un'interfaccia o elabora l'acquisizione di un pacchetto, passa con il mouse su Statistiche e
+seleziona Conversazioni. I vari livelli visualizzati mostrano le connessioni logiche e il flusso di dati di ciascun livello logico
+livello degli indirizzi. Prendi nota di questi per il tuo diagramma di rete. Tutte le stesse considerazioni sulla rete degli endpoint
+applicare con Conversazioni. Assicurati di acquisire acquisizioni da ogni switch gestito nella tua rete e di utilizzare l'Hub
+tecniche insegnate in seguito sugli switch non gestiti.
+
+ dell'ICS
+
+Wireshark Statistics è un insieme di strumenti/plugin che ti consentono di esaminare cose come endpoint, conversazioni e
+gerarchia del protocollo per determinare cosa c'è sulla rete dall'acquisizione dei pacchetti. Eseguirai gli stessi passaggi in
+
+il laboratorio per aiutarti a determinare cosa c'è.
+
+66
+
+ dell'ICS
+
+Wireshark Conversations utilizza la stessa configurazione e metodologia di Wireshark Endpoints perché sono giusti
+diverse opzioni all'interno dello strumento. Endpoint identifica gli indirizzi logici sulla rete a ciascun livello di protocollo,
+e Conversazioni identifica le comunicazioni tra tali indirizzi logici. Ad esempio, se vedi che tu
+si dispone di un dispositivo Profinet-RTM con indirizzo IP 10.25.22.30, è utile sapere che sta comunicando con un
+dispositivo che utilizza la porta 58635 e l'indirizzo IP 10.25.22.252. L'identificazione di questo percorso mostra il traffico in tempo reale sulla tua rete
+e le diverse connessioni (o conversazioni) che hanno luogo. Un singolo dispositivo che comunica con più ICS
+le risorse potrebbero indicare un server SCADA o un HMI. Se hai visto protocolli o indirizzi IP che non ti aspettavi di vedere,
+è importante notarlo e poi indagarlo.
+
+Per utilizzare Conversazioni, apri Wireshark, eseguilo su un'interfaccia o elabora l'acquisizione di un pacchetto, passa con il mouse su Statistiche e
+seleziona Conversazioni. I vari livelli visualizzati mostrano le connessioni logiche e il flusso di dati di ciascun livello logico
+livello degli indirizzi. Prendi nota di questi per il tuo diagramma di rete. Tutte le stesse considerazioni sulla rete degli endpoint
+applicare con Conversazioni. Assicurati di acquisire acquisizioni da ogni switch gestito nella tua rete e di utilizzare l'Hub
+tecniche insegnate in seguito sugli switch non gestiti.
+
+ dell'ICS
+
+Gli ARP sono molto comuni nelle reti ICS. Sono estremamente utili per collegare l'indirizzo MAC con il file
+Indirizzo IPv4. Se guardi semplicemente l'indirizzo MAC in un pacchetto, potrebbe essere l'ultimo punto instradabile (ad esempio, uno Switch
+porta) a seconda della topologia della rete. Identificare e sfruttare le richieste e le risposte ARP è molto impegnativo
+più definitivo in termini di collegamento di MAC e IP in un unico asset.L'ICMP verrà visualizzato più spesso dove si verificano gli errori, ma ci sono alcuni dispositivi ICS che utilizzeranno comunque ICMP
+tentativi iniziali di tipo rilevamento o quando le connessioni vengono interrotte. Identificare questi protocolli può essere un modo semplice
+per identificare i percorsi tra i dispositivi e alcuni indirizzi attivi nell'ambiente. I dati dell’ICMP (così come
+risposte su UDP che identificano ad esempio quali porte sono chiuse) possono essere utilizzate anche per profilare i dispositivi. Il tempo
+vivere (TTL) spesso equivale al sistema operativo. Ad esempio, un 64 TTL è probabilmente un dispositivo Linux mentre a
+128 TTL è probabilmente un dispositivo Windows.
+
+68  del CS
+
+NetBIOS e SMB sono protocolli diversi e non è necessario che vengano utilizzati insieme, ma spesso vengono utilizzati insieme.
+NetBIOS dispone di tre servizi principali e, soprattutto quando si utilizza SMB, può fornire informazioni sulle risorse
+nomi, associazione con altri dispositivi e connessioni, percorsi di file e nomi di cartelle quando si accede e
+
+Di più.
+
+Le cartelle condivise e altre comunicazioni basate su Windows SMB sono incredibilmente comuni a livello L2 e L3
+reti ICS e possono aiutare non solo a identificare le risorse ma anche la topologia mostrando le interconnessioni tra
+
+risorse.
+
+ dell'ICS 9
+
+Molti membri del personale operativo conoscono i propri dispositivi con un nome semplice, ad esempio il nome host del dispositivo. “VTSCADA”
+potrebbe essere l'HMI con cui hanno familiarità. Questi nomi host sono spesso configurati in Windows per
+HMI/Storici/EWS/ete. e sono spesso rilevabili su NBNS.
+
+NBNS svolge quindi un ruolo prezioso nelle reti ICS per gli indirizzi IP associati (ad esempio, 10.25.22.100) ai nomi host
+(ad esempio, VTSCADA).
+
+70  dell'ICS 7
+
+DNS e mDNS sono ottimi protocolli per la risoluzione di nomi di dominio/host in indirizzi IP. A prima vista potrebbe
+sembra strano che le reti ICS, soprattutto se altamente segmentate, abbiano record DNS. La realtà è che è molto
+usato comunemente.Alcuni protocolli, come Profinet, possono persino utilizzare il DNS per archiviare informazioni sulle risorse. Lo troverai spesso
+i vari fornitori di DCS inoltre sfrutteranno pesantemente il DNS per i loro HMI/EWS in modo da aiutare a identificare i
+apparecchiatura (ad esempio, un dominio Yokogawa su un dispositivo può aiutare a identificarlo come controller Yokogawa).
+
+Nelle reti ICS saranno presenti anche dispositivi transitori collegati da altre reti, che vanno da
+dai computer portatili di ingegneria allo smartphone occasionale. Questi dispositivi spesso tentano di raggiungere i loro dispositivi di recente
+i siti Web visitati e i DNS possono essere incredibilmente utili per identificare tali risorse mentre tentano di raggiungere Internet
+senza successo (si spera senza successo).
+
+ dell'ICS 72
+
+Simile nella funzionalità a NetBIOS e talvolta utilizzato per sostituirlo, LLMNR viene sfruttato per il nome host in IP
+risoluzioni. Nello screenshot vediamo che TOM-WORK è un telefono registrato a nome di Tom utilizzato in questo
+La rete ICS utilizza LLMNR per risolvere il nome host nell'indirizzo IP.
+
+LLMNR ha gli stessi casi d'uso di NetBIOS per i nostri scopi anche se in genere conterrà meno informazioni di
+la suite NetBIOS completa, in particolare quando si utilizza SMB in NetBIOS.
+
+72  dell'ICS
+
+DHCP può essere un ottimo protocollo per identificare gli indirizzi come legare indirizzi MAC, indirizzo IP, gateway, dominio
+nomi e server temporali insieme. In questa schermata vediamo l'indirizzo MAC del PLC Phoenix Contact con il suo
+indirizzo IP associato. Un numero significativo di reti ICS utilizza DHCP proprio come le reti IT aziendali
+allocazione automatica dello spazio IP.
+
+ dell'ICS
+
+LLDP è molto comunemente utilizzato sui dispositivi e può essere particolarmente utile per i sistemi dual-homed per identificarli
+i sistemi sono dual-homed attraverso l'analisi del traffico di rete.LLDP memorizzerà le informazioni e le trasmetterà ai suoi peer.
+Le reti Profinet in genere utilizzano molto LLDP per i loro sistemi. Tuttavia, LLDP sarà disponibile solo su reti locali
+e non lascerà quelle reti locali poiché in genere non viene instradato all'esterno della rete locale.
+
+Inoltre, LLDP può aiutare a identificare i nomi VLAN, le funzionalità del sistema (ad esempio, lo switching) e qualsiasi nome di sistema
+e le descrizioni memorizzate.
+
+Le informazioni LLDP vengono archiviate nella Management Information Base (MIB) del dispositivo che è essenzialmente a
+database per la gestione delle entità in rete.
+
+I fornitori possono anche disporre di protocolli proprietari del livello di collegamento per acquisire informazioni simili. Ad esempio, Cisco ha il suo
+Cisco Discovery Protocol (CDP), che rivelerà un'ampia varietà di informazioni sulle apparecchiature Cisco, come ad esempio
+versione del sistema operativo e indirizzo IP.
+
+Il protocollo SNMP (Simple Network Management Protocol) sfrutterà le informazioni MIB per interrogare un dispositivo e viene spesso utilizzato
+per la gestione dei dispositivi di rete. La raccolta di informazioni SNMP può essere un modo rapido per identificare tutte le informazioni che
+
+esce da LLDP o è archiviato nei MIB.
+
+SNMP conterrà spesso anche OID, che corrispondono a linee di prodotti di diversi fornitori. Devono essere decodificati, ma sono a
+ottima fonte di identificazione delle risorse quando presente.
+
+74  dell'ICS
+
+Quando ingegneri/operatori navigano tra le varie pagine web del controller o accedono a HMI e simili attraverso la rete
+le informazioni sono spesso in H'I'l'P e possono essere analizzate per estrarre informazioni sul sistema e sull'apparecchiatura. Inoltre,
+molti dispositivi di sicurezza, come i firewall, dispongono di tali pagine, sebbene di solito siano su HTTP. Sebbene gli HTTP
+la sessione sarà crittografata TLS, anche le intestazioni e l'associazione della chiave possono rivelare informazioni. In questo esempio,
+è possibile vedere un firewall mGuard di Innominate Security Technologies. L'mGuard è un comune
+firewall industriale negli ambienti di produzione, soprattutto in Europa.
+
+ dell'ICS
+
+Sia Telnet che FTP sono molto comuni negli ambienti ICS, in particolare su controller come PLC e RTU.
+Quando tecnici/operatori accedono all'apparecchiatura tramite questo protocollo, è possibile utilizzare un'acquisizione di pacchetti per analizzare i banner
+ed estrarre informazioni significative.Ad esempio, in questo screenshot si accede allo Switch Moxa tramite Telnet
+mostra marca, modello, versione firmware, numero di serie e indirizzo MAC del dispositivo.
+
+Fonte Pcap:
+4ICS-GeekLounge
+
+76
+
+ dell'ICS 7
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+ dell'ICS
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+"
+
+78  dell'ICS
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+ ICS n. 0
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+80  dell'ICS
+
+Il ransomware esiste da decenni in varie forme. Per molti anni è stato considerato un fastidio. Gli utenti lo farebbero
+ricevi e-mail di phishing, fai clic su di esse, il malware entrerebbe nel sistema e crittograferebbe i file, e poi lo faresti
+devi chiamare un numero per contattare l'avversario per ottenere istruzioni di pagamento e una chiave di crittografia.
+
+I riscatti variavano solitamente da poche centinaia di dollari a poche migliaia, arrivando infine alla fascia di $ 20-50.000 USD.
+C'era pressione sull'avversario (fondi tracciabili, tabulati telefonici, e-mail, ecc. per le forze dell'ordine) e non
+molto sulla vittima (alcuni file casuali sono stati crittografati, a volte preziosi, a volte per niente).
+
+Ciò che è iniziato ad accadere tra il 2010 e il 2016 è stato che gli avversari hanno iniziato a utilizzare di più criptovalute come Bitcoin,
+il che ha portato a una minore pressione su di loro e ha dato loro un meccanismo per avere più anonimato nei loro pagamenti. L'aumento
+dell’utilizzo della criptovaluta significava anche che più vittime potevano pagare in criptovaluta. Ancora più importante, però,
+gli avversari hanno iniziato a rendersi conto, soprattutto nel periodo 2016-2020, che avrebbero potuto penetrare nelle aziende
+stessi prima di distribuire il ransomware. In questo modo, potevano prendere di mira i sistemi e i file giusti
+di più all’azienda, aumentando così il tasso di estorsione che potrebbero richiedere. I pagamenti hanno iniziato a partire da $ 50.000
+vanno nell'ordine dei milioni di dollari. Un aumento della forza lavoro connessa durante la pandemia di COVID19 ha significato
+ancora più obiettivi. L’aumento dei pagamenti ha fatto sì che ancora più criminali si unissero agli sforzi, e alla fine
+Il ransomware è diventato, e rimane, una preoccupazione significativa per molte organizzazioni.
+
+ dell'ICS
+
+Ci sono stati casi di ransomware in ICS da quando il ransomware è in circolazione, anche estremamente
+casi gravi di perdite di produzione e guasti agli impianti. Tuttavia, è nel 2017 che tutto è cominciato davvero
+in accelerazione per la comunità ICS con i worm WannaCry e NotPetya che hanno assunto un alto profilo
+aziende come Merck, Maersk e FedEx nelle loro reti operative industriali. Ma molti più casi
+non sono stati segnalati, rappresentando dozzine se non centinaia di casi di ransomware in ICS in vari settori,
+soprattutto manifatturiero.Secondo una ricerca di Dragos e IBM, gli attacchi ransomware contro entità industriali nel periodo 2018-2020 sono aumentati
+più del 500%. Un terzo di questi casi riguardavano aziende manifatturiere.
+
+I gruppi di ransomware hanno iniziato a rendersene conto, prendendo di mira le reti ICS di queste aziende, che le aziende
+pagherebbero più facilmente e pagherebbero pagamenti più elevati a causa dell’impatto sull’azienda.
+
+Riferimento:
+
+Ransomware negli ambienti ICS - Dragos 2020.pdf
+https://www.bloomberg.com/news/features/2019-12-03/merck-cyberattack-s- | -Domanda-da-3-miliardi-era-un-atto-di-
+guerra
+
+82  dell'ICS 4
+
+L’atrofia della prevenzione si verifica quando i controlli preventivi non sono ben mantenuti nel tempo. Le organizzazioni spesso si concentrano
+fortemente sui controlli preventivi (soprattutto perché i vari standard/regolamenti industriali hanno spinto le persone a farlo
+direzione) con pochissima attenzione o investimenti nei controlli di rilevamento, risposta e ripristino. Ma senza visibilità
+e rilevamento, è molto difficile determinare se i controlli preventivi vengono applicati in tutto l'ambiente,
+e se vengono mantenuti. È estremamente comune nei casi di risposta agli incidenti scoprire che i controlli preventivi
+
+a ® DH fF TF TFT OO BH O&
+
+le organizzazioni che si sentivano fiduciose stanno restituendo molto meno valore nel tempo, a causa dell'atrofia che poi porta a ciò
+casi di ransomware o peggio.
+
+Riferimento:
+https://www.dragos.com/blog/correcting-prevention-bias-in-your-ot-cyber-incident-response/
+
+84
+
+ dell'ICS
+
+La visibilità può aiutarti a prevenire l'atrofia aiutandoti a ottenere un inventario e una topologia più completi (come
+le cose si collegano). Dovresti cercare di assicurarti di avere l'architettura che pensi di avere (ad esempio, no direct
+comunicazioni via Internet). Dovresti anche assicurarti di rilevare non solo le minacce e i relativi TTP, ma anche la prevenzione
+atrofia, che stai rilevando sistemi di protezione degli endpoint, dispositivi di sicurezza, ecc. attraverso il loro traffico di rete. Voi
+spesso riesce a scoprire quando gli endpoint non ricevono aggiornamenti tramite ricerche nel dominio e perdita di connettività. Tu potresti
+trovare un sistema antivirus Symantec che emette segnali quando non viene aggiornato regolarmente sui domini Symantec,
+se possono connettersi o meno.Inoltre, dovresti identificare i dispositivi chiave che sono i tuoi “dispositivi periferici” come
+Firewall, punti di accesso remoti e storici che fungono da accesso alle reti ICS/OT comprendono il
+vulnerabilità presenti e risolverle rapidamente applicando patch o controlli compensativi.
+
+La tua directory attiva/controller di dominio è spesso una "autostrada per l'inferno" dall'IT all'OT e in molti incidenti è condivisa
+L'infrastruttura AD porta ad un impatto significativamente maggiore nelle operazioni.
+
+ ICS _ as
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+86  dell'ICS 47
+
+La maggior parte delle risorse IT tradizionali può essere identificata quasi interamente ottenendo l'indirizzo MAC, l'indirizzo IP e l'apertura
+porti. [Le risorse ICS connesse a P spesso hanno risorse aggiuntive a cui sono connesse che fanno affidamento su di esse. Ad esempio, a
+il controllore di processo avrà I/O che potrebbero essere apparecchiature operative, come turbine o sensori di pressione. Inoltre,
+Le risorse ICS connesse tramite IP potrebbero utilizzare più protocolli l'uno all'interno dell'altro. Questi carichi utili del protocollo sono preziosi
+per identificare il tipo di comunicazione in corso e se esistono I/O identificabili.
+
+Wireshark può essere utilizzato per visualizzare questi payload del protocollo, ma solo se è già stato scritto un dissettore per esso. Pensare
+torniamo a quando abbiamo discusso dei livelli di protocollo IP e TCP in Modbus TCP. L'unico modo in cui Wireshark può farlo
+analizzare il traffico per determinare se un protocollo è IP significa avere un dissettore scritto per il protocollo IP. Il dissettore della proprietà intellettuale
+è scritto in modo da sapere che ci sarà un protocollo UDP o TCP (seguendo il modello OSI) trasportato da
+il protocollo IP. Il dissettore IP esamina il pacchetto IP e va nella posizione corretta nel pacchetto per vedere quale flag
+è impostato; in IP il flag 0x06 viene impostato quando TCP è il carico utile. Quindi, quando Wireshark analizza il pacchetto, vede l'errore 0x06
+flag e quindi utilizza il dissettore TCP per analizzare il livello successivo. Lo stesso processo si applica ai protocolli ICS, ma lì
+sono spesso più livelli di un protocollo ICS. Possono esserci interi set di protocolli incorporati nel carico utile di altri
+protocolli. Ciò significa che se si identifica un protocollo ICS utilizzato per il trasporto (come EtherNet/IP), è necessario
+cercare protocolli aggiuntivi al suo interno. Ad esempio, il protocollo industriale comune (CIP) viene portato via
+EtherNet/IP e contiene un frame di intestazione e un frame di carico utile. L'intestazione contiene richiesta e risposta
+informazioni, mentre il Payload contiene i dati effettivi. Dal punto di vista dell'identificazione delle risorse, è utile
+sapere che il sistema utilizza CIP e quale tipo di informazioni di intestazione fa parte della linea di base. I dati del carico utile
+può essere utilizzato anche come riferimento, ma poiché è più probabile che sia proprietario e cambi nel tempo, può essere anche
+richiede molto tempo senza il supporto del fornitore o del tecnico.
+
+È importante notare che alcuni dissettori in Wireshark e altri strumenti guardano principalmente al numero di porta della rete
+
+determinare cos'è un protocollo. Ad esempio, un dissettore scritto male esaminerebbe il traffico e determinerebbe se lo è
+inviato alla porta 502, sarà Modbus TCP. Il dissettore non elaborerà i dati correttamente e potrebbero verificarsi degli errori.
+
+ dell'ICS a2
+
+Modbus TCP ci fornisce un buon esempio di come esaminare i protocolli ICS. È facile da capire e apertamente
+protocollo definito. In questo esempio, vedi che Modbus TCP ha un identificatore di transazione, un identificatore di protocollo, una lunghezza,
+e identificatore dell'unità. Quindi, contiene dati aggiuntivi identificati come carico utile. Il livello successivo è intitolato Modbus e
+mostra il codice funzione, il numero di riferimento e il conteggio parole. Esaminare questo singolo pacchetto può aiutarci
+comprendere la risorsa ICS. Nella maggior parte dei casi, Modbus TCP viene utilizzato per comunicare con un controller connesso a I[P. L'IP
+l'indirizzo è solitamente l'ultimo bit dell'indirizzamento di cui dovresti preoccuparti e in questo esempio vediamo il
+Identificatore unità impostato su 255, che è lo standard. Questo ID di 255 unità ci fa sapere che non ci sono altri dispositivi seriali
+connesso a questo dispositivo connesso tramite IP. Tuttavia, se l'identificatore dell'unità non fosse 255 o 0, vorremmo determinarlo
+se ci fossero dispositivi seriali collegati al client. Non è comune vedere dispositivi seriali collegati in questo modo, ma è così
+può accadere e mostra un esempio di come può essere utile ispezionare e comprendere i protocolli sulla rete.
+Dopo aver determinato che un identificatore di unità non è 255 o 0, il modo migliore per procedere sarebbe utilizzare altri identificatori disponibili
+informazioni sull'architettura di rete, quindi eseguire un'ispezione fisica per verificare la presenza di risorse seriali
+collegato lì. In questo caso, l'ispezione fisica verrebbe utilizzata per convalidare la scoperta, perché non sarebbe un
+evento comune. Tuttavia, se si conosce già tramite una buona architettura di rete le mappe di un dispositivo seriale
+dovrebbe essere collegato qui, quindi potresti eliminare la necessità di eseguire l'ispezione fisica e sentirti sicuro che il tuo
+l'analisi del traffico ha validato la mappa dell'architettura di rete.
+
+ dell'ICS
+
+Esistono centinaia di protocolli ICS nel settore, ma la maggior parte sono proprietari e distinti per sistemi o sistemi specifici
+clienti. Esistono alcune dozzine di protocolli "principali" che puoi aspettarti di incontrare, come BACnet, DNP3,
+Modbus TCP, EtherNet/IP, OPC e ISO-TSAP. Questi verranno trattati nelle prossime diapositive. Non è necessario
+conoscere ogni protocollo. In molti casi, anche conoscere lo stack di protocolli non aiuta poiché le implementazioni di
+il protocollo può variare in base al fornitore e alla risorsa. Tuttavia, è utile poter identificare questi protocolli quando possibile
+e determinare cosa significa "normale" per quell'ICS.
+
+Spesso è molto fattibile determinare il protocollo capendo in quale settore operi (come quello elettrico).
+
+generazione rispetto a gasdotti), i tipi di sistemi utilizzati (ad esempio un ambiente SIMATIC rispetto a un ambiente Honeywell
+DCS) e identificare i numeri di porta utilizzati.
+
+90  ICS 9!
+
+Il DNP3 si trova più comunemente nei servizi elettrici e idrici. Funziona in una configurazione master/slave e lo era
+originariamente un protocollo seriale. È stato portato su IP su TCP o UDP (comunemente visto su TCP). Di solito c'è
+dati specifici del fornitore all'interno di DNP3 che dovrai comprendere con il fornitore, ma che puoi identificare
+il livello di collegamento dati, il livello di trasporto e il livello di applicazione come mostrato nella diapositiva. Il livello dell'applicazione contiene
+informazioni come il codice funzione.
+
+I codici funzione identificheranno ciò che sta accadendo, ad esempio:
+Leggi: 1
+
+Scrivi: 2
+
+Avviare l'applicazione: 11
+
+Interrompere l'applicazione: 12
+
+Configurazione slave: 13
+
+Risposta non richiesta: 81
+
+ CS
+
+Lo standard IEC 60870-5-104 fa parte della più ampia raccolta di protocolli IEC 60870. Nello specifico, è il TCP/IP
+versione del protocollo seriale 60870-5-101. I dati del livello di applicazione in ciascuno sono gli stessi. L'unica differenza è dentro
+il trasporto dei dati. Questo protocollo si trova comunemente nel settore dell'energia elettrica, in particolare negli SCADA
+ambienti. Viene utilizzato per raccogliere informazioni, come monitorare la potenza e apportare modifiche al controllo
+il network. Il protocollo può supportare una varietà di richieste come il riavvio remoto di un dispositivo, la modifica
+configurazione, modifica dei setpoint e in generale lettura di dati e informazioni dai sistemi.
+
+92  dell'ICS 3
+
+OPC classic, come abbiamo già discusso in classe, è un traduttore universale nell'ambiente operativo per
+sistemi di fornitori diversi che non sono stati progettati per funzionare insieme. L'OPC sarà implementato in vari modi
+modi, a seconda del sito e di come è progettato, rendendo così più difficile comprendere veramente l'OPC in classe
+rispetto a come viene implementato nel tuo sito.Tuttavia, ci sono alcune intese e considerazioni comuni che
+possono essere esplorati e dovrebbero essere compresi.
+
+OPC è pensato per posizionarsi tra il "data sink" e la "data source". L'origine dati sarebbe qualcosa come a
+PLC, mentre il Data Sink sarebbe qualcosa di simile a un HMI. OPC garantisce che i dati possano essere scambiati tra
+questi due (Data Sink e Data Source) senza che sia necessario che comprendano il protocollo proprietario di ciascuno
+utilizzando.
+
+Talvolta l'OPC viene configurato sulla porta TCP 135 ma, come mostra la figura nella slide, non è sempre così.
+Ciò che è comune è l'uso dell'ambiente informatico distribuito/chiamata di procedura remota (DCE/RPC). Identificare
+questo nell'ambiente può aiutare a identificare le comunicazioni OPC. Non sarà sempre OPC, ma è un bene
+indicazione, soprattutto se non si utilizzano normalmente questi protocolli nel proprio ICS.
+
+Buone guide iniziali:
+
+https://www.moxa.com/en/support/product-support/software-and-documentation
+https://www.automation.com/pdf_articles/Guide_to_OPC.pdf
+
+ dell'ICS 94
+
+ISO-TSAP è un protocollo interessante e viene utilizzato in un paio di luoghi: principalmente come protocollo che trasporta
+Il protocollo da $ 7 di Siemens e l’ICCP. Sia ICCP che $7 vengono visualizzati sulla porta 102 perché utilizzano ISO-TSAP. Dentro
+ISO-TSAP, il blocco dati deve essere suddiviso per determinare (puramente dal pacchetto e senza ambiente
+contesto) se il protocollo è $7 o ICCP. L'inversione di questi protocolli va oltre lo scopo di questa e quella lezione
+dovrebbe essere fatto con il supporto del fornitore. Tuttavia, è importante essere in grado di comprendere e identificare ISO-TSAP.
+
+ISO-TSAP è la combinazione di TPKT e COTP (Connection-Oriented Transport Protocol). TPKT è un modo da prendere
+COTP e posizionarlo all'interno di TCP.
+
+COTP è un protocollo basato su ISO (la maggior parte dei documenti e degli standard ISO devono essere acquistati). Il COTP è basato su
+ISO 8073 ed è pensato per essere simile a TCP. La differenza tra questo e TCP è che TCP è pensato per essere un
+flusso continuo di dati mentre COTP è inteso come "pacchetti" di dati, ma comunque basato sulla connessione a differenza di UDP.
+Tuttavia, posizionare COTP all'interno di TPKT, che viene eseguito su TCP, sembra un po' controintuitivo. La porzione TSAP di
+il protocollo è il blob di dati stesso (TSAP sta per Transport Service Access Point). Quel blob di dati lo farà spesso
+
+essere S7 o ICCP in ambienti ICS.
+
+Allora perché ISO-TSAP viene messo su TCP se l'intenzione era quella di sostituire TCP? Senza conoscere l'intenzione originale di
+Per gli sviluppatori, sembra evidente che la funzionalità di flussi continui di dati fosse desiderata da TCP, ma TCP
+non supporta il tipo di indirizzamento possibile in TSAP. È stato un tentativo di sfruttare la funzionalità di entrambi
+
+Ambienti ICS.
+Riferimento:
+
+https://wiki.wireshark.org/TPKT
+https://wiki.wireshark.org/COTP
+
+94  dell'ICS
+
+S7, o S7COMM, è un protocollo proprietario Siemens che sfrutta ISO-TSAP/COTP per la comunicazione. È
+progettato per essere in grado di facilitare l’interazione tra sistemi di supervisione e controllori, sebbene possa essere utilizzato per
+anche le comunicazioni da controller a controller. Viene utilizzato principalmente per l'interrogazione e l'interazione dei dati, nonché per
+programmare i PLC. Lo troverete sui PLC Siemens serie S7-300 e 400.
+
+L'analisi del protocollo è utile per comprendere i comandi e i valori letti/scritti sui controller.
+
+ dell'ICS 97
+
+BACnet è un protocollo presente soprattutto nel settore della building automation. Sopra è mostrata la versione IP del protocollo.
+Da questo punto di vista, possiamo vedere che BACnet ha una discreta quantità di dettagli visualizzati. Le informazioni BACnet spesso contengono i file
+tipo di dispositivi che comunicano; può includere anche la loro posizione. Wireshark può estrarre molti di questi dati
+in modo nativo, poiché ha un dissettore per il protocollo integrato.
+
+Proprietà BACnet
+
+In Wireshark, le proprietà BACnet spiegano con quali dispositivi viene comunicata. Inoltre, il diverso
+sono tutti disponibili comandi come nome oggetto, nome modello, revisione firmware, nome fornitore e descrizione. Esso
+è importante conoscere i tag presenti all'interno del protocollo per identificare l'esatta informazione contenuta per questi dichiarati
+campi. Lavorare con i fornitori e identificare la loro documentazione può aiutare a estrarre queste informazioni granulari e
+fornire molto contesto a ciò che è sulla rete. Ad esempio, sapere esattamente in cosa consiste ciascun campo e valore
+Le rappresentazioni BACnet potrebbero essere utilizzate per migliorare il dissettore per estrarre e visualizzare in modo nativo tali informazioni.
+
+ dell'ICS
+
+EtherNet/IP è comune nelle reti di produzione grazie al suo ampio utilizzo da parte di Rockwell Automation. È uno dei
+protocolli che utilizzano il Common Industrial Protocol (CIP). EtherNet/IP dispone anche di messaggistica basata su implicito (UDP).
+come messaggistica esplicita (TCP). Nella forma implicita, è normale che il protocollo trasferisca dati I/O. Nell'esplicito
+messaggistica, è normale che parametri, setpoint, ecc. vengano caricati e scaricati.Pertanto, TCP dovrebbe esserlo
+cercato quando si cerca la modifica delle informazioni, mentre UDP dovrebbe essere cercato quando si tenta di farlo
+
+identificare i dati I/O.
+
+EtherNet/IP può essere una comunicazione uno a uno, uno a molti e uno a tutti: unicast, multicast o broadcast. È
+solitamente visto sulla porta 44818 per TCP e 2222 per UDP. Esplicito (44818) viene utilizzato per trasferire parametri, setpoint,
+programmi, ecc. Implicit (2222) viene utilizzato per trasferire i dati I/O.
+
+EtherNet/IP stesso è un protocollo a livello di applicazione, anche se contiene due sezioni distinte. La prima sezione
+è l'intestazione di incapsulamento. La seconda sezione sono i dati specifici del comando, che contengono il protocollo CIP
+it che contiene il BLOB di dati effettivo. Il CIP utilizza gli oggetti per impostare attributi quali ID fornitore, numero di serie del dispositivo,
+e dati di identità. All'interno del CIP sono presenti anche oggetti applicativi, definiti dal tipo di dispositivo e dai suoi
+funzione (collabora con i tuoi architetti/ingegneri per determinare cosa significano questi valori). Questi oggetti dell'applicazione
+contengono informazioni che descrivono aspetti dell'I/O o del controller come frequenze, corrente nominale e altro.
+Gli oggetti specifici del fornitore possono anche essere contenuti nel CIP, per cui dovrai collaborare con il tuo fornitore
+
+esattamente cosa significano i dati.
+
+Durante la ricerca di EtherNet/IP e CIP, è utile identificare anomalie nell'indirizzamento e nella connessione EtherNet/IP
+Comandi di intestazione di incapsulamento (come "Invia dati unità") per determinare se sta succedendo qualcosa di strano.
+Comprendere i livelli più profondi di EtherNet/IP e CIP può essere utile per il monitoraggio della configurazione di rete, ma lo è
+un ritorno sull'investimento inferiore per l'analisi della sicurezza.
+
+Riferimento:
+http://www.rtaautomation.com/technologies/ethernetip/
+https://literature.rockwellautomation.com/ide/; groups/literature/documents/wp/enet-wp001_-en-p.pdf
+
+98  dell'ICS
+A volte vedrai query e informazioni native nel protocollo utilizzate in condizioni operative normali.
+Essere in grado di esaminare e analizzare passivamente queste informazioni è fondamentale per identificare diverse risorse
+
+informazione. Inoltre, a volte vedrai anche i tag nella rete che ti aiuteranno a capire cosa
+vari registri e valori di processo sono correlati all'ambiente fisico.
+
+ dell'ICS 100
+
+Lo scopo di includere Multilin di GE qui è notare come il produttore pensa ai protocolli e dove
+li troverai. È importante sottolineare che mostra anche come alcuni protocolli possano essere intercambiabili. Come esempio,
+probabilmente non utilizzeresti DNP3, ModbusTCP e IEC-104 per comunicare da un determinato HMI/DMS/Historian al
+porta. È più probabile che ne utilizzerai uno e sarai in grado di interrogare i dati necessari dal gateway.
+
+Il gateway stesso può quindi comunicare con i vari dispositivi, sfruttando i loro protocolli nativi come DNP3,
+61850, Modbus, SEL o IEC104. Inoltre, è disponibile il supporto per i vari protocolli seriali a qualsiasi livello.
+
+Comprendere i protocolli ICS è utile, ma è importante anche comprenderne il ruolo e cosa sono
+utilizzato in un dato momento. Ciò aiuterà a orientare il valore che estrai dai protocolli stessi e ciò che possono
+
+fornire.
+
+Riferimento:
+https://www.gegridsolutions.com/multilin/energy/catalog/d400.htm
+
+100 © 2021 Roberto M.Lee
+
+(Con ('®>
+
+@®
+
+> PDP DB PD OP OH Hh OH WP OS HP
+sì, a
+
+eo noi & ww
+
+wo © Ww wo Ww |] ww Ww ww Ww Ww Ww Ww noi w
+
+dobbiamo
+
+ty per i comandi RTU di analisi della causa principale
+
+¢ La società di trasmissione ha iniziato a notare variazioni di tensione nelle loro sottostazioni
+¢ Impossibile determinare cosa stava succedendo alle RTU
+
+¢ Il team era a conoscenza del fatto che in Ucraina nel 2015 i comandi venivano inviati dal sistema SCADA al
+RTU senza interazione con l'operatore
+«Non erano disponibili dati forensi come la sequenza degli eventi
+
+« È avvenuta una risposta all'incidente e è stata implementata una soluzione di visibilità ICS
+
+« Fortunatamente, la questione è continuata ed è stata risolta
+
+« C'era un bug nel sistema SCADA che inviava comandi di ripristino alle RTU
+«L'analisi del protocollo ICS è stato il meccanismo per determinare questo problema
+
+ICS5I5 | Visibilità, rilevamento e risposta dell'ICS 101
+
+Presso una compagnia elettrica anonima si è verificato uno spostamento di tensione nel sistema di trasmissione e in più sottostazioni
+Le RTU sono state interessate. L’azienda non riusciva a capire cosa stesse succedendo. Sapevano che si era verificato un evento simile
+in un vero incidente basato su un avversario, e quindi hanno giustamente preso precauzioni. Dopo averlo dichiarato un evento e aver chiamato
+in un team di risposta agli incidenti, l'azienda ha determinato il problema. Il team di risposta agli incidenti ha implementato un ICS
+prodotto di visibilità della rete che ha consentito loro di analizzare i protocolli ICS e di determinare che il sistema SCADA aveva un
+bug che inviava inaspettatamente comandi di reset alle RTU. Ciò ha permesso loro di intraprendere le azioni giuste, come
+ora ne capivano la causa principale e non si verificò alcun impatto maggiore.
+
+ del CS — 107
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+102  103
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+ dell'ICS 104
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+104
+
+ ICS 10:
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+ ICS
+
+Dragonfly è un gruppo di minacce identificato da Symantec attivo almeno dal 2011. Inizialmente prendeva di mira
+settori della difesa e dell’aviazione in Europa, conferendogli un classico focus di spionaggio degli avversari statali. Intorno al 2013 il
+il gruppo ha iniziato a prendere di mira i settori industriali, comprese le società elettriche. Symantec ha valutato che il targeting era
+fortemente focalizzato sull’energia, tuttavia un’ulteriore analisi delle vittime ha chiarito che va ben oltre la semplice elettricità
+le aziende venivano prese di mira.
+
+La cosa interessante di Dragonfly per la comunità ICS è l'uso di HAVEX, che è stato il secondo in assoluto
+Scoperto malware personalizzato per ICS.
+
+Riferimento:
+Rapporto Symantec Dragonfly
+
+106 © 2021 Roberto M.Lee
+
+Cos'è la DRAGONFLY?
+
+106
+
+mmm DW ® WW @® © ® ® OH DH OP WH Ow
+
+ef, ® @ @
+
+7
+
+mm,
+noi Ww J ww
+
+Cos'è Havex?
+
+¢ Havex è un trojan di accesso remoto (RAT):
+* Su un sistema, esegue la scansione delle risorse e dei sistemi connessi per mappare la rete
+topologie e raccogliere dati
+
+*Il malware modulare consente vari plugin/moduli:
+* Un modulo ha cercato specificamente gli ICS presenti sulla rete utilizzando OPC
+
+* Un modulo sfruttava le porte ICS comuni per raccogliere informazioni su ciò che era presente
+* Dopo aver infettato un sistema, si riconnette a uno delle centinaia di Command
+
+e server di controllo (C2):
+
+* Utile come backdoor per consentire l'accesso remoto a un utente malintenzionato
+
+* Può essere utilizzato per installare altro malware o eseguire file eseguibili
+
+* Può ricevere comandi o caricare dati rubati
+
+ICS515 | Visibilità, rilevamento e risposta dell'ICS 107
+
+Havex è un RAT utilizzato nelle campagne di spionaggio che precedono qualsiasi attività correlata all'ICS. Tuttavia, quando un file aggiornato
+è stata trovata una variante di Havex contenente moduli ICS, ha colto il mondo alla sprovvista. Era il secondo pezzo in assoluto
+malware per avere porzioni/carichi utili specifici di ICS. Sebbene altri malware abbiano già avuto un impatto su ICS, questo
+La minaccia è stata lanciata da un team ben finanziato, forse uno stato-nazione, che comprendeva le reti ICS e voleva riunirsi
+intelligenza da parte loro. È il tipo di capacità che verrebbe implementata durante il tentativo di raccogliere informazioni sufficienti
+per creare un malware distruttivo come abbiamo visto con Stuxnet. Non c’è motivo di essere allarmisti, ma così è
+non è una minaccia da prendere alla leggera.
+
+ CS _ica
+
+Per tutto il 2013, Dragonfly ha compromesso i fornitori come compromesso nella catena di fornitura per prendere di mira le società ICS. IL
+le operazioni hanno preso di mira alcune grandi aziende, come eWon e MBConnect, che erano apparecchi VPN su misura
+
+alle reti ICS.
+
+Riferimento:
+Symantecs Dragonfly Report.pdf
+
+108  dell'ICS
+
+Havex è stato consegnato in numerosi modi, tra cui:
+
+* Sono state inviate e-mail di phishing a target con file dannosi che hanno consentito al malware di infettare i target'
+sistemi.
+° Attacco alla pozza d'acqua:
+
+* Le vittime che visitavano un sito Web compromesso venivano reindirizzate a un sito Web che ospitava un kit di exploit; questo sfruttamento
+kit ha quindi scaricato il malware Havex sulle macchine infette.
+
+* Gli exploit kit erano tutti exploit ben noti e disponibili al pubblico. Niente di questi exploit lo era
+avanzato o costoso per l’avversario. In alcuni casi, erano moduli Metasploit letterali.
+
+* Incorporato nei programmi di installazione o nel firmware sui siti Web dei fornitori:
+
+*La versione ICS di questo malware è stata diffusa in gran parte da siti Web di fornitori compromessi. IL
+L'avversario sapeva con quali fornitori scendere a compromessi per infettare gli obiettivi desiderati, il che ne dimostra un altro
+livello di sofisticazione.
+
+* I siti Web dei fornitori utilizzavano versioni vulnerabili e senza patch di applicazioni Web che consentivano l'
+siti web da compromettere con exploit noti e disponibili al pubblico.
+
+Havex non era avanzato di per sé. Era avanzato a causa della logistica e della pianificazione che ne sono state coinvolte. Esso
+Non è facile gestire una campagna che prende di mira migliaia di strutture in tutto il mondo ed è anche particolarmente costoso.
+Inoltre, il tipo di dati raccolti non valeva molto dal punto di vista finanziario. Valeva molto per la pianificazione e lo spionaggio
+per uno Stato-nazione. Questi fattori e altri si combinano per dare uno sguardo all'uso molto intelligente del malware creato per
+una minaccia avanzata.
+
+ dell'ICS — 10
+
+Ecco un modello Purdue semplificato che esamina i sei livelli di una rete ben strutturata con ICS, Dove sarebbe
+Gli Havex sono atterrati in queste aree, in base ai vettori di intrusione?
+
+Nelle e-mail di spearphishing sarebbe probabilmente riuscito a raggiungere il livello 4 e forse il livello 5.
+vettore di intrusione, potrebbe essere arrivato al Livello 5, al Livello 4 e potenzialmente al Livello 3 se le persone stavano navigando in Internet.
+Ma con le patch trojanizzate, sarebbe riuscito a raggiungere l'area di livello 2.Nel corso del tempo, gli sforzi dell’avversario
+(che lo intendessero o meno) li ha guidati più a fondo nell'ICS.
+
+Di solito non siamo in grado di determinare l'intento dal codice di un avversario o dalle intrusioni, ma è utile notare quali sono
+fare e cosa potrebbe significare per la tua organizzazione.
+
+110  dell'ICS
+
+Digital Bond ha identificato due delle vittime originali come eWON e MB Connect Line. Queste aziende si occupano
+produzione, sistemi di infrastrutture energetiche, turbine eoliche e altro ancora come fornitori OEM. Symantec ne ha identificati cinque
+società di sistemi di controllo energetico e sei società energetiche che reindirizzavano i visitatori a un sito compromesso.
+Joel Langill ha identificato diverse aziende farmaceutiche come obiettivi. Capire quali aziende sono state prese di mira
+non solo aiuta a identificare altre vittime, ma aiuta anche a comprendere le motivazioni degli aggressori. Ciò che è interessante
+è l'assoluta vastità della campagna. Pensa al tipo di logistica da cui sarebbe necessario utilizzare le informazioni
+migliaia di strutture. Tutte queste strutture potrebbero non essere state l’obiettivo. Tuttavia, per avere una portata così ampia
+campagna, ci sarebbe almeno una parte significativa di questo set di dati che costituiva l'obiettivo previsto (tutti potrebbero
+sono stati, ma non possiamo presumere l'intento di un avversario). Il denaro e le risorse destinate alla formazione e
+il personale incaricato di analizzare le informazioni raccolte è costoso. Parla della raffinatezza dell'avversario.
+
+Ovviamente c’è stato un grande interesse per l’ICS, ma ci sono molte analisi/prove concorrenti su cosa esattamente
+verticale era l'obiettivo principale. È più importante, tuttavia, sottolineare come i dati disponibili fossero limitati e questo
+molte società ICS non hanno condiviso i dati sulle minacce, quindi potremmo non saperlo mai.
+
+"Non rappresentare un parametro nella diapositiva dell'aggressore di malware."
+
+Riferimento:
+http://www.digitalbond.com/blog/2014/07/02/havex-hype-unhelpful-mystery/
+
+ dell'ICS 112
+
+Qui vediamo un riferimento a come apparirebbe il dispositivo VPN eFive di eWon in una rete ICS. In sostanza ha dato
+accesso diretto ai dispositivi L2 e inferiori nell'ICS. La figura a destra mostra il tipo di fornitori rivendicati da eWon
+supporto e comprensione dei loro protocolli. eWon sotto molti aspetti era un fornitore perfetto a cui rivolgersi per raggiungere un compromesso
+
+serie significative di vittime.
+
+Riferimento immagine:
+ewon.biz
+
+Riferimento:
+Libro bianco Belden Dragonfly.pdf
+
+112  dell'ICS 113
+
+HAVEX tenterà di contattare i suoi server C2 all'incirca ogni 24 minuti. Alcuni utilizzavano domini hardcoded
+che avrebbero dovuto risaltare in qualsiasi analisi del traffico in questi ambienti. Ancora più importante, è utile notare
+che le sessioni VPN compromesse significano che i registri raccolti non sarebbero solo traffico di rete e DNS, ma anche
+La VPN si registra automaticamente per identificare queste comunicazioni.
+
+Riferimento:
+Libro bianco Belden Dragonfly.pdf
+
+ dell'ICS
+
+OPC sta per Object linking and embedding for Process Control. A volte viene definita piattaforma aperta
+Protocollo di comunicazione. È un protocollo estremamente comune e può interfacciarsi su numerosi verticali in ICS.
+Il modulo utilizzava la funzionalità Windows Networking (WNet) per mappare la rete. Questa è un'opera fantastica di
+avversario perché utilizzava comandi nativi; è un peccato per la vittima perché è più difficile per l'anti-malware
+sistemi per identificare i comandi nativi utilizzati nel modo in cui sono stati progettati.
+
+In breve, Windows fornisce un'API per enumerare le risorse di rete utilizzando il comando WNetOpenEnum e
+WNetEnumResources. Molti sistemi Windows in ICS con OPC dispongono anche di OPCEnum, che consente il
+
+rilevamento di server specifici OPC collegati.
+
+È interessante notare che in alcuni casi i dati sembravano essere archiviati sul sistema perfetto, ma non caricati su un server C2.
+Ciò significa che c'era il desiderio che l'aggressore accedesse da remoto e raccogliesse i dati da solo, oppure c'era
+una sorta di protezione integrata nel malware in modo che non caricasse dati in condizioni sospette.
+
+Per il grafico sopra, F-Secure ha eseguito un campione di Havex sui suoi sistemi. Guardando il programma sono emersi dei riferimenti
+ai server OPC nel codice. Ciò ha aiutato gli analisti, che non avevano una formazione in ICS o in ingegneria, a identificare il
+
+Connessione ICS anticipata.
+
+114  dell'ICS
+
+OLE è una tecnologia sviluppata da Microsoft e sta per Object Linking and Embedding. Viene utilizzato per incorporare e
+collegamento a documenti e altri oggetti all'interno di un'applicazione. OPC è stato progettato per raccogliere dati rilevanti da importanti
+sistemi e fornirne una visione consolidata o convergente con i dati provenienti da un altro sistema disparato. In precedenza,
+il fornitore del sistema di controllo A dovrebbe scrivere interfacce e codice personalizzati per vedere i dati del sistema di controllo B o gli esseri umani
+inserirebbe i dati manualmente. Come sistemi di business intelligence sviluppati e utenti al di fuori del sistema di controllo
+l'ambiente voleva vedere i dati sulle prestazioni delle operazioni, i programmi di produzione, i lavori di manutenzione, ecc., c'era a
+crescente necessità di ottenere dati in un unico sistema per consentirne la visualizzazione e l'accesso. Utilizzando le entità OPC, siamo in grado di riunirci
+dati e generare le visualizzazioni necessarie per l'azienda. http://www.opcfoundation.org
+
+Spesso descritto come lo "standard di interoperabilità" per l'automazione industriale, OPC originariamente stava per Object
+Collegamento e incorporamento per il controllo del processo. OPC è stato sviluppato attraverso la collaborazione del settore alla fine degli anni '90 e
+è stato specificato dalla comunità come "comunicazioni su piattaforma aperta". Lo standard ha continuato a farlo
+crescere ed evolversi poiché ha integrato nuove tecnologie. Agisce come un ponte comune, consentendo le comunicazioni
+venire al server OPC per essere fornito ai client OPC. Basato su OLE, COM e DCOM di Microsoft, DCOM-
+le vulnerabilità correlate hanno portato i sistemi sensibili a utilizzare OPC. DCOM/RPC è molto complesso e questo
+provoca bug difficili da anticipare e scoprire. Le vulnerabilità basate su DCOM, come MS-086, erano necessarie
+essere affrontati dagli utenti finali del sistema di controllo. Inoltre, alcuni considerano OPC un protocollo molto ostile ai firewall che accetta
+particolare attenzione a segmentare correttamente.
+
+I server OPC possono fungere da ponte per un utente malintenzionato da un sistema all'altro. Consulta l'avviso ICS-CERT:
+https://www.us-cert.gov/ics/alerts/ICS-ALERT-1 1-285-01
+
+ dell'ICS
+
+Questa immagine è stata presa da un blog di FireEye sul modulo OPC in Havex. Questa immagine mostra un OPC normale
+implementazione, che dovrebbe aiutare anche chi non ha familiarità con il protocollo OPC a comprendere meglio il modulo.In sostanza, OPC funge da livello di traduzione, soprattutto quando si dispone di un ICS altamente eterogeneo con diversi
+fornitori, attrezzature e metodi di comunicazione.
+
+Riferimento:
+HAVEX è giù con OPC.pdf
+
+116  dell'ICS
+
+Come accennato in precedenza, l’OPC è un ottimo obiettivo perché si trova in molte strutture ICS diverse. È anche utile
+interfaccia per tradurre i dati della rete 1CS in dati utili per le reti aziendali, come i sistemi di fatturazione. L'OPC lo è
+ed è esattamente il tipo di interfaccia che vorresti prendere di mira se stessi raccogliendo informazioni sugli obiettivi. Suo
+la capacità di scansionare e documentare le risorse sulla rete lo rende il bersaglio per la raccolta di importanti dati di rete.
+Poiché questa interfaccia consente a diversi tipi di protocolli e connessioni di comunicare tra loro, questo avrebbe potuto essere un
+vettore di attacco per passare dall’ambiente ICS all’impresa. (Anche se ICS probabilmente ha presentato un file more
+un obiettivo redditizio.) Inoltre, potremmo potenzialmente assistere al primo tentativo di una minaccia contro malware ICS: questo potrebbe essere
+agendo come una prova di concetto, rubando tutti i dati possibili per capire di più sull'ICS. L'attacco
+avrebbe potuto anche essere molto mirato ed efficace. Solo perché ci sono state migliaia di vittime non significa
+migliaia di strutture erano l'obiettivo. Quelle altre vittime potrebbero essere state accidentali o una tattica diversiva dal
+veri obiettivi.
+
+ del CS
+
+Le tre principali aziende che hanno rivendicato l'attribuzione per questa campagna sono Symantec,
+CrowdStrike e Kaspersky. Symantec non ha fatto alcuna affermazione audace sull'attribuzione, sebbene abbia identificato il file
+attaccare come Dragonfly e notare che Havex veniva fornito nel pacchetto software per gli aggiornamenti del firmware. Essi anche
+ha notato che la campagna è iniziata il 13 settembre e ce n'è stata un'altra nel periodo marzo 2014-giugno 2014, CrowdStrike
+con maggiore audacia è uscito nel suo rapporto affermando che questa attività faceva parte di un gruppo che stava monitorando da qualche anno;
+il gruppo, a suo avviso, era sicuramente originario della Federazione Russa. Poco dopo il rapporto CrowdStrike,
+Kaspersky Labs ha pubblicato il suo rapporto affermando che sicuramente non si trattava di un russo (ma non sa chi fosse).
+La sua analisi includeva anche un modulo in Havex che da allora nessun altro ha più visto o segnalato. Tuttavia ce n'erano molti
+moduli in Havex ed è stato facile scambiarli con altri.
+
+118  dell'ICS
+
+Spesso, nella più ampia comunità della sicurezza, l'attribuzione a a
+campagna malware. “La Russia attacca ancora” o “La Cina indaga sulle infrastrutture americane” catturano rapidamente i titoli dei giornali. E
+in realtà, questo tipo di dati è importante (se è accurato) per un processo decisionale basato sul rischio e una strategia successiva all’azione
+sviluppo, ad esempio dove un’azienda dovrebbe e non dovrebbe fare affari. Ma la vera attribuzione non significa nulla
+sicurezza. L'attribuzione di una minaccia per decidere quale tipo di minaccia (come stato-nazione, banda di criminali informatici, solitario
+minaccia, e così via) è importante per comprenderne le motivazioni, ma l'attribuzione, come nel nome o nella nazionalità della persona, è
+non prezioso. I sistemi di difesa, le firme e le configurazioni di rete che utilizzi non si preoccupano se lo è l'aggressore
+Russo o cinese.Si preoccupano che tu comprenda la tua infrastruttura e la minaccia che affronti. Esso
+è importante identificare i TTP, il malware che fa parte di una campagna più ampia e le motivazioni degli aggressori; Tuttavia,
+preoccuparsi eccessivamente dell'attribuzione è una perdita di tempo e fatica. In breve, ci sono grandi vantaggi per la sicurezza
+che si può ottenere riuscendo a comprendere le motivazioni dell’avversario in base al tipo di minaccia che rappresenta e
+essere in grado di raggruppare l'avversario e i suoi TTP in un gruppo identificabile. Preoccuparsi e cercare di capire
+quale specifico gruppo di criminalità informatica, quale nazione specifica o quale nome e profilo Facebook del singolo attore
+l'immagine presenta un valore molto inferiore ed è uno spreco se si considera il ritorno sull'investimento.
+
+Riferimento:
+http://ics-isac.org/robert-lee-crouching-yeti-dragonfly-energetic-bear-S-takeaways-ics-community/
+
+ dell'ICS 20
+
+Allora, che mi dici di Havex? È il secondo malware specifico per ICS di successo. Come funziona l'Active Cyber
+Formazione del Ciclo della Difesa? Una corretta architettura dei siti infetti originali avrebbe eliminato quelli di maggior successo
+e la parte più longeva della campagna (i siti web Watering Hole). Non sono stati utilizzati 0 giorni; era tutto
+moduli Metasploit riutilizzati, quasi alla lettera, disponibili al pubblico con patch note. Il vettore dell'infezione
+sarebbe stato inutile. Tuttavia, se le vittime infettate da questi siti Web iniziali capissero il loro
+traffico di rete sufficiente per ottimizzare e mantenere le difese passive (indipendentemente dal fatto che fossero intensive come whitelist o semplicemente di base
+abbastanza da capire che il loro normale traffico di rete non includeva le ricerche DNS nella Repubblica Ceca).
+avremmo identificato precocemente l'infezione e avremmo molte più informazioni su una campagna non altrettanto riuscita.
+
+La difesa attiva avrebbe funzionato eccezionalmente bene contro Havex. Le scansioni OPC e le chiamate di sistema erano la maggior parte
+certamente insolito. I server C2 connessi dalle reti OT all'Internet attiva erano (o almeno la maggior parte
+certamente avrebbe dovuto essere) insolito. La difesa attiva avrebbe potuto affondare quei domini per raccogliere informazioni
+sui server C2, neutralizzando la capacità di Havex di rubare dati. Il monitoraggio della sicurezza della rete lo avrebbe fatto
+identificato il malware. La risposta all’incidente avrebbe identificato e ripulito i punti iniziali dell’infezione. Minaccia
+l'intelligence avrebbe potuto essere condivisa in tutta la comunità con indicatori di compromesso in modo che 2,8 mila vittime
+su più anni non sarebbe il numero che stiamo esaminando per questa campagna. La difesa non ha fallito. Non siamo riusciti a farlo
+difesa. Ma è difficile. Non è sempre così facile. Quelle vittime non dovrebbero vergognarsi: sono vittime. Il focus è
+non per mostrare quanto “terribili” fossero queste industrie o siti, ma piuttosto per mostrare le lezioni apprese che tutti possiamo fare
+impiegare per rendere fattibile la difesa.
+
+120  dell'ICS
+
+Il malware Havex, utilizzato in una campagna contro ICS per raccogliere dati sensibili e informazioni sull'architettura di rete
+da migliaia di siti in tutto il mondo, era un trojan di accesso remoto originariamente utilizzato per scopi generici
+spionaggio e si è evoluto in un set di strumenti criminali. È stato inoltre adattato per prendere di mira ICS includendo nuovo codice e moduli
+specifico per gli ambienti ICS. Dalle informazioni disponibili al pubblico, è stato stabilito che la campagna ha avuto luogo
+svolgersi nel corso di almeno tre anni. Gli attori dietro Havex hanno utilizzato diversi metodi per ottenere Havex
+malware sulle reti dei difensori.Tre dei più comuni erano i seguenti:
+
+* Invio di email di spearphishing con un file dannoso allegato
+
+° Infettare i siti Web dei fornitori ICS con malware e compromettere i difensori ICS quando visitavano tali siti Web
+(nota come tecnica del wateringhole)
+
+* Fornire una versione con trojan dei programmi di installazione del software ICS che infettava il sistema host quando il personale eseguiva il programma di installazione
+
+Questi molteplici metodi di compromesso evidenziano che gli avversari rimangono flessibili e non sono vincolati da uno solo
+tecnica di consegna e intrusione durante la conduzione di una campagna. Le tecniche osservate indicano gli aggressori
+hanno avuto successo nella fase di pianificazione identificando i punti deboli da sfruttare, come la natura generale di fiducia di
+ingegneri e la fiducia intrinseca nella catena di fornitura ICS. Inoltre, offre tre intrusioni da mappare
+contro la Cyber ​​Kill Chain dell’ICS. Nella prima intrusione, l'e-mail di spearphishing, l'avversario sarebbe stato il primo a intervenire
+effettuato ricognizioni per determinare buoni obiettivi e personalizzare le e-mail di phishing. Successivamente, gli attori si sono esibiti
+utilizzo come arma combinando un file con un exploit e allegandolo all'e-mail di spearphishing. Targeting specifico
+ha avuto luogo per scegliere quali persone avrebbero ricevuto l'e-mail. L'e-mail stessa era il meccanismo di consegna e quando
+l'utente ha aperto il file allegato all'e-mail e ha sfruttato il sistema per installare il malware Havex. Poi, l'Havex
+il malware ha tentato di comunicare con uno delle centinaia di server C2. Havex ha quindi scansionato l'ambiente
+scoprire i componenti ICS, raccogliere le informazioni ed esfiltrarle sul server C2 affinché l'avversario possa raccoglierle. IL
+Le intrusioni di phishing basate sulla posta elettronica hanno avuto un impatto prevalentemente sulla rete esterna. Questo metodo aveva meno probabilità di fornire
+informazioni specifiche sull'ICS, tranne nei casi in cui le organizzazioni conservavano file tecnici sull'azienda
+rete. La seconda intrusione, ovvero i siti Web infetti, ha seguito da vicino la prima intrusione, ma ha utilizzato altri metodi per farlo
+eseguire la Fase 1. Da notare che l'intrusione contro i siti web dei fornitori ICS ha avuto una propria kill chain, oltre a quella dell'avversario.
+
+Le intrusioni HAVEX hanno raggiunto la Fase 2 con accesso alle reti ICS nel momento in cui è stata eseguita la scansione delle porte ICS
+Era in corso la scansione OPC. Ciò si qualificherebbe per la fase di sviluppo della Fase 2.
+
+ dell'ICS
+
+Nel 2017 Symantec ha identificato il gruppo Dragonfly 2.0 e ha notato che aveva compromesso una serie di apparecchiature elettriche statunitensi
+aziende lato rete OT. L'analisi dei compromessi era esatta ed è stata sostenuta da Dragos
+che ha identificato il gruppo pericoloso come DYMALLOY e ha identificato numerose vittime nel settore elettrico degli Stati Uniti
+Comunità. Tuttavia, Symantec e Dragos non erano d'accordo sul collegamento a DRAGONFLY. Symantec posizionato
+il grafico a destra come prova della connessione, ma le connessioni erano molto deboli rispetto a quanto presentato
+pubblicamente. Inoltre, Symantec ha notato come ciò significasse che il gruppo era pronto a “cambiare posizione” sul potere degli Stati Uniti
+capacità di generazione. Anche Dragos ha confutato ciò, sottolineando che lo spionaggio svolto dal gruppo, ad es.
+rubare screenshot dell’HMI e documenti tecnici era preoccupante, ma rappresentava un’ulteriore prova dell’incapacità del gruppo di farlo
+essere disturbante in quel momento. L'argomentazione era essenzialmente che il furto di tali informazioni dimostrava che il gruppo era ina
+modalità apprendimento e spionaggio ancora. È il tipo di informazioni che ruberesti per eventualmente distruggere gli obiettivi, ma non è così
+poterlo fare subito.
+
+Tuttavia, indipendentemente dal dibattito, il gruppo ha dimostrato che gli ICS continuano ad essere presi di mira da parte di gruppi pericolosi e che sono in aumento
+sofisticatezza nel prendere di mira direttamente le reti ICS/OT.
+
+Riferimento:
+Dragonfly 2Symantec.pdf
+
+122  dell'ICS 123
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+© 2021 Roberto M.Lee
+
+123
+Varie architetture di sistemi di controllo
+
+* Molti ambienti operativi sono diversi e contengono un'ampia gamma di risorse
+varietà di apparecchiature e architetture dei fornitori
+
+* Tuttavia, molti degli ambienti di automazione più complessi si basano su
+pesantemente sui fornitori DCS e SCADA che hanno iniziato
+
+architetture
++ Queste architetture vengono adattate e cambiano rapidamente rispetto al design originale
+* È comunque utile averli come comprensione concettuale
+» Potresti trovare indirizzi logici simili da pianta a pianta del
+stesso tipo di MDD
+
+» Esempio: gli schemi IP di Emerson Ovation possono essere coerenti tra i siti
+
+ICS515 | Visibilità, rilevamento e risposta dell'ICS 14
+
+Sarebbe un errore presumere che esistano solo poche architetture o poche configurazioni di sistemi di controllo
+che può essere memorizzato. Tuttavia, alcuni dei principali fornitori offriranno ai clienti una configurazione DCS o SCADA completa
+o una configurazione specifica per cose come un sistema di gestione del bruciatore. Molti clienti ne approfittano e hanno a
+quasi copia/incolla della tipica architettura di riferimento. Detto questo, molti clienti hanno anche clienti molto diversificati e
+ambienti integrati costituiti da più fornitori e non esiste un'architettura standard.
+
+È utile conoscere alcune architetture e il modo in cui funzionano per capire come possono essere le reti ICS
+architettato.
+
+124  dell'ICS
+
+Nelle prossime diapositive mostreremo la vista di un impianto di etilene da un ambiente Siemens per mostrare cosa a
+la topologia può variare dal livello di impianto all'indirizzamento di rete. Ad un livello elevato, un impianto di etilene fornisce la materia prima
+per la creazione di un’ampia varietà di prodotti in tutta l’industria petrolchimica. Un prodotto comune è il polimero
+etilene di grado. In un tale impianto, uno dei processi industriali interessati è il forno di cracking, talvolta noto
+come steam cracker o carbon cracker. Il cracking è un processo in cui le molecole organiche, come quelle a catena lunga
+idrocarburi, vengono scomposti in molecole più semplici.
+
+Riferimento:
+digitaltwin-etilene.pdf
+
+ ICS 126
+
+Mentre ci concentriamo sul cracker di carbonio nell'impianto, sul lato sinistro possiamo vedere una vista schematica di un impianto di carbon cracking.
+cracker. Sul lato destro, un cracker simile ma mostrato con una migliore comprensione della fisica che sta adottando
+posto. Ci sono molti punti in questo processo per il rilevamento e le misurazioni, oltre a garantire che il sistema e
+il processo è sotto controllo Viene utilizzata molta strumentazione e deve essere monitorata attentamente. Ci vorrebbe
+inserire nel sistema di controllo come un DCS.
+
+Riferimento:
+digitaltwin-etilene.pdf
+
+126  dell'ICS
+
+Qui vediamo un esempio di HMI di quel cracker di carbonio da un sistema Siemens SIMATIC PCS7. Questo DCS è visualizzato
+uno schema delle tubazioni e della strumentazione del processo. Vediamo le varie misurazioni che vengono rilevate
+in qualsiasi momento, e la vista schematica che offre all'operatore una visione del processo fisico, e cosa
+i sistemi sono operativi, come le valvole specifiche e i loro stati (aperto/chiuso).
+
+Riferimento:
+digitaltwin-etilene.pdf
+
+ dell'ICS
+
+Dal punto di vista dell'architettura del sistema di controllo, possiamo vedere il sistema Siemens strutturato ad alto livello, incluso
+i loro switch industriali SCALANCE X, le opzioni di rete per Profibus (seriale) o Profinet (IP) e le diverse
+controllori come il Siemens SIMATIC ET 200. Il Siemens SIMATIC ET 200 è un I/O modulare spesso utilizzato
+con controllori come il SIMATIC S7-300.
+
+Questa architettura ci aiuterebbe a capire i tipi di dispositivi che dovremmo vedere sulla rete e cosa
+i dispositivi non sarebbero visibili in rete ma sono comunque presenti.
+
+Riferimento:
+digitaltwin-etilene.pdf
+
+128  ICS 129
+
+Il DCS stesso consente il collegamento in rete e il controllo di apparecchi come ad es. ET 200M. Qui vediamo che gli operatori
+può assegnare ai dispositivi informazioni e nomi sull'indirizzo di rete. IP, MAC, tipo di dispositivo e nome del dispositivo
+sono tutti ottimi elementi da acquisire per l'inventario e, cosa ancora più importante per il concetto di topologia, sono utili
+aiutando a decifrare ciò che vediamo sulla rete e validandolo con la vista operativa.Questa informazione può essere
+raccolto passivamente sulla rete attraverso l'analisi del traffico, ma questa è una buona occasione per validare il
+Configurazione con ciò che stiamo vedendo attraverso l'analisi del traffico.
+
+Riferimento:
+PCS7Engineering.pdf
+
+ dell'ICS 20
+
+Westinghouse è un nome ben noto nel settore dell'energia nucleare. Hanno componenti su misura e
+sfruttare anche i sistemi di controllo Emerson Ovation e DCS. In questo esempio possiamo comprendere il
+topologia della rete ICS per cominciare. Ovviamente non disponiamo dell'indirizzamento e non tutte le risorse lo avranno
+essere visualizzato qui, ma è un buon punto di partenza. Comprendere il contesto e il ruolo dei sistemi che troveremo
+sulla rete, come Advant Ovation Interface Gateway e il modo in cui riceve comunicazioni unidirezionali
+dal sistema di sicurezza) è un contesto incredibilmente utile da avere. Questo è un tipo di distribuzione standard.
+
+Riferimento:
+NA-0093 Informazioni e controllo.pdf
+
+130  dell'ICS
+
+È interessante notare che, se consideriamo Emerson Ovation e ci concentriamo su altre due diapositive, vedremo che Ovation
+la configurazione è abbastanza simile per impostazione predefinita per cominciare, indipendentemente dal settore in cui viene utilizzata. Qui si associano a un tipo Purdue
+modellare e fornire una visione architetturale di come apparirà la rete da un operatore Windows HMI/EWS
+prospettiva, così come i controller Ovation e cosa c'è dietro. Vediamo anche che dovrebbe esserci Smart
+Gateway wireless sulla rete e dispositivi wireless in basso.
+
+Concentratevi però proprio sul fondo che parla attraverso le diverse interazioni con lo strato fisico e altro
+I/O remoti situati presso l'impianto di energia solare concentrata.
+
+Riferimento:
+Ovation DCS e SCADA per CRP.pdf
+
+ dell'ICS
+
+Confronta ciò che vediamo qui con l'impianto di energia solare concentrata nella diapositiva precedente. È esattamente la stessa configurazione
+con il gateway Smart Wireless spostato dal lato destro dello schermo a sinistra. Questo non è un marketing intelligente,
+è solo che dal punto di vista di Emerson, come di altri OEM, i sistemi di automazione che costruiscono e i controller sono
+pensato per essere riproposto e utilizzato in una varietà di ambienti diversi. Quindi la topologia cambierà quando arriveremo
+nella rete e vedere le diverse configurazioni e interazioni, ma molti dei componenti e alcuni degli elementi di livello superiore
+l'architettura a livello può essere molto simile, non solo da sito a sito ma da settore a settore. Avere familiarità con questo
+accelererà le nostre valutazioni e l'identificazione dei beni e le loro comunicazioni.
+
+Riferimento:
+https://studylib.net/doc/183 15893/ovation-dces-and-scada-solution-for-idroelettrico-power-pl...
+
+132  dell'ICS
+
+Considera questo esempio di architettura di un centro di controllo della rete elettrica. Abbiamo il Centro di controllo primario (PCC) e
+il Centro di controllo backup (BCC). I due sono probabilmente collegati in vari modi, ma non senza passaggio
+attraverso sistemi di sicurezza come i firewall. Il centro di controllo utilizza un sistema di gestione della distribuzione (DMS)
+che viene utilizzato per ridurre i tempi di fermo, l'efficienza, programmare il lavoro, mantenere la consapevolezza su interruzioni e riparazioni e
+in definitiva servono come controllo di supervisione per la distribuzione dell'energia elettrica. Il sistema di gestione dell'energia
+(EMS) qui è solo un ambiente di test.Un sistema di gestione ambientale è solitamente focalizzato sull'aumento dell'efficienza e del mantenimento
+equilibrio per la generazione e la trasmissione di energia elettrica.
+
+In questo ambiente, dovremmo sapere prima dell’incidente quali fossero le funzioni critiche. Un'infezione di qualsiasi tipo
+La natura mirata sia nel PCC che nel BCC sarebbe motivo di grande preoccupazione, mentre un’infezione in uno solo
+sarebbe allarmante ma non così terribile poiché il backup viene mantenuto. Probabilmente la raccolta dei dati dovrebbe esserlo
+coordinati, soprattutto se ci fosse una separazione fisica per questi siti. Tuttavia, anche nello stesso controllo
+center, vorremmo concentrarci sulla raccolta di dati da sistemi come server di controllo, stazioni operatore e
+stazioni di ingegneria prima di tentare di valutare file server e server di stampa, server di backup, sistemi di supporto, ecc.
+Dovremmo analizzare l'intero ambiente, ma è importante concentrarsi sulla raccolta dei dati dai sistemi principali e
+quelli che avevano sistemi ridondanti. Ad esempio, potrebbero esserci cinque diversi HMI e potrebbe essere solo necessario
+essere uno o due in funzione alla volta.
+
+Anche ciò che l’avversario sta facendo nell’ambiente potrebbe essere molto significativo per noi. Si stanno posizionando nel backup
+prima l'ambiente e poi tentare di accedere al PCC? Questo potrebbe essere un tentativo da parte di un avversario intelligente
+paralizzare il centro di controllo. Sono nell'ambiente di test EMS e stanno estraendo dati? Probabilmente potrebbero essere nel
+fasi iniziali della Cyber ​​Kill Chain di ICS e non hanno una buona familiarità con l’ambiente. ~
+
+ dell'ICS
+
+Le architetture tra diversi fornitori seguiranno più o meno la stessa struttura di avere server dati
+e storici, stazioni operatore come HMI ed EWS e controllori come i PLC. L'architettura di livello superiore
+tende a conformarsi all’approccio del settore. I componenti stessi, i loro collegamenti di comunicazione e come
+integrarsi con altri componenti sarà diverso. Comprendere questo può semplificare l’approccio al tentativo
+comprendere rapidamente le diverse posizioni ICS. Questo è specificamente il confronto dei fornitori. Quando visualizziamo completamente
+Spesso troveremo diversi tipi di processi (batch vs. discreti vs. continui come esempio) o industrie
+differenze significative.
+
+Riferimento:
+HoneywellProcess.com
+
+134  dell'ICS 135
+
+Nell'esempio sopra, vediamo un'architettura Rockwell per un modello di rete industriale convergente a livello di impianto. Lo farai
+si segnala che sono presenti collegamenti con l'azienda per la condivisione e l'elaborazione dei dati, nonché collegamenti con il “back-office”
+sistemi da cui dipende l'impianto, come il sistema ERP (Enterprise Resources Planning). Il sistema ERP gestisce
+processi aziendali quali evasione degli ordini, attività e informazioni sulla spedizione. L'esecuzione della produzione
+System (MES) è una parte importante della maggior parte dei processi produttivi di cui è necessaria la tracciabilità e la documentazione completa
+dalle materie prime ai prodotti finiti. Sebbene possano sembrare sistemi IT, sono sicuramente sistemi OT; Se
+si interrompono, il processo di produzione ne risentirà o dovrà essere completamente interrotto.
+
+I principi di base alla base di tutti gli ICS si applicano ancora a HMI, attuatori, controller, EWS, ecc., ma i tipi di sistemi
+ti aspetteresti di trovare e l'architettura di livello superiore dell'impianto di produzione potrebbe essere completamente diversa da quella
+
+cosa ti aspetteresti di trovare in un carbon cracker.
+
+Riferimento:
+Rockwellplantwide.pdf
+
+© 2021 Roberto M.Lee 135
+OSlsoft Pi Storico
+
+* Oltre il tradizionale
+Componenti di rete ICS, Avion
+è incredibilmente importante
+per capire il
+
+architettura degli storici
+
+e diversi sforzi per
+
+ottimizzare l'impianto o prendere -
+vantaggio del digitale
+iniziative di trasformazione |
+
+Questi possono spesso rivelare
+dipendenze o cloud
+connettività
+
+ICS515 | Visibilità, rilevamento e risposta dell'ICS 136
+
+Per quanto importante sia comprendere l’ICS, è anche incredibilmente importante comprendere l’architettura dei dati.
+Gli storici sono un ottimo esempio di un sistema nelle reti ICS che non è lì solo per aiutare a risolvere i problemi e
+comprendere i guasti, ma offrire anche opportunità per ottimizzare l’ICS con processi produttivi più efficienti.
+Inoltre, le informazioni storiche possono essere utili per la fatturazione e il monitoraggio di ciò che viene fatto nello stabilimento. Come un
+Ad esempio, potresti utilizzare un Pi Historian per capire quanta elettricità viene utilizzata da un settore industriale
+cliente per fatturarli adeguatamente.
+
+L’architettura Pi Historian in questo caso non si relazionerà direttamente alla topologia di rete, ma ad alto livello possiamo farlo
+capire rapidamente quali tipi di connessioni dovremmo vedere. Potremmo trovare una connessione Pi Vision a
+alla rete aziendale, ma potrebbe anche trovare connessioni dirette a un server cloud AWS. L'OPC
+Sarebbero importanti anche le comunicazioni interne tra i controllori e lo storico dell'impianto
+comunicazioni da essere pronti a trovare.
+
+Riferimento:
+
+https://www.automationworld.com/analytics/article/2117381 2/data-analysis-helps-glassmaker-see-through-its-
+processi
+
+136  dell'ICS
+
+Identificare e convalidare risorse e reti è in definitiva inutile se non si documentano i risultati. Topologia
+dovrebbero essere create mappe per la rete e le risorse, nonché per i flussi di dati e le interazioni delle applicazioni. Più
+La mappa importante da creare è la mappa della rete e delle risorse. Dopo che ciò è stato fatto correttamente, è quindi importante passare a
+il flusso di dati, che sarebbe il tipo e il volume di dati normali, anziché solo le connessioni tra loro
+dispositivi. Infine, è importante documentare le applicazioni e i servizi presenti in rete e il modo in cui interagiscono.
+I team addetti all'architettura di rete dovrebbero fornire la maggior parte, se non tutte, queste informazioni al personale di difesa attivo. In
+nel mondo reale, tuttavia, è normale che il personale di difesa attivo debba identificarlo da solo.
+Le mappe di architettura sono generalmente obsolete o mal costruite. Quando hai queste mappe, assicurati di condividerle
+con il personale di architettura.
+
+Documenta tutto ciò che hai trovato attraverso la scansione, l'analisi del traffico, l'ispezione fisica e la configurazione
+analisi dei file. Combina la tua documentazione con qualsiasi informazione nota o di supporto. Queste informazioni potrebbero
+provengono sotto forma di aiuto da parte di operatori e ingegneri o da ordini di acquisto. (Segui i soldi!) È meglio farlo
+usa mappe disegnate a mano mentre prendi i primi appunti su ciò che è presente in rete. Tuttavia, disegnato a mano
+le mappe non sono una soluzione permanente. Alla fine, vorrai creare una mappa completa (o una per ciascuno
+rete e le sue risorse, flussi di dati e interazione delle applicazioni) da cui lavorare e condividere. Comprendere la tua minaccia
+panorama e l'esecuzione del monitoraggio della sicurezza della rete sarà difficile senza questa mappa regolarmente aggiornata.
+Un modo gratuito per creare tali mappe è utilizzare lo strumento OpenDraw, che fa parte della più ampia suite gratuita OpenOffice. Esso
+è essenzialmente una versione open source di Visio. Contiene icone che possono essere utilizzate per rappresentare risorse e rete
+dispositivi, nonché le connessioni tra di loro. Tuttavia, come con la maggior parte degli strumenti gratuiti, richiede più tempo rispetto a
+acquistando qualcosa come Visio o utilizzando uno strumento più robusto.
+
+© 2021 Roberto M.Lee 137
+
+Caso di studio: esempio di sistema di controllo della zavorra per piattaforma petrolifera
+
+*Piattaforma petrolifera offshore
+* Sistema di controllo della zavorra e a
+sistema di sicurezza per ciascuna gamba
+* Rete prevalentemente piatta
+* Due segmenti di rete
+* I livelli di perseguimento sono concettuali
+* Punti di raccolta multipli
+* Firewall mGuard per l'ingresso
+e comunicazione in uscita
+* Switch di rete (lato ICS) per
+rete di controllo interna
+comunicazioni
+
+ICS515 | Visibilità, rilevamento e risposta dell'ICS 138
+
+Per comprendere come i protocolli possono funzionare insieme in un ICS, si consideri il sistema di controllo della zavorra di una piattaforma petrolifera offshore. IL
+Il sistema è importante per l'attrezzatura per assicurarsi che rimanga a galla correttamente senza sbilanciarsi o ribaltarsi.
+Ogni “gamba” dell'attrezzatura ha il proprio sistema di controllo della zavorra e, in questa configurazione, ha anche un sistema di sicurezza. La zavorra
+in questo caso il sistema di controllo funziona su una rete dotata di mGuard Firewall (un tipo di firewall ICS di
+Phoenix Contact che esegue un'ispezione approfondita dei pacchetti sui protocolli ICS. In molti casi, questi sono anche in grado di supportare
+mirroring delle porte). L'impianto è quindi accessibile da remoto attraverso il VSAT e attraverso vari punti di accesso remoto
+il fornitore e integratore del sistema di controllo. L'impianto dispone di una server farm come una normale rete informatica e ne dispone di numerose
+comunicazioni in corso. All’interno della rete di controllo, è tutto un processo abbastanza statico. La diapositiva successiva entrerà nel dettaglio
+ulteriori dettagli sulla rete ICS stessa.
+
+138  ICS —_139
+
+Se analizziamo la rete degli autobus del terminal per il sistema di controllo della zavorra su questa piattaforma petrolifera, scopriremo che ciascuna tratta (quattro su
+l'attrezzatura) è dotata di un sistema di controllo della zavorra e di un sistema di sicurezza. Lo screenshot mostra il disegno di una delle gambe. IL
+Gli HMI sono sistemi basati su Windows e, in questo caso specifico, funzionano da una macchina virtuale
+non può essere individuato nell'immagine (utilizzando NetBIOS che può essere cercato in Wireshark utilizzando il filtro "nbns".
+Il controllo del NetBIOS in una rete può aiutare a rivelare nomi di sistemi e potenziali infezioni come sistemi
+richiamare richieste imprevedibili. Le richieste prevedibili sarebbero cose come "Adobe" sui sistemi che dispongono di Adobe
+Lettore). Un HMI è dedicato al PLC Rockwell e utilizza Modbus TCP e CIP su EtherNet/IP per
+monitoraggio e controllo. Il sistema di sicurezza dispone di una comunicazione seriale (PROFIBUS in questo caso) che lo collega a
+PLC in modo che possa prendere il controllo in caso di situazione non sicura. Il sistema di sicurezza è un PLC Siemens ed è collegato
+ad un altro HMI e comunica tramite S7 tramite il protocollo ISO-TSAP. Anche il sistema Siemens utilizza LLDP
+per trasmettere le sue informazioni.
+
+ dell'ICS 140
+
+Sebbene gli strumenti professionali siano utili, è del tutto fattibile creare topologie manualmente utilizzando strumenti open source.Come un
+esempio, sfruttando Wireshark come abbiamo fatto nei laboratori, o Tshark dalla riga di comando, per identificare e catturare
+conversazioni è perfettamente ragionevole. Il problema è che questa topologia è un punto nel tempo e non viene aggiornata continuamente
+come ci si aspetterebbe da uno strumento professionale. Tuttavia, questo è un ottimo punto di partenza, soprattutto quando stai facendo un
+valutazione di una rete per cercare di identificare le connessioni e mapparle rispetto alle architetture ICS già esistenti
+familiarità con.
+
+mm®
+
+È importante acquisire almeno le informazioni sulle cinque tuple (IP Src/Dst, porta Sre/Dst e protocollo).
+
+nm @
+
+140  dell'ICS 141
+
+Wireshark, TCPdump e Tshark saranno sempre buone opzioni, ma spesso sono strumenti professionali creati per le reti ICS
+avere funzionalità utili per una rete ICS, come la comprensione dei protocolli ICS e l'utilizzo dei protocolli ICS in modo sicuro
+identificare le risorse o utilizzare metodi puramente passivi per identificare i sistemi. Questi strumenti di solito hanno anche la visualizzazione
+funzionalità per creare mappe topologiche.
+
+GRASSMARLIN è stato sviluppato dalla direzione per la garanzia delle informazioni della NSA e rilasciato al pubblico qui:
+https://github.com/nsacyber/GRASSMARLIN.
+
+Ora è anche disponibile per interfacciarsi con lo strumento DHS CSET.
+
+Ferrett è specificamente uno strumento Rockwell per trovare dispositivi Rockwell sulla tua rete. Interagisce con i sistemi a
+determinare lo stato della configurazione. Dovresti rivolgerti ai tuoi fornitori per determinare se hanno strumenti simili.
+
+Gli strumenti professionali includono la piattaforma Dragos di Dragos, Tenable.OT/Indegy, Industrial Defender,
+Forescout/SecurityMatters e Nozomi. C'è anche uno strumento didattico focalizzato che viene fornito in classe gratuitamente
+chiamato CyberLens, anch'esso prodotto da Dragos nel 2013 come una delle prime risorse di valutazione della comunità
+strumenti di identificazione. Non condivide alcun codice o somiglianze con la piattaforma Dragos, ma è qualcosa che
+team ha mantenuto in modo che possa essere utilizzato nelle classi SANS per scopi didattici.
+
+ ICS
+
+CyberLens è stato creato appositamente per la comunità ICS. Esegue un'ispezione approfondita dei pacchetti sui protocolli
+identificare i comandi I/O e di protocollo della comunicazione basata su IP. Inoltre, ha una serie di funzionalità per
+report automatizzati, linee di base e analisi della sequenza temporale. Utile da comprendere per questa sezione è la capacità di
+CyberLens per identificare le risorse e visualizzare la rete. Ciò evidenzia il potere della scansione passiva e la sua capacità
+per vedere il flusso naturale e reale della rete senza manipolare i dati con la scansione attiva. Lo strumento è commerciale
+ma l'azienda sta rilasciando una versione gratuita a domicilio per consentire agli analisti di familiarizzare con il valore di questo tipo di strumenti,
+e per aiutare a comprendere e proteggere le reti domestiche.
+
+**Disclaimer: l'autore del corso è uno degli sviluppatori di CyberLens. Questo non è inteso come una presentazione del prodotto o per
+indicano che CyberLens è migliore di qualsiasi altro prodotto. Lo scopo di questa diapositiva è semplicemente visualizzare il tipo di
+funzionalità offerte dalla scansione passiva e l'importanza di comprendere i vari livelli tramite Deep Packet
+Ispezione. Inoltre, lo strumento è completamente gratuito. Non è lo strumento di Dragos: è solo uno strumento gratuito per le persone per aiutarli a ottenere
+iniziato.
+
+Il motivo per cui abbiamo evidenziato questo caso di studio è quello di identificare alcune caratteristiche fondamentali che ogni strumento professionale dovrebbe avere
+Avere. Le prossime diapositive mostreranno alcune di queste funzionalità.
+
+Riferimento:
+https://dragos.com/
+
+142  dell'ICS
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+© 2021 Roberto M.Lee 143
+
+143
+
+CyberLens Caricamento Pcap
+
+Dopo aver iniziato
+il server lo faremo
+navigare nel
+pagina del sensore,
+selezionare un file in
+carica il pisello
+(in questo caso il
+linea di base di
+Acqua Calistoga
+Utilità) e
+quindi fare clic
+Caricamento
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+144
+
+opzioni di interfaccia
+
+eno
+
+Dimensione finestra @
+
+Baisancics. Ba desktop | 1cssi5, fata
+Jarge_bas
+
+Nome
+
+completamente utilizzato smaill_baselinegcop
+fy sansics
+Per desktop
+Sistema file GB
+ee Passaggio 2:
+Ed ropay nick Doubla cick
+Carica PCAP:
+3 settembre
+
+Fare clic su "carica" ​​dopo il file
+file, viene caricato
+
+Abies lebbroso di Sosa potrebbe portare Pome a processare il giorno
+
+ICSSIS | Visibilità, rilevamento e risposta dell'ICS
+
+ ICS 14s
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+ ICS — 146
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+146  dell'ICS
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+ dell'ICS 148
+
+CyberLens è un esempio di strumento di scansione di rete passiva che esegue un'ispezione approfondita dei pacchetti per ICS
+comunicazioni. Ci sono due cose da notare in particolare su questa mappa. Innanzitutto perché la rete non lo era
+scansionato attivamente, il "flusso di rete" rappresentato dalle varie linee tra i dispositivi è quello naturale
+fluire. Se questa mappa fosse generata da una scansione attiva, ci sarebbero linee aggiuntive tra il dispositivo scansionato
+la rete e tutti gli altri dispositivi con cui comunicava. La seconda cosa da notare è l'icona sulla mappa
+con le frecce rosse puntate su di esso, che verrà ingrandito nella diapositiva successiva.
+
+Dovresti essere in grado di visualizzare e navigare semplicemente (ad esempio utilizzando la barra della sequenza temporale in basso) nella rete
+traffico. Gli strumenti professionali dovrebbero aiutare a risparmiare tempo agli analisti rendendo l'esperienza interattiva, semplice e visiva.
+
+148  dell'ICS 149
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+ dell'ICS
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+150  dell'ICS
+
+Questa pagina è stata lasciata vuota intenzionalmente.
+
+© 2021 Robert M. Lee 4151

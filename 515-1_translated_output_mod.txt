@@ -1,0 +1,1593 @@
+Benvenuti in SANS ICS515 Visibilità, rilevamento e risposta ICS! È emozionante offrirti questo corso per a
+numero di ragioni. In primo luogo, non sono passati molti anni (e sfortunatamente in alcuni è ancora una convinzione comune).
+cerchi) che le persone hanno esaminato il sistema di controllo industriale (ICS) e la tecnologia operativa (OT). ICS e OT lo saranno
+utilizzati in modo intercambiabile in questo corso. Tecnicamente molte reti e sistemi OT non sono industriali, come l’aviazione
+sistema, ma sono pur sempre sistemi di controllo. Ai fini del corso, parleremo a grandi linee di controllo
+sistemi nelle loro applicazioni industriali e non industriali, con una forte enfasi su quelle industriali come nicchia
+che non correva il rischio di minacce informatiche. Per troppi anni c’è stato un “non vediamo alcun ICS
+mentalità da attacchi informatici”. Quando ho scritto questo corso nel 2014, i miei anni di esperienza mi hanno aiutato a capire che ICS
+le minacce informatiche erano reali e in crescita. Sfortunatamente, il mondo ha subito molti attacchi che lo hanno dimostrato
+essere così, ma ci sono così tante altre cose che accadono di cui la comunità non viene a conoscenza a causa del
+sensibilità di quei casi.Quando ho iniziato la mia carriera, questo corso non sarebbe stato possibile fare, ci sarebbe
+c'è stata così tanta preoccupazione per la sensibilità degli argomenti e così poca disponibilità pubblica da cui trarre quello che ci sarebbe
+sono stati una preoccupazione di classificazione nella discussione di alcuni di questi argomenti. È sempre stato sciocco, ma lo è
+la realtà. Avanti veloce fino ad oggi e disponiamo di una comunità ICS vivace e straordinaria di cui la maggior parte delle persone non si rende conto
+solo che la nostra comunità sta affrontando un cambiamento enorme e che le minacce sono reali, ma il punto è ICS/OT
+l'azienda e l'IT è il componente aggiuntivo, non il contrario.
+
+In secondo luogo, nel settore sentiamo costantemente dire che la comunità ICS è "molto indietro" rispetto alla comunità IT. Questo corso
+rappresenta un cambiamento in questo. Dobbiamo passare dal principio "ICS è 10 anni indietro rispetto all'IT, occupandosi anche della sicurezza
+difficile" che affligge la comunità e si muove verso il motto: la difesa è fattibile.
+
+"Come classe di livello 500 presso SANS, questo corso introduce il concetto avanzato di difesa attiva dimostrando al tempo stesso
+alcuni dei suoi casi d'uso. Lo fa concentrandosi fortemente sul consumo di intelligenza per guidare le tue azioni e monitorare
+le tue reti e la risposta alle minacce. Questa lezione copre quattro aree chiave che verranno discusse più avanti. Il fatto che
+copre quattro campi di studio diversi, anche se collegati, rendendo impossibile catturare tutto in 5 giorni
+classe. Pertanto, il corso introduce concetti, li rafforza attraverso laboratori pratici, ma alla fine ti fornisce
+gli strumenti e la fiducia necessari per ricercare, esercitarsi e apprendere più di ciò che copre questo corso.
+
+Il corso è suddiviso in sezioni che coprono i cinque passaggi dell'Active Cyber ​​Defense Cycle (ACDC)
+che sarà discusso in modo approfondito più avanti ma è un modello mentale/aiuto all'apprendimento per pensare a trovare e a cui rispondere
+minacce informatiche. I cinque passaggi del modello ACDC sono:
+
+- Consumo di intelligence sulle minacce
+
+- Visibilità
+
+- Rilevamento delle minacce
+
+- Risposta agli incidenti
+
+- Manipolazione delle minacce e dell'ambiente
+
+La sezione 1 si concentrerà sulla comprensione dell’intelligence e sull’analisi delle conseguenze. Ciò significa poter imparare
+dalle minacce (intelligence) ed essere in grado di imparare dai fallimenti indipendentemente dalla causa (conseguenza). Questo ci permetterà di farlo
+realizzare il consumo di informazioni sulle minacce (consumare informazioni per guidare i nostri sforzi). La sezione 2 riguarda tutto
+Visibilità. Questo focus ci assicura di capire come eseguire l'identificazione delle risorse e, più che semplicemente creare un elenco di
+risorse, una reale comprensione del nostro ambiente per sfruttarlo realmente per le operazioni e la risposta di sicurezza. Sezione 3
+si concentra sul rilevamento delle minacce e sull'utilizzo della fase di monitoraggio della sicurezza della rete di ACDC. Naturalmente lo faremo
+finiremo per trovare una minaccia (avviso spoiler) nei laboratori e questo ci porterà all'Incident Response, il passaggio da 3" di ACDC
+e la sezione 4" di questo corso. La sezione 5 affronta la manipolazione delle minacce e dell'ambiente attraverso l'analisi delle minacce.
+Infine, la Sezione 6 rappresenterà uno sforzo fondamentale per tutto il giorno con sfide tecniche per aiutarti a mettere in pratica ciò che hai
+imparato.
+
+I laboratori di questo corso si basano tutti sull'esperienza del mondo reale. Molti laboratori sfruttano gamme ICS reali e
+attrezzature che ci aiutino a toccare con mano set di dati a cui tradizionalmente è molto difficile accedere.
+
+Tieni presente che durante il corso forniamo anche riferimenti a diversi documenti PDF. Questi documenti sono
+fornito nel file multimediale per ulteriori letture.
+
+Come vedrai, lo schema di questa sezione si concentra principalmente sul commercio di intelligence. Troppo spesso le persone fanno pubblicità
+stessi come "analisti delle minacce" o "esperti di intelligence" senza averne una comprensione fondamentale
+commercio di intelligence. Inizieremo con una breve sezione sull'analisi delle conseguenze e dedicheremo gran parte di questa sezione
+comprendere le informazioni sulle minacce e come sfruttarle. Lo “sfruttamento” delle informazioni sulle minacce verrà effettuato durante tutto il
+corso: questa sezione riguarda la teoria e la comprensione dei modelli mentali per il successo. È la sezione più leggera
+in termini di competenza tecnica richiesta, ma è estremamente importante “pensare come pensare” quando si cerca di contrastare
+minacce sofisticate.
+
+La maggior parte delle persone parla di Stuxnet concentrandosi sul 2010, quando è stato scoperto. Molti ricercatori e giornalisti
+che hanno scavato abbastanza a fondo ne discutono risalendo al periodo 2005-2007 (la creazione iniziale e l'infezione di
+Natanz rispetto all’impatto scoperto). Tuttavia, per comprendere Stuxnet, è importante tornare al 5 marzo 1957,
+quando lo scià iraniano Mohammad Reza Shah Pahlavi stipulò un accordo con gli Stati Uniti sotto il programma Atoms
+for Peace per la “proposta di accordo per la cooperazione nella ricerca sugli usi pacifici dell'energia atomica”.
+Sebbene questo frammento di storia non influenzi le lezioni di Stuxnet sulla risposta agli incidenti, il contesto è importante. Quando
+analizzando qualcosa che ha un impatto politico ed è rivoluzionario per una comunità, è necessario comprenderlo
+contesto storico e perché l’impatto è stato sentito così profondamente.
+
+Tran ha lavorato per 20 anni dopo il 1957 per raggiungere i suoi obiettivi per le centrali nucleari. La ricerca nucleare di Teheran
+Center (TNRC) è stato fondato nel 1967 e dotato di un reattore di ricerca nucleare da 5 megawatt proveniente dagli Stati Uniti
+Stati. Il reattore era noto come Tehran Research Reactor (TRR) e consumava uranio altamente arricchito
+fonte di carburante. Una parte importante dell’accordo affinché l’Iran ricevesse il sostegno nucleare dagli Stati Uniti riguardava l’accordo
+firma del Trattato di non proliferazione delle armi nucleari (TNP). Questo è stato firmato dall'Iran nel 1968 e
+ha aperto il programma nucleare iraniano all'ispezione dell'Agenzia internazionale per l'energia atomica (AIEA). È importante
+si noti che questi passi avanti per l'Iran hanno segnato la nazione come una potenza moderna e sono stati un punto di orgoglio per l'Iran
+governo.
+
+Al popolo iraniano non è mai piaciuta del tutto l’idea di dover avere ispettori dell’AIEA, e di seguire gli iraniani
+rivoluzione del 1979, non fu certamente ben accolta. Dopo il 1979, tutti gli accordi fallirono e i piani
+per la costruzione delle centrali nucleari furono demolite, senza alcun rimborso delle somme versate dal governo iraniano.
+Nel 1990, il governo russo intervenne per fornire competenze e supporto tecnico.
+
+Nel 1995, l’Iran firmò un contratto con la Russia per completare l’impianto di Bushehr con un reattore ad acqua pressurizzata da 915 MWe. A
+Allo stesso tempo, il governo iraniano stava mettendo in funzione una struttura sotterranea a Natanz. Questa struttura segreta
+fu rivelato da un gruppo dissidente nel 2002. Ciò creò tensione e nel 2006 (ai massimi storici), il presidente iraniano
+Mahmoud Ahmadinejad ha confermato che l'Iran ha raggiunto il suo obiettivo di arricchire l'uranio.
+
+Il 17 giugno 2010, i ricercatori di sicurezza della società di sicurezza bielorussa VirusBlokAda hanno ricevuto segnalazioni di un nuovo pezzo
+di malware. Un cliente iraniano ha contattato VirusBlokAda dopo aver riscontrato riavvii continui e involontari
+su un server SIMATIC WinCC. Esaminando il nuovo malware, i ricercatori di VirusBlockAda hanno identificato un potenziale
+Vulnerabilità zero-day di Windows o senza patch precedenti. Data la gravità di una vulnerabilità zero-day, il file
+l'azienda di sicurezza ha deciso di inviare un'e-mail e avvisare i ricercatori di Microsoft. I ricercatori di Microsoft hanno iniziato a lavorare
+analizzando 1 MB di codice binario del malware per identificare e rimediare alla vulnerabilità. Per mettere la difficoltà di questo
+in prospettiva, il codice da 1 MB era 20 volte più grande della maggior parte degli altri malware. Attraverso la sua ricerca, il team
+identificato quattro vulnerabilità zero-day di Windows.
+
+Bruce Dang ha presentato le sue "Avventure nell'analisi di Stuxnet" nel dicembre 2010 al 27C3 di Berlino, Germania. COME
+uno dei ricercatori di Microsoft che ha ricevuto la chiamata dai ricercatori di VirusBlockAda, questo era un
+vista impareggiabile sul malware.
+
+Riferimento:
+
+Per-uccidere-una-centrifuga.pdf
+
+Nel 2011, Kaspersky Labs ha identificato la piattaforma Tilded, che era un collegamento comune tra Stuxnet e Duqu. Esso
+ha rivelato che Stuxnet è stato sviluppato al più tardi tra la fine del 2007 e l'inizio del 2008 sulla base dei tempi di compilazione del
+Codice piastrellato. Si è scoperto che anche un primo campione collegato a Stuxnet era stato inviato in forma anonima nel 2007—
+anche se all'epoca nessuno vi prestò attenzione (a conferma della sua esistenza allora e del probabile sviluppo nel 2006).
+
+Ciò che abbiamo imparato su Stuxnet e sul suo impatto su ICS è stato importante per cercare di proteggere l'infrastruttura.
+
+Stuxnet aveva una serie di ovvie qualità osservabili in rete. Sebbene la capacità fosse avanzata in molti
+In molti modi, era ancora facilmente rilevabile, soprattutto sulla rete. Movimento laterale attraverso aggiornamenti peer-to-peer
+ha causato la manipolazione dei dati di flusso. PLC che non comunicavano tra loro in precedenza, HMI che comunicano
+porte strane, ecc. avrebbero dovuto essere tutte identificate. I movimenti delle condivisioni di rete e l'exploit dello spooler di stampa dovrebbero
+hanno anche rivelato ulteriori schemi anomali per gli ambienti in cui si trovavano. Per il comando e
+server di controllo (durante la prima fase di Stuxnet erano nelle reti IT per raccogliere dati sull'ICS), il
+due siti di calcio probabilmente avrebbero dovuto distinguersi molto rapidamente per chiunque monitorasse il traffico di rete esterno. Da ultimo,
+le scansioni WinCC avrebbero dovuto risaltare, ma solo per le persone con una comprensione del processo e dello specifico
+Sistemi Siemens. Questo verrà esplorato nella diapositiva successiva.
+
+C'erano numerosi file da rilevare sugli host. Non è importante in questo momento capire cosa siano tutte queste
+e cosa rappresentano. È più importante rendersi conto che c’erano degli osservabili e chiederci: potremmo vedere
+questo prima che l'attacco finisse? Potremmo cercarli dopo gli attacchi nella risposta all’incidente? Come facciamo?
+
+preparare l'ICS per poterlo fare?
+
+In generale: l'iniezione DLL ha preso di mira alcuni processi chiave (Isass, winlogon, svchost) con il
+DLL Stuxnet dannoso. Sono state apportate numerose modifiche alle chiavi di registro, di cui una specifica con valore
+
+19790509 (che dovrebbe rappresentare il 19 maggio 1979, il giorno in cui un ebreo fu giustiziato a Lran, provocando l'esodo dei
+
+popolazione ebraica locale) che Stuxnet controllava continuamente per determinare se avesse già infettato un sistema. IL
+Per il file di progetto
+
+più file rilasciati erano coerenti tra i sistemi, alcuni crittografati e altri no.
+manipolazioni, c'era una routine simile a rootkit inserita nei file di progetto e il processo S7 (sTtgtopx.exe) era
+anche iniettato. Per il salto USB potresti aver trovato il file WTR4141.tmp per il caricatore USB o averlo
+ho cercato gli USB collegati al sistema e ho controllato quali sono stati inseriti di recente tramite il registro
+percorsi. È interessante notare che, dopo tre infezioni tramite USB, il malware Stuxnet si autoeliminerebbe. Avviso spoiler: se
+il tuo malware sembra scritto da avvocati, probabilmente hai a che fare con uno stato-nazione (di solito occidentale ma non sempre).
+
+Stuxnet è un caso di studio privilegiato per la comunità ICS per una serie di ragioni; tuttavia, il vero valore è dentro
+capire come il personale avrebbe potuto rilevarlo.
+
+* Stuxnet era un malware incredibilmente avanzato che ne è stato il primo esempio pubblicamente noto
+malware che colpisce specificamente ICS
+
+* L'architettura e le difese passive hanno portato i creatori di Stuxnet a creare un malware pochi altri
+le nazioni del mondo avrebbero potuto immaginare
+
+* C'erano numerose qualità di rete, host e ICS che avrebbero potuto facilmente rilevare Stuxnet e
+risolto prima dell'incidente
+
+* Questa lezione ti aiuterà a comprendere e sfruttare gli strumenti e le tattiche necessarie per trovare l'osservabile
+qualità come quelle di Stuxnet e sapere cosa fare dopo
+
+La parola cyber è abusata e talvolta priva di significato. Ho pubblicato un articolo in RUS! Diario intitolato "OMG
+Cibernetico! Tredici ragioni per cui l'hype è una cattiva politica" e sono completamente d'accordo con alcune delle frustrazioni
+con il termine. Devo ammettere, però, che è utile definire a grandi linee i sistemi informativi e la loro
+interconnessioni. Il cyber qui non è inteso solo come risorse informatiche che potresti trovare definite nel NERC CIP
+conformità. Si fa invece riferimento ai diversi sistemi informativi, siano essi OT o IT. Per il documento completo su
+la scala mobile, vedere: https://www.sans.org/reading-room/whitepapers/ActiveDefense/paper/36240
+
+Quando pensiamo a cosa significa realizzare la difesa, cinque categorie possono raggruppare le varie attività e
+azioni che vediamo in questo campo:
+
+¢ Architettura
+° La maggior parte dei difetti che vediamo non sono dovuti al fallimento di ciò che tradizionalmente consideriamo difesa; il firewall
+potrebbe finire per essere più un cerotto che una cura. Il problema è la vulnerabilità nei sistemi e
+protocolli che esistono da quando sono stati progettati. Ottenere un'architettura relativamente sicura lo è
+dove vedremmo il massimo ritorno negli investimenti verso la sicurezza.
+° Mettere in sicurezza la catena di fornitura, architettare adeguatamente le reti per l'affidabilità e la sicurezza, mantenere e
+applicare patch ai sistemi e così via sono tutte azioni dell'architettura che contribuiscono alla difesa.
+* Difesa passiva
+* Le difese statiche o automatizzate come firewall, IPS, AV, IDS, HIPS e così via sono difese che possono essere
+installato, configurato e mantenuto per fornire un livello di difesa utile. Non è pensato per bloccare tutti
+attacco avanzato, ma tiene lontana gran parte delle minacce e garantisce che le minacce avanzate debbano essere utilizzate
+capacità più complesse e costose.
+
+Quando esaminiamo la scala mobile della sicurezza informatica e la applichiamo a quelle azioni che contribuiscono a contrastare la sicurezza
+il loro costo, viene rivelato un chiaro ritorno sull’investimento. Ad esempio, per eseguire correttamente operazioni offensive
+con tutto il personale e i costi tecnici, nonché la base richiesta (come l'intelligence che la alimenta), l'offesa lo è
+la categoria più costosa da eseguire correttamente. Tuttavia, attaccare i sistemi di qualcuno ha un valore molto basso
+verso la sicurezza. È probabilmente utile in una discussione a livello nazionale o teoricamente potrebbe essere utile durante un
+
+attacco in corso, ma il suo valore in termini di sicurezza rispetto alla corretta architettura e manutenzione della rete lo è
+minimo.
+
+Questa classe non supporta affatto le operazioni offensive. Tuttavia, ai fini del riconoscimento del contatore
+argomento, viene menzionato, ma questa diapositiva aiuta a visualizzare l’argomento contro di esso per motivi di sicurezza. Inoltre,
+questo grafico aiuta i decisori a comprendere che la categoria architettura rappresenta il miglior ritorno iniziale sull'investimento
+si può fare della sicurezza e delle forniture la base di tutte le altre categorie. Una rete ben architettata e mantenuta
+è molto più semplice applicare le difese passive, il che alla fine rende più semplice la difesa attiva e offre molto di più
+visibilità. Inoltre, per coloro che svolgono attività di intelligence in questo spazio, è necessario disporre del tipo di rete interna
+dati che possono essere ottenuti solo con quella base appropriata di architettura, difesa passiva e difesa attiva.
+
+La difesa attiva, spesso identificata come difesa informatica attiva, è ampiamente abusata nei media mainstream. Anche rispettato
+programmi come DARPA e fonti di notizie altrimenti affidabili raccolgono affermazioni e definizioni strane da utilizzare in
+discussione sulla difesa attiva. Ad esempio, la dichiarazione della DARPA secondo cui "l'attuale risposta alla sicurezza IT pratica a
+questi attacchi si riducono a quattro passaggi: trovare il codice invasore, scollegare i sistemi interessati e creare patch di sicurezza
+contrastare attacchi particolari e applicare quelle patch" è ridicolo. Se il nostro stato di difesa si riducesse effettivamente a giusto
+queste quattro azioni, questa classe farebbe poca differenza nel campo della sicurezza perché saremmo intrappolati nel
+Anni '80 e molto indietro rispetto alla curva. Vedrai spesso "esperti" citati nelle fonti di notizie e che parlano di argomenti
+in cui non hanno veramente alcuna esperienza o competenza. L'hacking è sbagliato. Possiamo discuterne, ma di cosa si tratta?
+Inconfutabile è che l’hacking back non è una difesa attiva e l’hacking back non è appropriato nel contesto dell’ICS
+reti. Pertanto non ci concentreremo su tale interpretazione. Il resto di questa sezione si concentra sul dimostrarlo.
+
+Difesa attiva abusata nel mondo accademico
+
+La difesa attiva non è solo un abuso nei media popolari. Anche nel mondo accademico sono stati pubblicati numerosi articoli
+da esperti legali, ufficiali militari e informatici su cosa sia la difesa informatica attiva. Per essere pignoli, nessuno dei
+gli articoli accademici che ho letto sono stati scritti da professionisti in questo campo; di cui scrivono più spesso gli esperti legali
+questo argomento dimostrando al tempo stesso una conoscenza di base della sicurezza di rete. C'è valore nel dibattito, ma il
+i termini sono spesso fortemente abusati. Ad esempio, non importa quanto tu voglia trovare la tua proprietà intellettuale e "ottenere
+"Non è possibile. Uno degli articoli elencati in precedenza sostiene che Active Cyber ​​Defense può aiutare le persone a trovare il
+aggressore e recuperare le informazioni rubate. Così come non è possibile semplicemente "cancellare" le immagini da Internet (come tante
+trovato nell'ultimo anno) che sono stati caricati, non puoi andare a "recuperare" le tue informazioni sensibili.
+
+Riferimenti cartacei:
+
+"Difesa informatica attiva: potenziare la difesa informatica nazionale" https://apps.dtic.mil/dtic/tr/fulltext/u2/a556635.pdf
+"Difesa informatica attiva nel concetto di protezione delle infrastrutture critiche della NATO"
+https://pubblicazioni. waset.org/9997871 /active-cyber-defense-within-the-concept-of-natos-protection-of-critical-
+infrastrutture
+
+In termini di storia e conflitto, la difesa attiva è un concetto relativamente nuovo. Si stava discutendo attivamente, con il no
+risoluzione, negli anni '70 da parte di alcuni membri del personale dell'esercito americano. Per lo più, però, i vari documenti e riferimenti su
+sull'argomento citano due fonti principali: Mao Zedong e il generale DePuy. Esploriamo queste fonti per capire perché
+e dove i sostenitori della difesa informatica attiva come strategia di “hack-back” hanno fornito le loro informazioni – e
+decidere da soli se ciò corrisponde all'intento reale e alla comprensione che intendevano le fonti originali.
+
+L'idea della difesa attiva è spesso attribuita a Mao Zedong (Tse-tung)
+Mao ha scritto sulla guerriglia:
+
+"La difesa attiva è conosciuta anche come difesa offensiva o difesa
+attraverso impegni decisivi. È anche nota la difesa passiva
+come difesa puramente difensiva o difesa pura. Difesa passiva
+è in realtà un tipo di difesa spuria e l'unica vera difesa
+è difesa attiva, difesa allo scopo di
+contrattaccare e passare all'offensiva."
+
+Ha anche detto:
+
+"Era un fatto oggettivo che il nemico fosse forte e noi
+
+erano deboli, eppure alcune persone si rifiutavano di pensarci,
+parlava solo di attacco ma mai di difesa o ritirata, quindi
+disarmarsi mentalmente in materia di difesa,
+
+e quindi hanno indirizzato male le loro azioni."
+
+Influenze della difesa attiva - Mao
+
+La singola fonte di difesa attiva più utilizzata è attribuita a Mao, il padre fondatore della Repubblica popolare
+Cina. Mao visse dal 1893 al 1976.Mao era un leader rivoluzionario comunista cinese e il suo libro, On
+Guerrilla Warfare, discute la sua comprensione del conflitto e le lezioni apprese dalla Seconda Guerra sino-giapponese
+
+Ho creato l'Active Cyber ​​Defense Cycle o ACDC (rock on) che incorpora la comprensione dell'attivo
+difesa da varie fonti originali, abbinate alle mie esperienze nel campo della sicurezza ICS. Durante il servizio
+nella comunità dell'intelligence, ho lavorato presso un centro operativo di sicurezza/minacce e mi è stato chiesto quale fosse la mia area di interesse
+volevo guidare il mio team. La mia passione era con ICS, quindi è quello che abbiamo fatto. Sono stato onorato di servire con una persona di talento
+gruppo di professionisti dell’intelligence dotati di alcune (francamente semplici) capacità di identificare e rispondere
+agli avversari. Abbiamo avviato una missione di rilevamento delle minacce ICS/SCADA e ho utilizzato questo ciclo nel nostro
+operazioni. È stato un successo. Questo modello non è solo una discussione teorica proveniente da fonti vecchie di decenni; è un modello
+che è stato provato e testato per identificare avversari avanzati e proteggere le infrastrutture critiche con particolare attenzione
+personale qualificato, non solo buoni strumenti. Tuttavia, non è pensato per essere un modello perfetto o qualcosa che devi
+leva finanziaria: è uno strumento di apprendimento. Ho visto organizzazioni implementarli con successo e ne ho visti altri proprio così
+usalo come base di apprendimento e poi fai qualcos'altro: qualunque cosa funzioni per te va bene.
+
+Attraverso questo ciclo è possibile produrre una serie di cose: le due più importanti sono la mitigazione delle minacce
+raccomandazioni al team di difesa e/o al team dell'architettura, nonché indicatori di compromissione e minaccia
+informazioni alle squadre di intelligence. Conosco poche organizzazioni legate all'ICS che dispongono di intelligence dedicata
+squadre. Conosco ancora meno strutture ICS che dispongono di un surplus di personale da formare e mantenere per svolgere tali attività
+fasi come squadre distinte. Quindi, invece, l'obiettivo di questa lezione è darti informazioni sufficienti in ogni categoria per esserlo
+utile alla tua organizzazione, ti offre un punto di partenza, permettendoti di specializzarti dove desideri e dove rende il
+più sensato per la tua organizzazione. A volte sarai una squadra composta da una sola persona che dovrebbe essere composta da una dozzina di dipendenti, ma è così
+importante sapere cosa stai cercando, perché lo stai cercando, cosa stai producendo e come sta andando
+consumato.
+
+C'erano circa 9000 centrifughe, ma non così tanti controller. Il Cascade Protection System è stato l'attacco iniziale
+vettore (parte dell'attacco sovrapressurizzato) e un $ 7-417 potrebbe controllare fino a sei cascate, che equivalevano a 984
+centrifughe. Cioè, l’Iran avrebbe avuto bisogno di circa 10 S7-417 per le centrifughe per questa parte del suo
+ambiente.
+
+La logica in esecuzione sul controller non verrebbe rilevata da nulla sulla rete. Era attivo il codice a livello di dispositivo
+un PLC. Ha replicato il codice legittimo in modo che venisse visualizzato correttamente agli operatori. Non era un
+tradizionale attacco man-in-the-middle, che avrebbe coinvolto la rete, ma è stato eseguito sul dispositivo.La seconda variante (l'attacco alla velocità del rotore) prendeva di mira il Centrifuge Drive System, che utilizzava un controller da 7-315 dollari
+per controllare una cascata (il che significa che ci sarebbero stati circa 60 di questi controller per circa 9.000
+centrifughe). L'analisi tecnica ha stabilito che probabilmente c'era un sistema SCADA Siemens WinCC che monitorava il
+convertitori di frequenza ed eventualmente un'istanza WinCC ogni sei cascate (circa 10 istanze WinCC).
+Poiché Stuxnet avrebbe utilizzato WinCC per sincronizzare il suo attacco, il traffico sarebbe stato sospetto. Il tecnico
+l'analisi ha fornito alcuni dettagli che mostravano che la comunicazione tra il sistema SCADA e i PLC era strana.
+Se qualcuno avesse guardato il traffico di rete "nel giro di poche ore, si sarebbe accorto di qualcosa
+era sospetto... Il sistema WinCC infetto sonda ogni cinque secondi i controllori alla ricerca di dati non legittimi
+blocchi di controllo."
+
+Riferimento:
+Per-uccidere-una-centrifuga.pdf
+
+Non è possibile capire quale risposta all'incidente abbia o non abbia fatto il personale iraniano a Natanz. Da aperto-
+fonti, è probabile che si siano consultati non solo con VirusBlokAda ma anche con Kaspersky Labs. È ragionevole
+supponiamo che abbiano esternalizzato la maggior parte delle attività di risposta agli incidenti e di analisi del malware. Tuttavia, le lezioni sono ancora
+vitale.
+
+In questo ambiente, soprattutto in caso di distruzione fisica avvenuta durante un incidente in un impianto nucleare, l'attenzione è focalizzata
+della risposta agli incidenti è la sicurezza e l’affidabilità delle operazioni ottenendo il maggior numero di dati possibile. Durante
+In questo tipo di scena "con i capelli in fiamme", i funzionari iraniani responsabili probabilmente si sono preoccupati di più di capire come proteggerlo
+la loro infrastruttura e identificare i sistemi colpiti piuttosto che cercare di capire l'attribuzione dell'attacco. Un tipo ACDC
+L'approccio in questo scenario dovrebbe acquisire quante più prove di qualità forense possibile, analizzando al contempo il problema
+problema e cercando di mantenere i sistemi in funzione in modo sicuro.
+
+La manipolazione delle minacce e dell'ambiente verrà esplorata in modo approfondito nella sezione 4, ma per questa sezione è necessario
+comprendere quale sia il contributo della risposta agli incidenti. In questo scenario, il personale addetto alla risposta agli incidenti avrebbe potuto passare
+acquisizioni di rete, file di progetto e altri dati forensi affinché i team di manipolazione delle minacce e dell'ambiente possano provarli
+per identificare, estrarre e comprendere il malware Stuxnet. Il personale avrebbe quindi potuto sviluppare IOC, che
+avrebbe avuto un ritorno in prodotti interni di intelligence sulle minacce che potrebbero essere utilizzati nel monitoraggio della sicurezza della rete
+e risposta agli incidenti. Inoltre, gli sforzi per comprendere la minaccia potrebbero aver portato a modifiche nel
+ambiente che avrebbe reso Stuxnet meno utile. Analisi forense approfondita tramite reverse engineering
+non sarebbe stato un ruolo dell'ACDC, ma l'analisi dinamica e l'interazione con Stuxnet avrebbero aiutato
+il personale lavora ripetutamente attraverso il ciclo ACDC per pulire il proprio ambiente e mantenerlo.
+
+Inoltre, le informazioni estratte sul malware e sul contesto ad esso correlato avrebbero potuto essere condivise
+la comunità. Ciò è stato fatto, ma non dal governo iraniano. Informazioni sulla minaccia da parte di
+Il rapporto Symantec è stato utilizzato in una serie di scenari di risposta agli incidenti in cui Stuxnet era coinvolto in altri
+strutture.
+
+Osservando Stuxnet dal ciclo di difesa informatica attiva, era ovvio l'impatto dell'intelligence sulle minacce
+inizialmente era ZERO. Nessuna quantità di feed, dati o intelligence sulle minacce avrebbe aiutato a preparare l’Iran per un
+attacco unico estremamente mirato, segreto e ben finanziato. Le informazioni sulle minacce riguardanti Stuxnet sono state utili
+DOPO l'attacco.
+
+° Le lezioni apprese dall'incontro con Stuxnet hanno mostrato vulnerabilità nei sistemi informatici Windows e
+nelle "caratteristiche" dei controllori Siemens che gli avversari potrebbero utilizzare; questa informazione si è rivelata preziosa
+perché includeva il contesto della situazione e il tipo di attore che sarebbe stato interessato e capace di farlo
+usandolo.
+
+- Queste informazioni possono essere utilizzate da altri nelle firme IDS e nel monitoraggio della sicurezza di rete (NSM).
+organizzazioni per aiutare a identificare e ripulire Stuxnet.
+
+- Un valore importante erano le tattiche, tecniche e procedure (TTP), ovvero, non solo imparare il
+indicatori ma il modo in cui è avvenuto l’attacco e imparare da ciò.
+
+- Questo tipo di informazioni è stato utilizzato dalle aziende che si occupano di risposta agli incidenti nelle strutture di tutto il mondo
+erano collegati tramite le VPN di Siemens e altri siti.
+
+- Il focus: l’intelligence sulle minacce ha aiutato gli altri, non avrebbe aiutato l’Iran.
+
+Indicatori di compromesso (OC)
+
+Gli indicatori di compromesso aggiungono molto valore agli altri ruoli di sicurezza in un'organizzazione. Caccia in rete
+durante il monitoraggio della sicurezza della rete (NSM), l'individuazione della minaccia durante la risposta agli incidenti (IR) e la focalizzazione
+Gli analisti dell'analisi delle minacce e della manipolazione dell'ambiente (TEM) sono tutti notevolmente più efficienti con i IOC.
+Questo è uno dei principali risultati dell’intelligence sulle minacce a livello tattico.
+
+IOC basati su host
+
+Gli [OC basati su host sono quelli progettati per la ricerca su un endpoint specifico. Nomi dei file e proprietà dei file
+sul disco, chiavi di registro, processi in esecuzione in memoria, hash digitali e altro ancora sono tutti esempi di artefatti dell'host
+che possono essere trasformati in IOC. Spesso sono gli operatori che rispondono agli incidenti a sfruttare gli IOC basati su host; tuttavia, punto finale
+
+L'attenzione di questa sezione si concentra sulla fase del ciclo relativa al consumo di informazioni sulle minacce. È raro che i team di sicurezza ICS lo facciano
+hanno analisti di intelligence dedicati, quindi l'attenzione principale per i partecipanti a questa lezione dovrebbe essere sulla comprensione
+intelligenza e da dove può provenire. Ciò può aiutare a guidare decisioni ragionevoli su quando, dove e come farlo
+ottenere informazioni sulle minacce per il tuo team. Per questo motivo, questa sezione riguarda più l’intelligence e la minaccia
+intelligence in generale, piuttosto che concentrarsi sull’utilizzo specifico dell’intelligence sulle minacce. La fine della lezione sarà
+discuteremo in modo specifico del consumo di intelligence sulle minacce, quindi utilizzeremo gli iniezioni di intelligence sulle minacce in diversi modi
+laboratori durante il resto del corso.
+
+Sezione 1: Struttura e focus
+
+Il mestiere dell’intelligence è utile da applicare a molti scenari diversi. Semplicemente, il lavoro di analisi può essere applicato a molti
+situazioni diverse. Ad esempio, il nastro trasportatore ha smesso di funzionare. Perché? Abbiamo dati sulla normalità
+condizioni operative? Abbiamo informazioni su eventuali minacce che sono state viste all'interno della rete o
+che hanno avuto un impatto recente sulle difese delle frontiere? Quali sistemi sono collegati al nastro trasportatore? È possibile la radice
+la causa era correlata a un problema non minaccioso? Quali cose diverse potrebbero aver avuto un impatto su di esso? Qual è la causa principale?
+
+La raccolta e l’analisi dei dati per trasformarli in informazioni utili non rientra tra competenze specifiche del cyber o delle minacce. Lo faremo anche noi
+scopri come gli avversari raccolgono informazioni sulla tua organizzazione, dove puoi trovare utili informazioni ICS
+report e come rendere l'intelligence sulle minacce utile e utilizzabile nel proprio ambiente di rete.
+
+Questi sono i takeaway | abbiamo deciso di incontrarci durante la progettazione del contenuto di questa sezione. Questi sono i takeaway che voglio
+ogni studente deve raggiungere e gli elementi che verranno evidenziati in questa sezione:
+
+* Comprendere il ciclo di difesa informatica attiva
+
+* Identificare le fasi del ciclo di vita dell'intelligence
+
+* Comprendere l'intelligence sulle minacce informatiche (CT) e la sua applicabilità agli ICS
+* Identificare fonti utili di intelligence sulle minacce ICS
+
+* Comprendere concettualmente come generare e utilizzare i report CTI
+
+Calistoga è una grande città nel paese del SANSistan. Ha operazioni tipiche di una grande città, compresa quella elettrica
+trasmissione e distribuzione, nonché generazione elettrica in una centrale nucleare (la più sicura e pulita delle centrali nucleari).
+tipi di energia). La città dispone anche di impianti idrici gestiti da un'azienda locale, compresi impianti di trattamento delle acque reflue
+distribuzione dell'acqua. La città gestisce anche la vicina raffineria di petrolio e i gasdotti come fonte di energia aggiuntiva
+impianti di cogenerazione che utilizzano turbine a vapore e a gas per creare energia (no, non sono nemmeno in grado di black-start
+anche se i giornalisti continuano a chiederselo).
+
+Riferimento immagine:
+Io e SCADA (libro)
+
+Qui vediamo la città di Calistoga nella vita reale: una serie di città Lego ospitata nel quartier generale di Dragos che misura circa 11 piedi per 4 piedi. Esso
+rappresenta le operazioni ferroviarie, idriche, energetiche, petrolifere e del gas.
+
+Kit C3PO
+
+Sim tramite definizione VM/HMI
+
+Sim |: Controllo valvola flusso carburante generatore 0 = Nessun PLC remoto 1 = Controllato da PLC remoto
+Sim 2: Valutazioni estate/inverno per il relè di protezione. 0 = Inverno, | = Estate
+
+Sim 3: Intertie 0 = Off, 1 = On: Radiale (una alimentazione) o Generazione alimentata dal sistema elettrico dove Sistema elettrico
+Sourced Generation significa che la generazione può provenire da qualche altra parte
+
+Sim 4: Allarmi del generatore di riconoscimento
+
+Sim 5: Riconoscimento degli allarmi di trasmissione
+
+Sim 6: Riconoscimento Allarmi Distribuzione Residenziali
+
+Sim 7: Riconoscimento Allarmi Industriali Distribuzione
+
+Sim 8: Modalità esperto: esegui la generazione con i pulsanti
+
+Schermata Panoramica della generazione
+
+Consumo totale
+
+Consumo residenziale
+
+Consumo industriale
+
+Tendenze:
+Tendenze che mostrano i principali clienti industriali.
+Generazione totale del sistema locale.
+Generazione totale delle importazioni.
+
+Architettura di generazione a ciclo combinato
+Generatore a turbina: i gas di scarico vengono catturati per creare vapore.
+Controllato dal kit studente Fare clic su PLC.
+Generazione di turbine a vapore: è attivo quando la generazione di turbine è attiva e produce vapore.
+Controllato dal kit studente Fare clic su PLC.
+Il generatore a turbina ha una valvola del carburante variabile che sarà controllata da un PLC remoto. Nel nostro caso, un OpenPLC
+tramite ModBus.
+
+Controllabile tra "Manuale" dove la valvola del carburante è aperta al 100% e "Auto" dove controlla OpenPLC
+la posizione della valvola del carburante.
+
+La raffineria e il relativo impianto di lavorazione del gas sono mostrati qui con la gamma completa di armadi e come parte
+della città dei Lego.
+
+Fare riferimento alla cartella di lavoro del laboratorio. Le prossime diapositive introducono i componenti del kit CYBATI mentre segui il
+istruzioni del laboratorio per costruire il laboratorio.
+
+
+Gran parte di ciò che comprendiamo sull’intelligence è stato creato, sperimentato e affinato all’interno del governo. IL
+La comunità dei servizi segreti ha praticato operazioni di intelligence sin dai primi giorni dell'era americana
+fondazione. L’intelligenza risale a molto più tempo fa per il resto del mondo ed è stata incorporata con successo
+operazioni di combattimento risalenti a centinaia di anni fa. L’intelligence era una spesa costosa. Civile
+le comunità e le industrie non potevano facilmente impiegare operatori umani per l'intelligence umana (HUMINT) come il
+La Central Intelligence Agency potrebbe. Allo stesso modo, la creazione di un sistema globale di sensori e satelliti per i segnali
+L'intelligence (SIGINT) non era possibile al di fuori della National Security Agency e della National Reconnaissance
+Ufficio. Tuttavia, l’era di Internet ha aperto vaste possibilità riguardo al modo in cui le organizzazioni civili possono raccogliere fondi
+informazioni da trasformare in intelligenza.
+
+Vaste raccolte di malware tramite telemetria sulla sicurezza degli endpoint, flusso di rete e record Internet, raccolte di e-mail
+e allegati, dati di risposta agli incidenti e altro ancora hanno contribuito a una rivoluzione dell'intelligence del settore privato
+dove non è raro che le aziende del settore privato abbiano maggiori informazioni e approfondimenti su determinate minacce e vittime
+rispetto ai loro colleghi governativi. Pertanto, abbiamo assistito a un enorme afflusso di attività di intelligence nella sicurezza della rete
+Comunità. Sfortunatamente, ogni grande afflusso di materiale porta con sé molti malintesi e esagerazioni.
+L’intelligenza, ad esempio, non è solo informazioni raccolte da uno strumento. Allo stesso modo, non è la fonte finale
+di informazioni utili a fermare ogni attacco di sempre. Diamo un'occhiata al rapporto tra dati e intelligenza.
+
+Riferimento:
+jpg2_0.pdf
+
+Ciclo di vita dell'intelligenza
+
+Il processo di intelligence
+
+- Valutazione
+
+- Pianificazione della diffusione
+
+-Direzione dell'integrazione
+
+- Missione di analisi e Produzione in lavorazione e Sfruttamento
+
+
+Il ciclo di vita dell'intelligence rappresenta un processo formale e testato per la pianificazione e la creazione dell'intelligence finita
+prodotti. Nelle prossime diapositive, esamineremo i passaggi:
+
+* Pianificazione e direzione
+
+* Collezione
+
+* Processo e sfruttamento
+
+* Analisi e produzione
+
+* Diffusione e integrazione
+* Valutazione e feedback
+
+Pianificazione e Direzione
+
+L’intelligenza è inutile se non è, fin dall’inizio, destinata a uno scopo che avvantaggia l’organizzazione che la produce
+o consumandolo. La fase di pianificazione e direzione dovrebbe essere guidata dai requisiti. Nel governo degli Stati Uniti
+comunità di intelligence, esiste un intero processo formale per i comandanti combattenti nelle forze armate e per
+leader a livello nazionale a presentare i requisiti di intelligence, assegnare loro le priorità e inserirli nella pianificazione
+documenti. La comunità ICS non ha e non avrà quel processo formale. Con meno controllo su cosa
+intelligenza che stai producendo o consumando, devi prestare particolare attenzione nel definire le tue esigenze in dettaglio e
+assicurarsi che il piano e la direzione siano in linea con tali requisiti. Se stai cercando di ricercare minacce ICS a
+la tua organizzazione, la raccolta di dati sugli ultimi malware criminali utilizzati contro le Nazioni Unite potrebbe non esserlo
+essere la migliore fonte di dati.
+
+Determina le tue esigenze, stabilisci un obiettivo realistico che puoi facilmente spiegare alle persone che lo raggiungeranno
+
+raccogliere i dati, prendere parte al processo e creare diverse linee d'azione. Avrai diversi modi per farlo
+raggiungere i tuoi obiettivi; determinare quello migliore. Una volta terminato questo processo, puoi passare alla raccolta.
+
+Il grafico nella diapositiva, fornito dalla pubblicazione congiunta 2-0 del Dipartimento della Difesa, mostra come i dati raccolti dal "sistema operativo"
+ambiente" (o qualsiasi area che monitori e di cui sei responsabile) viene raccolto e perfezionato in dati, informazioni e
+in ultima analisi, l'intelligenza. L'intelligenza rappresenta una piccola quantità di informazioni provenienti da un set di dati grezzi molto più ampio
+prodotto al termine di un processo relativamente strutturato e formale. Questo processo è il Ciclo di Vita dell’Intelligenza (che
+essere discusso in un paio di diapositive). Ma è importante identificare innanzitutto chi è responsabile della creazione dell’intelligenza.
+
+Abbiamo tutti un ambiente operativo diverso. Da quell'ambiente possiamo raccogliere una piccola quantità di dati, da
+in cui viene prodotta una quantità minore di informazioni, producendo una quantità ancora minore di intelligenza. Operiamo su
+capire che non possiamo raccoglierlo tutto. Pertanto, l’intelligenza non può mai rispondere sì o no a domande; può solo essere
+valutazioni con diversi gradi di confidenza perché ci manca sempre qualcosa.
+
+1 ha spiegato di più su questo concetto in un blog SANS DFIR qui: https://www.sans.org/blog/data-information-and-
+intelligence-perché-il-feed-della-minaccia-probabilmente-non-minaccia-intelligence/
+
+Ogni persona e ogni organizzazione ha un campo visivo limitato rispetto alle minacce. Ciò è determinato dall'operativo
+requisiti ambientali e di intelligenza che governano ciascuno di noi. Ad esempio, l’elettrico con sede in California
+l’utilità vedrà diversi gruppi di attività di minaccia informatica rispetto alla società finanziaria con sede in Germania. Questo nel corso del
+anni ha portato alla percezione che i fornitori di sicurezza siano favoriti rispetto ai paesi ospitanti. Mentre potrebbero essercene alcuni
+di ciò, la realtà è più incentrata sulla raccolta. Ad esempio, probabilmente la società antivirus con sede in Russia
+ritiene che più minacce provenienti dagli Stati Uniti e dall’Europa colpiscano i propri clienti in Russia e nel Medio Oriente rispetto agli Stati Uniti.
+la società di sicurezza con sede lo farebbe. Eppure riferiscono di quei gruppi. La società di sicurezza con sede negli Stati Uniti probabilmente vede
+Minacce provenienti da Cina, Iran e Russia che prendono di mira i loro clienti.
+
+Tutte le società di intelligence, società di sicurezza, analisti, ecc., dispongono di metodi e fonti di raccolta dati che guidano
+come percepiscono il mondo. Questa percezione non è necessariamente buona o cattiva, ma dovrebbe essere presa in considerazione quando si fa
+analisi di intelligence più strategica.
+
+Ora applicalo a ICS. Abbiamo un enorme pregiudizio preventivo nella comunità dove la maggior parte degli standard,
+i quadri normativi e le normative in tutto il mondo si sono concentrati sulla prevenzione delle intrusioni (firewall, segmentazione,
+antivirus, autenticazione, whitelist delle applicazioni, ecc.), non rilevandoli o rispondendo ad essi. Le industrie
+che stanno cercando di più (ad esempio, il settore elettrico statunitense) sono ancora solo agli inizi nel monitorare le loro [reti CS
+in modo proattivo. Eppure, poiché cercano, trovano le cose. Ciò porta alla narrativa che un certo settore è
+presi di mira più di altri; quando in realtà a volte sono proprio loro a guardare. Abbiamo un numero molto limitato
+comprensione delle minacce informatiche che colpiscono gli ICS, ma sta crescendo rapidamente. Ci sono circa 320 gruppi nel
+mondo monitorato in qualsiasi momento mentre effettuano operazioni informatiche. Solo circa 60 di loro operano in una determinata regione
+del mondo. Eppure conosciamo solo meno di due dozzine di gruppi che prendono di mira specificatamente l’ICS. Come le nostre opinioni e
+il monitoraggio cresce, così come le nostre intuizioni.
+
+I sensori raccolgono dati grezzi da varie fonti, ad esempio un collegamento di rete che raccoglie le acquisizioni di pacchetti. Gli strumenti no
+produrre intelligenza. Ci sono molti venditori che vendono prodotti che "producono intelligenza", ma questo non è accurato.
+Gli strumenti possono acquisire dati grezzi; Sia gli strumenti che gli analisti possono creare informazioni dai dati in base a regole stabilite (per il
+strumenti) o analisi (da parte degli analisti). Viene prodotta la versione finale e raffinata dell'informazione: l'intelligenza
+solo attraverso un lavoro di analisi che combini varie fonti di informazione. Questo passaggio finale può essere eseguito solo dall’uomo
+analisti. Gli strumenti possono perfezionare le informazioni, ma nessun numero di analisi o script produrrà un’intelligenza adeguata
+report utile al cliente finale. Questo è uno dei motivi per cui può essere difficile trovare buoni analisti. Prende
+esperienza nel campo in cui lavorano, combinata con buone capacità di analisi, per creare un'intelligenza efficace.
+Questo è anche il motivo per cui non esiste un “esperto di intelligence”. Ci sono professionisti dell'intelligence (pagati
+individui), ma hanno specialità che spesso sono molto focalizzate su dove possono operare. Ce ne sono anche molti
+aree in cui non possono operare. Non è possibile prendere un analista dell'intelligence addestrato in ICS e collegarlo plug-and-play a un file
+La divisione antiterrorismo si è concentrata sulle cellule terroristiche di Al-Shabab nell'Africa settentrionale. Le capacità di analisi possono essere
+simili, ma la competenza in materia può essere estremamente diversa.
+
+Prima di poter parlare di threat intelligence, dobbiamo parlare di cosa sia una minaccia.
+
+Le minacce possono essere stabilite valutando la capacità, l'intento e l'opportunità di un attore specifico. Utilizzando un Venn
+diagramma, possiamo mappare visivamente le potenziali minacce e determinare se sono inconsistenti, imminenti, potenziali o
+esistono già.
+
+Ad esempio, se un gruppo di minacce ha l'intento ostile e la capacità di avere un impatto sulla tua organizzazione, lo farà
+eventualmente trovare un'opportunità. Possiamo classificare quel gruppo di attori come una minaccia imminente. Faranno ricerche e
+probabilmente troverà un'opportunità prima o poi. Un'organizzazione dovrebbe assolutamente dare la priorità a una minaccia imminente e crearla
+sicuri di mitigare la loro capacità mettendo in atto misure difensive per contrastarla.
+
+Solo perché un gruppo pericoloso non ha intenti ostili nei confronti della tua organizzazione non significa che dovrebbe esserlo
+ignorato. Dare la priorità a queste minacce nella tua organizzazione dipenderà dalle tue esigenze, ma sarei più preoccupato
+su una capacità e un'opportunità che esistono di quanto mi riferirei a una minaccia ostile con un'opportunità ma no
+capacità.Ad esempio, un gruppo di attivisti radicali potrebbe avere l’intento ostile di interrompere le operazioni. Potrebbero saperlo
+sui sistemi critici che si basano su modem dial-up e sanno che dovrebbero chiamare in guerra quei modem. Tuttavia,
+non hanno la capacità di portare a termine questo attacco e, a meno di acquistarlo da qualcun altro, lo sono
+difficilmente acquisirai la capacità. D'altra parte, sai che esiste una backdoor codificata in uno dei tuoi file
+unità di campo critiche accessibili da remoto. Esiste una semplice possibilità (la backdoor) per trarne vantaggio
+sistema e vi è l'opportunità (una connessione remota). | sarebbe più preoccupato per questa potenziale minaccia
+perché non puoi essere sicuro di conoscere tutti i gruppi di minacce là fuori. Potresti sentire che la tua intelligence sulle minacce lo è
+buono e hai una buona conoscenza del panorama delle minacce. Ma se ti sei perso qualcosa, o se il
+l'intelligenza è incompleta (come lo è anche la migliore intelligenza) potresti essere completamente impreparato a una novità
+avversario.
+
+La Cyber ​​Threat Intelligence è l'argomento del mio corso SANS FORS'8, ma ne catturerò i punti chiave
+sezione e la sua relazione con l'ICS. Ciò che è più importante da capire, però, è che la TC per molti versi è proprio la soluzione
+evoluzione dell'analisi delle intrusioni. Analizziamo le intrusioni compiute dagli avversari, i loro tentativi riusciti o falliti
+per compromettere le organizzazioni, per estrarre lezioni apprese e intuizioni che soddisfino le esigenze dei clienti. È tutto
+questo è. Anche quando si guarda al reporting strategico di altissimo livello basato su conflitti geopolitici ed economici, a
+il suo nucleo è iniziato da qualche parte con un'intrusione. L’analisi delle singole intrusioni costituisce la competenza fondamentale di CTI.
+
+Riferimento:
+http://www robertmlee.org/cyber-intelligence-part-5-cyber-threat-intelligence/
+
+Gli analisti delle informazioni sulle minacce informatiche hanno una vasta gamma di competenze, ma alla fine ciò che stanno cercando di realizzare lo è
+dare un senso alle incognite. I clienti, interni o esterni, desiderano comprendere alcune conoscenze
+lacuna o affrontare qualche punto dolente. Quelle lacune di conoscenza o punti critici si trasformano in requisiti di intelligenza,
+a volte non ben articolato. L'analista dell'intelligence deve essere abile nel lavorare con i consumatori per capire
+e rimodellare i propri requisiti di intelligence, determinando la fattibilità di tale requisito e quindi dando priorità a
+quelli che devono essere lavorati.
+
+Da lì sfruttano tecniche analitiche strutturate (modelli mentali e metodi come la kill chain o
+modello diamante, di cui parleremo più avanti) e perseguire in modo aggressivo la giusta collezione che soddisfi i requisiti.
+Da lì analizzano le intrusioni, lavorano su di esse con i colleghi e cercano di sconfiggere i loro pregiudizi in modo che non saltino
+a conclusioni o cadere preda di problemi cognitivi e errori logici. Alla fine, faranno una sorta di
+salto analitico (vale a dire, andare un passo oltre le prove perché l'intelligence non è scoprire i fatti, ma piuttosto discernere le
+sconosciuto) e poi lavorare per catturare l'analisi in qualche forma o prodotto desiderato dal consumatore. Quello
+la diffusione porta a un lungo ciclo di feedback e alla personalizzazione dei requisiti per il futuro.
+
+Più avanti nella lezione, esamineremo un report di intelligence sulle minacce per una minaccia ICS. A questo punto la cosa da notare è questa
+l'intelligence sulle minacce viene solitamente fornita in un rapporto con informazioni di base e contesto. La relazione spesso
+ch come indirizzo IP di un sito Web dannoso noto a cui può essere utilizzato
+
+include gli indicatori di compromesso (IOC), su
+cerca la minaccia sulla rete o bloccala prima che interagisca con te. I TTP vengono spesso inseriti anche nel rapporto se
+
+l'attività è vista come una sorta di campagna in corso. Ciò consente ai difensori di contrastare gli avversari personalizzandoli
+le loro difese prima di essere attaccati. È anche utile identificare gli avversari già presenti nella tua rete.
+
+È importante comprendere le possibili lacune nei prodotti di intelligence: le informazioni di intelligence possono essere temporali
+natura e le informazioni possono cambiare o essere alterate rapidamente da un utente malintenzionato. Inoltre, in seguito al rilascio o alla divulgazione pubblica,
+ts di un attacco che rimane statico e
+
+spesso gli attaccanti faranno perno; tuttavia, potrebbero esserci numerosi componenti
+utile per l'identificazione.
+
+Tattiche, tecniche e procedure sono spesso abbreviate in TTP e raggruppate insieme come un'unica cosa: "Il
+TTP dell’avversario”. Tuttavia, rappresentano tre diversi aspetti dell'attività dell'avversario a diversi livelli di
+astrazione. Le tattiche sono metodi di alto livello per raggiungere un obiettivo. Le tecniche sono un passo indietro rispetto a come farlo
+l'obiettivo sarà raggiunto. Le procedure sono la visione granulare che descrive i passi compiuti per raggiungere l'obiettivo. È un
+termine intrinsecamente militare statunitense, ma fornisce molto valore nel campo dell’intelligence sulle minacce informatiche. Ad esempio, molti
+le organizzazioni sono ossessionate dagli indicatori e dall’attribuzione. Molto spesso è necessario comprendere i TTP più importanti
+importante capire come difendersi dalle intrusioni.
+
+Recentemente, c’è stata una grande spinta verso il framework MITRE ATT&CK per identificare i TTP comuni degli avversari.
+Questo non è il primo sguardo alle TTP, ma presenta un’articolazione delle TTP ampiamente accettata e semplice che i difensori
+dovrebbe essere consapevole e pianificare la propria difesa. Nello specifico, ATT&CK si concentra su Tattiche e Tecniche (non
+sulle procedure).
+
+Vale la pena notare che l’uso della parola “tattica” da parte di MITRE non è corretto in alcune interpretazioni di un militare
+la prospettiva e la tattica non dovrebbero rappresentare “obiettivi” come la “Persistenza”, ma il meccanismo per raggiungerli.
+Una prospettiva è che la struttura in realtà sia costituita solo da Obiettivi e Tattiche, e le sotto-tecniche lo siano in realtà
+Tecniche. Esistono diversi modi per interpretare i TTP, quindi fai attenzione a cosa utilizza MITRE, cosa usano gli altri e
+come il tuo team sceglie di definirli.
+
+MITRE ATT&CK ha iniziato concentrandosi sull'Enterprise.
+
+Riferimento:
+https://attack.mitre.org/
+
+ 
+Per condividere e utilizzare l'intelligence, è importante identificare le esigenze del pubblico. Sono dirigenti che hanno bisogno
+comprensione più strategica? O sono persone tecniche che necessitano di maggiori informazioni a livello tattico? Comprensione
+questi tipi di pubblico e ciò di cui hanno bisogno aiutano a raggiungere gli obiettivi del processo di intelligence. Inoltre, aiuta
+determinare come viene presentata l'intelligence e in che modo il pubblico ha bisogno dell'intelligence per poterlo fare
+consumarlo in modo rapido ed efficace. I tre tipi generali di destinatari dell'intelligence sulle minacce: strategico,
+Operativo e tattico. Questi tre gruppi non rappresentano l’unico modo per identificare il pubblico dell’intelligence sulle minacce, ma lo sono
+molto utile per strutturare il modo in cui l'intelligence sulle minacce viene condivisa e infine utilizzata.La Strategic Threat Intelligence può essere utilizzata per informare dirigenti e decisori che penseranno e agiranno in tempo reale
+livello strategico. Ciò può includere decisioni a livello aziendale, cambiamenti negli obiettivi dell'organizzazione, luoghi in cui agire
+affari, investimenti in risorse come budget per la sicurezza, ecc.
+
+L'intelligence operativa sulle minacce può essere utilizzata per i membri a livello operativo, come quelli che si occupano di sviluppo
+e promuovere le relazioni con colleghi e ISAC, decidere in merito ai requisiti di personale e formazione del team di sicurezza,
+tenere traccia delle campagne degli avversari, ecc.
+
+La Tactical Threat Intelligence è per i membri che si occupano quotidianamente della sicurezza dell'organizzazione.
+L'identificazione di TTP, 1OC e altri tipi di informazioni che possono essere rapidamente utilizzate per scopi di sicurezza dell'avversario è
+non sono limitati a questa categoria ma sono utilizzati principalmente qui.
+
+Panoramica della catena di uccisione
+
+La Kill Chain, insieme a una serie di altri modelli Cll, è stata stabilita in un white paper del 2011 di Lockheed
+I dipendenti di Martin sono Michael Cloppert, Eric Hutchins e Rohan Amin. È stato pubblicato in una peer-review
+giornale accademico. Si basa sulle esperienze degli autori con la difesa delle reti e sui loro legami con il DoD e
+comunità di intelligence.
+
+Gli autori stavano già tentando di catturare i passaggi discreti e deterministici necessari agli intrusi della rete
+eseguire per rubare con successo dati proprietari quando si sono imbattuti in un elemento di dottrina militare
+conosciuta come la "catena di uccisione". Ci si rese subito conto che stavano tentando di catturare ciò che un
+intrusion Kill Chain sembra in modo da poterla interrompere ai fini della difesa della rete.
+
+Altre due Kill Chain furono influenti nel digerire e applicare questa tecnica al cyberspazio: quella dell’USAF
+F2T2EA e gli sforzi congiunti delle forze armate statunitensi per sconfiggere gli ordigni esplosivi improvvisati (IED).
+
+Questa idea non è del tutto nuova per le intrusioni informatiche. Tale processo multifase è articolato in Hacking Exposed,
+Volume 1, che serve anche come rinforzo per l’approccio, sebbene i passaggi descritti non siano applicabili a
+intrusioni moderne e mancano dell’elemento deterministico che consente il successo di questo modello.
+
+La Kill Chain è un processo in sette fasi che gli avversari devono eseguire per portare a termine con successo i propri obiettivi
+missione. Questi passaggi sono altamente deterministici, il che significa che l'avversario deve eseguire ogni passaggio, ogni
+momento in cui intendono ottenere (o riacquistare) l'ingresso in una rete. Vale la pena notare che ci sono delle eccezioni, ma questa regola
+Questa regola è generalmente vera nelle moderne intrusioni nella rete.
+
+ 
+Ecco alcuni esempi di vari gruppi di ransomware.La “kill chain” utilizzata non è la classica kill chain IT ma lo è
+non importante; ciò che è importante è sfruttare un modello e un'analisi in modo tale da avvantaggiare i difensori nello specifico
+sfide/requisiti che hanno.
+
+Ricordate, i risultati dell'intelligence che avvantaggiano più l'analista dell'intelligence che il difensore sono motivo di imbarazzo per noi
+professione. Creare intelligenza facilmente utilizzabile per contribuire a soddisfare i requisiti, anche quelli più ampi
+come l’educazione di grandi gruppi di persone, è un grande esempio di intelligenza. Capisco che i libri non ci sono
+colore, ma come presentato in classe, i colori emergeranno e potranno essere visti anche nel secondo collegamento sottostante. IL
+colori sul grafico che collegano ciascuna famiglia di malware ai diversi obiettivi e alle tattiche di cui sopra è un ottimo modo per farlo
+comunicare ai difensori cosa devono essere pronti ad affrontare.
+
+L'altro grafico mostra le operazioni di Ryuk e come possono essere eseguite in cinque ore o meno con ciò che potresti
+aspettarsi di vedere è davvero un ottimo modo per educare le persone; questi tipi di prodotti di intelligence sono ottimi da utilizzare non solo in
+ampia formazione ma anche in esercitazioni pratiche prima degli incidenti.
+
+Questo è solo un esempio di analisi e metodologia della “kill chain”. Il punto centrale della catena di uccisione è davvero giusto
+inserire i dati in bucket; un modello mentale/tecnica analitica strutturata per sfruttare e analizzare i vari passaggi
+dell'avversario. Non si tratta di prevedere i passaggi o di adattarsi sempre allo stesso modello, è solo uno strumento di analisi.
+
+Riferimento:
+
+https://thedfirreport.com/2020/10/18/ryuk-in-5-hours/
+https://www.helpnetsecurity.com/2020/04/30/ransomware-campaigns/
+https://redcanary.com/blog/how-one-hospital-thwarted-a-ryuk-ransomware-outbreak/
+
+Esistono sei passaggi distinti nella creazione di un gruppo di attività. In sostanza, stai definendo un requisito di intelligence,
+determinare la ponderazione delle funzionalità che ti interessano per risolvere il problema e quindi analizzare le intrusioni
+contro quel modello per astrarre gli eventi avversari che contano per te. Nell'immagine, la caratteristica dell'avversario è
+ponderato come non applicabile al requisito, le infrastrutture hanno un peso moderato, le vittime sono basse e
+Capacità/TTP sono elevati. Accanto ad essa vediamo una finta astrazione di alto livello delle intrusioni analizzate durante l'uccisione
+costrutto di catena. Potrebbero esserci elementi che evidenziamo nella catena di uccisione che sono comuni a tutte le intrusioni (i.¢.,
+raggruppando le intrusioni in base alle caratteristiche del modello diamante da noi ponderate). Questo ci aiuterebbe ad astrarre il
+intrusioni su alcuni componenti ciascuno che conta per noi e le loro meta-caratteristiche per definire un gruppo di attività
+rispetto al modello analitico che abbiamo definito.
+
+Man mano che vengono osservate le intrusioni, purché corrispondano al modello, possiamo aggiungerle a quel gruppo di attività. Se la
+La vittimologia tra le intrusioni è diversa, non possiamo passare a un altro gruppo di attività. Se l'infrastruttura lo è
+simile ma non identico o presenta aspetti simili, potremmo mantenerlo nello stesso gruppo di attività. Ma se il
+Capacità/TTP cambia in modo significativo, probabilmente noteremo che esiste un secondo gruppo di attività perché il nostro obiettivo qui
+è suddividerli per rispondere al problema di avere rilevamenti scalabili. Quindi, vorremmo il raggruppamento di
+attività su ciascuna unità per individuare diversi tipi di rilevamenti del comportamento delle minacce. Tuttavia, se la vittimologia e
+cambiamento infrastrutturale, potremmo definire che il peso basso e moderato insieme giustificano una nuova Attività
+Gruppo, proprio come farebbe un cambiamento significativo nella Capacità.
+
+Uno dei vantaggi non intenzionali ma utili di questo approccio è che gli attacchi false flag (un gruppo che tenta di
+
+convincere la vittima che un altro gruppo l’ha attaccata) non hanno importanza a meno che non diamo peso e valore all’avversario
+caratteristica. [Se il problema da risolvere non è legato all’attribuzione, allora il “chi” dell’attacco non ha importanza.
+
+Covellite è stata scoperta per la prima volta alla fine di settembre 2017 prendendo di mira gli operatori della rete elettrica nordamericana
+email di phishing specifiche. Ci fu una successiva copertura stampa che affermava che Covellite era la Corea del Nord, e lo era
+prendendo di mira le società elettriche statunitensi. Covellite ha TTP specifici che vanno oltre le semplici e-mail di phishing. Le email di phishing
+contengono payload codificati specifici che raggiungono campioni specifici di malware. Il tema delle e-mail è
+generalmente verso il lato tecnico della casa, e ci sono chiari punti in comune di comando e controllo
+l'infrastruttura che scelgono.
+
+Un panorama delle minacce in espansione: gruppi di attività
+
+Ci sono avversari che prendono di mira ICS da molto tempo. Nel 1998, è stato rivelato che come parte della Notte
+Anche le società energetiche delle campagne Dragon venivano prese di mira nell'ICS, sebbene non fossero disponibili dati
+quegli ambienti per rispondere a qualsiasi domanda. Ora abbiamo iniziato a vedere un picco nell’attività delle minacce e, per questo
+Per questo motivo, è bene capire che il panorama delle minacce si sta espandendo e che i difensori devono affrontarlo
+informazioni in modo appropriato.
+
+Lo scopo di questa diapositiva non è conoscere ogni singolo gruppo di attività ma apprezzare che questi gruppi semplicemente rappresentano
+il punto di vista di un’azienda sul panorama delle minacce ICS basato sulla raccolta limitata. Questo non è rappresentativo delle minacce
+prendendo di mira le società di infrastrutture. Sono proprio quelli che hanno preso di mira gli ICS delle società di infrastrutture.
+Ciò è in netto contrasto con ciò che è stato visto prima da tali gruppi.
+
+Le due diapositive successive esaminano una fonte di informazioni utile per comprendere più a fondo l'intelligenza
+mestiere e sviluppare le tue abilità. Semplicemente non sono disponibili buoni corsi di intelligence e lezioni per analisti. Voi
+probabilmente hai già frequentato un corso di formazione tecnica, ma quando è stata la tua ultima lezione di "analisi"? Alcune delle migliori risorse per
+utilizzo sono documenti accessibili al pubblico, anche in ambiti diversi. (Le capacità di analisi sono neutrali rispetto al settore.)
+
+Per un corso specifico sull'intelligence sulle minacce, vedere SANS FOR578 "Cyber ​​Threat Intelligence" che ho anche scritto:
+http://www.sans.org/course/cyber-threat-intelligence
+
+Riferimento:
+http://www. robertmlee.org/cyber-intelligence-part-2-developing-your-cyber-intelligence-analyst-skills/
+
+Psicologia dell'analisi dell'intelligenza
+
+Ai nuovi analisti della mia squadra al governo e ai miei studenti, | consiglio sempre di leggere Richards J.
+Psychology of Intelligence Analysis di Heuer Jr., pubblicato dalla CIA nel 1999. Richards è ricco di
+informazioni nei suoi libri su come pensare all'intelligenza e, in definitiva, sviluppare le proprie capacità di analisi. Se
+sei interessato a fare di più con l'intelligenza, questo è un libro da leggere; fortunatamente è gratuito e può essere trovato su:
+
+Riferimento:
+Psicologia-dell'analisi-dell'intelligenza.pdf
+
+Daremo uno sguardo speciale al capitolo 8 di questo libro.
+
+Esistono molti tipi di analisi. È importante apprenderli se si intende eseguire analisi di intelligence. Questo
+era evidente in un caso nel 2011...
+
+Dopo il 2010, quando Stuxnet costrinse molti a pensare alla sicurezza ICS, c’era molta attenzione su “SCADA”
+sicurezza. Quindi, quando una pompa si è guastata in un servizio idrico dell'Illinois e nei registri è apparso un indirizzo IP russo, gente
+fuori di testa. La causa dell'IP è stata l'accesso di un appaltatore al sistema, come gli era stato chiesto di fare, mentre era in vacanza
+Russia. Il centro di fusione dello stato dell'Illinois ha sentito parlare del guasto della pompa e ha pensato che dovesse essere correlato all'IP e
+che si è trattato di un attacco informatico, anche se è avvenuto cinque mesi dopo la comparsa dell'IP nei registri.L’intero caso è piuttosto divertente, ma è anche molto triste e rappresentativo di come le informazioni possano uscire a spirale
+controllo a causa di una cattiva analisi e dell'hype nella comunità.
+
+Riferimento:
+https://www.wired.com/201 1/1 1/water-pump-hack-mystery-solved/
+
+Tipi di analisi
+Quando si tenta di comprendere l'analisi che le persone stanno eseguendo, è utile comprenderne i tipi
+analisi esistenti. Queste categorie aiutano a inquadrare la discussione e a classificare le informazioni in modo utile.
+
+L’analisi descrittiva consiste semplicemente nel descrivere le informazioni osservate in modo utile. Non stai interpretando il
+informazioni ma semplicemente descrivere ciò che si osserva.
+
+L'esplorazione è il tentativo di identificare le relazioni. Il dominio del malware è stato registrato tramite un indirizzo email?
+Quell'indirizzo email è stato utilizzato per registrare altri domini? Questo significa esplorare le relazioni e fare perno tra di loro
+loro.
+
+Inferenziale sono i tuoi sforzi per estrapolare i dati. Ad esempio, i sondaggi elettorali tentano di trarre conclusioni da un piccolo campione
+
+dimensioni di ciò che la popolazione complessiva farà alle elezioni.
+
+Vediamo che ci sono molteplici possibilità presentate in questo scenario per identificare il motivo per cui potrebbe verificarsi un'interruzione di corrente
+si sono verificati. Nelle situazioni della vita reale, gli scenari saranno spesso molto più complessi, avranno molte variabili e...
+potrebbero soffrire della mancanza di dati disponibili. Eppure l'ACH viene spesso utilizzata dal personale, anche quando non è attivo
+pensando al processo.
+
+Questo processo dovrebbe sembrarti familiare, anche se non hai mai sentito parlare di ACH prima. Il processo formale, però,
+aggiunge una sfumatura al perfezionamento di ipotesi e dati che possono aiutare a raggiungere conclusioni migliori o almeno aiutare
+identificare le trappole che altrimenti porterebbero a conclusioni errate.
+
+Queste sono le ipotesi che abbiamo presentato finora nello scenario. Ricorda, le ipotesi iniziali possono essere tutte sbagliate,
+oppure un mix di ipotesi può essere corretto: la chiave è avere un punto di partenza e lavorare da lì, no
+basandosi troppo sulle ipotesi iniziali.
+
+Fonte immagine:
+https://c2.staticflickr.com/2/1398/840323040_189a452457.jpg
+
+È utile innanzitutto identificare e raccogliere tutte le prove disponibili invece di utilizzarle immediatamente per confrontarle con quelle
+ipotesi. Se le prove vengono valutate così come vengono trovate, possono fuorviare gli individui o farli cadere nella classicità
+trappole dell’analisi come il bias di conferma.Raccogli tutte le prove e cerca prove relative a tutte
+ipotesi, non solo le più facili da trovare.
+
+Nella fase diagnostica, le prove possono poi essere confrontate con le ipotesi. Questo è utile per identificare dove
+ci sono prove che supportano una conclusione, la sminuiscono o non hanno alcuna rilevanza. Qui vediamo che ci sono pezzi di
+prove che sminuiscono H1 e H2, ma non H3. Ciò non significa però che H3 sia la risposta giusta. Se qualcosa,
+abbiamo stabilito che non sappiamo abbastanza delle prove di H3.
+
+Nella fase di perfezionamento dell’ACH, è bene considerare la mancanza di prove, oltre a quelle attuali
+presentata. Ciò può aiutare a identificare la necessità di ulteriori prove, come quella relativa a H3.
+
+Dopo il perfezionamento, cerchiamo di identificare le incongruenze nelle prove presentate. Conoscenza passata, informazioni da
+altre fonti o possibilità fisiche sono alcune delle informazioni utilizzate per valutare se le ipotesi sono tutte pari
+possibile. In questo scenario, identifichiamo che tutte e tre le ipotesi sono coerenti con qualcosa che avrebbe potuto avere
+si è verificato.
+
+È bene identificare le prove critiche per un’ipotesi. Se l'ipotesi o la conclusione dipende da uno solo o
+alcune prove, allora quelle prove hanno un'elevata sensibilità. Se risultano sbagliati, il
+l'intero processo potrebbe essere corrotto. Identificare la sensibilità dei dati aiuta a garantire che anche gli analisti non si concentrino
+pesantemente su dati volatili o di natura rischiosa. O, se lo fanno, che comprendono il rischio.
+
+L'ultima fase dell'ACH consiste nel valutare tutte le informazioni disponibili e trarre una conclusione. Qui notiamo che il
+probabilmente lo scoiattolo ha causato l'interruzione della corrente e non un attacco informatico o la caduta di un albero. Quei dannati scoiattoli!
+
+È importante sottolineare che ogni parola in questa affermazione è scelta con un motivo. Stiamo cercando di mostrare a chiunque chi
+non è stato informato sull'evento prima di ciò che è accaduto. Stiamo quantificando la nostra affermazione, in modo che le persone
+capire perché stiamo dicendo "alta fiducia" (perché non ci sono prove contrastanti) e stiamo spiegando
+ciò che abbiamo già analizzato (attacco informatico e caduta di un albero) nel caso qualcun altro abbia qualcosa di nuovo da contribuire
+(evitando che qualcuno suggerisca qualcosa che abbiamo già fatto).
+
+Considera la tua scrittura come un costo per il lettore. Ogni parola fiorita in più costa loro qualcosa. Rimani al punto
+e parlare chiaramente.
+
+Necessario adattamento della kill chain IT per ICS
+
+Attacchi ad alta confidenza (manipolazione del processo o
+danno fisico) richiedono una conoscenza approfondita dell’ICS
+
+Comprensione dell'impatto potenziale è la chiave
+
+IT Kill Chain non tiene conto di molteplici sforzi dell’avversario
+
+Il tempo di permanenza è significativo Accidentale Maggiori opportunità in
+per ICS ad alta sicurezza § interruzione/distruzione ICS per interrompere il
+gli attacchi sono possibili indipendentemente dall'attaccante
+
+Sono necessari molti adattamenti in un ICS al modello della catena di uccisione. È un modello utile per identificare un
+i passi dell’avversario in un ICS, ma ci sono altre opportunità e motivazioni in un ICS, come la capacità di
+danneggiare e interrompere le operazioni. Se un avversario vuole solo causare disagi, può farlo correndo in giro
+scansione di oggetti e dispositivi di bricking. Ma se un avversario vuole essere in grado di avere un attacco affidabile dove si trova
+capire cosa accadrà e raggiungere il tipo di scenari che ci preoccupano di più (danni fisici, lungo
+interruzione del mandato, ecc.), dovranno seguire ulteriori passaggi descritti nelle prossime diapositive.
+
+Da quanto osservato nella comunità, ci sono differenze in quella che potrebbe essere definita una Kill Chain ICS
+rispetto a quanto si vedrebbe normalmente nell'IT. Ciò è in parte dovuto alla natura delle reti ICS, alla loro unicità
+aspetti e la sensibilità di molti sistemi. È improbabile che gli avversari si comportino in modo molto attivo, se non addirittura nessuno
+scansione e ricognizione una volta all'interno di una rete ICS. Avversari qualificati e formati appositamente
+prendere di mira l'ICS tenterà di evitare il crash delle risorse e la perdita della connessione, causando un incidente o allertando i difensori
+gli aggressori non comprendono appieno la loro presenza in rete. Questa Kill Chain ICS ha lo scopo di descrivere
+attacchi mirati e non infezioni involontarie. Ad esempio, il malware Havex è stato inserito negli aggiornamenti del firmware su
+vari siti Web di fornitori ICS. Ciò rappresenta un attacco mirato e ha seguito la Kill Chain dell'ICS. Accidentale
+le infezioni di malware, come Conficker, dovute a scarse pratiche di igiene della rete, non verrebbero prese di mira.
+Tuttavia, gli avversari che desiderano un livello di non-attribuzione e facilità potrebbero benissimo utilizzare malware comuni come
+ZeroAccess fungerà da malware di prima fase. La connessione backdoor aperta dall'ambiente da ZeroAccess,
+in questo esempio, potrebbe fungere da utile strumento di raccolta di informazioni e punto di accesso per creare e fornire un servizio su misura
+capacità.
+
+Il documento completo è disponibile qui: https://www.sans.org/reading-room/whitepapers/ICS/industrial-control-system-
+cyber-kill-chain-36297
+
+Fase 1
+
+Ricerca
+
+Alcuni avversari dilettanti potrebbero passare direttamente alla ricognizione, ma qualsiasi avversario esperto utilizzerà l’open source
+ricerca (social media, annunci di contratti, ordini di appalto, forum di utenti e così via) e potenzialmente creare
+un laboratorio tutto loro per testare le apparecchiature e le configurazioni che si aspettano di incontrare. Ad esempio, gli avversari
+comprendere che molti difensori utilizzano determinati tipi di antivirus e firewall, quindi testare il proprio malware contro quelli
+in anticipo può garantire il successo. Inoltre, comprendere come interagire e manipolare ICS specifici
+protocolli e risorse all'interno di un ambiente prestabilito sono fondamentali per qualsiasi effetto mirato. Il più mirato e il più specifico
+maggiore sarà l’impatto desiderato, maggiore sarà la ricerca da dedicare a tale capacità. Qualsiasi ICS pubblico connesso a Internet
+i beni possono essere considerati come già vittime di ricognizioni e costituiscono un grave problema di sicurezza.
+
+Fase due:
+
+Capacità su misura
+
+Con i dati esfiltrati appropriati e gli avversari che accedono alla rete, se desiderano avere un impatto fisico o altro
+per avere un impatto successivo sull’infrastruttura, dovranno creare una capacità su misura. Creare semplicemente un DoS è a
+metodo sciatto e incerto per creare impatti fisici in un ambiente. Quanto più una capacità è personalizzata, tanto più
+più è certo che avrà l’impatto desiderato, ma meno è probabile che sia utile contro altri obiettivi. Cioè, di più
+specifico = maggiore impatto = meno obiettivi. In questa fase, gli avversari condurranno la ricerca in un ambiente fittizio,
+laboratorio di test o altre aree in cui è improbabile che il difensore rilevi la ricerca.
+
+Consegna della 2a fase
+
+Gli avversari devono fornire funzionalità su misura per l’ambiente target. Questo può essere fatto già
+server C2 stabilito o attraverso la stessa modalità della I Fase Delivery. Tuttavia, può apparire interamente
+non correlato. L'avversario può scegliere un altro vettore di attacco in modo che, se la capacità viene rilevata, non lo faccia anche lui
+avvisare i difensori del loro accesso originale. Ciò aiuta l'avversario a rimanere persistente.
+
+Impatto
+
+A questo punto è troppo tardi perché il difensore possa contrastare l'avversario. Questa fase è quando la capacità su misura ha la sua
+impatto desiderato. Probabilmente, le funzionalità personalizzate non funzioneranno perfettamente indipendentemente dalla ricerca perché esistono
+variabili sempre sconosciute, anche agli avversari. Pertanto, in questa fase, anche se il difensore non può contrastare
+l'avversario, il difensore può avviare procedure di risposta agli incidenti per garantire la sicurezza del personale e dei civili.
+Il tempo è essenziale e, a questo punto, la risposta agli incidenti non si limita alla risposta agli incidenti legati alla sicurezza delle informazioni.
+
+Il malware Stuxnet, che è stato segnalato per aver distrutto fisicamente le centrifughe presso lo stabilimento di Natanz in
+L’Iran costituisce un ottimo caso di studio di un attacco avvenuto durante la Fase 1 e la Fase 2 della Cyber ​​Kill Chain dell’ICS.
+Stuxnet è stato osservato soprattutto nel 2010; tuttavia, è stata una campagna che potrebbe aver avuto luogo in diversi
+anni, con le prime stime intorno al 2006 e al 2007. In quel periodo di tempo, l'attore ha raggiunto un significativo
+sforzo per creare un attacco altamente mirato in grado di distruggere fisicamente specifiche centrifughe. Questo
+Il periodo di raccolta delle informazioni viene compreso meglio attraverso la Fase 1 della Cyber ​​Kill Chain dell’ICS. Gli attori dietro il
+La campagna Stuxnet potrebbe aver effettuato ricognizioni per identificare potenziali percorsi verso la struttura di Natanz. Tuttavia,
+gli esperti hanno ipotizzato che potrebbe esserci stata anche una componente fisica nella ricognizione per ottenere tale risultato
+dati intimi sulla struttura. È sempre importante considerare l'impatto della componente di sicurezza fisica, come
+nonché tensioni geopolitiche. Ad esempio, il programma iraniano di arricchimento dell’uranio a Natanz è stato significativo
+preoccupazione per vari paesi del mondo e lo scopo e l'ubicazione della struttura di Natanz sono trapelati pubblicamente
+da un gruppo dissidente nel 2006. Ciò, insieme ad altri dati non informatici, probabilmente ha contribuito in modo significativo alla
+attività di pianificazione e ricognizione. Inoltre, secondo quanto riferito, la struttura di Natanz disponeva di una rete air-gapped
+non consentiva l'utilizzo di metodi tradizionali per compromettere l'ICS sulle connessioni di rete. Invece avrebbe potuto
+stata una minaccia interna che, consapevolmente o inconsapevolmente, ha compromesso la rete attraverso l'utilizzo di un virus infetto
+laptop di ingegneria o dispositivo multimediale rimovibile, come un USB. L’arma sarebbe stata quella del malware
+codice combinato con gli exploit inseriti nel laptop o nel supporto rimovibile. Il supporto rimovibile o
+laptop fungeva quindi da meccanismo di consegna per sfruttare la rete Natanz. Quindi Stuxnet si è installato su vari
+versioni dei sistemi Windows e hanno ripetuto le fasi di exploit e installazione, compromettendo una serie di sistemi fino al
+potrebbe attivare l’accesso a Internet e raggiungere i server C2 dell’aggressore.
+
+Questa versione di Stuxnet, all'epoca, potrebbe non avere alcun payload specifico per ICS. La raccolta di informazioni
+sull'ambiente e l'esfiltrazione dello stesso sui server C2 o con altri mezzi erano le azioni materiali che
+ha avuto luogo nella fase Stage 1 Act. Gli investigatori ritengono che una grande quantità di dati sia stata raccolta nel corso di molti anni
+che l’avversario conosceva l’ICS e la sua rete così come, se non meglio, degli ingegneri e degli operatori sul posto.
+Nella seconda fase della ICS Cyber ​​Kill Chain l’aggressore ha sviluppato e testato un aggiornamento di Stuxnet
+ 
+Ogni giorno si verificano intrusioni nelle aziende di tutto il mondo in tutti i settori. Di questi alcuni includono anche
+intrusioni nelle aziende industriali attraverso le reti IT e talvolta anche le reti OT. Ma se non lo sono
+focalizzato su aziende industriali, ad esempio un'intrusione che ha colpito una banca e un'azienda elettrica ma senza
+Per quanto riguarda i due, sono tutti normali intrusioni focalizzate sulla catena di uccisione informatica e dovrebbero essere analizzati come tali.
+Tuttavia, se esiste un motivo apparente da parte dell'avversario per prendere di mira esplicitamente le aziende industriali, come il targeting
+aziende elettriche ma non colpire banche o phishing/domini/ecc. prendere di mira quelle imprese industriali, quindi
+l'analista valuta che l'avversario possa avere intenzione di entrare nelle reti ICS/OT
+specificamente. Ciò quindi si qualifica e dovrebbe essere monitorato come un'intrusione della Cyber ​​Kill Chain ICS di Fase 1 e un punto focale
+dovrebbero essere incaricati di analizzare gli sforzi dell’avversario per entrare nelle reti ICS e impedirgli di farlo
+quando possibile.
+
+Detto semplicemente: il fattore distintivo tra un'intrusione normale e un'intrusione ICS Cyber ​​Kill Chain è un
+
+motivazione valutata dall'avversario per prendere di mira le aziende industriali a causa delle loro attività industriali, e non semplicemente
+semplicemente compromettendo un’azienda che ha reti industriali.
+
+I team esterni di intelligence sulle minacce sono bravissimi nel fornire maggiore visibilità sul panorama delle minacce di quanto tu possa fare
+ottenere. "Hanno anche la capacità di produrre intelligenza e renderla più completa e approfondita, oltre a
+lucido e utilizzabile. Tuttavia, l’intelligence sulle minacce interne dovrebbe essere un punto fermo di qualsiasi squadra di difesa. Questo significa
+imparare dalle tue minacce e applicare le lezioni apprese su cosa dovresti fare al riguardo.
+
+È una buona pratica prendere in considerazione le intrusioni che hai visto, o le intrusioni e gli attacchi visti nel tuo settore, e tracciare un grafico
+attraverso la Cyber ​​Kill Chain dell’ICS. Ad ogni fase, consiglia un'Architettura, una Difesa Passiva e una Attiva
+Azione di difesa che avrebbe contribuito a prevenire o mitigare l'intrusione, aiutare a raccogliere dati, rispondere meglio,
+o comunque essere abilitato alla difesa. Alla fine di un trimestre o di un anno (trattatelo come un esercizio regolare con qualche esercizio cronometrato
+deliverable) riuniscono tutti i controlli su tutte queste minacce. Scegli quelli di maggior impatto o quelli che appaiono di più
+spesso attraverso le intrusioni - prendi i primi 4 - e tu'! avere alcuni consigli attuabili per dare il massimo
+ritorno sull'investimento nel tuo specifico panorama delle minacce (ovvero, identificherai i tuoi controlli critici). L'intelligenza no
+sull'avere consapevolezza della situazione. Si tratta di comprendere l’attività delle minacce e cosa fare al riguardo.
+
+L'obiettivo: allenarsi e prepararsi per gli avversari
+
+La comunità del controllo industriale, più di ogni altra comunità, dà una priorità fuori luogo ai trucchi,
+documenti di ricerca e vulnerabilità piuttosto che minacce reali. Questo è il risultato di anni passati a vedere l'ipotetico
+prima di rendersi conto delle vere minacce. Ciò deriva anche dal fatto che molte delle migliori pratiche di sicurezza IT vengono copiate/incollate
+ambienti di automazione industriale senza la personalizzazione o la focalizzazione adeguata. Ad esempio, quante volte abbiamo
+ti è stato detto che un foglietto adesivo con una password su un HMI è orribile? Non è una buona pratica, ma se non ci sono telecamere
+nell’area e stai cercando di identificare e ridurre il rischio per un avversario remoto, allora non ha alcun senso. IL
+il rischio è che l'avversario entri nel tuo sistema e il rischio è che il tuo operatore dimentichi una password complessa, quindi
+utilizzando invece nessuno o una password semplice. La realtà della situazione è ciò che sembra un buon consiglio logico
+spesso informato da test di penetrazione e teoria, non da avversari.
+
+Consumo di generazione
+
+- Ciclo di vita Intel « Utilizzato dai difensori
+- Kill Chain + Guida la difesa
+- Modello Diamante + (attivo o passivo)
+
+ICSS15 | Visibilità, rilevamento e risposta 
+
+Quando si cerca di comprendere il pubblico, è importante ricordare se stanno generando intelligenza o
+consumandolo. Al momento, c’è poca separazione nella comunità dell’intelligence sulle minacce per quanto riguarda la differenza
+tra la generazione e l’utilizzo delle informazioni sulle minacce. Ciò ha portato alla creazione di confusione sui termini "intelligenza utilizzabile" e alla confusione
+il ruolo degli analisti di threat intelligence. Man mano che la comunità matura, questa separazione significativa aumenterà
+importante. Le organizzazioni e i team possono concentrare l'intelligence allo scopo di metterla in atto oppure possono farlo
+produrre informazioni sulle minacce. Una singola squadra può rimbalzare avanti e indietro tra questi due concetti, ma non dovrebbe
+fare entrambe le cose allo stesso tempo. Gli analisti dovrebbero concentrarsi sulla produzione di intelligence o sulla sua strutturazione in formati tali
+il personale di sicurezza può usarlo rapidamente.
+
+In generale, la generazione di intelligence si concentra sulla creazione di intelligenza attraverso modelli e processi, ad esempio
+come ciclo di vita dell’Intelligence. Il consumo di intelligence è il modo in cui i difensori utilizzano tali informazioni. Intelligenza
+il consumo è importante perché richiede ancora analisti che capiscano l'intelligenza e che comprendano il
+l'ambiente dell'organizzazione (conosci te stesso e conosci l'avversario). L'intelligenza e gli indicatori che genera possono esserlo
+collocati in difese passive (quelle che non richiedono l'interazione umana diretta e costante) come firewall,
+soluzioni antimalware, IDS/IPS, ecc. e può essere utilizzato da meccanismi di difesa attiva come la sicurezza della rete
+analisti di monitoraggio, analisti di malware, addetti alla risposta agli incidenti e team come i centri operativi di sicurezza. Noi
+discutere più approfonditamente l'utilizzo dell'intelligence sulle minacce più avanti in questa sezione.
+
+Nota: è importante tenere presente la freccia nella parte inferiore del grafico. Quelli che consumano intelligenza, come
+gli addetti alla risposta agli incidenti sono tra i migliori nel fornire i dati necessari per generare informazioni sulle minacce. È un retro-
+processo continuo che richiede il meglio di ogni analista per comprendere, imparare e rispondere veramente
+avversari avanzati.
+
+Comunità. La premessa generale è che i rapporti con etichetta rossa dovrebbero essere condivisi solo con personale specificatamente indicato
+(elenca il personale nominato nella parte superiore del rapporto con il carattere Rosso e l'intestazione TLP: ROSSO). L'ambra è solitamente condivisa
+
+in base alle necessità solo a team, aziende o organizzazioni specifici. Il verde indica che le informazioni
+
+può essere condiviso a livello di comunità, ovvero l'intera comunità di sicurezza, ma non è condivisibile in pubblico come
+su Internet aperta. Il bianco significa che non c'è limite al luogo in cui le informazioni possono essere condivise.
+
+Proprio come la classificazione governativa, i colori TLP vengono solitamente assegnati in base alla sensibilità della fonte di raccolta
+
+o al livello della minaccia attuale.
+
+TLP spesso governa l'intelligence e le informazioni condivise con te ed è quindi la prima parte per ottenere il consumo
+
+giusto: trattare adeguatamente l'intelligenza.
+
+I fornitori di intelligence sulle minacce ICS sono pochi e rari; è un’area di nicchia che richiede molti dati e analisi
+su eventi avversari complessi. Ci sono alcune community e accessi aperti a disposizione di persone come il DHS
+Annunci di vulnerabilità ICS-CERT. Gli annunci di vulnerabilità non sono informazioni di per sé,
+ma può essere utile alle organizzazioni (anche se più avanti nella lezione parleremo delle carenze). Tuttavia, lo è
+utile anche notare che l'ICS-CERT non esiste più. Si tratta pur sempre di un marchio, ma US-CERT e ICS-CERT
+sono stati raggruppati in un’organizzazione più ampia all’interno del DHS e l’ICS non è più la loro area di interesse. Ci sono
+anche alcuni ISAC specializzati in ICS, come l'Electric ISAC (E-ISAC).Ecco, fai attenzione a notare che alcuni
+le organizzazioni funzionano davvero bene (come l'E-ISAC), e alcuni ISAC si concentrano troppo sui feed delle minacce che riconfezionano l'IT
+dati sulle minacce ai fornitori di ICS (pratica comune nel FS-ISAC).
+
+Esistono anche altri fornitori che hanno prodotto report ICS in precedenza, sebbene non si tratti di un focus dedicato per loro.
+Spesso parlano delle organizzazioni IT delle aziende industriali che vengono prese di mira attraverso la telemetria
+avere attraverso i loro prodotti antivirus (AV) all'interno delle reti dei clienti. Symantec, Kaspersky, Cylance e altri
+I fornitori di AV hanno già pubblicato tali rapporti in precedenza. I rapporti Symantec e Cylance verranno esaminati alla fine
+questa sezione.
+
+Esistono solo due fornitori di intelligence ICS dedicati. Dedicato vuol dire che una loro linea di prodotti lo è
+dedicato ai requisiti dell'ICS. Il team iSIGHT di FireEye ha acquistato Critical Intelligence anni fa e ancora oggi
+produce rapporti di intelligence. Spesso l'attenzione si concentra su vulnerabilità, indicatori e dati di scansione su Internet,
+ad esempio quali indirizzi IP ricercano comunemente le porte ICS. L’altro team dedicato è quello di Dragos, Inc
+team di intelligence, che produce ICS WorldView.
+
+Se utilizzi fornitori di intelligence esterni, metti sempre in discussione le loro fonti di dati e assicurati che gli analisti lavorino
+sul prodotto di intelligence hanno esperienza nell'analisi delle minacce e delle capacità ICS. Un feed di minacce non è intelligence.
+
+E, naturalmente, le informazioni più preziose disponibili si trovano nelle vostre reti contro le vostre minacce. Questo sarà
+esplorato più avanti in questa sezione.
+
+L'intelligence sulle minacce può essere difficile da misurare, a seconda di cosa ti serve e della forma in cui
+è consegnato. Tuttavia, una semplice metodologia creata dal team di intelligence di Dragos, Inc. nel loro
+Il documento "Industrial Control Threat Intelligence" è CART, che sta per Complete, Accurate, Relevant e
+Puntuale. Molte aziende danno priorità alla tempestività rispetto alle altre, ma in realtà la priorità è nell’ordine giusto. Se
+l'informazione è incompleta, non puoi intervenire, non importa quanto velocemente la ottieni. Se l'informazione è
+impreciso, non importa quanto sia rilevante per te. Se le informazioni sono complete e accurate ma non pertinenti,
+può essere utile per la consapevolezza situazionale, ma manca di importanza. Non tutta l’intelligenza è uguale. Specifico per ICS
+è necessaria l’intelligence, non solo un’intelligence finanziaria rimaneggiata. La tempestività sembra sempre essere la cosa più critica, ma
+quanto velocemente puoi agire sulle informazioni? Quanto velocemente ne hai effettivamente bisogno? Se non sei coinvolto in un incidente attivo, it
+potrebbe non essere, e spesso non lo è, la qualità più importante. Anche se sei coinvolto in un incidente attivo, prendi gli altri tre
+elementi errati causeranno problemi significativi.
+
+In generale, se ti attieni a CART, avrai una grande capacità di misurare l’intelligence sulle minacce.
+
+Cosa dovrebbe fare la Threat Intelligence per ICS?
+
+Una volta che sai come misurare l'intelligence sulle minacce e in quali forme può presentarsi (i feed degli indicatori non lo sono
+intelligence), è importante capire cosa vuoi che l'intelligence faccia per la tua organizzazione. Questo farà
+assicurati che i tuoi investimenti complessivi siano adeguati per ridurre i rischi consentendo al contempo i tuoi sforzi di sicurezza.
+
+In definitiva, l'intelligenza del lato IT dell'azienda è solitamente orientata a ridurre il tempo di permanenza dell'avversario.
+Invece di farli vivere nelle vostre reti per centinaia di giorni, che ne dite di ridurli a poche ore? Questo
+riduce significativamente l'impatto. “Prevenire un hack” non è un buon requisito in generale, ma sicuramente non lo è
+requisito di intelligenza. Per quanto riguarda l'OT, è importante ridurre il tempo medio di recupero.Come
+possiamo riportare rapidamente le operazioni al punto in cui dovrebbero essere, qualunque cosa accada?
+
+Inoltre, quali vulnerabilità contano effettivamente? Come fare | anticipare il ciclo di notizie pubblicitarie per mantenere il mio
+dirigenti informati? Come posso garantire che i miei investimenti corrispondano al mio panorama delle minacce e ai miei requisiti? Questi sono tutti
+
+aspetti importanti che l’intelligence sulle minacce dovrebbe fornire.
+
+L’intelligenza dovrebbe essere uno dei fattori che ti aiutano a determinare a cosa dedichi il tempo, assicurandoti di non sprecarlo
+il tuo tempo o le tue risorse e che sei efficiente nel raggiungere i tuoi obiettivi.
+
+Un altro buon esempio di risorse smarrite è rappresentato dalle vulnerabilità degli ICS. Molte delle vulnerabilità che ottengono
+prioritari e corretti in realtà introducono rischi minimi o nulli per l'ICS. “Questo non vuol dire che le vulnerabilità non lo facciano
+devono essere rattoppati. Vale a dire il modo in cui gestiamo l'applicazione delle patch alle vulnerabilità, combinato con ciò che chiediamo
+rattoppato come comunità, spesso non fa altro che spendere risorse preziose.
+
+Dale Peterson ha tenuto un discorso fantastico al SANS ICS Summit del 2016 in cui ha sottolineato questo punto. La sua presentazione (diapositive
+linkato di seguito) ha sottolineato un paio di punti chiave. Il primo è che molte delle vulnerabilità rilasciate non sono necessarie per un
+avversario. Prendiamo, ad esempio, un avviso del 2015 sulle credenziali hardcoded e uno stack overflow sui dispositivi Modicon;
+ciò faciliterebbe a un utente malintenzionato il caricamento di nuovo software sul controller. Al contrario, un avversario potrebbe semplicemente
+utilizzare la funzionalità prevista del codice funzione 90 in MobusTCP per fare esattamente la stessa cosa. Usando il
+la vulnerabilità introduce effettivamente complessità e rischio per l’aggressore. L'applicazione di patch non riduce alcun rischio per il
+difensore utilizza ancora le risorse. In secondo luogo, ha notato che molti dei componenti software sono condivisi tra i
+venditori. Una vulnerabilità in CODESYS potrebbe essere pubblicizzata per un fornitore ma nessuno degli altri fornitori la capisce
+quella notifica o i clienti di quel venditore. Poiché il software è OEM, la sua catena di fornitura è difficile
+per mappare completamente. In terzo luogo, ha notato che molte delle patch del software ICS bloccano il codice di exploit proof-of-concept
+non la vulnerabilità sottostante, quindi è possibile scrivere facilmente un nuovo codice di exploit.
+
+L’intelligence dovrebbe aiutare a stabilire la priorità su quali vulnerabilità contano e quali un avversario può utilizzare per introdurre
+rischio. Inoltre, dovrebbe liberare i difensori con la non-azione. La non azione è un risultato perfettamente positivo di
+intelligenza. Può risparmiare risorse e concentrarsi su altre aree come il monitoraggio della sicurezza della rete per identificare gli abusi
+di sistemi con o senza vulnerabilità.
+
+https://dale-peterson.com/20 16/02/24/should-i-apply-security-patches-to-my-ics/
+Inoltre, il team di intelligence di Dragos ha scaricato ed esaminato tutte le vulnerabilità ICS. Lo fanno ogni anno
+
+con le lezioni apprese dalle minacce, dalla risposta agli incidenti e altro ancora, come ricerca gratuita per la comunità chiamata “Anno
+in Review” che possono essere trovati qui: https://dragos.com/year-in-review/
+
+Questi rappresentano alcuni dei modi più comuni per utilizzare la cyber threat intelligence (CTI), noti anche come casi d'uso.
+
+Rapporti di intelligence per la consapevolezza situazionale:
+
+Capire cosa sta succedendo all’esterno della tua azienda può aiutarti a informarti su cosa dovresti fare all’interno
+la tua organizzazione. Ad esempio, ciò che conta o non conta è qualcosa che le informazioni possono aiutarti a informarti
+dare la priorità alle cose giuste e fornirle correttamente.Alimentazione dell'indicatore:
+
+Gli indicatori di compromesso (IOC) vengono utilizzati dagli strumenti di rilevamento e dagli analisti della sicurezza per identificare se i sistemi lo sono
+potenzialmente compromessi e richiedono ulteriori indagini. Le aziende Intel producono indicatori di compromesso (IOC) per
+complementare l’intelligenza contestuale. Gli Indicatori di Compromissione sono elementi tecnici (indirizzi IP, file
+hash, nomi di dominio, chiavi di registro, ecc.) che possono essere utilizzati per trovare attività interessanti su un host o una rete che
+potrebbe richiedere ulteriori indagini. Questo può essere integrato nel Security Information and Event Manager (SIEM)
+per individuare rapidamente le capacità e l'infrastruttura delle minacce note.
+
+TTP del gruppo di attività ICS:
+
+Sfruttare la comprensione dei TTP dell'avversario per creare rilevamenti delle minacce (analisi del comportamento delle minacce) in modo da essere
+non solo alla ricerca di IOC che possano facilmente cambiare. I TTP sono molto più resilienti e non sono specifici per nessuno
+avversario che consente di identificare nuovi gruppi così come gruppi esistenti.
+
+La caccia alle minacce è la ricerca proattiva di attività dannose all'interno della rete, degli host, dei servizi e dei dispositivi. Minaccia
+la caccia è una componente di una pratica di sicurezza informatica matura. Tuttavia, la caccia alle minacce può essere costosa a causa della
+dimensione degli ambienti. Pertanto, la caccia alle minacce va oltre i rilevamenti, ma la maggior parte non sa da dove cominciare. Suo
+efficace se eseguito con la conoscenza delle attività di minaccia rilevanti per aumentare la possibilità di individuare attività dannose.
+Threat Intelligence fornisce una conoscenza dettagliata delle operazioni degli avversari all'interno degli ambienti ICS e aiuta a contrastare le minacce
+i cacciatori concentrano le proprie risorse su luoghi conosciuti e comportamenti dannosi. La semplice ricerca di IOC non è caccia.
+La caccia genererebbe ipotesi su cosa potrebbe fare l’avversario o dove potrebbe trovarsi
+e poi testare quell'ipotesi.
+ 
+Fare riferimento all'ISO per i file a cui si fa riferimento nella sezione successiva. Lo scopo di questo esercizio di pensiero non è quello di farlo
+analizzare profondamente i dati tecnici presentati in ciascun rapporto, ma guardare la scrittura del rapporto e lo stile di ciascuno
+fornitore utilizzato. Da ciò possiamo apprendere i pro e i contro di ciascun rapporto, che rivelano lezioni apprese per altri analisti.
+Cosa hanno fatto correttamente o male (secondo te) questi fornitori con i loro stili di scrittura dei report?
+
+Esistono pochi modi migliori per migliorare nella scrittura dei report piuttosto che valutare criticamente altri report. Valutare
+report particolarmente buoni e particolarmente cattivi possono accelerare la scrittura dei report e le capacità di comunicazione degli analisti.
+
+Fai riferimento al rapporto nel tuo file multimediale. Se non disponi di un visualizzatore PDF, puoi copiare il report nel tuo
+SecurityOnion VM e aprila lì.
+
+Il rapporto Symantec è stato effettuato su un ampio set di dati di infezioni causate dal malware Havex. Per questo motivo, il
+Gli analisti Symantec hanno avuto l'opportunità di evidenziare una sequenza temporale, nonché i paesi da cui hanno riscontrato infezioni. Essi
+ho colto questa opportunità e ho fatto un ottimo lavoro. Il resoconto è stato breve e pertinente, senza esagerare in nulla.
+Evidenziava aspetti dell'artigianato e aveva una grafica utile.
+
+Alcuni degli aspetti negativi del rapporto sarebbero il fatto che non hanno parlato affatto della loro distorsione del campo visivo. IL
+Il rapporto ha evidenziato che il 50% degli obiettivi identificati erano legati all’energia e il 30% al controllo energetico
+sistemi. Tuttavia, Symantec non sembra avere visibilità nell'ICS e parla invece di avversario
+comando e controllo e targeting del software. Ancora più importante, quanti dei loro clienti sono energetici
+clienti? Se hanno molti clienti energetici ma non molti clienti idrici (avviso spoiler: lo fanno), i dati
+il set sembrerebbe molto sbilanciato verso l’energia. Il rapporto lascia inoltre molte domande senza risposta; tuttavia, fa a
+ottimo lavoro nel focalizzare le persone su questo aspetto energetico specifico. Sfortunatamente, ora sappiamo che c'erano delle vittime all'esterno
+di energia che non erano evidenziati e non erano rappresentati nel set di dati.
+
+Dedica 10 minuti alla lettura del rapporto Iran CIB di Norse (""Norse_JIB IRAN_01 1_JANUARY_27_201 5.pdf").
+
+Riferimento immagine:
+https://www.aei.org/
+
+Questo rapporto di intelligence sulle minacce conteneva alcune controversie che è utile contestualizzare allo scopo
+valutandolo. Ciò porta anche a capire che mentre analizziamo i report delle informazioni sulle minacce, dobbiamo visualizzarli per intero
+immagine come analisti. Questo rapporto è stato pubblicato nel febbraio 2015 come rapporto TLP:GREEN da Norse. La loro squadra ha chiamato
+hanno riunito un gruppo di membri senior del DOD e del DHS per riferire loro il rapporto e avvertirli di un'offensiva informatica iraniana.
+Il rapporto ha incontrato critiche principalmente perché non chiariva che l'attribuzione effettuata fosse basata sulla proprietà intellettuale
+solo indirizzi IP e che gli attacchi alle infrastrutture critiche erano scansioni contro indirizzi IP non associati a quelli reali
+infrastruttura (ogni scansione contro una porta TCP o UDP relativa a ICS è stata considerata un attacco). In seguito alle critiche,
+Norse ha collaborato con il think tank conservatore AEI per rilasciare una versione più accademica dei dati con la politica
+raccomandazioni contro i negoziati sul nucleare iraniano (all’epoca). Lo scopo di aggiungere questo rapporto a questo
+l'esercizio non deve far vergognare Norse o AEI. È un caso di studio perfetto, tuttavia, per analizzare l'incrocio di un'intelligenza
+riferire al mondo accademico e alle raccomandazioni politiche dove ci sono opportunità di imparare da ciò che è accaduto. IL
+la critica di tali azioni fornisce un buon contesto per questo esercizio ma non rientra nell'ambito di questo esercizio. Perciò,
+i riferimenti di seguito verranno inseriti per coloro che sono interessati ma, per questo esercizio, concentrarsi esclusivamente sul merito della relazione.
+
+Pro e contro del rapporto:
+
+Il rapporto iraniano di Norse ha attirato molta attenzione del pubblico riguardo alle minacce informatiche. Nello specifico, l’Iran è stato motivo di preoccupazione
+molti leader nazionali e personale addetto alla sicurezza informatica ormai da anni, anche se di solito non sono visti come un attore di alto livello.
+In questo modo, i norvegesi forzarono una discussione sulla minaccia e su ciò che gli altri stavano osservando o non osservando. Sul
+aspetto negativo, tuttavia, questo rapporto ha ricevuto molte critiche per le affermazioni fatte. I norvegesi non hanno fatto un buon lavoro di educazione
+il pubblico ha affermato che il messaggio "il governo iraniano sta attaccando le infrastrutture critiche" era un'analisi della proprietà intellettuale iraniana
+scansione degli indirizzi o esecuzione di ricognizioni rispetto a indirizzi IP non registrati.Le due cose fondamentali che il norvegese
+avrebbe potuto fare di meglio se qualcuno avesse familiarità con le operazioni dell'intelligence iraniana (o almeno un membro dell'intelligence
+analista) scrivere il rapporto insieme a qualcuno con esperienza in ICS (per chi non ha familiarità con ICS, alcuni di
+i sistemi elencati non avevano senso nell'analisi, compreso l'uso del protocollo DNP3 come "un ICS" e il
+discussione di eventi come il defacement del web in relazione all'ICS dove non avrebbe importanza o non sarebbe correlato).
+
+Dragos, Inc. ha pubblicato il quarto malware personalizzato per ICS (CRASHOVERRIDE). Seguendo il loro standard
+approccio, non hanno pubblicato i loro risultati finché le informazioni non erano già pubbliche (ESET ha pubblicato un rapporto pubblico
+e Dragos avevano quindi il loro rapporto pubblico pronto per essere pubblicato poche ore dopo). In primo piano, il rapporto Dragos
+fa un buon lavoro nell'identificare il motivo per cui questo viene pubblicato e dà credito agli altri ricercatori di ESET. Essi anche
+fornire informazioni chiave, concentrarsi sulle tecniche commerciali e pubblicare indicatori chiave lungo la Cyber ​​Kill Chain di ICS in modo che i difensori possano farlo
+sfruttare l'indicatore giusto per la query giusta. Il rapporto comprende anche che gli ICS potrebbero risultare strani per molte persone e,
+anche nella comunità ICS, le operazioni della rete elettrica potrebbero non essere di dominio pubblico, quindi il rapporto ha un valore educativo-
+approccio basato sugli altri malware ICS, sulle operazioni della rete elettrica e sul motivo per cui le persone dovrebbero interessarsene.
+
+Il rapporto, tuttavia, non fornisce informazioni temporali relative agli indicatori. Anche se questo può sembrare evidente
+si è trattato di un singolo attacco e non di un'ondata di infezioni malware; gli indicatori dovrebbero contenere informazioni sul periodo in questione
+come quando si osservava che indirizzi IP o domini erano dannosi.
+
+I buoni rapporti di intelligence sono molto diversi dai rapporti pubblici che tendono a dover parlare a un vasto pubblico
+senza alcuna aspettativa di precedente familiarità con l’argomento. Inoltre, soprattutto in ICS, le relazioni pubbliche arrivano molto rapidamente
+ripreso dai media e da altri, non solo dai difensori a livello tattico. I rapporti di intelligence privati ​​spesso sono molto di più
+sfumato e tentano di soddisfare meno requisiti, il che consente loro di essere più concentrati.Un esempio di rapporto di intelligence di Dragos si trova nel file multimediale. Questo viene fornito solo come esempio di come privato
+I rapporti di intelligence spesso differiscono dai rapporti pubblici.
+
+Riferimento:
+Esano.pdf
+
+Ogni anno si raccontano numerose storie in gran parte inventate; molte persone saltano alle conclusioni e danno per scontato
+ogni esplosione è il risultato di un attacco informatico ICS. «Ce ne sono stati molti nel corso della storia, ma uno è valido
+il punto forte è la pipeline BTC.
+
+La pipeline BTC:
+
+Secondo i media Bloomberg, l’esplosione dell’oleodotto BTC è stata il risultato di un attacco informatico. A quanto pare, due
+uomini in uniforme nera senza insegne furono visti curiosare intorno all'oleodotto. Giorni dopo, gli avversari hanno fatto irruzione in via
+Apparecchiature di sorveglianza connesse a Internet. Ma l’intrusione non è avvenuta tramite utenti/password, è stato un exploit tecnico
+contro i sistemi di telecamere che utilizzano vulnerabilità nel software. Da lì si sono spostati nel centro di controllo,
+fino alle “stazioni di valvole” (probabilmente stazioni di compressione), disattivati ​​gli allarmi, sovrapressurizzata la tubazione e poi
+ha cancellato il filmato della telecamera e bloccato i segnali satellitari al centro di controllo, provocando un imprevisto
+esplosione. L’attribuzione alla Russia è avvenuta attraverso “funzionari anonimi dell’intelligence americana”.
+
+Riferimento immagine: Bloomberg
+Citazione: https://www.bloomberg.com/news/articles/2014-12-10/mysterious-08-turkey-pipeline-blast-opened-new-
+guerra cibernetica
+
+I fatti
+
+La storia è stata immediatamente contestata da me e poi da altri membri della comunità (come Dale Peterson)
+identificato rapidamente i difetti nella rendicontazione. Ho scritto un articolo con Michael Assante e Tim Conway sull'argomento qui:
+https://ics.sans.org/media/Media-report-of-the-BTC-pipeline-Cyber-Attack.pdf
+
+Fondamentalmente, non gran parte della storia ha senso. Se ci fossero vulnerabilità tecniche nel sistema della fotocamera permettendo
+accesso remoto, perché avresti bisogno di due ragazzi in uniforme nera lungo il gasdotto? Inoltre, il disturbo satellitare è un problema
+procedura eccezionalmente rischiosa in quanto viola molti trattati internazionali. Ancora più importante, il centro di controllo lo farebbe
+sono stati immediatamente informati di un blocco dei segnali satellitari, cosa che li avrebbe allertati prima
+esplosione del gasdotto. Inoltre, i giornalisti hanno affermato che questo attacco è stato un momento di “spartiacque” per l’intelligence americana
+Comunità.
+
+In definitiva, è molto difficile ottenere effetti di processo ad alta confidenza. Ad esempio, per un avversario
+paralizzare un ICS e causare la manipolazione del processo che porta a un effetto come il danno fisico, devono
+avere una conoscenza approfondita dell'ICS, delle sue reti, dei suoi sistemi di sicurezza, dei failover hardware e altro ancora. Esso
+non è un compito banale, mentre compromettere la sicurezza ICS è un compito banale: trovare connessioni non autenticate in
+varie reti ICS, ad esempio, possono essere realizzate dalla maggior parte dei team in tutto il mondo. Gli attacchi che subiamo di più
+preoccupati come difensori sono quegli attacchi al processo ad alta fiducia, che sono i più facili da cui difendersi e
+dare ai difensori più tempo per identificare l'avversario interno alla rete. È importante proteggersi da tutti
+violazioni della sicurezza, ma ci sono aspetti della difesa in cui abbiamo un vantaggio nella comunità ICS.
+
+Ma avere uno spazio di attacco alle informazioni ampio e aperto può portare a compromettere la sicurezza ICS diventando un atto banale.
+
+Compatibile con ICS
+
+Pool di attori della minaccia Attacchi IT
+
+Impatto ICS
+
+Io la chiamo la diapositiva Sunny Side Up Egg of Doom. È meno drammatico di così. Un pool di minacce può essere considerato come il
+vari attori o gruppi di minacce (gli avversari o i cattivi) e le loro capacità di avere un impatto sul tuo
+organizzazione. In questo esempio, vedrai il pool di attori delle minacce con capacità ICS come un cerchio rosso. Questo rappresenta il
+numero di autori di minacce in grado di condurre attacchi specifici per ICS. La forma gialla rappresenta
+il numero di attacchi IT che possono avere un impatto sul tuo ICS. Mentre i gruppi pericolosi continuano a crescere in numero e capacità,
+continueremo a vedere più attacchi legati agli ICS. Poiché le strutture ICS continuano a diventare sempre più interconnesse e
+Dipendendo dall’IT, continueremo a vedere un aumento del numero di strumenti e tipi di ricerca utili
+incidere sulle operazioni ICS attraverso attacchi IT.
+
+In generale, il panorama delle minacce per gli ICS è in continuo aumento. Gli autori delle minacce stanno diventando sempre più interessati
+ICS, e stanno diventando più capaci. Nuovi strumenti e ricerche supportano i loro desideri di influenzare le operazioni o
+compiere spionaggio economico. Molti degli attacchi che abbiamo visto, e che continueremo a vedere, sfruttano ogni singolo elemento
+infrastruttura. Gli autori delle minacce ICS non guardano un sistema IT pensando tra sé e sé: "Cavolo, è un sistema Windows 98"
+computer. So solo come attaccare ICS. Se solo quello fosse un PLC." Gli autori delle minacce e vari gruppi di minacce lo faranno
+utilizzare gli strumenti e le competenze necessarie per completare la loro missione. Sii consapevole di quale sia il tuo panorama delle minacce, ma sappilo
+è in continua evoluzione e aumenterà se non mitigato.
+
+Il panorama delle minacce ICS e IT
+
+Quando si determina il panorama delle minacce e si identificano le vulnerabilità in un'organizzazione tra l'azienda e
+Negli ambienti ICS, assicurati di non buttare via le lezioni apprese. La comunità IT ad alto valore (sistemi che necessitano
+Tempo di attività e affidabilità del 99,999% come i sistemi di transazioni bancarie) ha molto in comune con l'ICS
+Comunità. Per la comunità IT di alto valore, non c’è dibattito su quale sia più importante nella triade della CIA; Esso
+comprende che ha bisogno della disponibilità, riservatezza e integrità dei suoi dati. Non può permettersi guasti di sistema e
+deve essere sempre vigile nei confronti dei gruppi pericolosi in modo da poter contrastare le minacce prima che abbiano un impatto sulle operazioni. ICS
+gli ambienti sono simili a questo tipo di mentalità. Per questo motivo, sii in costante comunicazione con la tua azienda
+e controparti relative alla sicurezza della rete aziendale. Probabilmente comprendono il panorama delle minacce e probabilmente hanno lezioni
+
+Questo elenco rappresenta alcune delle risorse di attacco ICS comuni e dei vettori di attacco.
+
+Reti aziendali
+
+Come accennato in precedenza, molti gruppi di minacce si sposteranno attraverso le reti aziendali per ottenere l’accesso alle reti ICS.
+Se si desidera che la rete aziendale venga presa in considerazione nel panorama delle minacce, è necessario valutare la
+vulnerabilità e interconnessioni a queste reti. Le sue minacce diventano rapidamente le tue minacce.
+
+Connessioni remote
+
+Le connessioni remote garantiscono una buona giornata per l'avversario. VNC e RDP sono due dei più abusati
+modalità di accesso ai sistemi informativi. Se hai bisogno di connessioni remote alla tua rete ICS,
+assicurati che abbiano un'autenticazione forte, chiedi ai team di architettura se possono posizionarlo e qualsiasi altro telecomando
+connessioni nel minor numero possibile di DMZ da monitorare e disattivare tutto ciò che non si utilizza effettivamente. È Telnet
+o FTP abilitato sul tuo dispositivo? È fondamentale per le operazioni? In caso contrario, spegnilo. Se non puoi disabilitarlo, usa DMZ per
+limitarne l'accesso.
+
+Connessioni con i fornitori
+
+La manutenzione e il monitoraggio remoti possono essere essenziali per le operazioni.Trattateli come qualsiasi altra connessione remota,
+tuttavia, e assicurati che passino attraverso DMZ o altri punti di strozzatura e che l'accesso ad essi sia convalidato
+pratiche di autenticazione sicura.
+
+Utenti privilegiati
+
+Gli amministratori e gli altri utenti privilegiati della rete sono spesso bersagli preziosi per gli avversari. Essere consapevoli di
+tutti gli amministratori che dovrebbero essere registrati sulla rete è un buon modo per iniziare a comprendere la tua minaccia
+paesaggio. Se si registrano nuovi amministratori o se si accede ai loro account in orari strani quando nessun altro lo fa
+funzionando, ci sono attori potenzialmente dannosi sulla tua rete.
+
+Ogni organizzazione dispone di uno spazio di attacco alle informazioni. Non c’è niente di sbagliato in questo. Tuttavia, è importante
+sapere come si presenta il tuo spazio di attacco alle informazioni. Gli aggressori di solito non hanno la tua esperienza
+organizzazione e sistemi, quindi devono raccoglierli in qualche modo. Se vogliono prenderti di mira, cosa trovano nel tuo
+lo spazio di attacco alle informazioni determinerà l'aspetto delle loro operazioni, almeno all'inizio.
+
+Considera un'organizzazione che non ha nulla su di sé online tranne un articolo che parla di una nuova diga che è
+edificio e la società di integrazione coinvolta. Mirare al sito dell'infrastruttura o alla società di integrazione stessa
+
+può essere un buon modo per l'avversario di conoscere l'organizzazione.
+
+Lo spazio di attacco informativo si associa più direttamente alla porzione “Opportunità” di una minaccia (Intento, Opportunità e
+Capacità).
+
+Ora che sappiamo cos'è l'intelligenza e ne comprendiamo i fondamenti
+mestiere, è tempo di esaminare cos'è una superficie di attacco informativo ICS. Nella Sezione 2 discuteremo dell’LCS
+Threat Landscape, che è un contesto più ampio; in questa sezione il focus è specificatamente sulle informazioni disponibili
+su di te che gli avversari possono raccogliere e utilizzare contro di te.
+
+La comunità ICS pubblica una quantità significativa di informazioni su lavori, progetti, strutture e altro ancora. Nessuno di
+questo non va bene. È semplicemente importante capire quali informazioni sono disponibili sulla tua struttura, sul tuo personale, ecc.
+Gli avversari non necessariamente sanno nulla della tua struttura: all'inizio sicuramente no. Essi
+devo ottenere informazioni su di te in qualche modo. Inizialmente, ciò avviene di solito tramite OSINT e nell'esplorazione di ciò che è
+là fuori intorno a te: il tuo spazio di attacco delle informazioni.
+
+Nelle diapositive seguenti, esamineremo alcune di queste fonti di informazioni mostrando alcuni esempi.
+
+Dimostrazione della superficie di attacco informativo
+
+- Per visualizzare la superficie di attacco informativo delle organizzazioni:
+- Le diapositive successive vengono presentate per valutare diverse fonti di informazione
+- Dimostra come possono essere usati da un avversario per il male o da un difensore per contribuire a incoraggiare pratiche migliori
+
+Esaminiamo dalla posizione di un aggressore non addestrato all'ICS:
+
+Documenti PR: Olimpiadi Brasile 2016
+
+Annunci di partnership: Azienda produttrice di birra
+
+Descrizioni del lavoro e informazioni sull'azienda: Raffineria di petrolio
+Avvisi e avvisi: ICS-CERT
+
+Nelle prossime diapositive visualizzeremo la superficie di attacco informativo delle organizzazioni reali. La superficie di attacco è
+raccolti utilizzando i vari tipi di documenti discussi (come i documenti PR), ma ogni raccolta di
+i documenti e le informazioni riguarderanno diverse organizzazioni. La ragione di ciò è che lo sarebbe
+irresponsabile raccogliere una raccolta di informazioni su una singola organizzazione. Le informazioni sono tutte pubbliche
+disponibile, ma presenterebbe uno sguardo attento e personale a quell'organizzazione. Perché l'enfasi di questa lezione è
+non si tratta di svergognare le persone e le informazioni che mettono in circolazione (alcune informazioni sono inevitabilmente
+visualizzato), ma invece di comprendere la superficie di attacco, è stato adottato questo approccio. Renditi conto, però, che se
+questa azione rapida verrebbe intrapresa contro una singola organizzazione e mostrerebbe più di un semplice campione per ciascun tipo
+informazioni, è possibile acquisire un'immagine davvero potente dell'organizzazione, il tutto senza mai sfruttarle
+o interagire affatto con l'organizzazione.
+
+Questo è uno scenario avversario falso, ma utilizza informazioni reali provenienti da diversi gruppi.
+
+Le aziende spesso pubblicano documenti di pubbliche relazioni per pubblicizzare una nuova impresa o progetto che stanno intraprendendo. Questi tipi di
+i documenti a volte sono pagine Web, ma quasi sempre includono qualche tipo di PowerPoint, PDF o Word
+documento. Pertanto, molti documenti PR possono essere trovati cercando il target con determinate stringhe di Google.
+
+Il Centro operativo di Rio è un obiettivo a cui gli avversari potrebbero interessare se stanno effettuando ricerche sull'incidente di Rio del 2016
+Olimpiadi. Questo sarebbe un ottimo obiettivo per spiare o causare danni alla comunità internazionale. Questo
+Il documento che mostrava il centro operativo era un documento di pubbliche relazioni sul software e sull'hardware di streaming video
+installato. È stato trovato utilizzando una ricerca per principianti su Google per il tipo di file SCADA delle Olimpiadi di Rio: PDF.
+
+All'interno del documento c'erano una serie di informazioni. (Questo era solo un documento di pubbliche relazioni su argomenti apparentemente non correlati-
+
+alle informazioni sulla sicurezza.) Il documento PR ha rivelato alcune informazioni basilari ma utili sul tipo di software €
+e l'hardware utilizzato dal software video. Il diagramma mostra anche il tipo di interruttori utilizzati nella struttura. Questo
+
+è utile agli avversari per preparare la propria formazione o i propri exploit per quel tipo di infrastruttura.Inoltre, questo
+
+le informazioni rivelano che ci sono telecamere remote connesse tramite IP che trasmettono video e catturano schermate su é
+Applicazioni TCP/IP. Trovare questi tipi di sistemi a Rio attraverso altre ricerche su Google o Shodan potrebbe rivelare a
+
+grande e non monitorato vettore di attacco al Centro Operativo.
+
+Alle aziende impegnate in partnership piace anche pubblicare documenti di pubbliche relazioni. Vale la pena notare che questa è una categoria unica
+di informazioni rispetto ai documenti PR, però. Questi annunci di partnership di solito indicano novità
+indicazioni e progetti presso un'azienda informando anche gli avversari di probabili comunicazioni connesse (almeno
+tramite e-mail ed eventualmente tramite condivisione di rete o servizi VPN). Ciò significa che lo sfruttamento di entrambi
+società porterà probabilmente alla capacità di sfruttare e infiltrarsi nell’altra società. Questi tipi di annunci
+hanno anche molto valore nell'aumentare la fiducia degli azionisti, quindi di solito mostrano nuovi hardware e software.
+
+Fortunatamente per l'avversario, però, nello stesso documento PDF (trovato nella stessa ricerca su Google del file Rio
+Operations Center), mostrano invece il layout della rete. Il layout include tipi di PLC, interruttori e IP-
+stampanti collegate (una delle preferite dagli avversari).
+
+Questa immagine è stata intenzionalmente ridotta in termini di qualità; viene mostrato solo come supporto didattico. Inoltre, il
+le aree oscurate su questa diapositiva e su quella successiva sono state create da SANS.
+
+Uno sguardo ingrandito ai documenti rivela l'infrastruttura e i suoi indirizzi IP predefiniti. È improbabile che questi IP
+gli indirizzi sono stati modificati e quindi la maggior parte degli sforzi di raccolta di informazioni da parte degli avversari sono stati vanificati
+loro. Ripeto, questa è semplicemente una fabbrica di birra, ma potrebbe sorprendervi quanti di questi documenti ci siano,
+comprese le specifiche esatte e le password hardcoded del fornitore per una varietà di siti di infrastrutture critiche.
+
+Dopo che l'avversario ha scoperto un potenziale bersaglio e raccolto informazioni come quelle presentate nel file
+nelle slide precedenti, è importante trovare i punti di accesso alla rete. In alcune le reti aziendali sono spesso collegate
+modo alle reti ICS, sia che sia con VPN dirette, attraverso storici di dati, applicazioni aziendali, web mail
+server, DNS o anche solo comunicazioni via e-mail avanti e indietro. Compromettere questi siti Web è spesso uno dei preferiti
+modo per gli avversari di inserirsi nella rete ICS. Se l'avversario viene scoperto prima di raggiungere la rete ICS,
+è improbabile che finisca sui titoli dei giornali o venga accolto con un serio sforzo di risposta agli incidenti: ha un basso rischio/attribuzione
+per l'avversario fin dall'inizio.
+
+Gli avversari che vogliono individuare gli obiettivi possono ricorrere a semplici ricerche su Google cercando quello che sono
+interessati. Ad esempio, questa pagina di Wikipedia ha rivelato un "obiettivo" di interesse solo perché si occupavano di carburante per aerei.
+Una verità sulla relazione avversario-difensore è che non sei tu a determinare se sei un bravo
+bersaglio. Anche obiettivi apparentemente banali e siti infrastrutturali non critici possono essere obiettivi preziosi a seconda
+le esigenze dell'avversario. In questo caso, la Raffineria *** ha indicato l'esatta ubicazione dell'impianto, l'importo di
+produzione e il tipo di produzione che avviene presso la struttura. Questo potrebbe non sembrare importante, ma quando
+combinandolo con il tipo di competenze lavorative che sarebbero necessarie per supportare tale struttura, gli avversari possono farlo rapidamente
+identificare il personale della struttura tramite LinkedIn o altri siti web di lavoro e social media.
+
+A causa della natura specifica delle reti ICS e della dipendenza da determinati tipi di fornitori o software/hardware, il lavoro
+
+4 annunci spesso contengono esigenze specifiche della struttura. Il tipo di hardware, software e processi utilizzati
+i richiedenti devono avere familiarità con la rivelazione di molte informazioni sulle risorse in uso in una struttura specifica e offri all'avversario l'opportunità di personalizzare le aspettative e gli exploit prima ancora di incontrare i tuoi
+
+In questo annuncio di lavoro viene evidenziata la posizione di Ingegnere del controllo di processo. Alcune informazioni interessanti
+includere il ruolo di quel lavoro, a chi riporta direttamente e il tipo di lavori/gruppi/ruoli esistenti in azienda
+(utile per ulteriori raccolte di informazioni o tentativi di spearphishing). Inoltre, l'offerta di lavoro contiene il tipo di
+sistemi utilizzati dalla nostra **** Raffineria. Una ricerca su LinkedIn per **** Refinery ha rivelato 435+ profili di passato e
+dipendenti presenti che si sono rivelati utili per mappare una porzione significativa della propria rete e dei sistemi in uso.
+Anche le e-mail di questo personale erano esposte in più luoghi e offrono all'avversario ancora più informazioni.
+Ad esempio, il dominio di posta elettronica potrebbe essere utilizzato negli sforzi di ricognizione per trovare gli indirizzi IP del server di dominio
+trovare persone a cui effettuare spearphishing o rivelare informazioni sull'azienda in base a dove è stata registrata. Inoltre,
+le e-mail delle persone potrebbero essere già disponibili pubblicamente in qualsiasi numero di violazioni di dati su larga scala
+dump delle password avvenuti lo scorso anno. La ricerca in questi database può rivelare nomi utente e password
+quel personale, lasciando te e l'organizzazione a sperare solo che avessero una buona gestione del riutilizzo delle password.
+
+Ad esempio, ecco un avviso ICS-CERT su una vulnerabilità per i sistemi Honeywell. Questo mostra il
+Sistema di esperienza che abbiamo trovato nell'annuncio di lavoro. Questo ora ha dato all'avversario una quantità significativa di
+informazioni contro la **** Raffineria (ubicazione, personale, sistemi in uso, vulnerabilità contro i sistemi se lo sono
+la versione appropriata senza patch e così via).
+
+Riferimento:
+https://ics-cert.us-cert.gov/advisories/ICSA-12-150-01
+
+Le ricerche personalizzate di risorse o informazioni ICS vengono solitamente eseguite su Google o Shodan, ad esempio:
+Google: Brasile! Tipo di file scada di potenza olimpica:pdf
+
+Shodan: Rockwell 1747-L553
+
+È possibile effettuare ricerche specifiche su Shodan e Google, includendo tipi specifici di PLC,
+protocolli, messaggi osservati durante l'interazione con una porta, ecc.
+Gli avversari eseguono ricerche da server o botnet alla ricerca di porte, protocolli o risorse specifici:
+
+Le informazioni raccolte vengono solitamente inserite in un file
+
+informazioni con cui interagire
+
+database che può essere successivamente analizzato per trovare obiettivi e
+
+Gli avversari spesso utilizzano infrastrutture diverse in modo che le scansioni sembrino non correlate
+
+Fornitore VSAT
+
+Questo è un sistema che apparteneva ad un certo fornitore VSAT per strutture ICS. Compromettere questo sistema potrebbe portare
+
+a connessioni e percorsi in più siti ICS. Per eseguire questo s
+
+earch in Shodan, era un tipo specifico di PLC
+
+cercato (1747-L553) da un annuncio di lavoro di uno dei dipendenti di questa specifica azienda VSAT. Il fatto che
+Shodan dimostra che EtherNetIP era in uso con questo dispositivo e ci dà la certezza che si tratti di un collegamento diretto a Internet.
+
+PLC collegato.
+
+Se un avversario volesse saperne di più su questo controller, qualsiasi tipo di ricerca sul termine lo rivelerebbe
+documentazione, documenti di configurazione e annunci su cosa controlla questo tipo di controller. Se
+gli avversari volevano sperimentare il controller e vedere in che modo poteva essere sfruttato, potevano comprarne uno
+per se stessi su Amazon.com per ~ $ 4.000 o su eBay per molto meno. Oppure potrebbero cercare questi PLC su
+altri luoghi connessi a Internet in cui non erano presi di mira e ne hanno appreso informazioni gratuitamente tramite la prova e
+errore.
+
+Con tutte le informazioni raccolte sulle varie strutture (con tutte le stesse tipologie di informazioni
+disponibile su ciascuno di essi), quanto avanzato dovrebbe essere un avversario per infiltrarsi nell'organizzazione? Avanzate
+le minacce esistono, ma il livello non è particolarmente elevato e sono disponibili molte informazioni per aiutarle. OSINT
+è una grande risorsa sia per i principianti che per i team finanziati. Ora sono disponibili anche numerosi kit di exploit
+pronto per l'acquisto.
+
+Il pacchetto SCADA ExCraft di Core Impact vanta exploit 0-day ed exploit disponibili pubblicamente per una varietà di
+ICS con 2-6 nuovi moduli inclusi ogni mese. Per molti avversari l’asticella è sicuramente bassa. Sarebbe un
+Tuttavia, gli avversari avanzati utilizzano exploit ben noti? Bene, abbiamo visto che lo farebbero (Havex), ma la risposta è
+sicuramente sì: se vieni sorpreso con exploit acquistati, forse non sei un APT ma solo un bene-
+squadra finanziata. Danneggia l'attribuzione e aiuta l'avversario.
+
+Riferimento:
+https://www.coresecurity.com/
+
+Quando gli avversari sono confusi su quali sistemi fanno cosa, quali protocolli interagiscono con quali sistemi o in generale
+domande sulla configurazione, è possibile rivolgerle semplicemente all'utile comunità ICS. Questo non vuole scoraggiare
+lavorando insieme sui forum, ma sii consapevole della risposta che dai pubblicamente e per cosa potrebbe essere utilizzata. Per
+Ad esempio, ho visto in numerose occasioni marionette-calzino (account falsi come copertura per qualcuno che vuole restare
+anonimi) pubblicano domande specifiche sui sistemi con cui non hanno avuto alcuna interazione commerciale e quelle domande
+ricevevano quasi sempre risposte precise.In un'occasione, però, ho visto che qualcuno aveva notato l'attività
+strano e ha indirizzato la persona a un venditore con cui parlare direttamente invece di fornirgli supporto. | ho avuto la tentazione di postare il
+immagine per dare complimenti all'individuo ma per rispetto della sua privacy, dirò semplicemente: ben fatto.
+
+Riferimento:
+http://www. plctalk.net/qanda/forumdisplay.php?f=2
+
+Con tutte le informazioni che abbiamo raccolto, un avversario avrebbe potuto trovare un obiettivo adatto alle sue esigenze e aver scoperto tutto
+su di esso e sui suoi obiettivi/produzioni/progetti, scoperto vari vettori di attacco attraverso il sito aziendale, terzi
+appaltatori, e-mail del personale e risorse connesse a Internet. Sia per il pre che per il post-sfruttamento, il
+l'avversario avrebbe potuto anche utilizzare exploit pubblicamente disponibili e diagrammi di rete fisici e logici. COSÌ,
+Lo chiederò di nuovo: quanto deve essere avanzato il livello avanzato? A volte queste informazioni sono inevitabili. Non c'è
+motivo per picchiare qualcuno per questo. Ma bisogna essere consapevoli di cosa c’è là fuori e di dove gli avversari informati potrebbero attaccare
+sulla base delle informazioni disponibili. Come potrebbe questo guidare la loro strategia? Come dovrebbe guidare il tuo?
+

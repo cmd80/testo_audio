@@ -1,0 +1,9 @@
+pytesseract==0.3.8
+pdf2image==1.16.0
+#googletrans==4.0.0-rc1
+mtranslate
+numpy
+nltk
+sumy
+pyttsx3
+#gTTS
